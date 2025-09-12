@@ -1,0 +1,35 @@
+# dependencies
+node_modules/
+.pnp.*
+.pnpm-debug.log
+
+# build outputs
+dist/
+build/
+out/
+.next/
+.storybook-static/
+
+# turborepo
+.turbo/
+
+# coverage / reports
+coverage/
+junit.xml
+
+# env / secrets (예: 개발용)
+.env
+.env.*
+!.env.example
+
+# logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# editor / system
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
