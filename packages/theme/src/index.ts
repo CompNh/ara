@@ -1,8 +1,7 @@
 //
 // Ara Theme — minimal skeleton (v0)
-// NOTE: 지금은 상대경로 타입 import 사용. 3-5에서 `@ara/tokens` 별칭으로 교체.
 //
-import type { TokenSchema } from '../../tokens/src';
+import type { TokenSchema } from '@ara/tokens';
 
 export type ThemeVars = Record<string, string>;
 

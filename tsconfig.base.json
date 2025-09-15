@@ -11,6 +11,12 @@
     "isolatedModules": true,
     "noEmit": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@ara/tokens": ["./packages/tokens/src"],
+      "@ara/theme": ["packages/theme/src"],
+      "@ara/react-headless": ["packages/react-headless/src"],
+      "@ara/react": ["packages/react/src"],
+      "@ara/docs": ["packages/docs/src"]
+    }
   }
 }
