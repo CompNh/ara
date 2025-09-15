@@ -15,7 +15,7 @@ export default [
       'build/**',
       '.turbo/**',
       'coverage/**',
-      'pnpm-lock.yaml'
+      'pnpm-lock.yaml',
     ],
     languageOptions: {
       ecmaVersion: 2022,
@@ -23,9 +23,9 @@ export default [
       globals: {
         ...globals.node,
         ...globals.browser,
-        ...globals.es2022
-      }
-    }
+        ...globals.es2022,
+      },
+    },
   },
 
   // JS 권장 규칙
@@ -38,20 +38,20 @@ export default [
       parser: tsParser,
       parserOptions: {
         ecmaVersion: 2022,
-        sourceType: 'module'
+        sourceType: 'module',
         // tsconfig가 생기면 project 옵션을 추가 가능
         // project: './tsconfig.json'
-      }
+      },
     },
     plugins: { '@typescript-eslint': tsPlugin },
     rules: {
       // 권장 규칙 로드(플랫 구성에서는 rules를 전개)
       ...(tsPlugin.configs.recommended?.rules ?? {}),
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-      '@typescript-eslint/consistent-type-imports': 'warn'
-    }
+      '@typescript-eslint/consistent-type-imports': 'warn',
+    },
   },
 
   // Prettier와 충돌하는 ESLint 규칙 비활성화
-  prettier
+  prettier,
 ];
