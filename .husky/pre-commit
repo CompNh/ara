@@ -1,0 +1,14 @@
+# stop on first error
+set -e
+
+echo ""
+echo "*********************"
+echo "*  Prettier format  *"
+echo "*********************"
+pnpm run format
+
+echo ""
+echo "*********************"
+echo "*   ESLint check    *"
+echo "*********************"
+pnpm run lint:check
