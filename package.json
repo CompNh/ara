@@ -21,11 +21,12 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "turbo run test",
-    "typecheck": "turbo run typecheck",
+    "typecheck": "pnpm -r exec tsc --noEmit",
     "clean": "turbo run clean",
     "prepare": "husky"
   },
   "devDependencies": {
+    "@types/node": "^24.4.0",
     "@typescript-eslint/eslint-plugin": "^8.43.0",
     "@typescript-eslint/parser": "^8.43.0",
     "eslint": "^9.35.0",
@@ -33,6 +34,7 @@
     "globals": "^16.4.0",
     "husky": "^9.1.7",
     "prettier": "^3.6.2",
-    "turbo": "^2.0.0"
+    "turbo": "^2.0.0",
+    "typescript": "^5.9.2"
   }
 }
