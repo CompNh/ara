@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "@ara/theme",
   "version": "0.0.0",
   "private": true,
@@ -16,5 +16,10 @@
       "require": "./dist/index.cjs"
     },
     "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsup",
+    "clean": "rimraf dist",
+    "dev": "tsup --watch"
   }
 }
