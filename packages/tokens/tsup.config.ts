@@ -15,6 +15,6 @@ export default defineConfig({
   format: ['esm', 'cjs'],
   target: 'es2019',
   outExtension({ format }) {
-    return { js: format === "cjs" ? ".cjs" : ".js" };
-  },  
+    return { js: format === 'cjs' ? '.cjs' : '.js' };
+  },
 });
