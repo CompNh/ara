@@ -12,7 +12,9 @@ export default [
     ignores: [
       'node_modules/**',
       'dist/**',
+      'packages/**/dist/**',
       'build/**',
+      'packages/**/build/**',
       '.turbo/**',
       'coverage/**',
       'pnpm-lock.yaml',
