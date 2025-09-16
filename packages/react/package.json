@@ -6,7 +6,10 @@
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
+
   "sideEffects": false,
   "peerDependencies": {
     "react": "^18.0.0",
@@ -20,4 +23,5 @@
     },
     "./package.json": "./package.json"
   }  
+
 }

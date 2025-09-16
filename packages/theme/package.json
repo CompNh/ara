@@ -2,11 +2,13 @@
   "name": "@ara/theme",
   "version": "0.0.0",
   "private": true,
-  
+
   "main": "dist/index.cjs",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "sideEffects": false,
   "exports": {
     ".": {
