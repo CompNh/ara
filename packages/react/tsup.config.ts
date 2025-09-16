@@ -19,4 +19,7 @@ export default defineConfig({
   esbuildOptions(opts) {
     opts.jsx = 'automatic';
   },
+  outExtension({ format }) {
+    return { js: format === "cjs" ? ".cjs" : ".js" };
+  },  
 });

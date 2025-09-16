@@ -14,4 +14,7 @@ export default defineConfig({
   treeshake: true,
   format: ['esm', 'cjs'],
   target: 'es2019',
+  outExtension({ format }) {
+    return { js: format === "cjs" ? ".cjs" : ".js" };
+  },  
 });
