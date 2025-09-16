@@ -20,6 +20,6 @@ export default defineConfig({
     opts.jsx = 'automatic';
   },
   outExtension({ format }) {
-    return { js: format === "cjs" ? ".cjs" : ".js" };
-  },  
+    return { js: format === 'cjs' ? '.cjs' : '.js' };
+  },
 });

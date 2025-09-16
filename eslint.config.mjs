@@ -63,7 +63,7 @@ export default [
     files: ['packages/theme/**/*.{ts,tsx,js,cjs,mjs}'],
     languageOptions: {
       globals: {
-        ...globals.browser,      // window, document 등
+        ...globals.browser, // window, document 등
         HTMLElement: 'readonly', // 명시(중복 무해)
       },
     },
