@@ -15,7 +15,8 @@
     },
     "test": {
       "dependsOn": ["^build"],
-      "outputs": ["coverage/**", "junit.xml?"]
+      "outputs": ["coverage/**", "junit*.xml"],
+      "cache": true
     },
     "typecheck": {
       "dependsOn": ["^typecheck"],

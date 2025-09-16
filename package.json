@@ -21,6 +21,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "turbo run test",
+    "test:changed": "turbo run test --filter=...[origin/main]",
     "typecheck": "pnpm -r exec tsc --noEmit",
     "clean": "turbo run clean",
     "prepare": "husky"
