@@ -4,15 +4,15 @@
  * - 외부 의존성 없음
  * - SSR 시 테마 마운트 유틸 사용 시점 주의(가이드 별도)
  */
-import { defineConfig } from 'tsup';
+import { defineConfig } from "tsup";
 
 export default defineConfig({
-  entry: ['src/index.ts'],
+  entry: ["src/index.ts"],
   dts: true,
   sourcemap: true,
   clean: true,
   minify: false,
   treeshake: true,
-  format: ['esm', 'cjs'],
-  target: 'es2019',
+  format: ["esm", "cjs"],
+  target: "es2019",
 });

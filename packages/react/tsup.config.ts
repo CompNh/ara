@@ -4,19 +4,19 @@
  * - react/react-dom은 peer로 외부화
  * - JSX 자동 변환(React 17+)
  */
-import { defineConfig } from 'tsup';
+import { defineConfig } from "tsup";
 
 export default defineConfig({
-  entry: ['src/index.ts'],
+  entry: ["src/index.ts"],
   dts: true,
   sourcemap: true,
   clean: true,
   minify: false,
   treeshake: true,
-  format: ['esm', 'cjs'],
-  target: 'es2019',
-  external: ['react', 'react-dom'],
+  format: ["esm", "cjs"],
+  target: "es2019",
+  external: ["react", "react-dom"],
   esbuildOptions(opts) {
-    opts.jsx = 'automatic';
+    opts.jsx = "automatic";
   },
 });
