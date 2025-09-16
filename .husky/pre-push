@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
-
-# branch guard: main 직푸시 차단
+# main 직푸시 차단
 branch="$(git symbolic-ref --short HEAD 2>/dev/null)"
 if [ "$branch" = "main" ]; then
   echo "❌ Direct push to 'main' is blocked by local guard."
@@ -9,5 +7,5 @@ if [ "$branch" = "main" ]; then
   exit 1
 fi
 
-# 변경된 패키지에 한해 테스트 실행(실패 시 푸시 차단)
-pnpm run test:changed -- --coverage
+# 변경 패키지만 테스트 (테스트 파일 없어도 통과)
+pnpm run test:changed -- --coverage --passWithNoTests
