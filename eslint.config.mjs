@@ -6,34 +6,39 @@ import tsPlugin from '@typescript-eslint/eslint-plugin';
 import prettier from 'eslint-config-prettier';
 
 export default [
-  // 공통 설정(무시/글로벌/ECMA 옵션)
+  // 0) 전역 무시(가장 앞: dist 등 산출물 무조건 제외)
   {
-    files: ['**/*.{js,cjs,mjs,ts,tsx}'],
     ignores: [
       'node_modules/**',
-      'dist/**',
+      '**/dist/**',
       'packages/**/dist/**',
       'build/**',
       'packages/**/build/**',
       '.turbo/**',
       'coverage/**',
       'pnpm-lock.yaml',
+      '**/*.map',
+      '**/*.d.mts',
     ],
+  },
+
+  // 1) 기본 환경: Node + ES2022 (브라우저 전역은 아래 theme 범위에서만 허용)
+  {
+    files: ['**/*.{js,cjs,mjs,ts,tsx}'],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: 'module',
       globals: {
         ...globals.node,
-        ...globals.browser,
         ...globals.es2022,
       },
     },
   },
 
-  // JS 권장 규칙
+  // 2) JS 권장 규칙
   js.configs.recommended,
 
-  // TypeScript 권장 규칙 + 사용자 규칙
+  // 3) TypeScript: 전용 파서/룰
   {
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
@@ -41,19 +46,29 @@ export default [
       parserOptions: {
         ecmaVersion: 2022,
         sourceType: 'module',
-        // tsconfig가 생기면 project 옵션을 추가 가능
-        // project: './tsconfig.json'
+        // 필요 시 project 지정 가능:
+        // project: './tsconfig.json',
       },
     },
     plugins: { '@typescript-eslint': tsPlugin },
     rules: {
-      // 권장 규칙 로드(플랫 구성에서는 rules를 전개)
       ...(tsPlugin.configs.recommended?.rules ?? {}),
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       '@typescript-eslint/consistent-type-imports': 'warn',
     },
   },
 
-  // Prettier와 충돌하는 ESLint 규칙 비활성화
+  // 4) theme 패키지에만 브라우저 전역 허용(SSR/DOM 유틸 경고 방지)
+  {
+    files: ['packages/theme/**/*.{ts,tsx,js,cjs,mjs}'],
+    languageOptions: {
+      globals: {
+        ...globals.browser,      // window, document 등
+        HTMLElement: 'readonly', // 명시(중복 무해)
+      },
+    },
+  },
+
+  // 5) Prettier와 충돌하는 규칙 비활성화(항상 마지막)
   prettier,
 ];
