@@ -8,7 +8,10 @@
   "files": [
     "dist"
   ],
-  "sideEffects": false,
+  "sideEffects": [
+    "./src/mountTheme.ts",
+    "**/*.css"
+  ],    
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
