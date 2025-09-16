@@ -16,6 +16,6 @@ export default defineConfig({
   target: 'es2019',
   external: ['react'],
   outExtension({ format }) {
-    return { js: format === 'cjs' ? '.cjs' : '.js' };
+    return { js: format === 'cjs' ? '.cjs' : '.mjs' };
   },
 });
