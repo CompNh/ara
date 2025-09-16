@@ -22,6 +22,8 @@
     "format:check": "prettier --check .",
     "test": "turbo run test",
     "test:changed": "turbo run test --filter=...[origin/main]",
+    "test:plan": "turbo run test --dry=json",
+    "test:plan:changed": "turbo run test --filter=...[origin/main] --dry=json",
     "typecheck": "pnpm -r exec tsc --noEmit",
     "clean": "turbo run clean",
     "prepare": "husky"
