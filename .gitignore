@@ -37,3 +37,11 @@ dist/
 
 # local turbo plan outputs
 .plan*.json
+
+# Playwright / e2e outputs
+playwright-report/
+blob-report/
+e2e/test-results/
+e2e/screenshots/
+e2e/traces/
+*.trace.zip
