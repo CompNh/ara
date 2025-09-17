@@ -56,6 +56,6 @@ jobs:
           path: e2e/a11y-report
           if-no-files-found: ignore
           retention-days: 7
-      - name: Build UI packages (prebuild for docs dev)
-        run: |
-          pnpm -w --filter @ara/tokens --filter @ara/theme --filter @ara/react-headless --filter @ara/react build
+      # - name: Build UI packages (prebuild for docs dev)
+      #   run: |
+      #     pnpm -w --filter @ara/tokens --filter @ara/theme --filter @ara/react-headless --filter @ara/react build
