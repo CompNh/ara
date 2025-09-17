@@ -1,0 +1,60 @@
+name: CI • Test (Step 6-3/7)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: workspace tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          #version: 9
+          run_install: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      # 실행 계획(참고용 로그)
+      - name: Turbo plan (dry)
+        run: pnpm -s run test:plan
+
+      # 전체 한 번 실행(run 모드) — 로컬과 동일
+      - name: Run tests
+        run: pnpm exec turbo run test -- --run
+
+      # 커버리지 HTML 아티팩트 업로드(있으면)
+      - name: Upload coverage
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-html
+          path: |
+            packages/**/coverage
+          if-no-files-found: ignore
+          retention-days: 7
