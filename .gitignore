@@ -49,3 +49,6 @@ e2e/traces/
 # Vite
 **/dist/
 **/.vite/
+
+# A11y report
+e2e/a11y-report/
