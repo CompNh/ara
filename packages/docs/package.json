@@ -4,12 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "predev": "pnpm -w turbo run build --filter @ara/react",
     "test": "vitest",
     "dev": "vite --port 5173",
     "build": "vite build",
     "preview": "vite preview --port 5173"
   },
   "dependencies": {
+    "@ara/react": "workspace:^",
     "react": "18",
     "react-dom": "18"
   },

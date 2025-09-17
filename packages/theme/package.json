@@ -2,7 +2,33 @@
   "name": "@ara/theme",
   "version": "0.0.0",
   "private": true,
+  "sideEffects": [
+    "./dist/**/*.css"
+  ],
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./styles.css": "./dist/styles.css"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch --dts",
     "test": "vitest"
+  },
+  "dependencies": {
+    "@ara/tokens": "workspace:*"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.6.2"
   }
 }

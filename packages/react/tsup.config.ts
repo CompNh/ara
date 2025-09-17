@@ -10,11 +10,13 @@ export default defineConfig({
   entry: ['src/index.ts'],
   dts: true,
   sourcemap: true,
+  outDir: 'dist',
   clean: true,
   minify: false,
   treeshake: true,
+  splitting: false,
   format: ['esm', 'cjs'],
-  target: 'es2019',
+  target: 'es2021',
   external: ['react', 'react-dom'],
   esbuildOptions(opts) {
     opts.jsx = 'automatic';
