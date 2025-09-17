@@ -1,0 +1,12 @@
+{
+  // A11y 예외 정의: 규칙/셀렉터/경로 단위로 특정 위반을 허용
+  "waivers": [
+    // 예시) 아래는 템플릿이므로 비활성. 필요 시 주석 해제해서 사용.
+    // {
+    //   "ruleId": "color-contrast",
+    //   "selectors": [".low-importance-badge"],
+    //   "paths": ["/"], // pathname 기준
+    //   "reason": "임시 디자인 가이드 협의 중(티켓 #123)"
+    // }
+  ]
+}

@@ -1,8 +1,10 @@
+// 목적: AxeBuilder 실행 + HTML 리포트 + waiver 필터 적용
 import { AxeBuilder } from '@axe-core/playwright';
 import type { Page } from '@playwright/test';
 import type { AxeResults, Result as AxeResult, NodeResult } from 'axe-core';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import { loadWaivers, filterByWaivers } from './waivers';
 
 export type A11yOptions = {
   tags?: string[];
@@ -26,20 +28,28 @@ export async function runA11y(page: Page, options: A11yOptions = {}) {
   exclude.forEach((sel) => (builder = builder.exclude(sel)));
 
   const results: AxeResults = await builder.analyze();
-  const violations: AxeResult[] = results.violations ?? [];
 
-  // HTML 리포트 저장
-  const html = toHtmlReport(results);
+  // ✅ Waiver 적용
+  const { waivers } = loadWaivers();
+  const pathname = new URL(await page.url()).pathname;
+  const filteredViolations: AxeResult[] = filterByWaivers(
+    results.violations || [],
+    waivers,
+    pathname,
+  );
+
+  // HTML 리포트 저장 (필터 후 결과로)
+  const filtered: AxeResults = { ...results, violations: filteredViolations };
+  const html = toHtmlReport(filtered);
   fs.mkdirSync(path.dirname(reportFile), { recursive: true });
   fs.writeFileSync(reportFile, html, 'utf8');
 
   type Impact = NonNullable<AxeResult['impact']>;
-  const failed = violations.filter(
-    (v) =>
-      (v.impact as Impact | undefined) && (options.failOn ?? failOn).includes(v.impact as Impact),
+  const failed = filteredViolations.filter(
+    (v) => (v.impact as Impact | undefined) && failOn.includes(v.impact as Impact),
   );
 
-  return { results, violations, failed, reportFile };
+  return { results: filtered, violations: filteredViolations, failed, reportFile };
 }
 
 function toHtmlReport(results: AxeResults): string {
