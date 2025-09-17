@@ -10,15 +10,14 @@ export default defineConfig({
     baseURL: 'http://localhost:5173',
     trace: 'on-first-retry',
   },
-  // ✅ 7-1에서 docs dev server 연결 (아래 블록 활성화 예정)
-  /*
+  // docs dev server 연결
   webServer: {
     command: 'pnpm --filter @ara/docs dev --port 5173',
     url: 'http://localhost:5173',
     reuseExistingServer: !process.env.CI,
     timeout: 60_000,
   },
-  */
+
   projects: [
     { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
     { name: 'firefox', use: { ...devices['Desktop Firefox'] } },

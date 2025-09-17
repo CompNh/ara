@@ -31,6 +31,7 @@ export default [
       globals: {
         ...globals.node,
         ...globals.es2022,
+        ...globals.browser,
       },
     },
   },
