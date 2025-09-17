@@ -1,3 +1,4 @@
+#Playwright + HTML/A11y 리포트 업로드. Node 22.12.0(Vite 요구).
 name: e2e
 
 on:

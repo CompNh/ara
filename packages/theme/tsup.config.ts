@@ -7,15 +7,20 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
-  entry: ['src/index.ts'],
+  entry: {
+    index: 'src/index.ts',
+    // 선택: 실제로 존재할 때만 유지하세요(없으면 제거)
+    styles: 'src/styles.css',
+  },
   dts: true,
+  format: ['esm', 'cjs'],
+  outDir: 'dist',
+  target: 'es2021',
   sourcemap: true,
   clean: true,
-  minify: false,
   treeshake: true,
-  format: ['esm', 'cjs'],
-  target: 'es2019',
-  outExtension({ format }) {
-    return { js: format === 'cjs' ? '.cjs' : '.mjs' };
-  },
+  splitting: false,
+  // CSS를 파일로 복사(번들 X)
+  loader: { '.css': 'copy' },
+  outExtension: ({ format }) => ({ js: format === 'cjs' ? '.cjs' : '.mjs' }),
 });

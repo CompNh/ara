@@ -1,2 +1,2 @@
-// placeholder for 3-6 typecheck
-export {};
+export { Button } from './components/Button';
+export type { ButtonProps } from './components/Button';
