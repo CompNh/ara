@@ -1,4 +1,5 @@
-name: test
+#Vitest, 빌드 체크만. Node 20. 또는 22.(통일 권장).
+name: CI • Test (Step 6-3/7)
 
 on:
   push:
@@ -10,46 +11,51 @@ permissions:
   contents: read
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ci-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  unit:
+  test:
+    name: workspace tests
     runs-on: ubuntu-latest
-    env:
-      CI: true
-      HUSKY: 0
+    timeout-minutes: 15
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Setup Node (20.19) & pnpm cache
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          #version: 9
+          run_install: false
+
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20.19'
-          cache: 'pnpm'
-          cache-dependency-path: |
-            pnpm-lock.yaml
-            **/pnpm-lock.yaml
+          node-version: 20
+          cache: pnpm
 
-      - name: Enable corepack
-        run: corepack enable
-
-      - name: Show pnpm version
-        run: pnpm -v
-
-      - name: Install deps (frozen lockfile)
+      - name: Install
         run: pnpm install --frozen-lockfile
 
-      - name: Run unit tests
-        run: pnpm -w test
+      # 실행 계획(참고용 로그)
+      - name: Turbo plan (dry)
+        run: pnpm -s run test:plan
 
-      - name: Upload coverage (if any)
-        uses: actions/upload-artifact@v4
+      # 전체 한 번 실행(run 모드) — 로컬과 동일
+      - name: Run tests (one shot + coverage)
+        run: pnpm exec turbo run test -- --run --coverage --passWithNoTests
+
+      # 커버리지 HTML 아티팩트 업로드(있으면)
+      - name: Upload coverage
         if: always()
+        uses: actions/upload-artifact@v4
         with:
-          name: coverage
+          name: coverage-html
           path: |
-            coverage/**
-            packages/**/coverage/**
+            packages/**/coverage
           if-no-files-found: ignore
+          retention-days: 7
