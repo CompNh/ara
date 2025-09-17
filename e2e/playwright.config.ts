@@ -12,7 +12,8 @@ export default defineConfig({
   },
   // docs dev server 연결
   webServer: {
-    command: 'pnpm --filter @ara/docs dev --port 5173',
+    //command: 'pnpm --filter @ara/docs dev --port 5173',
+    command: 'pnpm -F @ara/docs dev',
     url: 'http://localhost:5173',
     reuseExistingServer: !process.env.CI,
     timeout: 60_000,

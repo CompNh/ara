@@ -8,7 +8,7 @@
     "test": "vitest",
     "dev": "vite --port 5173 --strictPort",
     "build": "vite build",
-    "preview": "vite preview --port 5173"
+    "preview": "vite preview --port 4173 --strictPort"
   },
   "dependencies": {
     "@ara/react": "workspace:^",

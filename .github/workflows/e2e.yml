@@ -1,57 +1,34 @@
-#Playwright + HTML/A11y 리포트 업로드. Node 22.12.0(Vite 요구).
 name: e2e
-
 on:
   pull_request:
     branches: [main]
   workflow_dispatch:
 
-concurrency:
-  group: e2e-${{ github.ref }}
-  cancel-in-progress: true
-
 jobs:
-  test:
+  e2e:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4
-        with:
-          #version: 9
-          run_install: false
-
       - uses: actions/setup-node@v4
         with:
-          node-version: 22.12.0
-          cache: pnpm
+          node-version: '20.19'
+          cache: 'pnpm'
 
-      - name: Install deps
-        run: pnpm -w install --frozen-lockfile
+      - run: corepack enable
+      - run: pnpm -v
+      - run: pnpm install --frozen-lockfile
 
-      - name: Install Playwright browsers
-        run: pnpm -w exec playwright install --with-deps
-
-      - name: Run e2e
-        run: pnpm -w e2e
-
-      - name: Upload Playwright HTML report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-report
-          path: playwright-report
-          retention-days: 7
-
-      - name: Upload A11y report (home)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: a11y-report
-          path: e2e/a11y-report
-          if-no-files-found: ignore
-          retention-days: 7
-      - name: Build UI packages (prebuild for docs dev)
+      # 라이브러리 선빌드 (docs 제외)
+      - name: Build libs
         run: |
-          pnpm -w --filter @ara/tokens --filter @ara/theme --filter @ara/react-headless --filter @ara/react build
+          pnpm -w -r --filter @ara/tokens --filter @ara/theme --filter @ara/react-headless --filter @ara/react build
+
+      # Playwright 브라우저 설치 (한 번만 필요)
+      - run: pnpm -w dlx playwright install --with-deps
+
+      # e2e 실행 (webServer는 @ara/docs만 띄움)
+      - run: pnpm -w e2e
+
+    env:
+      TURBO_TELEMETRY_DISABLED: '1' # (옵션) 텔레메트리 배너 숨김
