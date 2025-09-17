@@ -45,8 +45,8 @@ jobs:
         run: pnpm -s run test:plan
 
       # 전체 한 번 실행(run 모드) — 로컬과 동일
-      - name: Run tests
-        run: pnpm exec turbo run test -- --run
+      - name: Run tests (one shot + coverage)
+        run: pnpm exec turbo run test -- --run --coverage --passWithNoTests
 
       # 커버리지 HTML 아티팩트 업로드(있으면)
       - name: Upload coverage
