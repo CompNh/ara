@@ -34,3 +34,6 @@ Thumbs.db
 .vscode/
 .idea/
 dist/
+
+# local turbo plan outputs
+.plan*.json
