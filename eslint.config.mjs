@@ -69,6 +69,28 @@ export default [
     },
   },
 
+  {
+    files: ['**/__tests__/**/*.{ts,tsx,js,jsx}', '**/*.{test,spec}.{ts,tsx,js,jsx}'],
+    languageOptions: {
+      globals: {
+        // 브라우저 전역(document, window 등)
+        ...globals.browser,
+        // (옵션) 테스트 내 Node 전역도 허용하려면 함께 둠
+        ...globals.node,
+        // Vitest 전역
+        vi: 'readonly',
+        describe: 'readonly',
+        it: 'readonly',
+        test: 'readonly',
+        expect: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+      },
+    },
+  },
+
   // 5) Prettier와 충돌하는 규칙 비활성화(항상 마지막)
   prettier,
 ];
