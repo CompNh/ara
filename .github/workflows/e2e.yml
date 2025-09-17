@@ -19,12 +19,17 @@ jobs:
 
       - uses: pnpm/action-setup@v4
         with:
-          version: 9
+          #version: 9
+          run_install: false
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22.12.0
+          node-version: 20.19.0
           cache: pnpm
+
+      - run: corepack enable
+      - run: pnpm -v
+      - run: pnpm install --frozen-lockfile
 
       - name: Install deps
         run: pnpm -w install --frozen-lockfile
@@ -51,3 +56,6 @@ jobs:
           path: e2e/a11y-report
           if-no-files-found: ignore
           retention-days: 7
+      # - name: Build UI packages (prebuild for docs dev)
+      #   run: |
+      #     pnpm -w --filter @ara/tokens --filter @ara/theme --filter @ara/react-headless --filter @ara/react build
