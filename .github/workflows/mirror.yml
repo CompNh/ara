@@ -1,0 +1,51 @@
+name: Mirror TXT (on merge to main)
+
+on:
+  pull_request:
+    types: [closed] # PR이 '닫힘'일 때만
+    branches: [main] # 대상(base)이 main인 PR만
+  workflow_dispatch: # 수동 실행도 허용(옵션)
+
+jobs:
+  mirror:
+    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1) 머지 커밋 기준으로 원본 체크아웃
+      - name: Checkout source (ara@merged)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha || 'refs/heads/main' }}
+          fetch-depth: 0
+
+      # 2) Node 설정 + 미러 생성
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Generate mirror/
+        run: node tools/mirror/mirror-to-txt.mjs
+
+      # 3) 미러 레포 체크아웃(Deploy Key 사용)
+      - name: Checkout target mirror repo (CompNh/ara-mirror)
+        uses: actions/checkout@v4
+        with:
+          repository: CompNh/ara-mirror
+          path: mirror-repo
+          ssh-key: ${{ secrets.MIRROR_DEPLOY_KEY }}
+
+      # 4) mirror/ 동기화 후 커밋/푸시
+      - name: Sync + commit + push
+        run: |
+          rsync -a --delete mirror/ mirror-repo/mirror/
+          cd mirror-repo
+          git config user.name "ara-mirror-bot"
+          git config user.email "ara-mirror-bot@users.noreply.github.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add -A
+            git commit -m "chore(mirror): sync from CompNh/ara @ $GITHUB_SHA"
+            git push origin HEAD:main
+          else
+            echo "No changes to mirror."
+          fi
