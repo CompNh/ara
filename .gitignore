@@ -52,3 +52,6 @@ e2e/traces/
 
 # A11y report
 e2e/a11y-report/
+
+# mirror
+/mirror/
