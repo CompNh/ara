@@ -2,6 +2,7 @@
 // 원본 트리를 읽어 mirror/ 아래에 동일 구조로 *.txt 복제
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
+import { spawnSync } from 'node:child_process';
 
 const DEST_ROOT = 'mirror';
 
@@ -123,9 +124,22 @@ async function main() {
 
     // 1) 확장자 화이트리스트면 바로 포함
     if (INCLUDE_EXT.has(ext)) {
-      const text = await fs.readFile(file, 'utf8');
+      // const text = await fs.readFile(file, 'utf8');
+      // await ensureDir(outDir);
+      // await fs.writeFile(outFull, text, 'utf8');
+      let text = await fs.readFile(file, 'utf8');
+      // 줄바꿈 정규화(CRLF → LF)
+      text = text.replace(/\r\n/g, '\n');
       await ensureDir(outDir);
       await fs.writeFile(outFull, text, 'utf8');
+      // Prettier 포맷(있을 때만)
+      try {
+        spawnSync('npx', ['prettier', '--loglevel', 'silent', '--write', outFull], {
+          stdio: 'ignore',
+        });
+      } catch {
+        /* empty */
+      }
       count++;
       return;
     }
@@ -135,8 +149,18 @@ async function main() {
     if (ext === '' || isDotfile) {
       const buf = await fs.readFile(file);
       if (buf.length <= MAX_TXT_BYTES && isProbablyText(buf)) {
+        // await ensureDir(outDir);
+        // await fs.writeFile(outFull, buf.toString('utf8'), 'utf8');
+        let text = buf.toString('utf8').replace(/\r\n/g, '\n');
         await ensureDir(outDir);
-        await fs.writeFile(outFull, buf.toString('utf8'), 'utf8');
+        await fs.writeFile(outFull, text, 'utf8');
+        try {
+          spawnSync('npx', ['prettier', '--loglevel', 'silent', '--write', outFull], {
+            stdio: 'ignore',
+          });
+        } catch {
+          /* empty */
+        }
         count++;
       }
       return;
