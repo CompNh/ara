@@ -28,12 +28,32 @@ jobs:
         run: node tools/mirror/mirror-to-txt.mjs
 
       # 3) 미러 레포 체크아웃(Deploy Key 사용)
-      - name: Checkout target mirror repo (CompNh/ara-mirror)
-        uses: actions/checkout@v4
+      - name: Start ssh-agent (add deploy key)
+        uses: webfactory/ssh-agent@v0.9.0
         with:
-          repository: CompNh/ara-mirror
-          path: mirror-repo
-          ssh-key: ${{ secrets.MIRROR_DEPLOY_KEY }}
+          ssh-private-key: ${{ secrets.MIRROR_DEPLOY_KEY }}
+
+      - name: Prepare mirror repo (init if empty, else clone)
+        run: |
+          set -e
+          # 빈 레포인지 확인 (HEAD 조회 실패시 EMPTY=1)
+          if git ls-remote --symref git@github.com:CompNh/ara-mirror.git HEAD >/dev/null 2>&1; then
+            echo "Mirror repo has refs; cloning..."
+            git clone --depth 1 git@github.com:CompNh/ara-mirror.git mirror-repo
+          else
+            echo "Mirror repo is empty; initializing..."
+            rm -rf mirror-repo
+            mkdir mirror-repo
+            cd mirror-repo
+            git init
+            git remote add origin git@github.com:CompNh/ara-mirror.git
+            git checkout -b main
+            echo "# ara-mirror" > README.md
+            git add .
+            git -c user.name="ara-mirror-bot" -c user.email="ara-mirror-bot@users.noreply.github.com" commit -m "chore: init mirror repo"
+            git push -u origin main
+            cd ..
+          fi
 
       # 4) mirror/ 동기화 후 커밋/푸시
       - name: Sync + commit + push
