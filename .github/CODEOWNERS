@@ -1,14 +1,15 @@
 # CODEOWNERS — PR 자동 리뷰어/승인 담당 지정
 # 기본 규칙: 모든 파일은 ara-maintainers가 소유
-*       @org/ara-maintainers
+
+# Global owners
+*       @CompNh
 
 # 패키지 별 소유자 (예시는 필요에 맞게 수정)
-packages/tokens/          @org/ara-tokens     @nhkim
-packages/theme/           @org/ara-theme      @nhkim
-packages/react-headless/  @org/ara-react-core @nhkim
-packages/react/           @org/ara-react      @nhkim
-packages/icons/           @org/ara-icons      @nhkim
-packages/docs/            @org/ara-docs       @nhkim
+/packages/tokens/        @CompNh
+/packages/theme/         @CompNh
+/packages/react-headless/ @CompNh
+/packages/react/         @CompNh
+/packages/docs/          @CompNh
 
 # 구성 파일류(리포 정책): 반드시 코어 유지보수자가 리뷰
 .editorconfig             @org/ara-maintainers

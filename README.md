@@ -1,5 +1,3 @@
-@'
-
 # Ara — UI Component Suite (Tier-0: Foundation)
 
 > 상업화 가능한 **프리미엄 컴포넌트 스위트**.  
@@ -28,4 +26,3 @@
 ## License
 
 - MIT (LICENSE 참조)
-  '@ | Set-Content -Path README.md -Encoding UTF8
