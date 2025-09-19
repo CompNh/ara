@@ -1,6 +1,3 @@
-New-Item -ItemType Directory -Force packages/react/src/components | Out-Null
-@"
-
 # [Spec v0.1] Input (Tier-0)
 
 ## 목적/사용 시나리오
