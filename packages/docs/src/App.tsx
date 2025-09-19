@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '@ara/react';
+import InputDemo from './routes/components/InputDemo';
 
 function useQuery() {
   return new URLSearchParams(window.location.search);
@@ -11,6 +12,8 @@ function Home() {
       <h1 data-testid="title">Ara Docs Smoke</h1>
       <p data-testid="desc">e2e 연결을 위한 최소 페이지</p>
       <a href="/?page=button">Button 데모로 이동</a>
+      <br />
+      <a href="/?page=input">Input 데모로 이동</a>
     </main>
   );
 }
@@ -47,7 +50,7 @@ export function App() {
       <a href="#content" className="skip-link">
         Skip to content
       </a>
-      {page === 'button' ? <ButtonDemo /> : <Home />}
+      {page === 'button' ? <ButtonDemo /> : page === 'input' ? <InputDemo /> : <Home />}
       <style>{`
         .skip-link {
           position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;

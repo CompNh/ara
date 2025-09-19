@@ -26,3 +26,11 @@
 ## License
 
 - MIT (LICENSE 참조)
+
+## Testing (Ara Team Rules)
+
+1. 단위·인터랙션 테스트는 **해당 컴포넌트 폴더 옆**에 둔다: `components/X/X.test.tsx`.
+2. **공용 테스트 유틸**은 `src/testing/`에만 둔다(렌더·userEvent 등).
+3. **교차-컴포넌트 통합 시나리오**가 필요할 때만 `src/__tests__/`를 사용한다.
+4. e2e·접근성 점검은 최상위 **`/e2e`(Playwright + Axe)** 에서만 운영한다.
+5. 커버리지 목표는 **라인 80% 이상**이며, PR은 CI의 `test/typecheck/e2e`가 **그린**이어야 머지한다.
