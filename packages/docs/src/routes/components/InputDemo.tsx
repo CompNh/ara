@@ -23,7 +23,11 @@ export default function InputDemo() {
         </div>
 
         <div style={{ marginBottom: 16 }}>
-          <Input label="닉네임" value={v} onChange={(e) => setV(e.currentTarget.value)} />
+          <Input
+            label="닉네임"
+            value={v}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setV(e.currentTarget.value)}
+          />
           <p>
             입력값: <span data-testid="nick-value">{v}</span>
           </p>
