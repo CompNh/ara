@@ -1,0 +1,26 @@
+# This file is used to ensure consistent handling of line endings and binary files
+# across different operating systems and development environments.
+# 크로스플랫폼에서 줄바꿈·인코딩 혼선을 방지하고, 바이너리와 텍스트를 명확히 구분한다.
+
+# --- Normalize all text to LF on checkout ---
+* text=auto eol=lf
+
+# --- Critical text files (force LF) ---
+*.{js,jsx,ts,tsx,css,scss,md,mdx,json,yml,yaml,html,xml,csv,txt} text eol=lf
+*.{cjs,mjs}                                  text eol=lf
+pnpm-lock.yaml                               text eol=lf
+.editorconfig                                 text eol=lf
+.pnpmfile.cjs                                 text eol=lf
+.gitattributes                                text eol=lf
+.gitignore                                    text eol=lf
+
+# --- Mark binaries (no line ending changes, no diffs) ---
+*.{png,jpg,jpeg,gif,webp,avif,ico}           binary
+*.{mp4,mp3,ogg,wav,webm}                     binary
+*.{woff,woff2,ttf,otf,eot}                   binary
+*.{zip,7z,rar,tar,gz,bz2}                    binary
+*.{pdf}                                      binary
+
+# --- OS / tooling artefacts (just in case they slip in) ---
+*.exe binary
+*.dll binary
