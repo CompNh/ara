@@ -1,0 +1,23 @@
+{
+  // 기본 포맷터: Prettier
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // 줄바꿈: LF 고정(윈도우 포함)
+  "files.eol": "\n",
+
+  // 저장 시 자동 포맷/불필요 공백 제거
+  "editor.formatOnSave": true,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+
+  // Prettier 옵션(프로젝트 설정을 신뢰)
+  "prettier.configPath": "prettier.config.cjs",
+
+  // 보조 UX
+  "editor.rulers": [100],
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+
+  // TypeScript/JS: 워크스페이스 버전 사용
+  "typescript.tsdk": "node_modules/typescript/lib"
+}
