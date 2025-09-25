@@ -1,0 +1,41 @@
+# --- Node / PNPM ---
+node_modules/
+.pnpm-debug.log*
+pnpm-debug.log*
+npm-debug.log*
+yarn-error.log*
+
+# --- Build outputs ---
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# --- Tooling caches ---
+.turbo/
+.eslintcache
+.prettier-cache/
+
+# --- E2E / Test artifacts ---
+playwright-report/
+test-results/
+.vscode/.pytest_cache/
+
+# --- OS / Editor junk ---
+.DS_Store
+Thumbs.db
+.idea/
+# keep workspace-specific settings.json if needed; otherwise ignore the whole folder:
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# --- Env / Secrets ---
+.env
+.env.*
+*.local
+
+# --- Misc ---
+*.log
+*.tmp
+*.temp
