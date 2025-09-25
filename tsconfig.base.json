@@ -13,7 +13,9 @@
     "noUncheckedIndexedAccess": true,
     "noPropertyAccessFromIndexSignature": true,
     "forceConsistentCasingInFileNames": true,
-    "importsNotUsedAsValues": "error",
+
+    "verbatimModuleSyntax": true,
+
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "useDefineForClassFields": true,
