@@ -13,6 +13,7 @@ on:
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
+
 jobs:
   build:
     name: typecheck · lint · build
@@ -22,20 +23,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node 20.x
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.19.5'
-          cache: 'pnpm'
-
-      - name: Enable Corepack
-        run: corepack enable
-
+      # 1) pnpm 먼저 설치 (pnpm/action-setup이 바이너리 세팅)
       - name: Setup pnpm 9.x
         uses: pnpm/action-setup@v3
         with:
           version: 9
           run_install: false
+
+      # 2) Node 설정 + pnpm 캐시 (이제 pnpm 바이너리가 존재하므로 cache: 'pnpm' 정상 작동)
+      - name: Setup Node 20.x (with pnpm cache)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.19.5'
+          cache: 'pnpm'
+
+      # 3) (선택) corepack 활성화 — pnpm/action-setup가 이미 설치했지만, 환경 일관성 위해 유지 가능
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: pnpm -v
         run: pnpm -v
