@@ -54,4 +54,19 @@ export default [
 
   // 4) 설정 파일 자체는 린트 대상 아님(편집기 오탐 방지)
   { files: ['eslint.config.*'], rules: { 'import/no-unresolved': 'off' } },
+  // --- CJS configs: treat as Node/CommonJS ---
+  {
+    files: ['**/*.cjs'],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'commonjs',
+      globals: {
+        module: 'writable',
+        exports: 'writable',
+        require: 'readonly',
+        __dirname: 'readonly',
+        __filename: 'readonly',
+      },
+    },
+  },
 ];
