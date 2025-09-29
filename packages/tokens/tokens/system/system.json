@@ -1,0 +1,35 @@
+{
+  "button": {
+    "primary": {
+      "bg": { "value": "{semantic.color.brand.primary.value}" },
+      "fg": { "value": "{semantic.color.bg.default.value}" },
+      "border": { "value": "{semantic.color.brand.primary.value}" },
+      "radius": { "value": "{semantic.radius.md.value}" },
+      "spaceX": { "value": "{semantic.space.sm.value}" },
+      "spaceY": { "value": "{semantic.space.xs.value}" }
+    },
+    "secondary": {
+      "bg": { "value": "{semantic.color.bg.raised.value}" },
+      "fg": { "value": "{semantic.color.fg.default.value}" },
+      "border": { "value": "{semantic.color.brand.secondary.value}" },
+      "radius": { "value": "{semantic.radius.sm.value}" },
+      "spaceX": { "value": "{semantic.space.sm.value}" },
+      "spaceY": { "value": "{semantic.space.xs.value}" }
+    }
+  },
+  "card": {
+    "bg": { "value": "{semantic.color.bg.raised.value}" },
+    "fg": { "value": "{semantic.color.fg.default.value}" },
+    "border": { "value": "{semantic.border.subtle.value}" },
+    "radius": { "value": "{semantic.radius.md.value}" },
+    "padding": { "value": "{semantic.space.sm.value}" }
+  },
+  "input": {
+    "bg": { "value": "{semantic.color.bg.default.value}" },
+    "fg": { "value": "{semantic.color.fg.default.value}" },
+    "border": { "value": "{semantic.border.subtle.value}" },
+    "radius": { "value": "{semantic.radius.sm.value}" },
+    "paddingX": { "value": "{semantic.space.sm.value}" },
+    "paddingY": { "value": "{semantic.space.xs.value}" }
+  }
+}

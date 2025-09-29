@@ -1,0 +1,29 @@
+{
+  "semantic": {
+    "color": {
+      "bg": {
+        "default": { "value": "{color.surface.base.value}" },
+        "raised": { "value": "{color.surface.raised.value}" }
+      },
+      "fg": {
+        "default": { "value": "{color.text.default.value}" },
+        "muted": { "value": "{color.text.muted.value}" }
+      },
+      "brand": {
+        "primary": { "value": "{color.brand.primary.value}" },
+        "secondary": { "value": "{color.brand.secondary.value}" }
+      }
+    },
+    "border": {
+      "subtle": { "value": "{color.surface.raised.value}" }
+    },
+    "radius": {
+      "sm": { "value": "{radius.sm.value}" },
+      "md": { "value": "{radius.md.value}" }
+    },
+    "space": {
+      "xs": { "value": "{space.xs.value}" },
+      "sm": { "value": "{space.sm.value}" }
+    }
+  }
+}

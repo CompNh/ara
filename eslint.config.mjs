@@ -1,4 +1,3 @@
-/* eslint-env node */
 // ESLint v9 Flat Config for Ara Monorepo (no meta deps)
 import js from '@eslint/js';
 import tsPlugin from '@typescript-eslint/eslint-plugin';
@@ -54,7 +53,8 @@ export default [
 
   // 4) 설정 파일 자체는 린트 대상 아님(편집기 오탐 방지)
   { files: ['eslint.config.*'], rules: { 'import/no-unresolved': 'off' } },
-  // --- CJS configs: treat as Node/CommonJS ---
+
+  // 5) CJS configs: treat as Node/CommonJS ---
   {
     files: ['**/*.cjs'],
     languageOptions: {
@@ -66,6 +66,7 @@ export default [
         require: 'readonly',
         __dirname: 'readonly',
         __filename: 'readonly',
+        console: 'readonly',
       },
     },
   },

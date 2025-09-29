@@ -1,10 +1,11 @@
-// Style Dictionary base config for @ara/tokens (Tier-0)
-// Inputs : tokens/**/*.json
-// Outputs: dist/tokens/*.css (CSS variables, :root), dist/tokens/*.json (merged)
-// Transforms: kebab-case names, hex colors, px->rem (size), time→seconds
+// Style Dictionary config for @ara/tokens (Tier-1)
+// Inputs  : tokens/core/**/*.json, tokens/semantic/**/*.json, tokens/system/**/*.json
+// Outputs : dist/tokens/variables.css (:root CSS variables), dist/tokens/tokens.json (nested)
+// Transforms: attribute/cti, name/cti/kebab, time/seconds, size/rem, color/hex
+// Notes   : semantic 네임스페이스(alias)  system이 semantic만 참조(순환/충돌 방지)
 
 module.exports = {
-  source: ['tokens/**/*.json'],
+  source: ['tokens/core/**/*.json','tokens/semantic/**/*.json','tokens/system/**/*.json'],
   platforms: {
     css: {
       transformGroup: 'css',
