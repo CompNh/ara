@@ -42,7 +42,9 @@
 pnpm exec turbo run typecheck lint test build
 
 # CI 수동 트리거는 push 로 발생
-git push
+git push -u origin <<branch>>
 ```
 
-> G2 PR ������ ���� (no-op)
+> G2 PR 검증용 변경 (no-op)
+
+- G3: 태그 tier-0/v0.0.1 및 릴리스 노트 발행(Freeze 완료)
