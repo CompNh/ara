@@ -44,3 +44,5 @@ pnpm exec turbo run typecheck lint test build
 # CI 수동 트리거는 push 로 발생
 git push
 ```
+
+> G2 PR ������ ���� (no-op)
