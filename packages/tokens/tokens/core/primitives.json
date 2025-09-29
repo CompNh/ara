@@ -1,0 +1,24 @@
+{
+  "color": {
+    "brand": {
+      "primary": { "value": "#3b82f6" },
+      "secondary": { "value": "#10b981" }
+    },
+    "text": {
+      "default": { "value": "#0b1220" },
+      "muted": { "value": "#64748b" }
+    },
+    "surface": {
+      "base": { "value": "#ffffff" },
+      "raised": { "value": "#f8fafc" }
+    }
+  },
+  "radius": {
+    "sm": { "value": "2px" },
+    "md": { "value": "8px" }
+  },
+  "space": {
+    "xs": { "value": "4px" },
+    "sm": { "value": "8px" }
+  }
+}
