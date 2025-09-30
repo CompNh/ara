@@ -9,12 +9,14 @@ export const lightProfile: ThemeVars = {
   "--color-brand-primary": "#3b82f6",
   "--semantic-color-bg-default": "#ffffff",
   "--semantic-color-fg-default": "#0b1220",
+  "--semantic-color-bg-raised": "#f8fafc",
 };
 
 export const darkProfile: ThemeVars = {
   "--color-brand-primary": "#3b82f6",
   "--semantic-color-bg-default": "#0b1220",
   "--semantic-color-fg-default": "#ffffff",
+  "--semantic-color-bg-raised": "#0f172a",
 };
 
 /** Density profiles (space scale) */
