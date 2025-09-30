@@ -81,4 +81,17 @@ export default [
       },
     },
   },
+  // 7) @ara/docs 소스는 브라우저 전역 사용(document, window 등)
+  {
+    files: ['packages/docs/src/**/*.{ts,tsx,js,jsx}'],
+    languageOptions: {
+      globals: {
+        window: 'readonly',
+        document: 'readonly',
+        HTMLElement: 'readonly',
+        getComputedStyle: 'readonly',
+        console: 'readonly',
+      },
+    },
+  },
 ];

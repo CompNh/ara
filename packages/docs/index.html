@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Ara Docs</title>
+    <style>
+      :root { color-scheme: light dark; }
+      body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Arial; background: var(--semantic-color-bg-default); color: var(--semantic-color-fg-default); }
+      .wrap { padding: 24px; display: grid; gap: 16px; }
+      .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+      .card { padding: 16px; border: 1px solid var(--semantic-color-fg-muted, #999); border-radius: var(--radius-md, 8px); background: var(--semantic-color-bg-raised, #f8fafc); }
+      .btn { padding: var(--space-xs, 4px) var(--space-sm, 8px); border-radius: var(--radius-sm, 4px); border: 1px solid var(--semantic-color-fg-muted, #999); background: var(--color-brand-primary, #3b82f6); color: white; }
+      select { padding: 6px 10px; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
