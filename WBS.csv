@@ -1,8 +1,8 @@
 ﻿WBS_ID,Tier,Name,Status,Due,완료 Task 수,소유자,Description
-W-251020-1042,T1,협업 싱크 파이프라인 구축 ,진행중,2025년 10월 20일 → 2025년 10월 24일,5/7,나몽 ,"코드(PR/이슈)와 계획(ROADMAP, WBS/Tasks)을 하나의 고정 출처로 연결하기 위한 운영·가시성 파이프라인을 구축한다. GitHub Actions로 STATE.md를 자동 생성/갱신하고, PR/이슈 템플릿에 WBS/Task ID를 강제하여 계획–실행 추적성을 확보한다.
+W-251020-1042,T1,"협업 싱크 파이프라인 구축 ",진행중,2025년 10월 20일 → 2025년 10월 24일,6/7,"나몽 ","코드(PR/이슈)와 계획(ROADMAP, WBS/Tasks)을 하나의 고정 출처로 연결하기 위한 운영·가시성 파이프라인을 구축한다. GitHub Actions로 STATE.md를 자동 생성/갱신하고, PR/이슈 템플릿에 WBS/Task ID를 강제하여 계획–실행 추적성을 확보한다.
 • 범위: .github/workflows/state.yml, STATE.md(자동 생성), ROADMAP.md, WBS.csv/Tasks.csv 스냅샷, PR/Issue 템플릿, SYNC PACKET 스크립트
 • 완료 기준: 새 세션에서도 STATE.md만으로 현재 상황 파악 가능, 워크플로 성공(녹색 체크), PR/이슈에 WBS/Task ID 적용률 80%+"
-W-251014-1319,T1,개발환경설정,시작전,2025년 10월 14일 → 2025년 10월 24일,0/0,나몽 ,"Ara Project를 위한 개발 환경설정
+W-251014-1319,T1,개발환경설정,시작전,2025년 10월 14일 → 2025년 10월 24일,0/0,"나몽 ","Ara Project를 위한 개발 환경설정
  - IDE: VS Code
  - OS: Windows
  - Lang: React / TypeScript
