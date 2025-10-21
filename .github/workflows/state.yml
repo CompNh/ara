@@ -2,7 +2,9 @@ name: Update STATE.md
 
 permissions:
   contents: write
+  issues: read
   pull-requests: read
+  
 
 on:
   push:
