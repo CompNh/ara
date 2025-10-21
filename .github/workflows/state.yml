@@ -1,8 +1,12 @@
 name: Update STATE.md
 
+permissions:
+  contents: write
+  pull-requests: read
+
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
   workflow_dispatch:
   schedule:
     - cron: "0 0 * * *"  # daily UTC
