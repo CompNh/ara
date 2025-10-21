@@ -31,45 +31,35 @@ jobs:
       - name: WBS/Tasks summary (Python, no deps)
         run: |
           python - <<'PY'
-          from pathlib import Path
-          import csv
-
-          out = []
+          import csv, os
+          def read(p):
+              with open(p,'r',encoding='utf-8-sig',newline='') as f:
+                  return list(csv.DictReader(f))
+          out=[]
           out.append("## WBS / Tasks Summary\n")
-
-          def read_csv_rows(p):
-            with open(p, 'r', encoding='utf-8') as f:
-              return list(csv.DictReader(f))
-
-          wbs_path = Path("WBS.csv")
-          task_path = Path("Tasks.csv")
-
-          if wbs_path.exists():
-            wbs_rows = read_csv_rows(wbs_path)
-            out.append(f"- WBS rows: {len(wbs_rows)}")
-            # 샘플 표시 (컬럼명이 없으면 빈 값으로 처리)
-            sample = [{ 'WBS_ID': r.get('WBS_ID',''), 'Name': r.get('Name','') } for r in wbs_rows[:10]]
-            out.append(f"- Sample: {sample}")
-          else:
-            out.append("- `WBS.csv` not found")
-
-          if task_path.exists():
-            task_rows = read_csv_rows(task_path)
-            out.append(f"- Task rows: {len(task_rows)}")
-            counts = {}
-            for r in task_rows:
-              s = (r.get('Status','') or '').strip()
-              counts[s] = counts.get(s, 0) + 1
-            if counts:
-              out.append("- Task status counts:")
-              for k, v in counts.items():
-                out.append(f"  - {k or '(blank)'}: {v}")
-          else:
-            out.append("- `Tasks.csv` not found")
-
-          Path("wbs_summary.md").write_text("\n".join(out), encoding="utf-8")
-          print("Wrote wbs_summary.md")
+          w = read("WBS.csv") if os.path.exists("WBS.csv") else []
+          t = read("Tasks.csv") if os.path.exists("Tasks.csv") else []
+          out.append(f"- WBS rows: {len(w)}" if w else "- `WBS.csv` not found")
+          out.append(f"- Task rows: {len(t)}" if t else "- `Tasks.csv` not found")
+          def is_done(s): return (s or '').strip().lower() in {'완료','done','complete'}
+          if w and t:
+              out.append("\n### Progress by WBS\n")
+              out.append("| WBS_ID | Name | Done/Total | Status |")
+              out.append("|---|---|---:|---|")
+              t_by = {}
+              for r in t:
+                  t_by.setdefault(r.get('WBS_ID',''), []).append(r)
+              for wr in w:
+                  wid = wr.get('WBS_ID','')
+                  name = wr.get('Name','')
+                  lst = t_by.get(wid,[])
+                  tot = len(lst)
+                  done = sum(1 for r in lst if is_done(r.get('Status')))
+                  status = wr.get('Status','')
+                  out.append(f"| {wid} | {name} | {done}/{tot} | {status} |")
+          open("wbs_summary.md","w",encoding="utf-8").write("\n".join(out))
           PY
+
           
       - name: Open Issues/PRs summary (GitHub Script)
         uses: actions/github-script@v7

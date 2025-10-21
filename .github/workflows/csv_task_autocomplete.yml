@@ -10,13 +10,15 @@ permissions:
 
 jobs:
   run:
-    # 루프 방지: Actions가 푼 커밋이면 스킵
+    # 루프 방지: 봇 커밋이면 스킵
     if: ${{ github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
+        with:
+          fetch-depth: 0
 
+      # 커밋 메시지에서 [T-****/완료|done|complete] 추출
       - name: Extract Task IDs
         id: extract
         uses: actions/github-script@v7
@@ -44,48 +46,82 @@ jobs:
           from collections import defaultdict
 
           task_ids = set(json.loads(os.environ.get("TASK_IDS_JSON","[]")))
-          done_label = os.environ.get("DONE_LABEL","완료").strip().lower()
-          def is_done(s): return (s or "").strip().lower() in {done_label, "done", "complete"}
+          done_label_env = os.environ.get("DONE_LABEL","완료").strip()
+          DONE_SET = {done_label_env.lower(), "done", "complete"}
 
-          changed_tasks = changed_wbs = False
+          def is_done(s: str) -> bool:
+              return (s or "").strip().lower() in DONE_SET
 
-          # Tasks.csv
+          changed_tasks = False
+          changed_wbs   = False
+
+          # --- Tasks.csv ---
           tpath = "Tasks.csv"
           if not os.path.exists(tpath):
               print("Tasks.csv not found; nothing to do."); raise SystemExit(0)
+
           with open(tpath, "r", encoding="utf-8-sig", newline="") as f:
-              rdr = csv.DictReader(f); t_fields = rdr.fieldnames or []; t_rows = list(rdr)
+              rdr = csv.DictReader(f)
+              t_fields = rdr.fieldnames or []
+              t_rows = list(rdr)
+
           need = {"Task_ID","WBS_ID","Status"}
           if not need.issubset(set(t_fields)):
               print(f"ERROR: Tasks.csv missing columns: {need - set(t_fields)}"); raise SystemExit(1)
 
+          # 1) Task 상태 갱신
           for r in t_rows:
-              if r.get("Task_ID") in task_ids and (r.get("Status") or "").strip().lower() not in {done_label,"done","complete"}:
-                  r["Status"] = os.environ.get("DONE_LABEL","완료"); changed_tasks = True
+              if r.get("Task_ID") in task_ids and not is_done(r.get("Status")):
+                  r["Status"] = done_label_env
+                  changed_tasks = True
 
           if changed_tasks:
               with open(tpath, "w", encoding="utf-8", newline="") as f:
                   w = csv.DictWriter(f, fieldnames=t_fields); w.writeheader(); w.writerows(t_rows)
               print("Updated Tasks.csv")
 
-          # WBS.csv
+          # 2) WBS별 완료/전체 계산
           by_wbs = defaultdict(list)
-          for r in t_rows: by_wbs[r.get("WBS_ID","")].append(r)
+          for r in t_rows:
+              by_wbs[r.get("WBS_ID","")].append(r)
 
+          # --- WBS.csv ---
           wpath = "WBS.csv"
           if os.path.exists(wpath):
               with open(wpath, "r", encoding="utf-8-sig", newline="") as f:
-                  rdr = csv.DictReader(f); w_fields = rdr.fieldnames or []; w_rows = list(rdr)
-              if "Status" not in w_fields: w_fields += ["Status"]
+                  rdr = csv.DictReader(f)
+                  w_fields = rdr.fieldnames or []
+                  w_rows = list(rdr)
+          else:
+              print("WBS.csv not found; skipping WBS status updates.")
+              w_fields, w_rows = [], []
+
+          if w_rows:
+              # 필요한 컬럼 보장
+              if "Status" not in w_fields:
+                  w_fields += ["Status"]
+              if "완료 Task 수" not in w_fields:
+                  w_fields += ["완료 Task 수"]
+
               for wr in w_rows:
-                  wbs_id = wr.get("WBS_ID",""); tasks = by_wbs.get(wbs_id, [])
-                  if tasks and all(is_done(r.get("Status")) for r in tasks):
-                      if (wr.get("Status") or "").strip().lower() not in {done_label,"done","complete"}:
-                          wr["Status"] = os.environ.get("DONE_LABEL","완료"); changed_wbs = True
+                  wbs_id = wr.get("WBS_ID","")
+                  tasks = by_wbs.get(wbs_id, [])
+                  total = len(tasks)
+                  done  = sum(1 for r in tasks if is_done(r.get("Status")))
+                  ratio = f"{done}/{total}"
+                  # 완료 Task 수 업데이트
+                  if wr.get("완료 Task 수","") != ratio:
+                      wr["완료 Task 수"] = ratio
+                      changed_wbs = True
+                  # 모든 Task 완료 시 WBS Status도 완료로
+                  if total > 0 and done == total and not is_done(wr.get("Status")):
+                      wr["Status"] = done_label_env
+                      changed_wbs = True
+
               if changed_wbs:
                   with open(wpath, "w", encoding="utf-8", newline="") as f:
                       w = csv.DictWriter(f, fieldnames=w_fields); w.writeheader(); w.writerows(w_rows)
-                  print("Updated WBS.csv")
+                  print("Updated WBS.csv (Status / 완료 Task 수)")
           PY
 
       - name: Commit CSV changes

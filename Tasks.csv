@@ -1,10 +1,12 @@
 Task_ID,WBS_ID,WBS,Name,Status,Due,소유자,Priority
-T-2510145,W-251020-1042,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),Git 저장소 생성,완료,2025년 10월 20일 → 2025년 10월 24일,나몽 ,Medium
-T-2510207,W-251020-1042,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),http://README.md 파일 생성,완료,2025년 10월 20일 → 2025년 10월 24일,나몽 ,Medium
-T-2510208,W-251020-1042,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),Ara Assistant Sync Pack 추가,완료,2025년 10월 20일 → 2025년 10월 24일,나몽 ,Medium
-T-2510209,W-251020-1042,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),http://ROADMAP.md 파일 생성,완료,2025년 10월 20일 → 2025년 10월 24일,나몽 ,Medium
-T-25102010,W-251020-1042,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),WBS.csv·Tasks.csv 커밋,완료,2025년 10월 20일 → 2025년 10월 24일,나몽 ,Medium
-T-25102015,W-251020-1042,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),PR/이슈 템플릿 적용,완료,2025년 10월 20일 → 2025년 10월 24일,나몽 ,Medium
-T-25102016,W-251020-1042,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),SYNC PACKET 생성 테스트,완료,2025년 10월 20일 → 2025년 10월 24일,나몽 ,Medium
-T-25102017,W-251020-1042,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),http://state.md/ 링크 고정,완료,2025년 10월 20일 → 2025년 10월 24일,나몽 ,Medium
-T-25102018,W-251020-1042,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),ADR 기록 시작,완료,2025년 10월 20일 → 2025년 10월 24일,나몽 ,Medium
+T-2510145,W-251020-1042,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),Git 저장소 생성,완료,2025년 10월 20일 → 2025년 10월 24일,"나몽 ",Medium
+T-2510207,W-251020-1042,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),http://README.md 파일 생성,완료,2025년 10월 20일 → 2025년 10월 24일,"나몽 ",Medium
+T-2510208,W-251020-1042,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),Ara Assistant Sync Pack 추가,완료,2025년 10월 20일 → 2025년 10월 24일,"나몽 ",Medium
+T-2510209,W-251020-1042,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),http://ROADMAP.md 파일 생성,완료,2025년 10월 20일 → 2025년 10월 24일,"나몽 ",Medium
+T-25102010,W-251020-1042,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),WBS.csv·Tasks.csv 커밋,완료,2025년 10월 20일 → 2025년 10월 24일,"나몽 ",Medium
+T-25102015,W-251020-1042,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),PR/이슈 템플릿 적용,완료,2025년 10월 20일 → 2025년 10월 24일,"나몽 ",Medium
+T-25102016,W-251020-1042,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),SYNC PACKET 생성 테스트,완료,2025년 10월 20일 → 2025년 10월 24일,"나몽 ",Medium
+T-25102017,W-251020-1042,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),http://state.md/ 링크 고정,완료,2025년 10월 20일 → 2025년 10월 24일,"나몽 ",Medium
+T-25102018,W-251020-1042,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),ADR 기록 시작,완료,2025년 10월 20일 → 2025년 10월 24일,"나몽 ",Medium
+T-25102119,W-251020-1042,협업 싱크 파이프라인 구축 (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),"WBS.csv-Task.csv & State.md 파일 파이프라인
+",진행중,2025년 10월 20일 → 2025년 10월 24일,나몽,Medium
