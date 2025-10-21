@@ -1,32 +1,29 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# 훅 재귀 방지
+# 재귀 방지
 [ -n "${SKIP_CSV_AMEND:-}" ] && exit 0
 
-IDS_JSON=".git/TASK_IDS.json"
-[ -s "$IDS_JSON" ] || exit 0
-
-# Python 찾기 (윈도우 호환)
+# Python 찾기
 if command -v python3 >/dev/null 2>&1; then PY=python3
 elif command -v py >/dev/null 2>&1; then PY="py -3"
 elif command -v python >/dev/null 2>&1; then PY=python
 else
-  echo "[hook] Python not found; skip"
+  echo "[post-commit] Python not found; skip"
   exit 0
 fi
 
-echo "[hook] updating CSVs from IDs in $IDS_JSON ..."
+# 완료 라벨(원하면 변경) — 기본 'Done'
+export DONE_LABEL=Done
 
-$PY scripts/update_csv_from_ids.py "$IDS_JSON"
+echo "[post-commit] update CSVs from commit message..."
+$PY scripts/update_csv_from_ids.py
 
-# 변경 있으면 같은 커밋에 수정 반영
+# 변경 있으면 같은 커밋에 포함(amend)
 if git status --porcelain | grep -E '^( M|A ) (Tasks\.csv|WBS\.csv)$' >/dev/null 2>&1; then
   git add Tasks.csv WBS.csv || true
   SKIP_CSV_AMEND=1 git commit --amend --no-edit --no-verify || true
-  echo "[hook] amended commit with CSV updates"
+  echo "[post-commit] amended commit with CSV updates"
 else
-  echo "[hook] no CSV changes"
+  echo "[post-commit] no CSV changes"
 fi
-
-rm -f "$IDS_JSON"
