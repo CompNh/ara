@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# parse [T-****/(완료|done|complete)] from commit message and stash to .git/TASK_IDS.json
+
+set -euo pipefail
+MSG_FILE="$1"
+# extract IDs, de-dup
+IDS=$(grep -oE '\[T-[0-9A-Za-z-]+/(완료|done|complete)\]' "$MSG_FILE" | sed -E 's/^\[|\/.*$//g' | sort -u)
+
+if [ -n "${IDS}" ]; then
+  JSON="["
+  first=1
+  for id in $IDS; do
+    if [ $first -eq 0 ]; then JSON+=", "; fi
+    JSON+="\"$id\""; first=0
+  done
+  JSON+="]"
+  printf '%s' "$JSON" > .git/TASK_IDS.json
+else
+  : > .git/TASK_IDS.json
+fi

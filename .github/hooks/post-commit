@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# if TASK_IDS.json exists with IDs, update CSVs and amend current commit
+
+set -euo pipefail
+test -n "${SKIP_CSV_AMEND:-}" && exit 0
+test -f ".git/TASK_IDS.json" || exit 0
+if ! grep -q '[A-Za-z0-9]' .git/TASK_IDS.json; then exit 0; fi
+
+echo "[hook] updating CSVs from IDs..."
+python3 scripts/update_csv_from_ids.py .git/TASK_IDS.json
+git add Tasks.csv WBS.csv || true
+
+# amend without re-running hooks (prevent loop)
+SKIP_CSV_AMEND=1 git commit --amend --no-edit --no-verify || true
+rm -f .git/TASK_IDS.json
+echo "[hook] done."
