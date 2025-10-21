@@ -1,0 +1,42 @@
+name: Feature request
+description: Suggest a new feature or component
+title: "[feat]: "
+labels: ["feat"]
+body:
+  - type: input
+    id: wbs
+    attributes:
+      label: WBS_ID
+      description: Link to WBS row (or ID) in Notion/CSV
+      placeholder: W-YYYYMMDD-HHmm
+    validations:
+      required: true
+  - type: input
+    id: taskid
+    attributes:
+      label: Task_ID
+      description: Your task identifier in Notion/CSV (if any)
+      placeholder: T-0001
+    validations:
+      required: false
+  - type: textarea
+    id: what
+    attributes:
+      label: What
+      description: What to build/change
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why
+      description: Why this matters
+    validations:
+      required: true
+  - type: textarea
+    id: how
+    attributes:
+      label: How
+      description: Implementation idea
+    validations:
+      required: false

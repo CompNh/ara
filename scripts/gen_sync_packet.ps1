@@ -1,0 +1,22 @@
+Write-Output "[SYNC PACKET]"
+Write-Output ("날짜/시간: " + (Get-Date -Format "yyyy-MM-dd HH:mm:ss"))
+Write-Output "플래그: "
+Write-Output "WBS/Task 변화:"
+Write-Output "  - "
+Write-Output "오늘 목표(Top 3):"
+Write-Output "  1) "
+Write-Output "  2) "
+Write-Output "  3) "
+Write-Output "진행 로그(깃):"
+Write-Output "  - 최근 커밋(요약):"
+git log --since="yesterday" --oneline | ForEach-Object { "    $_" }
+Write-Output "  - 변경 요약:"
+git diff --stat origin/main...HEAD | ForEach-Object { "    $_" }
+Write-Output "산출물/링크:"
+Write-Output "  - "
+Write-Output "막힌 점/질문:"
+Write-Output "  - "
+Write-Output "다음 액션:"
+Write-Output "  - [ ] "
+Write-Output "  - [ ] "
+Write-Output "  - [ ] "
