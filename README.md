@@ -20,6 +20,10 @@
 - **ROADMAP**: 장기 계획 → _추가 예정_: `templates/ROADMAP.md` 또는 `ROADMAP.md`
 - **WBS/Tasks Snapshot**: `WBS.csv`, `Tasks.csv` (수동 반영)
 
+## Project State
+▶ [STATE.md (auto-updated)](./STATE.md)
+▶ [Roadmap](./ROADMAP.md)
+
 ## Next Steps
 1. Ara Assistant Sync Pack 추가 및 워크플로 배치
 2. ROADMAP.md 생성
