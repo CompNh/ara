@@ -28,44 +28,49 @@ jobs:
             echo "_First run placeholder_" >> templates/STATE.md
           fi
 
-      - name: WBS/Tasks summary (Python)
-        id: wbs
+      - name: WBS/Tasks summary (Python, no deps)
         run: |
           python - <<'PY'
-          import os, csv, json, datetime
           from pathlib import Path
+          import csv
+
+          out = []
+          out.append("## WBS / Tasks Summary\n")
+
+          def read_csv_rows(p):
+            with open(p, 'r', encoding='utf-8') as f:
+              return list(csv.DictReader(f))
 
           wbs_path = Path("WBS.csv")
           task_path = Path("Tasks.csv")
-          out = []
 
-          out.append("## WBS / Tasks Summary\n")
           if wbs_path.exists():
-            import pandas as pd
-            wbs = pd.read_csv(wbs_path)
-            out.append(f"- WBS rows: {len(wbs)}")
-            if "WBS_ID" in wbs.columns and "Name" in wbs.columns:
-              sample = wbs[["WBS_ID","Name"]].head(10).to_dict(orient="records")
-              out.append(f"- Sample: {sample}")
+            wbs_rows = read_csv_rows(wbs_path)
+            out.append(f"- WBS rows: {len(wbs_rows)}")
+            # 샘플 표시 (컬럼명이 없으면 빈 값으로 처리)
+            sample = [{ 'WBS_ID': r.get('WBS_ID',''), 'Name': r.get('Name','') } for r in wbs_rows[:10]]
+            out.append(f"- Sample: {sample}")
           else:
             out.append("- `WBS.csv` not found")
 
           if task_path.exists():
-            import pandas as pd
-            t = pd.read_csv(task_path)
-            out.append(f"- Task rows: {len(t)}")
-            if "Status" in t.columns:
+            task_rows = read_csv_rows(task_path)
+            out.append(f"- Task rows: {len(task_rows)}")
+            counts = {}
+            for r in task_rows:
+              s = (r.get('Status','') or '').strip()
+              counts[s] = counts.get(s, 0) + 1
+            if counts:
               out.append("- Task status counts:")
-              counts = t["Status"].value_counts().to_dict()
-              for k,v in counts.items():
-                out.append(f"  - {k}: {v}")
+              for k, v in counts.items():
+                out.append(f"  - {k or '(blank)'}: {v}")
           else:
             out.append("- `Tasks.csv` not found")
 
           Path("wbs_summary.md").write_text("\n".join(out), encoding="utf-8")
           print("Wrote wbs_summary.md")
           PY
-
+          
       - name: Open Issues/PRs summary (GitHub Script)
         uses: actions/github-script@v7
         with:
