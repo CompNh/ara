@@ -1,11 +1,11 @@
-﻿Name,Due,Goal,Priority,Status,Task_ID,WBS,소유자
-Git 저장소 생성,2025년 10월 20일 → 2025년 10월 24일,레포지토리 생성 및 기본 브랜치(main) 확인,Medium,완료,T-251014-1339,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),"나몽 "
-http://README.md 파일 생성,2025년 10월 20일 → 2025년 10월 24일,http://README.md 파일 생성(,Medium,완료,T-251020-1035,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),"나몽 "
-Ara Assistant Sync Pack 추가,2025년 10월 20일 → 2025년 10월 24일,패키지 전체 파일 커밋(.github/workflows/state.yml 포함),Medium,완료,T-251020-1036,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),"나몽 "
-http://ROADMAP.md 파일 생성,2025년 10월 20일 → 2025년 10월 24일,M0~M3 등 마일스톤·범위 간단 명시 후 커밋,Medium,완료,T-251020-1037,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),"나몽 "
-WBS.csv·Tasks.csv 커밋,2025년 10월 20일 → 2025년 10월 24일,"리포 루트에 두 파일 존재, 핵심 컬럼(WBS_ID/Name, Task_ID/Status 등) 포함",Medium,완료,T-251020-1038,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),"나몽 "
+﻿Name,Due,Goal,ID,Priority,Status,Task_ID,WBS,소유자
+Git 저장소 생성,2025년 10월 20일 → 2025년 10월 24일,레포지토리 생성 및 기본 브랜치(main) 확인,5,Medium,완료,T-2510145,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),"나몽 "
+http://README.md 파일 생성,2025년 10월 20일 → 2025년 10월 24일,http://README.md 파일 생성(,7,Medium,완료,T-2510207,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),"나몽 "
+Ara Assistant Sync Pack 추가,2025년 10월 20일 → 2025년 10월 24일,패키지 전체 파일 커밋(.github/workflows/state.yml 포함),8,Medium,완료,T-2510208,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),"나몽 "
+http://ROADMAP.md 파일 생성,2025년 10월 20일 → 2025년 10월 24일,M0~M3 등 마일스톤·범위 간단 명시 후 커밋,9,Medium,완료,T-2510209,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),"나몽 "
+WBS.csv·Tasks.csv 커밋,2025년 10월 20일 → 2025년 10월 24일,"리포 루트에 두 파일 존재, 핵심 컬럼(WBS_ID/Name, Task_ID/Status 등) 포함",10,Medium,완료,T-25102010,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),"나몽 "
 PR/이슈 템플릿 적용,2025년 10월 20일 → 2025년 10월 24일,"새 PR 열 때 템플릿 자동 로드, WBS_ID/Task_ID 필드 보임
-새 이슈도 폼 로드 확인",Medium,시작 전,T-251020-1042,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),"나몽 "
-SYNC PACKET 생성 테스트,2025년 10월 20일 → 2025년 10월 24일,"scripts/gen_sync_packet.(sh|ps1) 실행 출력 확보, 채팅에 1회 붙여넣기 완료",Medium,시작 전,T-251020-1042,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),"나몽 "
-http://state.md/ 링크 고정,2025년 10월 20일 → 2025년 10월 24일,"README나 리포 핀 링크에 http://state.md/ 연결, 노션/북마크/채팅에도 링크 공유",Medium,시작 전,T-251020-1044,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),"나몽 "
-ADR 기록 시작,2025년 10월 20일 → 2025년 10월 24일,DECISIONS/ADR-0001.md 최초 등록(결정/근거/영향 기입) 커밋,Medium,시작 전,T-251020-1045,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),"나몽 "
+새 이슈도 폼 로드 확인",15,Medium,완료,T-25102015,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),"나몽 "
+SYNC PACKET 생성 테스트,2025년 10월 20일 → 2025년 10월 24일,"scripts/gen_sync_packet.(sh|ps1) 실행 출력 확보, 채팅에 1회 붙여넣기 완료",16,Medium,완료,T-25102016,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),"나몽 "
+http://state.md/ 링크 고정,2025년 10월 20일 → 2025년 10월 24일,"README나 리포 핀 링크에 http://state.md/ 연결, 노션/북마크/채팅에도 링크 공유",17,Medium,진행 중,T-25102017,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),"나몽 "
+ADR 기록 시작,2025년 10월 20일 → 2025년 10월 24일,DECISIONS/ADR-0001.md 최초 등록(결정/근거/영향 기입) 커밋,18,Medium,시작 전,T-25102018,협업 싱크 파이프라인 구축  (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),"나몽 "

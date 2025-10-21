@@ -1,5 +1,8 @@
-﻿Name,Description,Due,Status,Task 수,Tasks,Tier,WBS_ID,소유자,완료 Task 수,진행중인 Task
-개발환경설정,"Ara Project를 위한 개발 환경설정
+﻿WBS_ID,Tier,Name,Status,Due,완료 Task 수,소유자,Description
+W-251020-1042,T1,협업 싱크 파이프라인 구축 ,진행중,2025년 10월 20일 → 2025년 10월 24일,5/7,나몽 ,"코드(PR/이슈)와 계획(ROADMAP, WBS/Tasks)을 하나의 고정 출처로 연결하기 위한 운영·가시성 파이프라인을 구축한다. GitHub Actions로 STATE.md를 자동 생성/갱신하고, PR/이슈 템플릿에 WBS/Task ID를 강제하여 계획–실행 추적성을 확보한다.
+• 범위: .github/workflows/state.yml, STATE.md(자동 생성), ROADMAP.md, WBS.csv/Tasks.csv 스냅샷, PR/Issue 템플릿, SYNC PACKET 스크립트
+• 완료 기준: 새 세션에서도 STATE.md만으로 현재 상황 파악 가능, 워크플로 성공(녹색 체크), PR/이슈에 WBS/Task ID 적용률 80%+"
+W-251014-1319,T1,개발환경설정,시작전,2025년 10월 14일 → 2025년 10월 24일,0/0,나몽 ,"Ara Project를 위한 개발 환경설정
  - IDE: VS Code
  - OS: Windows
  - Lang: React / TypeScript
@@ -9,7 +12,4 @@
  - 비범위: 모노레포/CI 설정은 후속 WBS
  - 버전 기록: /docs/env.md에 Node/pnpm/Git/확장팩 명시  
  - 산출물: Repo URL, README, /docs/env.md
- - DoD: 로컬↔GitHub push/pull & ChatGPT가 코드 열람 가능",2025년 10월 14일 → 2025년 10월 24일,시작전,0,,T1,W-251014-1319,"나몽 ",0/0,0/0
-"협업 싱크 파이프라인 구축 ","코드(PR/이슈)와 계획(ROADMAP, WBS/Tasks)을 하나의 고정 출처로 연결하기 위한 운영·가시성 파이프라인을 구축한다. GitHub Actions로 STATE.md를 자동 생성/갱신하고, PR/이슈 템플릿에 WBS/Task ID를 강제하여 계획–실행 추적성을 확보한다.
-• 범위: .github/workflows/state.yml, STATE.md(자동 생성), ROADMAP.md, WBS.csv/Tasks.csv 스냅샷, PR/Issue 템플릿, SYNC PACKET 스크립트
-• 완료 기준: 새 세션에서도 STATE.md만으로 현재 상황 파악 가능, 워크플로 성공(녹색 체크), PR/이슈에 WBS/Task ID 적용률 80%+",2025년 10월 20일 → 2025년 10월 24일,진행중,10,"Git 저장소 생성 (https://www.notion.so/Git-28c353f72f67807d9607f43ef364d5f5?pvs=21), README.md 파일 생성 (https://www.notion.so/README-md-292353f72f678044b805f698f7d3fa2b?pvs=21), Ara Assistant Sync Pack 추가 (https://www.notion.so/Ara-Assistant-Sync-Pack-292353f72f67809bbd0bebd79f19e380?pvs=21), ROADMAP.md 파일 생성 (https://www.notion.so/ROADMAP-md-292353f72f67802aa1c6ec9c74dc030f?pvs=21), WBS.csv·Tasks.csv 커밋 (https://www.notion.so/WBS-csv-Tasks-csv-292353f72f678031b47bed99c8983773?pvs=21), GitHub Actions 실행(STATE.md 생성 확인) (https://www.notion.so/GitHub-Actions-STATE-md-292353f72f6780c680cbdae463cbe349?pvs=21), PR/이슈 템플릿 적용 (https://www.notion.so/PR-292353f72f6780819f42eeeca525cd3c?pvs=21), SYNC PACKET 생성 테스트 (https://www.notion.so/SYNC-PACKET-292353f72f6780bcbc43f40cf5152d4d?pvs=21), STATE.md 링크 고정 (https://www.notion.so/STATE-md-292353f72f6780b18b98e773fd7e6746?pvs=21), ADR 기록 시작 (https://www.notion.so/ADR-292353f72f67808da896cc47173433d4?pvs=21)",T1,W-251020-1042,"나몽 ",4/10,1/10
+ - DoD: 로컬↔GitHub push/pull & ChatGPT가 코드 열람 가능"
