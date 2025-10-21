@@ -1,18 +1,20 @@
 # PROJECT STATE
 
-_Last updated: Tue Oct 21 05:37:49 UTC 2025_
+_Last updated: Tue Oct 21 06:27:17 UTC 2025_
 
 See [ROADMAP](templates/ROADMAP.md) for long-term plan.
 
 ## WBS / Tasks Summary
 
 - WBS rows: 2
-- Sample: [{'WBS_ID': '', 'Name': '협업 싱크 파이프라인 구축 '}, {'WBS_ID': '', 'Name': '개발환경설정'}]
-- Task rows: 9
-- Task status counts:
-  - 완료: 7
-  - 진행 중: 1
-  - 시작 전: 1
+- Task rows: 10
+
+### Progress by WBS
+
+| WBS_ID | Name | Done/Total | Status |
+|---|---|---:|---|
+| W-251020-1042 | 협업 싱크 파이프라인 구축  | 9/10 | 진행중 |
+| W-251014-1319 | 개발환경설정 | 0/0 | 시작전 |
 ## GitHub Summary
 
 - Open issues: 0
