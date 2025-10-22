@@ -1,6 +1,9 @@
 ﻿WBS_ID,Tier,Name,Status,Due,Tasks_Progress,소유자,Description
-W-251020-1042,T1,협업 싱크 파이프라인 구축 ,완료,2025년 10월 20일 → 2025년 10월 24일,10/10,나몽 ,"코드(PR/이슈)와 계획(ROADMAP, WBS/Tasks)을 하나의 고정 출처로 연결하기 위한 운영·가시성 파이프라인을 구축한다. GitHub Actions로 STATE.md를 자동 생성/갱신하고, PR/이슈 템플릿에 WBS/Task ID를 강제하여 계획–실행 추적성을 확보한다.
-• 범위: .github/workflows/state.yml, STATE.md(자동 생성), ROADMAP.md, WBS.csv/Tasks.csv 스냅샷, PR/Issue 템플릿, SYNC PACKET 스크립트
+W-251020-1042,T1,협업 싱크 파이프라인 구축 ,완료,2025년 10월 20일 → 2025년 10월 24일,10/10,나몽 ,"코드(PR/이슈)와 계획(ROADMAP,
+WBS/Tasks)을 하나의 고정 출처로 연결하기 위한 운영·가시성 파이프라인을 구축한다. GitHub Actions로 STATE.md를 자동 생성/갱신하고,
+ PR/이슈 템플릿에 WBS/Task ID를 강제하여 계획–실행 추적성을 확보한다.
+• 범위: .github/workflows/state.yml, STATE.md(자동 생성), ROADMAP.md, WBS.csv/Tasks.csv 스냅샷, PR/Issue 템플릿, SYNC PACKET 스크
+립트
 • 완료 기준: 새 세션에서도 STATE.md만으로 현재 상황 파악 가능, 워크플로 성공(녹색 체크), PR/이슈에 WBS/Task ID 적용률 80%+"
 W-251014-1319,T1,개발환경설정,시작전,2025년 10월 14일 → 2025년 10월 24일,0/0,나몽 ,"Ara Project를 위한 개발 환경설정
  - IDE: VS Code
@@ -10,6 +13,9 @@ W-251014-1319,T1,개발환경설정,시작전,2025년 10월 14일 → 2025년 10
  - 형상관리: GitHub (필요 시 read-only 미러)
  - 범위: VS Code·Git·Node(LTS)·pnpm 설치 및 GitHub 연동
  - 비범위: 모노레포/CI 설정은 후속 WBS
- - 버전 기록: /docs/env.md에 Node/pnpm/Git/확장팩 명시  
+ - 버전 기록: /docs/env.md에 Node/pnpm/Git/확장팩 명시
  - 산출물: Repo URL, README, /docs/env.md
  - DoD: 로컬↔GitHub push/pull & ChatGPT가 코드 열람 가능"
+W-T1-2510229,T1,Repo 스켈레톤 & 워크스페이스,시작전,2025년 10월 22일 → 2025년 10월 29일,0/5,아라 Assistant,"Ara 프론트엔드 레포의 기본 구조와 협업 도구를 정비한다.
+• 범위: pnpm 워크스페이스/패키지 기동, ESLint+Prettier 기본 정책, Storybook 초기 설정, Changesets 버전 전략, 공통 스크립트 템플릿
+• 완료 기준: pnpm install 성공, lint/format 스크립트 동작, Storybook 실행, changeset init, 템플릿 README 업데이트"
