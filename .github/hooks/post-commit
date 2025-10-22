@@ -1,0 +1,28 @@
+#!/bin/sh
+set -e
+
+# 재귀 방지: 자동커밋이 또 post-commit을 부를 때 스킵
+[ -n "$SKIP_AUTO_TASKS" ] && exit 0
+
+LOG="$(git rev-parse --git-dir)/taskhook.log"
+{
+  echo "==== $(date) post-commit (auto-commit Tasks/WBS) ===="
+  REPO_ROOT="$(git rev-parse --show-toplevel)"
+  TASKS="$REPO_ROOT/Tasks.csv"
+  WBS="$REPO_ROOT/WBS.csv"
+
+  # 인덱스(스테이징)에 남은 변경 카운트
+  CHANGED=$(git diff --cached --name-only -- "$TASKS" "$WBS" 2>/dev/null | wc -l | tr -d " ")
+  echo "[hook] cached changes count: $CHANGED"
+
+  if [ "$CHANGED" -gt 0 ]; then
+    BASE="$(git rev-parse --short HEAD)"
+    echo "[hook] committing staged Tasks/WBS on top of $BASE"
+    SKIP_AUTO_TASKS=1 git commit -m "chore: auto apply Tasks/WBS updates (from $BASE)" -- "$TASKS" "$WBS" || true
+    echo "[hook] done auto-commit"
+  else
+    echo "[hook] nothing staged for Tasks/WBS"
+  fi
+} >>"$LOG" 2>&1
+
+exit 0

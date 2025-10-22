@@ -3,91 +3,49 @@ set -e
 
 LOG="$(git rev-parse --git-dir)/taskhook.log"
 {
-  echo "==== $(date) prepare-commit-msg (force stage WBS) ===="
+  echo "==== $(date) prepare-commit-msg (stage Tasks/WBS) ===="
   REPO_ROOT="$(git rev-parse --show-toplevel)"
   MSG_FILE="$1"
   MSG="$(cat "$MSG_FILE")"
   echo "[hook] message: $MSG"
 
-  # -------------------------------
-  # 1) Task_ID 추출 + F 토큰 검사
-  # -------------------------------
+  # 1) 메시지에서 Task_ID, F 토큰 추출
   IDS=$(printf "%s" "$MSG" | grep -Eo 'T-[0-9]+' | tr '\n' ' ' | sed 's/[[:space:]]*$//')
   printf "%s" "$MSG" | grep -Eq '(^|[[:space:][:punct:]])F($|[[:space:][:punct:]])'
   HAS_F=$?
   echo "[hook] parsed ids='$IDS' has_F=$HAS_F"
 
-  if [ -n "$IDS" ] && [ $HAS_F -eq 0 ]; then
-    CSV_PATH="$REPO_ROOT/Tasks.csv"
-    WBS_PATH="$REPO_ROOT/WBS.csv"
+  [ -z "$IDS" ] && { echo "[hook] skip (no ids)"; exit 0; }
+  [ $HAS_F -ne 0 ] && { echo "[hook] skip (no F)"; exit 0; }
 
-    if [ ! -f "$CSV_PATH" ]; then
-      echo "[hook] CSV missing: $CSV_PATH"
-      exit 0
-    fi
+  TASKS="$REPO_ROOT/Tasks.csv"
+  WBS="$REPO_ROOT/WBS.csv"
+  [ ! -f "$TASKS" ] && { echo "[hook] Tasks.csv missing: $TASKS"; exit 0; }
 
-    # -----------------------------------------
-    # 2) Python 선택: Windows는 py -3 우선 사용
-    # -----------------------------------------
-    UNAME="$(uname -s 2>/dev/null || echo unknown)"
-    echo "[hook] uname: $UNAME"
-    PYTHON=""
-    case "$UNAME" in
-      *MINGW*|*MSYS*|*CYGWIN*)
-        if command -v py >/dev/null 2>&1; then
-          PYTHON="py -3"
-        elif [ -x /c/Windows/py.exe ]; then
-          PYTHON="/c/Windows/py.exe -3"
-        elif command -v python >/dev/null 2>&1; then
-          PYTHON="python"
-        elif command -v python3 >/dev/null 2>&1; then
-          PYTHON="python3"
-        fi
-        ;;
-      *)
-        if command -v python3 >/dev/null 2>&1; then
-          PYTHON="python3"
-        elif command -v python >/dev/null 2>&1; then
-          PYTHON="python"
-        fi
-        ;;
-    esac
+  # 2) Python 선택 (Windows는 py -3 우선)
+  UNAME="$(uname -s 2>/dev/null || echo unknown)"
+  PYTHON=""
+  case "$UNAME" in
+    *MINGW*|*MSYS*|*CYGWIN*)
+      if command -v py >/dev/null 2>&1; then PYTHON="py -3";
+      elif [ -x /c/Windows/py.exe ]; then PYTHON="/c/Windows/py.exe -3";
+      elif command -v python >/dev/null 2>&1; then PYTHON="python";
+      elif command -v python3 >/dev/null 2>&1; then PYTHON="python3"; fi ;;
+    *)
+      if command -v python3 >/dev/null 2>&1; then PYTHON="python3";
+      elif command -v python  >/dev/null 2>&1; then PYTHON="python"; fi ;;
+  esac
+  [ -z "$PYTHON" ] && { echo "[hook] Python not found"; exit 0; }
 
-    if [ -z "$PYTHON" ]; then
-      echo "[hook] Python not found"
-      exit 0
-    fi
+  echo "[hook] run: $PYTHON scripts/update_tasks_csv.py --csv $TASKS --complete $IDS"
+  # shellcheck disable=SC2086
+  $PYTHON "$REPO_ROOT/scripts/update_tasks_csv.py" --csv "$TASKS" --complete $IDS 2>&1 || true
 
-    echo "[hook] using: $PYTHON"
-    $PYTHON -V 2>&1 || true
-
-    # ------------------------------------------------
-    # 3) 파이썬 실행 (Tasks 완료 처리 + WBS 진행률/롤업)
-    #    스크립트 내부에서 WBS.csv도 갱신함
-    # ------------------------------------------------
-    echo "[hook] run: $PYTHON scripts/update_tasks_csv.py --csv $CSV_PATH --complete $IDS"
-    # shellcheck disable=SC2086
-    $PYTHON "$REPO_ROOT/scripts/update_tasks_csv.py" --csv "$CSV_PATH" --complete $IDS 2>&1 || true
-
-    # ------------------------------------------------
-    # 4) 항상 스테이징 (변경 없어도 안전) - 개행/필터 오판 방지
-    # ------------------------------------------------
-    git update-index -q --refresh || true
-
-    if [ -f "$CSV_PATH" ]; then
-      git add -A -- "$CSV_PATH" || true
-      echo "[hook] add Tasks.csv (unconditional)"
-    fi
-
-    if [ -f "$WBS_PATH" ]; then
-      git add -A -- "$WBS_PATH" || true
-      echo "[hook] add WBS.csv (unconditional)"
-    else
-      echo "[hook] WBS.csv not found at $WBS_PATH"
-    fi
-  else
-    echo "[hook] skip (no ids or no F)"
-  fi
+  # 3) 무조건 add (변경 없어도 안전)
+  git update-index -q --refresh || true
+  [ -f "$TASKS" ] && git add -A -- "$TASKS" || true
+  [ -f "$WBS"   ] && git add -A -- "$WBS"   || true
+  echo "[hook] add Tasks.csv / WBS.csv (unconditional)"
 } >>"$LOG" 2>&1
 
 exit 0
