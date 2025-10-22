@@ -1,21 +1,10 @@
-﻿WBS_ID,Tier,Name,Status,Due,Tasks_Progress,소유자,Description
-W-251020-1042,T1,협업 싱크 파이프라인 구축 ,완료,2025년 10월 20일 → 2025년 10월 24일,10/10,나몽 ,"코드(PR/이슈)와 계획(ROADMAP,
-WBS/Tasks)을 하나의 고정 출처로 연결하기 위한 운영·가시성 파이프라인을 구축한다. GitHub Actions로 STATE.md를 자동 생성/갱신하고,
- PR/이슈 템플릿에 WBS/Task ID를 강제하여 계획–실행 추적성을 확보한다.
-• 범위: .github/workflows/state.yml, STATE.md(자동 생성), ROADMAP.md, WBS.csv/Tasks.csv 스냅샷, PR/Issue 템플릿, SYNC PACKET 스크
-립트
-• 완료 기준: 새 세션에서도 STATE.md만으로 현재 상황 파악 가능, 워크플로 성공(녹색 체크), PR/이슈에 WBS/Task ID 적용률 80%+"
-W-251014-1319,T1,개발환경설정,시작전,2025년 10월 14일 → 2025년 10월 24일,0/0,나몽 ,"Ara Project를 위한 개발 환경설정
- - IDE: VS Code
- - OS: Windows
- - Lang: React / TypeScript
- - Support Tool: ChatGPT
- - 형상관리: GitHub (필요 시 read-only 미러)
- - 범위: VS Code·Git·Node(LTS)·pnpm 설치 및 GitHub 연동
- - 비범위: 모노레포/CI 설정은 후속 WBS
- - 버전 기록: /docs/env.md에 Node/pnpm/Git/확장팩 명시
- - 산출물: Repo URL, README, /docs/env.md
- - DoD: 로컬↔GitHub push/pull & ChatGPT가 코드 열람 가능"
-W-T1-2510229,T1,Repo 스켈레톤 & 워크스페이스,시작전,2025년 10월 22일 → 2025년 10월 29일,0/5,아라 Assistant,"Ara 프론트엔드 레포의 기본 구조와 협업 도구를 정비한다.
-• 범위: pnpm 워크스페이스/패키지 기동, ESLint+Prettier 기본 정책, Storybook 초기 설정, Changesets 버전 전략, 공통 스크립트 템플릿
-• 완료 기준: pnpm install 성공, lint/format 스크립트 동작, Storybook 실행, changeset init, 템플릿 README 업데이트"
+Name,Description,Due,In_Progress,Status,Tasks,Tier,WBS_ID,소유자
+개발환경설정,Ara Project를 위한 개발 환경설정 - IDE: VS Code (Git Bash 터미널) - OS: Windows (CRLF 가드) - Lang/런타임: React + TypeScript + Node 22 LTS - 패키지/모노레포: pnpm + Corepack / pnpm workspaces + Changesets - 빌드/테스트/문서: Vite(dev) + Rollup(lib) / Vitest + RTL / Storybook - 린트/포맷: ESLint(Flat) + Prettier - 형상관리: GitHub (리포 공개 or GPT 열람 가능한 미러) - 라인엔딩/훅: .gitattributes( LF ) + .editorconfig + commit-msg(amend) 훅 유지,2025년 10월 14일 → 2025년 10월 24일,100%,완료,개발환경 합의 (https://www.notion.so/294353f72f67804f9548e3e2abde3b32?pvs=21),T1,W-T1-2510147,나몽
+협업 싱크 파이프라인 구축,코드(PR/이슈)와 계획(ROADMAP, WBS/Tasks)을 하나의 고정 출처로 연결하기 위한 운영·가시성 파이프라인을 구축한다. GitHub Actions로 STATE.md를 자동 생성/갱신하고, PR/이슈 템플릿에 WBS/Task ID를 강제하여 계획–실행 추적성을 확보한다. • 범위: .github/workflows/state.yml, STATE.md(자동 생성), ROADMAP.md, WBS.csv/Tasks.csv 스냅샷, PR/Issue 템플릿, SYNC PACKET 스크립트 • 완료 기준: 새 세션에서도 STATE.md만으로 현재 상황 파악 가능, 워크플로 성공(녹색 체크), PR/이슈에 WBS/Task ID 적용률 80%+,2025년 10월 20일 → 2025년 10월 24일,100%,완료,README.md 파일 생성 (https://www.notion.so/README-md-292353f72f678044b805f698f7d3fa2b?pvs=21), Ara Assistant Sync Pack 추가 (https://www.notion.so/Ara-Assistant-Sync-Pack-292353f72f67809bbd0bebd79f19e380?pvs=21), ROADMAP.md 파일 생성 (https://www.notion.so/ROADMAP-md-292353f72f67802aa1c6ec9c74dc030f?pvs=21), WBS.csv·Tasks.csv 커밋 (https://www.notion.so/WBS-csv-Tasks-csv-292353f72f678031b47bed99c8983773?pvs=21), PR/이슈 템플릿 적용 (https://www.notion.so/PR-292353f72f6780819f42eeeca525cd3c?pvs=21), STATE.md 링크 고정 (https://www.notion.so/STATE-md-292353f72f6780b18b98e773fd7e6746?pvs=21), ADR 기록 시작 (https://www.notion.so/ADR-292353f72f67808da896cc47173433d4?pvs=21), WBS.csv-Task.csv & State.md 파일 파이프라인 (https://www.notion.so/WBS-csv-Task-csv-State-md-293353f72f6780af93efc09b47da410a?pvs=21),T1,W-T1-2510208,나몽
+Repo 스켈레톤 & 워크스페이스,pnpm workspaces/tsconfig/eslint/prettier/rollup/ storybook/changesets 기본 틀,,0%,시작전,pnpm 워크스페이스 부트스트랩 (https://www.notion.so/pnpm-294353f72f67800c9fedf25544b68e76?pvs=21), Repo 메타 가드 (https://www.notion.so/Repo-294353f72f6780698e65eed8f0b9a701?pvs=21), TS 베이스 구성 (https://www.notion.so/TS-294353f72f67800387b6c467d7a4da21?pvs=21), ESLint(Flat) + Prettier 구성 (https://www.notion.so/ESLint-Flat-Prettier-294353f72f6780b2ae82c864010b90cb?pvs=21), 빌드 템플릿 구성 (https://www.notion.so/294353f72f6780cfb9c8c4da839c5f10?pvs=21), Storybook 골격 구성 (https://www.notion.so/Storybook-294353f72f678069a7e9fe93528d6a38?pvs=21), Changesets 초기화 (https://www.notion.so/Changesets-294353f72f6780e8b473df9e82057fbf?pvs=21),T1,W-T1-2510229,
+Core 패키지,토큰 스키마/빌드 파이프라인 + 기본 테마 2종 + 유틸 테스트 통과. ⇒design-tokens, theme, a11y, utils,,0%,시작전,토큰 스키마 정의 (https://www.notion.so/294353f72f6780a390bdc1afb3c94769?pvs=21), 토큰 → CSS Var 빌더 (https://www.notion.so/CSS-Var-294353f72f67803ab9c9c78603db7241?pvs=21), 테마 시스템(라이트/다크/하이콘트라스트) (https://www.notion.so/294353f72f67802fa759e7f0d70d66f6?pvs=21), 타이포·스페이싱 프리셋 (https://www.notion.so/294353f72f6780759b72cc36283e68b7?pvs=21), A11y 유틸 (https://www.notion.so/A11y-294353f72f678076969bd62c48c5addc?pvs=21), i18n/RTL 유틸 (https://www.notion.so/i18n-RTL-294353f72f6780e28088f4aa89fc5897?pvs=21), Core 유틸 (https://www.notion.so/Core-294353f72f67807d811dd1fba04037aa?pvs=21), 빌드/번들 설정 (https://www.notion.so/294353f72f6780e1b4cee3c487d26d33?pvs=21), 테스트 & 품질 게이트 (https://www.notion.so/294353f72f6780d79338ce7f14598785?pvs=21), 문서/스토리 (https://www.notion.so/294353f72f67803685a2eaa18c107771?pvs=21), 토큰 스키마 정의 (https://www.notion.so/294353f72f6780ad89e1e21d27908cb1?pvs=21),T1,W-T1-25102211,
+Base React Primitives,Button/Input/Modal/Table primitives ⇒각 컴포넌트 Storybook docs + RTL 스냅샷 테스트,,,시작전,,T1,W-T1-25102215,
+DataGrid MVP 스펙 락,요구사항/수락기준/성능예산 문서(PR) + e2e 테스트 시나리오.,,,시작전,,T1,W-T1-25102213,
+DataGrid MVP 구현,- 가상 스크롤·정렬·필터·편집 동작 - 10만 행 성능 기준 충족 - a11y 키보드 네비,,,시작전,,T1,W-T1-25102214,
+CI/Gates,lint/type/test/bundle-size/storybook build ⇒ Git Actions 배치 녹색, 실패시 머지 불,,0%,시작전,Node22 + pnpm + Corepack 캐시 세팅 (https://www.notion.so/Node22-pnpm-Corepack-294353f72f6780a38412d0a57c1827bc?pvs=21), lint & type-check 잡 (https://www.notion.so/lint-type-check-294353f72f6780e4b950d015b1887605?pvs=21), unit test 잡 (https://www.notion.so/unit-test-294353f72f6780f0a46aea4d01758d36?pvs=21), lib build 잡 (Rollup) + bundle size 체크 (https://www.notion.so/lib-build-Rollup-bundle-size-294353f72f67804493cae7015f543902?pvs=21), Storybook build 잡 + storybook-static 아티팩트 (https://www.notion.so/Storybook-build-storybook-static-294353f72f6780178110fa5c3f7db8b1?pvs=21), Changesets status 체크 (https://www.notion.so/Changesets-status-294353f72f678088825acb7a81462b4c?pvs=21), 브랜치 보호 규칙 (https://www.notion.so/294353f72f6780f38394ceb869caf229?pvs=21),T1,W-T1-25102216,
+릴리즈 준비,changesets 버저닝/캔어리, 라이선스·패키징 초안 ⇒ @ara/* canary 배포 가능 + CHANGELOG 생성.,,,시작전,,T1,W-T1-25102217,
