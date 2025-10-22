@@ -1,4 +1,4 @@
-Name,Due,Priority,Status,Task_ID,WBS,WBS_ID,소유자
+﻿Name,Due,Priority,Status,Task_ID,WBS,WBS_ID,소유자
 Git 저장소 생성,2025년 10월 20일 → 2025년 10월 24일,Medium,완료,T-2510145,협업 싱크 파이프라인 구축 (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),W-T1-2510208,나몽
 http://README.md 파일 생성,2025년 10월 20일 → 2025년 10월 24일,Medium,완료,T-2510207,협업 싱크 파이프라인 구축 (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),W-T1-2510208,나몽
 Ara Assistant Sync Pack 추가,2025년 10월 20일 → 2025년 10월 24일,Medium,완료,T-2510208,협업 싱크 파이프라인 구축 (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),W-T1-2510208,나몽
@@ -11,7 +11,7 @@ ADR 기록 시작,2025년 10월 20일 → 2025년 10월 24일,Medium,완료,T-25
 WBS.csv-Task.csv & http://State.md 파일 파이프라인,2025년 10월 21일 → 2025년 10월 24일,Medium,완료,T-25102119,협업 싱크 파이프라인 구축 (https://www.notion.so/292353f72f6780d48ca7c4ac1f74c190?pvs=21),W-T1-2510208,나몽
 개발환경 합의,2025년 10월 22일 → 2025년 10월 22일,High,완료,T-25102220,개발환경설정 (https://www.notion.so/28c353f72f67804eb294f491ff14c26a?pvs=21),W-T1-2510147,나몽
 pnpm 워크스페이스 부트스트랩,,Medium,시작 전,T-25102222,Repo 스켈레톤 & 워크스페이스 (https://www.notion.so/Repo-294353f72f678018b191eb8d35b85b53?pvs=21),W-T1-2510229,나몽
-Repo 메타 가드,,Medium,시작 전,T-25102223,Repo 스켈레톤 & 워크스페이스 (https://www.notion.so/Repo-294353f72f678018b191eb8d35b85b53?pvs=21),W-T1-2510229,나몽
+Repo 메타 가드,,Medium,완료,T-25102223,Repo 스켈레톤 & 워크스페이스 (https://www.notion.so/Repo-294353f72f678018b191eb8d35b85b53?pvs=21),W-T1-2510229,나몽
 TS 베이스 구성,,Medium,시작 전,T-25102225,Repo 스켈레톤 & 워크스페이스 (https://www.notion.so/Repo-294353f72f678018b191eb8d35b85b53?pvs=21),W-T1-2510229,나몽
 ESLint(Flat) + Prettier 구성,,Medium,시작 전,T-25102226,Repo 스켈레톤 & 워크스페이스 (https://www.notion.so/Repo-294353f72f678018b191eb8d35b85b53?pvs=21),W-T1-2510229,나몽
 빌드 템플릿 구성,,Medium,시작 전,T-25102227,Repo 스켈레톤 & 워크스페이스 (https://www.notion.so/Repo-294353f72f678018b191eb8d35b85b53?pvs=21),W-T1-2510229,나몽
