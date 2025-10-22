@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+
+# Build output
+build/
+dist/
+lib/
+.esbuild/
+.vite/
+.next/
+out/
+storybook-static/
+
+# Test coverage and caches
+coverage/
+.nyc_output/
+.vitest/
+*.tsbuildinfo
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor/OS files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sw*
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Misc
+*.tgz
+*.zip
+*.bak
+*.orig
