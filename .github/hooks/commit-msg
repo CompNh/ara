@@ -1,26 +1,30 @@
 #!/bin/sh
 set -e
 
+# 무한루프 방지: amend로 재호출되면 스킵
+[ -n "$SKIP_AMEND_TASKS" ] && exit 0
+
 LOG="$(git rev-parse --git-dir)/taskhook.log"
 {
-  echo "==== $(date) prepare-commit-msg (stage Tasks/WBS) ===="
+  echo "==== $(date) commit-msg (tasks/wbs amend) ===="
   REPO_ROOT="$(git rev-parse --show-toplevel)"
   MSG_FILE="$1"
   MSG="$(cat "$MSG_FILE")"
   echo "[hook] message: $MSG"
 
-  # 1) 메시지에서 Task_ID, F 토큰 추출
+  # 1) 커밋 메시지에서 Task_ID와 F 토큰 추출
   IDS=$(printf "%s" "$MSG" | grep -Eo 'T-[0-9]+' | tr '\n' ' ' | sed 's/[[:space:]]*$//')
   printf "%s" "$MSG" | grep -Eq '(^|[[:space:][:punct:]])F($|[[:space:][:punct:]])'
   HAS_F=$?
   echo "[hook] parsed ids='$IDS' has_F=$HAS_F"
 
+  # 조건 불충족 시 스킵
   [ -z "$IDS" ] && { echo "[hook] skip (no ids)"; exit 0; }
   [ $HAS_F -ne 0 ] && { echo "[hook] skip (no F)"; exit 0; }
 
   TASKS="$REPO_ROOT/Tasks.csv"
   WBS="$REPO_ROOT/WBS.csv"
-  [ ! -f "$TASKS" ] && { echo "[hook] Tasks.csv missing: $TASKS"; exit 0; }
+  [ ! -f "$TASKS" ] && { echo "[hook] Tasks.csv missing"; exit 0; }
 
   # 2) Python 선택 (Windows는 py -3 우선)
   UNAME="$(uname -s 2>/dev/null || echo unknown)"
@@ -29,7 +33,7 @@ LOG="$(git rev-parse --git-dir)/taskhook.log"
     *MINGW*|*MSYS*|*CYGWIN*)
       if command -v py >/dev/null 2>&1; then PYTHON="py -3";
       elif [ -x /c/Windows/py.exe ]; then PYTHON="/c/Windows/py.exe -3";
-      elif command -v python >/dev/null 2>&1; then PYTHON="python";
+      elif command -v python  >/dev/null 2>&1; then PYTHON="python";
       elif command -v python3 >/dev/null 2>&1; then PYTHON="python3"; fi ;;
     *)
       if command -v python3 >/dev/null 2>&1; then PYTHON="python3";
@@ -41,11 +45,18 @@ LOG="$(git rev-parse --git-dir)/taskhook.log"
   # shellcheck disable=SC2086
   $PYTHON "$REPO_ROOT/scripts/update_tasks_csv.py" --csv "$TASKS" --complete $IDS 2>&1 || true
 
-  # 3) 무조건 add (변경 없어도 안전)
+  # 3) 두 파일 무조건 add
   git update-index -q --refresh || true
   [ -f "$TASKS" ] && git add -A -- "$TASKS" || true
   [ -f "$WBS"   ] && git add -A -- "$WBS"   || true
-  echo "[hook] add Tasks.csv / WBS.csv (unconditional)"
+
+  # 4) 정말 변경이 스테이징됐는지 확인 후 같은 커밋으로 amend
+  if ! git diff --cached --quiet -- "$TASKS" "$WBS"; then
+    echo "[hook] amend current commit to include Tasks/WBS"
+    SKIP_AMEND_TASKS=1 git commit --amend --no-edit || true
+  else
+    echo "[hook] nothing to amend"
+  fi
 } >>"$LOG" 2>&1
 
 exit 0

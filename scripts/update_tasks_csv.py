@@ -94,7 +94,7 @@ def main():
         done = sum(1 for tr in tasks_for_w if norm(tr.get("Status")) == "완료")
         progress_str = f"{done}/{total}"
 
-        # 2) 진행률 문자열 갱신
+        # 2) 진행률 문자열 갱신   
         if w_row.get("Tasks_Progress") != progress_str:
             w_row["Tasks_Progress"] = progress_str
             changed_progress += 1
