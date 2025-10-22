@@ -17,7 +17,6 @@ ESLint(Flat) + Prettier 구성,,Medium,시작 전,T-25102226,Repo 스켈레톤 &
 빌드 템플릿 구성,,Medium,시작 전,T-25102227,Repo 스켈레톤 & 워크스페이스 (https://www.notion.so/Repo-294353f72f678018b191eb8d35b85b53?pvs=21),W-T1-2510229,나몽
 Storybook 골격 구성,,Medium,시작 전,T-25102228,Repo 스켈레톤 & 워크스페이스 (https://www.notion.so/Repo-294353f72f678018b191eb8d35b85b53?pvs=21),W-T1-2510229,나몽
 Changesets 초기화,,Medium,시작 전,T-25102229,Repo 스켈레톤 & 워크스페이스 (https://www.notion.so/Repo-294353f72f678018b191eb8d35b85b53?pvs=21),W-T1-2510229,나몽
-토큰 스키마 정의,,,시작 전,T-25102230,Core 패키지 (https://www.notion.so/Core-294353f72f67807c9953e9f69f834fe7?pvs=21),W-T1-25102211,나몽
 토큰 스키마 정의,,Medium,시작 전,T-25102231,Core 패키지 (https://www.notion.so/Core-294353f72f67807c9953e9f69f834fe7?pvs=21),W-T1-25102211,나몽
 토큰 → CSS Var 빌더,,Medium,시작 전,T-25102232,Core 패키지 (https://www.notion.so/Core-294353f72f67807c9953e9f69f834fe7?pvs=21),W-T1-25102211,나몽
 테마 시스템(라이트/다크/하이콘트라스트),,Medium,시작 전,T-25102233,Core 패키지 (https://www.notion.so/Core-294353f72f67807c9953e9f69f834fe7?pvs=21),W-T1-25102211,나몽
