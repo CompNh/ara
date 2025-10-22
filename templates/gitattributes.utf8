@@ -1,0 +1,65 @@
+# Normalize text files to LF by default
+* text=auto eol=lf
+
+# Scripts and configuration
+*.sh text eol=lf
+*.bash text eol=lf
+*.ps1 text eol=lf
+*.py text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.cts text eol=lf
+*.mts text eol=lf
+*.js text eol=lf
+*.jsx text eol=lf
+*.cjs text eol=lf
+*.mjs text eol=lf
+*.json text eol=lf
+*.jsonc text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.md text eol=lf
+*.css text eol=lf
+*.scss text eol=lf
+*.less text eol=lf
+*.html text eol=lf
+*.svg text eol=lf
+*.lock text eol=lf
+pnpm-lock.yaml text eol=lf
+
+# Keep Git hooks executable-friendly
+.github/hooks/* text eol=lf
+
+# Treat binary assets properly
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.avif binary
+*.ico binary
+*.bmp binary
+*.tif binary
+*.tiff binary
+*.psd binary
+*.ai binary
+*.sketch binary
+*.pdf binary
+*.zip binary
+*.gz binary
+*.tgz binary
+*.bz2 binary
+*.xz binary
+*.7z binary
+*.tar binary
+*.mp4 binary
+*.mov binary
+*.mp3 binary
+*.wav binary
+*.ogg binary
+*.flac binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.eot binary
