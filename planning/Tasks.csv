@@ -3,7 +3,7 @@ T-000001,W-000001,개발환경설정,개발환경설정,Readme.md 파일생성,�
 T-000002,W-000001,개발환경설정,개발환경설정,"WBS.csv, Tasks.csv 생성",완료,Medium," ● 일정 관리 
  ● GPT와 일정공유
  ● WBS는 대 일정에 대한 것이고 Tasks는 WBS의 하위 업문이다.",
-T-000003,W-000002,Git 규범/가드,파일 가드,.gitattributes 생성,시작전,High,".gitattributes
+T-000003,W-000002,Git 규범/가드,파일 가드,.gitattributes 생성,확인필요,High,".gitattributes
  ● 목적: Git이 “저장소 안”에서 줄바꿈·바이너리 처리 등을 표준화.
  ● 효과
          - 윈도우에서 작성해도 리포에선 LF로 고정(CRLF 혼선, 불필요한 diff 방지).
