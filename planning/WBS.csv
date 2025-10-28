@@ -1,0 +1,10 @@
+WBSID,Tier,Name,Status,Progress,Description
+W-000001,T1,개발환경설정,진행중,0%,"Ara Project를 위한 개발 환경설정
+- IDE: VS Code (Git Bash 터미널)
+- OS: Windows (CRLF 가드)
+- Lang/런타임: React + TypeScript + Node 22 LTS
+- 패키지/모노레포: pnpm + Corepack / pnpm workspaces + Changesets
+- 빌드/테스트/문서: Vite(dev) + Rollup(lib) / Vitest + RTL / Storybook
+- 린트/포맷: ESLint(Flat) + Prettier
+- 형상관리: GitHub (리포 공개 or GPT 열람 가능한 미러)
+- 라인엔딩/훅: .gitattributes( LF ) + .editorconfig + commit-msg(amend) 훅 유지"

@@ -4,4 +4,7 @@
 ## Stack (snapshot)
 VS Code(Git Bash) · Windows · React+TypeScript · Node 22 LTS · pnpm(workspaces)+Corepack · Vite(dev)/Rollup(lib) · Vitest+RTL · Storybook · ESLint(Flat)+Prettier · Changesets · GitHub · .gitattributes(LF) · .editorconfig · commit-msg(amend)
 
-
+## 일정 (WBS/Tasks)
+ **경로** : root/planning
+ **WBS** : WBS.CSV
+ **Task** : Tasks.CSV

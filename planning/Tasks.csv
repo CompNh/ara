@@ -1,0 +1,5 @@
+TaskID,WBSID,WBS_Name,Name,Status,Priority,Description,Check GPT
+T-000001,W-000001,개발환경설정,Readme.md 파일생성,완료,Medium,Project 목적과 Stack 추가,
+T-000002,W-000001,개발환경설정,"WBS.csv, Tasks.csv 생성",완료,Medium,"- 일정 관리 
+- GPT와 일정공유
+- WBS는 대 일정에 대한 것이고 Tasks는 WBS의 하위 업문이다.",
