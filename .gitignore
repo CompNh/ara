@@ -1,9 +1,8 @@
-# --- Dependencies / PM caches ---
+# --- Dependencies / Package manager caches ---
 node_modules/
 .pnp/
 .pnp.*
-.pnpm-store/
-# (pnpm 사용) 다른 PM lock은 커밋 방지
+# pnpm 사용: 다른 PM lock은 커밋 방지
 package-lock.json
 yarn.lock
 
@@ -15,22 +14,22 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Runtime data
+# --- Runtime data ---
 pids
 *.pid
 *.seed
 *.pid.lock
 .node_repl_history
 
-# Diagnostic reports (https://nodejs.org/api/report.html)
+# --- Diagnostic reports ---
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
-# Coverage directories
+# --- Coverage ---
 coverage/
 *.lcov
 .nyc_output/
 
-# Build artifacts
+# --- Build artifacts ---
 build/
 dist/
 storybook-static/
@@ -38,39 +37,36 @@ storybook-static/
 tmp/
 .turbo/
 
-# Dependency directories
-node_modules/
+# --- Additional dependency directories ---
 bower_components/
 
-# Editor directories and files
+# --- Editor directories and files ---
 .idea/
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
 
-# OS generated files
+# --- OS generated files ---
 .DS_Store
 Thumbs.db
 
-# pnpm workspace state
+# --- pnpm workspace state ---
 pnpm-debug.yaml
 .pnpm-store/
 
-# Local environment files
+# --- Local environment files ---
 .env
 .env.*
 !.env.example
 
-# Storybook/Vite caches
+# --- Tool caches ---
 .storybook-out/
 .vite/
 .eslintcache
 *.tsbuildinfo
-
-# Vitest cache
 .vitest/
 
-# Misc
+# --- Misc ---
 *.swp
 *.swo
 *~

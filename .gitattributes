@@ -2,28 +2,28 @@
 * text=auto eol=lf
 
 # 바이너리는 변환 금지
-*.png binary
-*.jpg binary
+*.png  binary
+*.jpg  binary
 *.jpeg binary
-*.gif binary
+*.gif  binary
 *.webp binary
-*.ico binary
-*.pdf binary
-*.zip binary
-*.gz binary
-*.7z binary
-*.rar binary
-*.mp4 binary
-*.mov binary
+*.ico  binary
+*.pdf  binary
+*.zip  binary
+*.gz   binary
+*.7z   binary
+*.rar  binary
+*.mp4  binary
+*.mov  binary
 *.webm binary
-*.mp3 binary
-*.wav binary
-*.woff binary
+*.mp3  binary
+*.wav  binary
+*.woff  binary
 *.woff2 binary
-*.ttf binary
-*.eot binary
-*.otf binary
-*.wasm binary
+*.ttf   binary
+*.eot   binary
+*.otf   binary
+*.wasm  binary
 
 # OS별 스크립트 예외
 *.bat text eol=crlf
