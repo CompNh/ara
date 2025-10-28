@@ -8,7 +8,7 @@ W-000001,T1,개발환경설정,완료,100,"Ara Project를 위한 개발 환경�
  ● 린트/포맷: ESLint(Flat) + Prettier
  ● 형상관리: GitHub (리포 공개 or GPT 열람 가능한 미러)
  ● 라인엔딩/훅: .gitattributes( LF ) + .editorconfig + commit-msg(amend) 훅 유지"
-W-000002,T1,Git 규범/가드,진행중,40,"Git 규범/가드
+W-000002,T1,Git 규범/가드,진행중,50,"Git 규범/가드
  ● 새 작업: 브랜치 생성 → 코드 작성(에디터가 .editorconfig 적용).
  ● 커밋: 템플릿이 형식 유도, 훅이 규칙 검사(필요 시 amend).
  ● 커밋 가드: COMMIT_TEMPLATE + commit-msg(amend) 훅 GPT 검증 완료.
