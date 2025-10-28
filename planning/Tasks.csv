@@ -20,14 +20,14 @@ T-000005,W-000002,Git 규범/가드,파일 가드,.editorconfig 생성,완료,Hi
 T-000006,W-000002,Git 규범/가드,커밋/브랜치 규칙 묶음,COMMIT_TEMPLATE 설정,완료,High,"COMMIT_TEMPLATE
  ● 목적: git commit 창을 열면 초안 폼이 자동으로 채워지는 템플릿(제목/WBS·Task Info/본문/Breaking/Refs 자리).
  ● 효과: 초보라도 일관된 메시지 작성. Conventional Commits 형식 유도.
- ● 흐름: git config commit.template 설정 → 커밋마다 같은 골격으로 작성.",
+ ● 흐름: git config commit.template 설정 → 커밋마다 같은 골격으로 작성.",확인
 T-000007,W-000002,Git 규범/가드,커밋/브랜치 규칙 묶음,"Conventional Commits
    + commit-msg(amend) 훅",완료,High,"Conventional Commits + commit-msg(amend) 훅
  ● 목적
         - feat: …, fix: … 같은 타입+제목 규칙.
         - 메시지 검증/자동 보정(예: 스코프/티켓ID 추가)과 사소한 수정은 --amend로 히스토리 청결 유지.
  ● 효과: 변경 의도 검색 용이, 자동 CHANGELOG 생성 기반, 리뷰 체계화.
- ● 흐름: 커밋 시 훅이 형식 검사 → 실패 시 차단, 성공 시 통과. 작은 수정은 git commit --amend --no-edit.",
+ ● 흐름: 커밋 시 훅이 형식 검사 → 실패 시 차단, 성공 시 통과. 작은 수정은 git commit --amend --no-edit.",확인
 T-000008,W-000002,Git 규범/가드,커밋/브랜치 규칙 묶음,"기본 브랜치 main 
    + 브랜치 네이밍",시작전,High,"기본 브랜치 main + 브랜치 네이밍
  ● 목적: 배포 기준선은 main. 작업은 feat/button, fix/tooltip-crash처럼 프리픽스/설명 규칙.
