@@ -8,3 +8,6 @@ VS Code(Git Bash) · Windows · React+TypeScript · Node 22 LTS · pnpm(workspac
  **경로** : root/planning
  **WBS** : WBS.CSV
  **Task** : Tasks.CSV
+
+## Git 설정
+- `scripts/git/setup-commit-template.sh` 실행으로 commit.template을 `.commit-template`에 고정.
