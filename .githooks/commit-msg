@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+msg_file="$1"
+
+# 첫 유효 라인(공백/주석 제외)
+first_line="$(sed -E 's/^[[:space:]]+//; s/[[:space:]]+$//' "$msg_file" | awk 'NF && $0 !~ /^#/ {print; exit}')"
+
+# 자동 생성 커밋 예외 허용(merge/revert/fixup/squash)
+if [[ "$first_line" =~ ^(Merge|Revert|fixup!|squash!) ]]; then
+  exit 0
+fi
+
+# Conventional Commits 패턴: type(scope)!?: subject
+pattern='^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\([a-z0-9._/-]+\))?(!)?: [^\s].{0,71}$'
+
+if [[ "$first_line" =~ $pattern ]]; then
+  exit 0
+fi
+
+cat >&2 <<'ERR'
+⛔ Commit message does not follow Conventional Commits.
+
+Required:
+  type(scope)!?: subject  (subject <= 72 chars)
+
+Examples:
+  feat(button): add aria support
+  fix(tooltip): prevent overflow on hover
+  docs(readme): add Stack snapshot
+  chore: update .gitignore
+  refactor(core)!: remove deprecated API
+
+Tips:
+  - 작은 수정은: git commit --amend --no-edit
+  - 메시지 수정: git commit --amend
+ERR
+
+echo "" >&2
+echo "Your message: $first_line" >&2
+exit 1
