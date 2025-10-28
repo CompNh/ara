@@ -1,41 +1,73 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-msg_file="$1"
+commit_msg_file="$1"
 
-# 첫 유효 라인(공백/주석 제외)
-first_line="$(sed -E 's/^[[:space:]]+//; s/[[:space:]]+$//' "$msg_file" | awk 'NF && $0 !~ /^#/ {print; exit}')"
+fail() {
+  echo "[commit-msg] $1" >&2
+  echo "[commit-msg] 수정 후에는 \`git commit --amend --no-edit\` 등으로 메시지를 고치세요." >&2
+  exit 1
+}
 
-# 자동 생성 커밋 예외 허용(merge/revert/fixup/squash)
-if [[ "$first_line" =~ ^(Merge|Revert|fixup!|squash!) ]]; then
-  exit 0
+trim() {
+  # shellcheck disable=SC2001
+  sed -E 's/^[[:space:]]+//; s/[[:space:]]+$//' <<<"$1"
+}
+
+first_line_raw="$(sed -n '1p' "$commit_msg_file" | tr -d '\r')"
+subject="$(trim "$first_line_raw")"
+
+if [[ -z "$subject" ]]; then
+  fail "커밋 메시지의 첫 줄이 비어 있습니다. Conventional Commits 형식으로 작성해 주세요."
 fi
 
-# Conventional Commits 패턴: type(scope)!?: subject
-pattern='^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)(\([a-z0-9._/-]+\))?(!)?: [^\s].{0,71}$'
-
-if [[ "$first_line" =~ $pattern ]]; then
-  exit 0
+allowed_types="build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test|release"
+if ! grep -Eq "^($allowed_types)(\([a-z0-9._-]+\))?(!)?: [^ ].+" <<<"$subject"; then
+  fail "첫 줄이 Conventional Commits 형식과 일치하지 않습니다: '<type>([scope])?: <subject>'"
 fi
 
-cat >&2 <<'ERR'
-⛔ Commit message does not follow Conventional Commits.
+subject_length=$(printf "%s" "$subject" | wc -m)
+max_length=72
+if (( subject_length > max_length )); then
+  fail "커밋 제목이 ${max_length}자를 초과했습니다(현재 ${subject_length}자). 더 간결하게 작성해 주세요."
+fi
 
-Required:
-  type(scope)!?: subject  (subject <= 72 chars)
+subject_body="${subject#*: }"
+if [[ -z "$subject_body" ]]; then
+  fail "커밋 제목의 본문이 비어 있습니다."
+fi
 
-Examples:
-  feat(button): add aria support
-  fix(tooltip): prevent overflow on hover
-  docs(readme): add Stack snapshot
-  chore: update .gitignore
-  refactor(core)!: remove deprecated API
+require_line() {
+  local label="$1"
+  local pattern="^${label}[[:space:]]*:"
+  local line
+  line=$(grep -E -m1 "$pattern" "$commit_msg_file" || true)
+  if [[ -z "$line" ]]; then
+    fail "'${label}:' 행을 찾을 수 없습니다. 커밋 템플릿을 채워 주세요."
+  fi
+  # shellcheck disable=SC2001
+  local value
+  value=$(sed -E "s/^${label}[[:space:]]*:[[:space:]]*//" <<<"$line")
+  value="$(trim "$value")"
+  if [[ -z "$value" ]]; then
+    fail "'${label}:' 행이 비어 있습니다."
+  fi
+  if grep -Eq '[<>]' <<<"$value"; then
+    fail "'${label}:' 행에 플레이스홀더(<...>)가 남아 있습니다. 실제 값을 채워 주세요."
+  fi
+  printf '%s' "$value"
+}
 
-Tips:
-  - 작은 수정은: git commit --amend --no-edit
-  - 메시지 수정: git commit --amend
-ERR
+wbs_value=$(require_line "WBS")
+if ! grep -Eq '^W-[0-9]{6}$' <<<"$wbs_value"; then
+  fail "WBS 값은 'W-000123' 형식이어야 합니다."
+fi
 
-echo "" >&2
-echo "Your message: $first_line" >&2
-exit 1
+task_value=$(require_line "Task")
+if ! grep -Eq '^T-[0-9]{6}$' <<<"$task_value"; then
+  fail "Task 값은 'T-000123' 형식이어야 합니다."
+fi
+
+task_name_value=$(require_line "Task Name")
+
+exit 0
