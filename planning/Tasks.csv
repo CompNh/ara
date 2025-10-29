@@ -41,7 +41,7 @@ T-000010,W-000002,Git 규범/가드,커밋/브랜치 규칙 묶음,Changesets �
  ● 목적: 패키지별 변경을 텍스트 파일로 기록 → 릴리스 시 버전/CHANGELOG 자동 산출.
  ● 효과: 모노레포 다중 패키지 버전 충돌 제거, 의도된 SemVer 반영.
  ● 흐름: 기능 완료 시 changeset 추가 → main 머지 후 릴리스 액션이 버전/배포 생성.",확인
-T-000011,W-000002,Git 규범/가드,CI 최소골격 & 브랜치 보호,.github/workflows/ci.yml (Node 22 + Corepack + pnpm install),시작전,High,".github/workflows/ci.yml (Node 22 + Corepack + pnpm install)
+T-000011,W-000002,Git 규범/가드,CI 최소골격 & 브랜치 보호,.github/workflows/ci.yml (Node 22 + Corepack + pnpm install),진행중,High,".github/workflows/ci.yml (Node 22 + Corepack + pnpm install)
  ● 목적
          - PR/main 푸시에 자동 실행. 
          -Node 22 설치 → Corepack 활성화 → pnpm 준비 → pnpm -w install로 워크스페이스 종속성 검증(추후 test/build 추가).
