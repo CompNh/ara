@@ -1,4 +1,4 @@
-WBSID,Tier,Name,Status,Progress(%),Description
+WBSID,Tier,Name,Status,Progress(%),Description,ETC
 W-000001,T1,개발환경설정,완료,100,"Ara Project를 위한 개발 환경설정
  ● IDE: VS Code (Git Bash 터미널)
  ● OS: Windows (CRLF 가드)
@@ -7,17 +7,17 @@ W-000001,T1,개발환경설정,완료,100,"Ara Project를 위한 개발 환경�
  ●  빌드/테스트/문서: Vite(dev) + Rollup(lib) / Vitest + RTL / Storybook
  ● 린트/포맷: ESLint(Flat) + Prettier
  ● 형상관리: GitHub (리포 공개 or GPT 열람 가능한 미러)
- ● 라인엔딩/훅: .gitattributes( LF ) + .editorconfig + commit-msg(amend) 훅 유지"
+ ● 라인엔딩/훅: .gitattributes( LF ) + .editorconfig + commit-msg(amend) 훅 유지",--
 W-000002,T1,Git 규범/가드,완료,100,"Git 규범/가드
  ● 새 작업: 브랜치 생성 → 코드 작성(에디터가 .editorconfig 적용).
  ● 커밋: 템플릿이 형식 유도, 훅이 규칙 검사(필요 시 amend).
  ● 커밋 가드: COMMIT_TEMPLATE + commit-msg(amend) 훅 GPT 검증 완료.
  ● PR: PR 템플릿 채움 → CODEOWNERS 자동 리뷰 요청 → CI가 pnpm 설치 검증(추후 test/build도).
  ● Merge: 보호 규칙 충족 시만 main 병합.
- ● 릴리스: Changesets 누적분을 액션이 읽어 버전/CHANGELOG/배포 자동화(세팅 후)"
+ ● 릴리스: Changesets 누적분을 액션이 읽어 버전/CHANGELOG/배포 자동화(세팅 후)",--
 W-000003,T1,모노레포 스캐폴딩,진행중,10,"pnpm 모노레포 기준선을 구축
  ● workspaces 선언
  ● 공통 tsconfig/ESLint/Changesets 패키지
  ● 핵심 UI 패키지 및 앱 골격
  ● 빌드·테스트 스크립트 공유
- ● README 구조 업데이트까지 일괄 정비."
+ ● README 구조 업데이트까지 일괄 정비.",--
