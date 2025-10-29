@@ -12,7 +12,7 @@ VS Code(Git Bash) · Windows · React+TypeScript · Node 22 LTS · pnpm(workspac
 3. **pnpm 10.5.2 지정**
    - `corepack use pnpm@10.5.2` 를 실행해 워크스페이스 요구 버전으로 고정한다.
 4. **의존성 설치**
-   - 저장소 루트에서 `pnpm install --frozen-lockfile` 또는 CI와 동일하게 `pnpm -w install`을 실행해 모든 패키지를 내려받는다.
+   - 저장소 루트에서 `pnpm install --no-frozen-lockfile` 또는 CI와 동일하게 `pnpm -w install --no-frozen-lockfile`을 실행해 모든 패키지를 내려받는다.
 
 ## 모노레포 워크스페이스 경계
 - `packages/*` : 디자인 시스템 라이브러리와 공통 설정 패키지(`tsconfig`, `eslint-config`, `tokens`, `core`, `react`, `icons` 등)
