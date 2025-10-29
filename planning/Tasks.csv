@@ -1,6 +1,6 @@
 TaskID,WBSID,WBS_Name,Task_Group_Name,Name,Status,Priority,Description,Check GPT
-T-000001,W-000001,개발환경설정,개발환경설정,Readme.md 파일생성,완료,Medium,Project 목적과 Stack 추가,
-T-000002,W-000001,개발환경설정,개발환경설정,"WBS.csv, Tasks.csv 생성",완료,Medium," ● 일정 관리 
+T-000001,W-000001,개발환경설정,개발환경설정,Readme.md 파일생성,완료,Medium,Project 목적과 Stack 추가,,
+T-000002,W-000001,개발환경설정,개발환경설정,"WBS.csv, Tasks.csv 생성",완료,Medium," ● 일정 관리
  ● GPT와 일정공유
  ● WBS는 대 일정에 대한 것이고 Tasks는 WBS의 하위 업문이다.",
 T-000003,W-000002,Git 규범/가드,파일 가드,.gitattributes 생성,완료,High,".gitattributes
@@ -39,11 +39,11 @@ T-000009,W-000002,Git 규범/가드,커밋/브랜치 규칙 묶음,CODEOWNERS & 
  ● 흐름: PR 열면 템플릿이 미리 채워짐 → CODEOWNERS에게 리뷰 요청 자동 발송.",확인
 T-000010,W-000002,Git 규범/가드,커밋/브랜치 규칙 묶음,Changesets 초기화(버전/릴리스 흐름 고정),완료,High,"Changesets 초기화(버전/릴리스 흐름 고정)
  ● 목적: 패키지별 변경을 텍스트 파일로 기록 → 릴리스 시 버전/CHANGELOG 자동 산출.
- ● 효과: 모노레포 다중 패키지 버전 충돌 제거, 의도된 SemVer 반영.
+ ● 효과: 모노레포 다중 패키지 버전 충돌 제거, 의도된 SemVer 반.
  ● 흐름: 기능 완료 시 changeset 추가 → main 머지 후 릴리스 액션이 버전/배포 생성.",확인
 T-000011,W-000002,Git 규범/가드,CI 최소골격 & 브랜치 보호,.github/workflows/ci.yml (Node 22 + Corepack + pnpm install),완료,High,".github/workflows/ci.yml (Node 22 + Corepack + pnpm install)
  ● 목적
-         - PR/main 푸시에 자동 실행. 
+         - PR/main 푸시에 자동 실행.
          -Node 22 설치 → Corepack 활성화 → pnpm 준비 → pnpm -w install로 워크스페이스 종속성 검증(추후 test/build 추가).
  ● 효과: “내 PC에선 돼요” 방지, 잠재적 의존성 문제를 PR 단계에서 차단.
  ● 흐름: PR 생성/업데이트 → CI가 설치/검증 → 실패 시 머지 불가.",확인
@@ -53,3 +53,36 @@ T-000012,W-000002,Git 규범/가드,CI 최소골격 & 브랜치 보호,브랜치
           - 이부분은 혼자 개발 하니까 현제 제외 : 최소 1명 리뷰 요구. (옵션: Linear/Issue 링크, Conversations resolved 등)
  ● 효과: 실수 머지 방지, 품질 게이트 고정.
  ● 흐름: PR 생성 → CI 통과 + 리뷰 승인 없으면 Merge 버튼 비활성.",확인
+T-000013,W-000003,모노레포 스캐폴딩,워크스페이스 기준선,루트 워크스페이스 선언(pnpm workspaces),계획,High," ● 목적: 모노레포 워크스페이스 경계를 명시해 신규 패키지가 설치·빌드 파이프라인에 자동 편입되도록 한다.
+ ● 내용: pnpm-workspace.yaml을 packages/*, apps/*, scripts/* 및 예정 패키지 경로(packages/{tsconfig,eslint-config,tokens,core,react,icons}, apps/{storybook,showcase})로 확정하고 Changesets·CI 문서에 동일 경로를 반영한다.
+ ● 점검: pnpm -w list --depth -1 결과에 모든 패키지가 노출되고 README/CI 안내가 같은 경로를 가리키는지 확인한다.",
+T-000014,W-000003,모노레포 스캐폴딩,공통 설정 패키지,공통 tsconfig 패키지 초기화(packages/tsconfig),계획,High," ● 목적: 모든 패키지가 동일한 TypeScript 컴파일 기준을 사용해 빌드/테스트 결과가 일관되도록 한다.
+ ● 내용: packages/tsconfig에 공유 설정 패키지를 만들고 루트 tsconfig.base.json을 정의해 모듈 해석, 경로 alias(@ara/*), JSX/emit 옵션을 고정한다. 각 패키지 tsconfig에서 extends하도록 가이드 문서를 포함한다.
+ ● 점검: tokens/core/react 등의 샘플 tsconfig에 extends 경로가 연결되고 pnpm exec tsc --showConfig로 공통 설정이 반영되는지 확인한다.",
+T-000015,W-000003,모노레포 스캐폴딩,공통 설정 패키지,ESLint Flat 설정 패키지 초기화(packages/eslint-config),계획,High," ● 목적: 린트 규칙을 중앙에서 관리해 패키지별로 상이한 설정으로 인한 품질 편차를 제거한다.
+ ● 내용: ESLint Flat 구성을 공유 패키지로 만들고 기본 preset(typescript-eslint, eslint-plugin-react, prettier 연동)과 브라우저/Node 환경 분리 구성을 제공한다. README에 적용 방법과 확장 순서를 기록한다.
+ ● 점검: tokens/core/react 패키지에서 eslint.config.js가 공유 preset을 import하고 pnpm lint가 전 워크스페이스에서 통과하는지 확인한다.",
+T-000016,W-000003,모노레포 스캐폴딩,디자인 시스템 토대,토큰/디자인 시스템 베이스 패키지 초기화(packages/tokens),계획,Medium," ● 목적: 색상/타이포 등 디자인 자산을 코드로 표준화해 다른 패키지가 재사용할 수 있는 토대를 제공한다.
+ ● 내용: packages/tokens에 패키지를 생성하고 색상·타이포 최소 샘플을 TS/JSON으로 export하며 공통 tsconfig·빌드 설정을 연결한다. 소비 방법을 README에 정리한다.
+ ● 점검: pnpm --filter @ara/tokens build 시 d.ts가 생성되고 core/react 패키지에서 import 테스트가 통과하는지 확인한다.",
+T-000017,W-000003,모노레포 스캐폴딩,디자인 시스템 토대,코어(headless) 패키지 초기화(packages/core),계획,High," ● 목적: UI에 의존하지 않는 비즈니스/상태 로직을 분리해 React 등 다양한 바인딩에서 재사용하도록 한다.
+ ● 내용: packages/core 패키지를 생성하고 tokens 패키지를 의존성으로 연결한다. 기본 API export와 Vitest 기반 단위 테스트 골격을 마련한다.
+ ● 점검: pnpm --filter @ara/core test가 통과하고 React 패키지에서 core 기능을 import해 사용할 수 있는지 확인한다.",
+T-000018,W-000003,모노레포 스캐폴딩,디자인 시스템 토대,React 바인딩 패키지 초기화(packages/react),계획,High," ● 목적: core 패키지를 실제 UI로 연결해 소비 경험을 검증하고 React 개발 기준선을 마련한다.
+ ● 내용: React 18 + TypeScript 패키지를 생성해 core 로직을 감싼 예제 컴포넌트(Button 등)를 추가하고 Vitest+RTL 테스트 및 Storybook 스토리를 작성한다.
+ ● 점검: pnpm --filter @ara/react test, pnpm --filter @ara/react storybook --smoke-test 등이 성공하고 tokens/core 의존성이 정상 연결되는지 확인한다.",
+T-000019,W-000003,모노레포 스캐폴딩,디자인 시스템 토대,아이콘 패키지 초기화(packages/icons),계획,Medium," ● 목적: 공통 아이콘 자산을 모듈화해 React 등 소비자 패키지가 일관된 인터페이스로 사용하도록 한다.
+ ● 내용: SVG 기반 아이콘 패키지를 생성하고 최소 1개 샘플 아이콘을 추가한다. tree-shaking 가능한 export 구조와 타입 선언 생성을 설정한다.
+ ● 점검: pnpm --filter @ara/icons build 산출물에서 ESM/CJS 번들과 d.ts가 생성되고 React 패키지에서 아이콘 import가 작동하는지 확인한다.",
+T-000020,W-000003,모노레포 스캐폴딩,앱/데모 구성,앱 골격 생성(apps/storybook, apps/showcase),계획,High," ● 목적: 컴포넌트 개발·데모 환경을 초기 구축해 패키지 변경을 즉시 확인할 수 있게 한다.
+ ● 내용: apps/storybook과 apps/showcase를 스캐폴딩하고 공통 tsconfig·ESLint 설정을 참조하도록 연결한다. pnpm 스크립트(pnpm storybook, pnpm showcase dev 등)를 준비한다.
+ ● 점검: pnpm --filter @ara/storybook storybook --smoke-test, pnpm --filter @ara/showcase dev 실행이 성공하고 공통 설정 경고가 없는지 확인한다.",
+T-000021,W-000003,모노레포 스캐폴딩,빌드/테스트 파이프라인,빌드 파이프라인 연결(Rollup 설정 공유·d.ts 출력 확인),계획,High," ● 목적: 모든 패키지가 동일한 빌드·테스트 파이프라인을 공유해 산출물 형식과 품질 검증을 표준화한다.
+ ● 내용: 공통 Rollup/Vite 라이브러리 설정을 추출해 tokens/core/react/icons 패키지에서 재사용하고 d.ts/번들 생성 흐름을 마련한다. CI에서 pnpm -r build, pnpm -r test, Storybook smoke 테스트를 통합한다.
+ ● 점검: 공통 설정을 참조한 패키지 빌드가 성공하고 CI 로그에 빌드·테스트·Storybook 단계가 모두 통과하는지 확인한다.",
+T-000022,W-000003,모노레포 스캐폴딩,빌드/테스트 파이프라인,루트 스크립트 정리(pnpm -w build/test/lint 통합),계획,Medium," ● 목적: 루트 명령어만으로 모노레포 전반의 빌드/테스트/린트 흐름을 실행해 운영 편의성을 높인다.
+ ● 내용: 루트 package.json에 pnpm -w build/test/lint/storybook 스크립트를 정의하고 실행 순서를 정리한다. Changesets version/release 스크립트와 경계를 문서화해 배포 절차와 충돌하지 않도록 한다.
+ ● 점검: 루트에서 pnpm build/test/lint/storybook 실행 시 전 워크스페이스가 순차 실행되고 문서화된 경계가 README/CONTRIBUTING에 반영됐는지 확인한다.",
+T-000023,W-000003,모노레포 스캐폴딩,문서화,README 구조 섹션 업데이트(모노레포 트리/패키지 표),계획,Medium," ● 목적: 모노레포 구조와 패키지 역할을 문서로 명확히 제시해 신규 기여자의 온보딩 시간을 단축한다.
+ ● 내용: README에 디렉터리 트리, 패키지별 역할/의존 관계 표, 공통 설정 참조 절차를 추가한다. 작업 순서를 정리해 패키지 생성 흐름을 안내한다.
+ ● 점검: README 개정본에서 항목이 빠짐없이 소개되고 내부 링크/코드 블록이 최신 스캐폴딩 구조와 일치하는지 검토한다.",
