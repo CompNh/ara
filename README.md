@@ -36,3 +36,4 @@ VS Code(Git Bash) · Windows · React+TypeScript · Node 22 LTS · pnpm(workspac
 - 작업 브랜치는 `feat/컴포넌트-이름`, `fix/버그-설명`, `docs/가이드` 처럼 `타입/설명` 규칙을 따른다.
 - 작업 착수 시 `git switch -c feat/무엇` 처럼 새 토픽 브랜치를 생성한 뒤 개발을 진행하고, 완료 후 PR로 `main` 에 병합한다.
 - 워크플로우: `git switch -c feat/button` → 커밋 → `git push -u origin feat/button` → PR 생성 → CI+리뷰 통과 후 main에 머지
+- `main` 브랜치 보호 규칙은 [가이드](docs/branch-protection.md)를 참고해 활성화하고, `CI` 워크플로 통과를 필수 상태 체크로 지정한다.
