@@ -12,6 +12,7 @@ VS Code(Git Bash) · Windows · React+TypeScript · Node 22 LTS · pnpm(workspac
 ## Git 설정
 - 커밋 템플릿은 `.github/COMMIT_TEMPLATE` 을 직접 사용한다.
 - Conventional Commits를 강제하는 `commit-msg` 훅과 함께 사용한다.
+- 모든 커밋 메시지와 PR 설명은 한국어로 작성한다.
 - 설정 스크립트 실행: (Git Bash) 프롬프트에서 하위 실행
     ```bash
     bash scripts/git/setup-commit-template.sh
