@@ -4,12 +4,6 @@
 ## Stack (snapshot)
 VS Code(Git Bash) · Windows · React+TypeScript · Node 22 LTS · pnpm(workspaces)+Corepack · Vite(dev)/Rollup(lib) · Vitest+RTL · Storybook · ESLint(Flat)+Prettier · Changesets · GitHub · .gitattributes(LF) · .editorconfig · commit-msg(amend)
 
-## 로컬 개발 환경 준비
-- **Node.js 22 LTS**: [공식 다운로드 페이지](https://nodejs.org/)에서 설치하거나 nvm 등 버전 관리 도구로 맞춘다.
-- **Corepack 활성화**: Node 22 이상에는 기본 포함되어 있으니 `corepack enable` 로 활성화한다.
-- **pnpm 10.5.2 준비**: `corepack use pnpm@10.5.2` 로 워크스페이스에서 요구하는 버전을 맞춘다.
-- **의존성 설치**: 루트에서 `pnpm install --frozen-lockfile`(또는 CI와 동일하게 `pnpm -w install`)을 실행해 모든 패키지 의존성을 내려받는다.
-
 ## 일정 (WBS/Tasks)
  **경로** : root/planning
  **WBS** : WBS.CSV
