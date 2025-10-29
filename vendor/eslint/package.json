@@ -1,0 +1,16 @@
+{
+  "name": "eslint",
+  "version": "0.0.0-stub",
+  "description": "Stubbed ESLint CLI for offline development",
+  "type": "module",
+  "exports": {
+    ".": "./index.js"
+  },
+  "bin": {
+    "eslint": "./bin/eslint.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT"
+}

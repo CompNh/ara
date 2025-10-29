@@ -1,0 +1,16 @@
+{
+  "name": "typescript",
+  "version": "0.0.0-stub",
+  "description": "Stubbed TypeScript compiler for offline development",
+  "type": "module",
+  "bin": {
+    "tsc": "./bin/tsc.js"
+  },
+  "exports": {
+    ".": "./index.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT"
+}
