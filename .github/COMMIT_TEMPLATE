@@ -1,3 +1,17 @@
+## Type INFO. (모두 작성후 삭제 하시오)
+ ● build	빌드 시스템·도구·패키징·외부 의존성 변경	build(deps): bump react to 18.3.1
+ ● chore	기능·런타임에 영향 없는 잡무(레포 설정/스크립트/정리 등)	chore: add issue templates
+ ● ci	    CI 설정·파이프라인 변경(GitHub Actions, Jenkins 등)	ci(actions): cache pnpm store
+ ● docs	    문서만 변경(README, ADR, 주석 포함)	docs: add architecture diagram
+ ● feat	    사용자/외부 API에 보이는 새 기능 추가	feat(ui): add DatePicker
+ ● fix	    버그 수정(올바른 동작 회복)	fix(router): handle trailing slash
+ ● perf	    성능 개선(기능 동일, 더 빠름/적음)	perf(core): reduce re-renders
+ ● refactor	기능/버그/성능 변화 없이 구조 개선	refactor: extract store module
+ ● revert	이전 커밋 되돌리기(해시 명시)	revert: feat(ui): add DatePicker (abcd1234)
+ ● style	의미 없는 포맷팅 변경(띄어쓰기, 세미콜론, lint-fix)	style: format with prettier
+ ● test	    테스트 추가/수정/개선(프로덕트 코드 무변)	test: add edge cases for auth
+ ● release	버전 태그/체인지로그 배포 커밋	release: v0.5.0
+
 <type>[scope]: <subject>
 
 WBS: <WBS-ID>
