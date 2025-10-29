@@ -23,7 +23,8 @@ fi
 
 allowed_types="build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test|release"
 if ! grep -Eq "^($allowed_types)(\([a-z0-9._-]+\))?(!)?: [^ ].+" <<<"$subject"; then
-  fail "첫 줄이 Conventional Commits 형식과 일치하지 않습니다: '<type>([scope])?: <subject>'"
+  fail "첫 줄이 Conventional Commits(type) 형식과 일치하지 않습니다: '<type>([scope])?: <subject>'" \
+       "type : build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test|release"
 fi
 
 subject_length=$(printf "%s" "$subject" | wc -m)
