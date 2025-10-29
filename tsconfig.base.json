@@ -7,5 +7,7 @@
     "paths": {
       "@ara/*": ["packages/*/src"]
     }
-  }
+  },
+  "include": [],
+  "files": []
 }
