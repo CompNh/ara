@@ -53,12 +53,12 @@ T-000012,W-000002,Git 규범/가드,CI 최소골격 & 브랜치 보호,브랜치
           - 이부분은 혼자 개발 하니까 현제 제외 : 최소 1명 리뷰 요구. (옵션: Linear/Issue 링크, Conversations resolved 등)
  ● 효과: 실수 머지 방지, 품질 게이트 고정.
  ● 흐름: PR 생성 → CI 통과 + 리뷰 승인 없으면 Merge 버튼 비활성.",확인
-T-000013,W-000003,모노레포 스캐폴딩,워크스페이스 기준선,루트 워크스페이스 선언(pnpm workspaces),진행중,High," ● 목적: 모노레포 워크스페이스 경계를 명시해 신규 패키지가 설치·빌드 파이프라인에 자동 편입되도록 한다.
+T-000013,W-000003,모노레포 스캐폴딩,워크스페이스 기준선,루트 워크스페이스 선언(pnpm workspaces),완료,High," ● 목적: 모노레포 워크스페이스 경계를 명시해 신규 패키지가 설치·빌드 파이프라인에 자동 편입되도록 한다.
  ● 내용: pnpm-workspace.yaml을 packages/*, apps/*, scripts/* 및 예정 패키지 경로(packages/{tsconfig,eslint-config,tokens,core,react,icons}, apps/{storybook,showcase})로 확정하고 Changesets·CI 문서에 동일 경로를 반영한다.
- ● 점검: pnpm -w list --depth -1 결과에 모든 패키지가 노출되고 README/CI 안내가 같은 경로를 가리키는지 확인한다.",
-T-000014,W-000003,모노레포 스캐폴딩,패키지 거버넌스,패키지 네이밍/퍼블리시 정책 확정,계획,High," ● 목적: 패키지 식별자/배포 정책을 초기에 고정해 apps·라이브러리의 접근성 및 배포 안전성을 확보한다.
+ ● 점검: pnpm -w list --depth -1 결과에 모든 패키지가 노출되고 README/CI 안내가 같은 경로를 가리키는지 확인한다.",확인
+T-000014,W-000003,모노레포 스캐폴딩,패키지 거버넌스,패키지 네이밍/퍼블리시 정책 확정,진행중,High," ● 목적: 패키지 식별자/배포 정책을 초기에 고정해 apps·라이브러리의 접근성 및 배포 안전성을 확보한다.
  ● 내용: packages/*는 scope @ara/*로 명명하고 apps/* 패키지는 private:true, 라이브러리는 publishConfig.access: public으로 설정한다. 공통 engines { node: 22 이상 }, license, repository 필드를 통일하고 README에 명시한다.
- ● 점검: pnpm -w list --json 출력에서 scope가 일관되는지 확인하고 pnpm pack/publish --dry-run 시 metadata(license/repository/access)가 기대값과 일치하는지 검토한다.",
+ ● 점검: pnpm -w list --json 출력에서 scope가 일관되는지 확인하고 pnpm pack/publish --dry-run 시 metadata(license/repository/access)가 기대값과 일치하는지 검토한다.",확인
 T-000015,W-000003,모노레포 스캐폴딩,공통 설정 패키지,공통 tsconfig 패키지 초기화(packages/tsconfig),계획,High," ● 목적: 모든 패키지가 동일한 TypeScript 컴파일 기준을 사용해 빌드/테스트 결과가 일관되도록 한다.
  ● 내용: packages/tsconfig에 공유 설정 패키지를 만들고 루트 tsconfig.base.json을 정의해 모듈 해석, 경로 alias(@ara/*), JSX/emit 옵션을 고정한다. 각 패키지 tsconfig에서 extends하도록 가이드 문서를 포함한다.
  ● 점검: tokens/core/react 등의 샘플 tsconfig에 extends 경로가 연결되고 pnpm exec tsc --showConfig로 공통 설정이 반영되는지 확인한다.",

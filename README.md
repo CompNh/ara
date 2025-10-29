@@ -21,6 +21,10 @@ VS Code(Git Bash) · Windows · React+TypeScript · Node 22 LTS · pnpm(workspac
 
 > `pnpm -w list --depth -1` 명령으로 위 경로들이 워크스페이스에 인식되는지 수시로 점검한다.
 
+### 패키지 거버넌스 정책
+- [패키지 거버넌스 가이드](docs/package-governance.md)를 참고해 `@ara/` 스코프, 공개/비공개 정책, 메타데이터(`engines`, `license`, `repository`)를 맞춘다.
+- 새 패키지를 추가하거나 변경한 뒤에는 `pnpm run check:manifests` 로 자동 점검을 수행한다.
+
 ## 일정 (WBS/Tasks)
  **경로** : root/planning
  **WBS** : WBS.CSV
