@@ -21,6 +21,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
+          cache: 'pnpm'
 
       - name: Enable Corepack
         run: corepack enable
@@ -29,6 +30,6 @@ jobs:
         run: corepack prepare pnpm@10.5.2 --activate
 
       - name: Install workspace dependencies
-        run: pnpm -w install
+        run: pnpm -w install --frozen-lockfile
         env:
           CI: true
