@@ -17,7 +17,7 @@ Ara UI Components 모노레포에서 공통으로 사용하는 ESLint Flat 구�
 pnpm add -D @ara/eslint-config
 ```
 
-> 워크스페이스 루트에서 실행하면 의존성이 자동으로 연결됩니다. 이 저장소에는 오프라인 환경을 위한 스텁 패키지가 `vendor/`에 포함되어 있으므로, 실제 프로젝트에서는 반드시 공식 패키지(`eslint@^9`, `typescript@^5.5` 이상 등)를 설치해야 합니다.
+> 워크스페이스 루트에서 실행하면 의존성이 자동으로 연결됩니다. 이 패키지는 `eslint@^9`, `typescript@^5.5` 이상과 함께 사용하는 것을 권장합니다.
 
 ## 사용 예시
 
@@ -63,7 +63,7 @@ export default configs.base;
 
 - 빌드 산출물(`dist`, `storybook-static` 등)
 - Next.js/.storybook/.turbo 캐시
-- `node_modules`, `vendor`
+- `node_modules`
 - 테스트 커버리지 산출물(`coverage`)
 
 필요시 각 패키지의 `eslint.config.js` 에서 추가 무시 경로를 정의할 수 있습니다.
