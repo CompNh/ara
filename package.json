@@ -6,11 +6,16 @@
   "scripts": {
     "changeset": "changeset",
     "release": "changeset version && changeset publish",
-    "check:manifests": "node ./scripts/package-governance/check-manifests.mjs"
+    "check:manifests": "node ./scripts/package-governance/check-manifests.mjs",
+    "lint": "pnpm exec eslint ."
   },
   "devDependencies": {
+    "@ara/eslint-config": "workspace:*",
     "@ara/tsconfig": "workspace:*",
-    "@changesets/cli": "^2.27.10"
+    "@changesets/cli": "^2.27.10",
+    "eslint": "^9.14.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3"
   },
   "engines": {
     "node": ">=22.0.0"

@@ -62,7 +62,7 @@ T-000014,W-000003,모노레포 스캐폴딩,패키지 거버넌스,패키지 네
 T-000015,W-000003,모노레포 스캐폴딩,공통 설정 패키지,공통 tsconfig 패키지 초기화(packages/tsconfig),완료,High," ● 목적: 모든 패키지가 동일한 TypeScript 컴파일 기준을 사용해 빌드/테스트 결과가 일관되도록 한다.
  ● 내용: packages/tsconfig에 공유 설정 패키지를 만들고 루트 tsconfig.base.json을 정의해 모듈 해석, 경로 alias(@ara/*), JSX/emit 옵션을 고정한다. 각 패키지 tsconfig에서 extends하도록 가이드 문서를 포함한다.
  ● 점검: tokens/core/react 등의 샘플 tsconfig에 extends 경로가 연결되고 pnpm exec tsc --showConfig로 공통 설정이 반영되는지 확인한다.",확인
-T-000016,W-000003,모노레포 스캐폴딩,공통 설정 패키지,ESLint Flat 설정 패키지 초기화(packages/eslint-config),계획,High," ● 목적: 린트 규칙을 중앙에서 관리해 패키지별로 상이한 설정으로 인한 품질 편차를 제거한다.
+T-000016,W-000003,모노레포 스캐폴딩,공통 설정 패키지,ESLint Flat 설정 패키지 초기화(packages/eslint-config),진행중,High," ● 목적: 린트 규칙을 중앙에서 관리해 패키지별로 상이한 설정으로 인한 품질 편차를 제거한다.
  ● 내용: ESLint Flat 구성을 공유 패키지로 만들고 기본 preset(typescript-eslint, eslint-plugin-react, prettier 연동)과 브라우저/Node 환경 분리 구성을 제공한다. README에 적용 방법과 확장 순서를 기록한다.
  ● 점검: tokens/core/react 패키지에서 eslint.config.js가 공유 preset을 import하고 pnpm lint가 전 워크스페이스에서 통과하는지 확인한다.",
 T-000017,W-000003,모노레포 스캐폴딩,디자인 시스템 토대,토큰/디자인 시스템 베이스 패키지 초기화(packages/tokens),계획,Medium," ● 목적: 색상/타이포 등 디자인 자산을 코드로 표준화해 다른 패키지가 재사용할 수 있는 토대를 제공한다.
