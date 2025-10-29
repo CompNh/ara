@@ -39,7 +39,13 @@ pnpm run check:manifests
 node scripts/package-governance/check-manifests.mjs
 ```
 
-현재는 워크스페이스에 패키지가 없어 "확인할 패키지 매니페스트가 없습니다" 라는 메시지를 출력하며 종료된다. 패키지를 추가하는 즉시 규칙을 어기지 않았는지 확인한다.
+샘플 출력:
+
+```
+✅ packages/tsconfig - 정책을 준수합니다.
+```
+
+여러 패키지가 존재하면 각 경로가 한 줄씩 보고된다. 새로운 패키지를 추가한 뒤에는 바로 실행해 규칙을 어기지 않았는지 확인한다.
 
 ## 4. README 반영 체크리스트
 
