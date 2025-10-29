@@ -37,10 +37,10 @@ T-000009,W-000002,Git 규범/가드,커밋/브랜치 규칙 묶음,CODEOWNERS & 
  ● 목적: 경로별 소유자 지정, PR 폼(체크리스트/테스트 방법/스크린샷).
  ● 효과: 자동 리뷰어 요청, 리뷰 품질 균질화.
  ● 흐름: PR 열면 템플릿이 미리 채워짐 → CODEOWNERS에게 리뷰 요청 자동 발송.",
-T-000010,W-000002,Git 규범/가드,커밋/브랜치 규칙 묶음,Changesets 초기화(버전/릴리스 흐름 고정),시작전,High,"Changesets 초기화(버전/릴리스 흐름 고정)
+T-000010,W-000002,Git 규범/가드,커밋/브랜치 규칙 묶음,Changesets 초기화(버전/릴리스 흐름 고정),완료,High,"Changesets 초기화(버전/릴리스 흐름 고정)
  ● 목적: 패키지별 변경을 텍스트 파일로 기록 → 릴리스 시 버전/CHANGELOG 자동 산출.
  ● 효과: 모노레포 다중 패키지 버전 충돌 제거, 의도된 SemVer 반영.
- ● 흐름: 기능 완료 시 changeset 추가 → main 머지 후 릴리스 액션이 버전/배포 생성.",
+ ● 흐름: 기능 완료 시 changeset 추가 → main 머지 후 릴리스 액션이 버전/배포 생성.",확인
 T-000011,W-000002,Git 규범/가드,CI 최소골격 & 브랜치 보호,.github/workflows/ci.yml (Node 22 + Corepack + pnpm install),시작전,High,".github/workflows/ci.yml (Node 22 + Corepack + pnpm install)
  ● 목적
          - PR/main 푸시에 자동 실행. 
