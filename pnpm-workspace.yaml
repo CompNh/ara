@@ -1,3 +1,17 @@
 packages:
+  # Shared libraries and configuration packages
   - packages/*
+  - packages/tsconfig
+  - packages/eslint-config
+  - packages/tokens
+  - packages/core
+  - packages/react
+  - packages/icons
+
+  # Application bundles
   - apps/*
+  - apps/storybook
+  - apps/showcase
+
+  # Internal tooling packages (automation, scripts, etc.)
+  - scripts/*

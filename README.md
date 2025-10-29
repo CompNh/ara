@@ -14,6 +14,13 @@ VS Code(Git Bash) · Windows · React+TypeScript · Node 22 LTS · pnpm(workspac
 4. **의존성 설치**
    - 저장소 루트에서 `pnpm install --frozen-lockfile` 또는 CI와 동일하게 `pnpm -w install`을 실행해 모든 패키지를 내려받는다.
 
+## 모노레포 워크스페이스 경계
+- `packages/*` : 디자인 시스템 라이브러리와 공통 설정 패키지(`tsconfig`, `eslint-config`, `tokens`, `core`, `react`, `icons` 등)
+- `apps/*` : 스토리북과 쇼케이스 등 소비자 애플리케이션(`storybook`, `showcase`)
+- `scripts/*` : 배포 자동화·스캐폴딩 등 내부 도구 패키지
+
+> `pnpm -w list --depth -1` 명령으로 위 경로들이 워크스페이스에 인식되는지 수시로 점검한다.
+
 ## 일정 (WBS/Tasks)
  **경로** : root/planning
  **WBS** : WBS.CSV
