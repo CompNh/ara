@@ -1,5 +1,5 @@
 TaskID,WBSID,WBS_Name,Task_Group_Name,Name,Status,Priority,Description,Check GPT
-T-000001,W-000001,개발환경설정,개발환경설정,Readme.md 파일생성,완료,Medium,Project 목적과 Stack 추가,,
+T-000001,W-000001,개발환경설정,개발환경설정,Readme.md 파일생성,완료,Medium,Project 목적과 Stack 추가,
 T-000002,W-000001,개발환경설정,개발환경설정,"WBS.csv, Tasks.csv 생성",완료,Medium," ● 일정 관리
  ● GPT와 일정공유
  ● WBS는 대 일정에 대한 것이고 Tasks는 WBS의 하위 업문이다.",
@@ -74,7 +74,7 @@ T-000018,W-000003,모노레포 스캐폴딩,디자인 시스템 토대,React 바
 T-000019,W-000003,모노레포 스캐폴딩,디자인 시스템 토대,아이콘 패키지 초기화(packages/icons),계획,Medium," ● 목적: 공통 아이콘 자산을 모듈화해 React 등 소비자 패키지가 일관된 인터페이스로 사용하도록 한다.
  ● 내용: SVG 기반 아이콘 패키지를 생성하고 최소 1개 샘플 아이콘을 추가한다. tree-shaking 가능한 export 구조와 타입 선언 생성을 설정한다.
  ● 점검: pnpm --filter @ara/icons build 산출물에서 ESM/CJS 번들과 d.ts가 생성되고 React 패키지에서 아이콘 import가 작동하는지 확인한다.",
-T-000020,W-000003,모노레포 스캐폴딩,앱/데모 구성,앱 골격 생성(apps/storybook, apps/showcase),계획,High," ● 목적: 컴포넌트 개발·데모 환경을 초기 구축해 패키지 변경을 즉시 확인할 수 있게 한다.
+T-000020,W-000003,모노레포 스캐폴딩,앱/데모 구성,"앱 골격 생성(apps/storybook, apps/showcase)",계획,High," ● 목적: 컴포넌트 개발·데모 환경을 초기 구축해 패키지 변경을 즉시 확인할 수 있게 한다.
  ● 내용: apps/storybook과 apps/showcase를 스캐폴딩하고 공통 tsconfig·ESLint 설정을 참조하도록 연결한다. pnpm 스크립트(pnpm storybook, pnpm showcase dev 등)를 준비한다.
  ● 점검: pnpm --filter @ara/storybook storybook --smoke-test, pnpm --filter @ara/showcase dev 실행이 성공하고 공통 설정 경고가 없는지 확인한다.",
 T-000021,W-000003,모노레포 스캐폴딩,빌드/테스트 파이프라인,빌드 파이프라인 연결(Rollup 설정 공유·d.ts 출력 확인),계획,High," ● 목적: 모든 패키지가 동일한 빌드·테스트 파이프라인을 공유해 산출물 형식과 품질 검증을 표준화한다.
