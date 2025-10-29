@@ -15,7 +15,7 @@ W-000002,T1,Git 규범/가드,완료,100,"Git 규범/가드
  ● PR: PR 템플릿 채움 → CODEOWNERS 자동 리뷰 요청 → CI가 pnpm 설치 검증(추후 test/build도).
  ● Merge: 보호 규칙 충족 시만 main 병합.
  ● 릴리스: Changesets 누적분을 액션이 읽어 버전/CHANGELOG/배포 자동화(세팅 후)"
-W-000003,T1,모노레포 스캐폴딩,진행중,5,"pnpm 모노레포 기준선을 구축
+W-000003,T1,모노레포 스캐폴딩,진행중,10,"pnpm 모노레포 기준선을 구축
  ● workspaces 선언
  ● 공통 tsconfig/ESLint/Changesets 패키지
  ● 핵심 UI 패키지 및 앱 골격
