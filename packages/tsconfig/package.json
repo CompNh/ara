@@ -1,0 +1,27 @@
+{
+  "name": "@ara/tsconfig",
+  "version": "0.0.0",
+  "description": "Ara 모노레포용 공유 TypeScript 설정",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://example.com/ara-monorepo.git"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "type": "module",
+  "files": [
+    "base.json",
+    "react-library.json",
+    "README.md"
+  ],
+  "exports": {
+    "./package.json": "./package.json",
+    "./base.json": "./base.json",
+    "./react-library.json": "./react-library.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
