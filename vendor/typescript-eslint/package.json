@@ -1,0 +1,13 @@
+{
+  "name": "typescript-eslint",
+  "version": "0.0.0-stub",
+  "description": "Stubbed typescript-eslint flat config helpers for offline development",
+  "type": "module",
+  "exports": {
+    ".": "./index.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT"
+}

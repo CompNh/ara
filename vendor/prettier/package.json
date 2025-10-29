@@ -1,0 +1,16 @@
+{
+  "name": "prettier",
+  "version": "0.0.0-stub",
+  "description": "Stubbed Prettier formatter for offline development",
+  "type": "module",
+  "exports": {
+    ".": "./index.js"
+  },
+  "bin": {
+    "prettier": "./bin/prettier.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT"
+}

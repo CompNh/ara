@@ -1,0 +1,13 @@
+{
+  "name": "eslint-plugin-react-hooks",
+  "version": "0.0.0-stub",
+  "description": "Stubbed eslint-plugin-react-hooks for offline development",
+  "type": "module",
+  "exports": {
+    ".": "./index.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,41 @@
+{
+  "name": "@ara/eslint-config",
+  "version": "0.0.0",
+  "description": "Ara UI Components 모노레포를 위한 공유 ESLint Flat 구성",
+  "type": "module",
+  "main": "./index.js",
+  "exports": {
+    ".": "./index.js"
+  },
+  "files": [
+    "index.js",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "keywords": [
+    "eslint",
+    "config",
+    "flat"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://example.com/ara-monorepo.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@eslint/js": "link:../../vendor/@eslint/js",
+    "eslint": "link:../../vendor/eslint",
+    "eslint-config-prettier": "link:../../vendor/eslint-config-prettier",
+    "eslint-plugin-jsx-a11y": "link:../../vendor/eslint-plugin-jsx-a11y",
+    "eslint-plugin-react": "link:../../vendor/eslint-plugin-react",
+    "eslint-plugin-react-hooks": "link:../../vendor/eslint-plugin-react-hooks",
+    "globals": "link:../../vendor/globals",
+    "typescript-eslint": "link:../../vendor/typescript-eslint"
+  }
+}
