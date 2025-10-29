@@ -1,0 +1,13 @@
+{
+  "name": "ara-monorepo",
+  "private": true,
+  "version": "0.0.0",
+  "packageManager": "pnpm@10.5.2",
+  "scripts": {
+    "changeset": "changeset",
+    "release": "changeset version && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.27.10"
+  }
+}
