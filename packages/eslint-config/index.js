@@ -13,8 +13,7 @@ const IGNORE_PATTERNS = [
   "**/coverage/**",
   "**/dist/**",
   "**/node_modules/**",
-  "**/storybook-static/**",
-  "**/vendor/**"
+  "**/storybook-static/**"
 ];
 
 const baseConfigs = tseslint.config(
