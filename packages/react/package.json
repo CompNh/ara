@@ -26,9 +26,7 @@
     "build": "tsc --project tsconfig.json",
     "pretest": "pnpm --filter @ara/core build",
     "test": "pnpm exec vitest run",
-    "test:watch": "pnpm exec vitest",
-    "prestorybook": "pnpm --filter @ara/core build",
-    "storybook": "pnpm exec storybook dev --ci --smoke-test --disable-telemetry"
+    "test:watch": "pnpm exec vitest"
   },
   "keywords": [
     "react",
@@ -55,8 +53,6 @@
   },
   "devDependencies": {
     "@ara/tsconfig": "workspace:*",
-    "@storybook/addon-essentials": "^8.2.6",
-    "@storybook/react-vite": "^8.2.6",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^16.0.1",
     "@types/react": "^18.2.64",
@@ -65,7 +61,6 @@
     "jsdom": "^27.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "storybook": "^8.2.6",
     "vitest": "^2.1.3"
   }
 }
