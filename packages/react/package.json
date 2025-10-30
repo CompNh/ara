@@ -23,7 +23,7 @@
   "sideEffects": false,
   "scripts": {
     "prebuild": "pnpm --filter @ara/core build",
-    "build": "tsc --project tsconfig.json",
+    "build": "tsc --project tsconfig.build.json",
     "pretest": "pnpm --filter @ara/core build",
     "test": "pnpm exec vitest run",
     "test:watch": "pnpm exec vitest"
