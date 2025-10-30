@@ -31,6 +31,7 @@ coverage/
 
 # --- Build artifacts ---
 build/
+!scripts/build/
 dist/
 storybook-static/
 .tmp/

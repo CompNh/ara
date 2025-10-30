@@ -10,14 +10,22 @@
     "declarationMap": true,
     "emitDeclarationOnly": false,
     "sourceMap": true,
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "paths": {
-      "@ara/core": ["../core/dist/index.d.ts", "../core/dist/index.js"],
-      "@ara/core/*": ["../core/dist/*.d.ts", "../core/dist/*.js"]
+      "@ara/core": [
+        "../core/dist/index.d.ts",
+        "../core/dist/index.js"
+      ],
+      "@ara/core/*": [
+        "../core/dist/*.d.ts",
+        "../core/dist/*.js"
+      ]
     }
   },
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*"
+  ],
   "exclude": [
     "src/**/*.test.ts",
     "src/**/*.test.tsx",
