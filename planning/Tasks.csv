@@ -83,9 +83,9 @@ T-000021,W-000003,모노레포 스캐폴딩,앱/데모 구성,"앱 골격 생성
 T-000022,W-000003,모노레포 스캐폴딩,빌드/테스트 파이프라인,빌드 파이프라인 연결(Rollup 설정 공유·d.ts 출력 확인),완료,High," ● 목적: 모든 패키지가 동일한 빌드·테스트 파이프라인을 공유해 산출물 형식과 품질 검증을 표준화한다.
  ● 내용: 공통 Rollup/Vite 라이브러리 설정을 추출해 tokens/core/react/icons 패키지에서 재사용하고 d.ts/번들 생성 흐름을 마련한다. CI에서 pnpm -r build, pnpm -r test, Storybook smoke 테스트를 통합한다.
  ● 점검: 공통 설정을 참조한 패키지 빌드가 성공하고 CI 로그에 빌드·테스트·Storybook 단계가 모두 통과하는지 확인한다.",확인
-T-000023,W-000003,모노레포 스캐폴딩,빌드/테스트 파이프라인,빌드 산출물 계약(Exports Map) 확립,계획,High," ● 목적: 패키지 빌드 산출물 형식을 계약화해 소비자 앱과 도구가 일관된 엔트리 포인트/타입 선언을 사용할 수 있게 한다.
+T-000023,W-000003,모노레포 스캐폴딩,빌드/테스트 파이프라인,빌드 산출물 계약(Exports Map) 확립,완료,High," ● 목적: 패키지 빌드 산출물 형식을 계약화해 소비자 앱과 도구가 일관된 엔트리 포인트/타입 선언을 사용할 수 있게 한다.
  ● 내용: tokens/core/react/icons 패키지 package.json에 exports 필드를 정의해 기본 ESM(+선택 CJS) 엔트리를 노출하고 types/module 필드, sideEffects:false, typesVersions를 정리한다. Rollup/Vite 설정과 d.ts 생성 옵션을 동기화한다.
- ● 점검: pnpm --filter @ara/* pack --dry-run 출력에서 exports/type/module/sideEffects 값이 기대와 일치하는지 확인하고 샘플 소비 앱이 import 해상도를 문제없이 수행하는지 검증한다.",
+ ● 점검: pnpm --filter @ara/* pack --dry-run 출력에서 exports/type/module/sideEffects 값이 기대와 일치하는지 확인하고 샘플 소비 앱이 import 해상도를 문제없이 수행하는지 검증한다.",확인
 T-000024,W-000003,모노레포 스캐폴딩,빌드/테스트 파이프라인,루트 스크립트 정리(pnpm -w build/test/lint 통합),계획,Medium," ● 목적: 루트 명령어만으로 모노레포 전반의 빌드/테스트/린트 흐름을 실행해 운영 편의성을 높인다.
  ● 내용: 루트 package.json에 pnpm -w build/test/lint/storybook 스크립트를 정의하고 실행 순서를 정리한다. Changesets version/release 스크립트와 경계를 문서화해 배포 절차와 충돌하지 않도록 한다.
  ● 점검: 루트에서 pnpm build/test/lint/storybook 실행 시 전 워크스페이스가 순차 실행되고 문서화된 경계가 README/CONTRIBUTING에 반영됐는지 확인한다.",
