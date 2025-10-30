@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "storybook": "storybook dev -p 6006",
+    "storybook:smoke": "storybook dev -p 6006 --smoke-test --ci --no-open",
     "build-storybook": "storybook build"
   },
   "engines": {

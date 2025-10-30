@@ -12,6 +12,7 @@
     "sourceMap": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "types": ["react", "react-dom"],
     "paths": {
       "@ara/core": [
         "../core/dist/index.d.ts",
