@@ -1,0 +1,71 @@
+{
+  "name": "@ara/react",
+  "version": "0.0.0",
+  "description": "Ara 디자인 시스템의 React 컴포넌트 바인딩",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./button": {
+      "types": "./dist/components/button/index.d.ts",
+      "default": "./dist/components/button/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "prebuild": "pnpm --filter @ara/core build",
+    "build": "tsc --project tsconfig.json",
+    "pretest": "pnpm --filter @ara/core build",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prestorybook": "pnpm --filter @ara/core build",
+    "storybook": "storybook dev --ci --smoke-test --disable-telemetry"
+  },
+  "keywords": [
+    "react",
+    "design system",
+    "ui"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://example.com/ara-monorepo.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@ara/core": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@ara/tsconfig": "workspace:*",
+    "@storybook/addon-essentials": "^8.2.6",
+    "@storybook/react-vite": "^8.2.6",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^16.0.1",
+    "@types/react": "^18.2.64",
+    "@types/react-dom": "^18.2.23",
+    "@vitejs/plugin-react": "^4.3.3",
+    "jsdom": "^27.0.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "storybook": "^8.2.6",
+    "vitest": "^2.1.3"
+  }
+}
