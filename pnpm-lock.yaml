@@ -67,6 +67,12 @@ importers:
         specifier: ^8.8.0
         version: 8.46.2(eslint@9.38.0)(typescript@5.9.3)
 
+  packages/icons:
+    devDependencies:
+      '@ara/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+
   packages/react:
     dependencies:
       '@ara/core':
