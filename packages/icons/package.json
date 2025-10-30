@@ -9,15 +9,32 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
     "./icons/arrow-right": {
       "types": "./dist/icons/arrow-right.d.ts",
+      "import": "./dist/icons/arrow-right.js",
       "default": "./dist/icons/arrow-right.js"
     },
     "./types": {
       "types": "./dist/types.d.ts",
+      "import": "./dist/types.js",
       "default": "./dist/types.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "icons/*": [
+        "dist/icons/*.d.ts"
+      ],
+      "types": [
+        "dist/types.d.ts"
+      ],
+      "*": [
+        "dist/*.d.ts"
+      ]
     }
   },
   "files": [
