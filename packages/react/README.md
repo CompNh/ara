@@ -36,11 +36,9 @@ function App() {
 
 - `pnpm build` : 타입 선언과 번들 산출물을 생성한다.
 - `pnpm test` : Vitest + Testing Library를 사용해 단위 테스트를 실행한다.
-- `pnpm storybook -- --smoke-test` : Storybook 구성을 CI 모드로 기동해 기본 스토리가 동작하는지 확인한다.
 
 ## Testing
 
-- ✅ pnpm --filter @ara/react build 
-- ✅ pnpm --filter @ara/react test 
-- ✅ pnpm --filter @ara/react storybook 
-- ✅ pnpm run check:manifests 
+- ✅ pnpm --filter @ara/react build
+- ✅ pnpm --filter @ara/react test
+- ✅ pnpm run check:manifests
