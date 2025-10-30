@@ -1,0 +1,52 @@
+{
+  "name": "@ara/core",
+  "version": "0.0.0",
+  "description": "Ara 디자인 시스템의 headless 코어 유틸리티",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./theme": {
+      "types": "./dist/theme.d.ts",
+      "default": "./dist/theme.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [
+    "design system",
+    "headless",
+    "theme"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://example.com/ara-monorepo.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "@ara/tokens": "workspace:*"
+  },
+  "devDependencies": {
+    "@ara/tsconfig": "workspace:*",
+    "vitest": "^2.1.3"
+  }
+}
