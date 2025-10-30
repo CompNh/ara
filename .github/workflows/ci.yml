@@ -37,7 +37,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install workspace dependencies
-        run: pnpm -w install --no-frozen-lockfile
+        run: pnpm install --recursive --no-frozen-lockfile
         env:
           CI: true
 
