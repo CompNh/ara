@@ -32,10 +32,13 @@ export type TypographyCategory = keyof TypographyTokens;
 export type TypographyScale<
   TCategory extends TypographyCategory = TypographyCategory
 > = TypographyTokens[TCategory];
+export type TypographyKey<
+  TCategory extends TypographyCategory = TypographyCategory
+> = keyof TypographyTokens[TCategory];
 
-export function getTypographyValue<C extends TypographyCategory, K extends keyof TypographyTokens[C]>(
-  category: C,
-  key: K
-): TypographyTokens[C][K] {
+export function getTypographyValue<
+  C extends TypographyCategory,
+  K extends TypographyKey<C>
+>(category: C, key: K): TypographyTokens[C][K] {
   return typography[category][key];
 }
