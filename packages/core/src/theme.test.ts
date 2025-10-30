@@ -22,6 +22,24 @@ describe("createTheme", () => {
 
     expect(theme.color.brand["500"]).toBe("#123456");
     expect(theme.typography.fontFamily.sans).toBe(tokens.typography.fontFamily.sans);
+    expect(theme.color).not.toBe(tokens.color);
+    expect(theme.color.brand).not.toBe(tokens.color.brand);
+  });
+
+  it("오버라이드 객체와 테마가 참조를 공유하지 않는다", () => {
+    const overrides = {
+      color: {
+        brand: {
+          600: "#abcdef"
+        }
+      }
+    } as const;
+
+    const theme = createTheme(overrides);
+
+    expect(theme.color).not.toBe(overrides.color);
+    expect(theme.color.brand).not.toBe(overrides.color.brand);
+    expect(overrides.color.brand["600"]).toBe("#abcdef");
   });
 
   it("기본 토큰 객체를 변형하지 않는다", () => {

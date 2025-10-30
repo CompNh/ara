@@ -51,12 +51,12 @@ function mergeObjects<T extends Record<string, unknown>>(base: T, override: Deep
       continue;
     }
 
-    result[key as string] = overrideValue as unknown;
+    result[key as string] = cloneValue(overrideValue as T[keyof T]);
   }
 
   for (const key of Object.keys(override)) {
     if ((base as Record<string, unknown>)[key] === undefined) {
-      result[key] = override[key];
+      result[key] = cloneValue(override[key] as T[keyof T]);
     }
   }
 

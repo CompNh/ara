@@ -7,6 +7,7 @@
     "rootDir": "src",
     "declaration": true,
     "declarationMap": true,
+    "emitDeclarationOnly": false,
     "sourceMap": true,
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
