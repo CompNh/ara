@@ -2,8 +2,20 @@ import { tokens } from "@ara/tokens";
 
 export type Theme = typeof tokens;
 
+type Primitive = string | number | boolean | bigint | symbol | null | undefined;
+
+type WidenIfLiteral<T> = T extends Primitive
+  ? T extends string
+    ? string
+    : T extends number
+      ? number
+      : T extends boolean
+        ? boolean
+        : T
+  : T;
+
 export type DeepPartial<T> = {
-  [K in keyof T]?: T[K] extends Record<string, unknown> ? DeepPartial<T[K]> : T[K];
+  [K in keyof T]?: T[K] extends Record<string, unknown> ? DeepPartial<T[K]> : WidenIfLiteral<T[K]>;
 };
 
 export type ThemeOverrides = DeepPartial<Theme>;
