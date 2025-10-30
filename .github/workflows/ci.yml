@@ -9,8 +9,8 @@ on:
       - main
 
 jobs:
-  install:
-    name: Install dependencies
+  build-and-test:
+    name: Install and verify
     runs-on: ubuntu-latest
 
     steps:
@@ -40,3 +40,15 @@ jobs:
         run: pnpm -w install --no-frozen-lockfile
         env:
           CI: true
+
+      - name: Build packages and apps
+        run: pnpm run build
+
+      - name: Run unit tests
+        run: pnpm run test
+
+      - name: Storybook smoke test
+        run: pnpm run storybook:smoke
+        env:
+          CI: true
+          STORYBOOK_DISABLE_TELEMETRY: "1"
