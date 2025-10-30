@@ -71,7 +71,7 @@ T-000017,W-000003,모노레포 스캐폴딩,디자인 시스템 토대,토큰/�
 T-000018,W-000003,모노레포 스캐폴딩,디자인 시스템 토대,코어(headless) 패키지 초기화(packages/core),완료,High," ● 목적: UI에 의존하지 않는 비즈니스/상태 로직을 분리해 React 등 다양한 바인딩에서 재사용하도록 한다.
  ● 내용: packages/core 패키지를 생성하고 tokens 패키지를 의존성으로 연결한다. 기본 API export와 Vitest 기반 단위 테스트 골격을 마련한다.
  ● 점검: pnpm --filter @ara/core test가 통과하고 React 패키지에서 core 기능을 import해 사용할 수 있는지 확인한다.",확인
-T-000019,W-000003,모노레포 스캐폴딩,디자인 시스템 토대,React 바인딩 패키지 초기화(packages/react),계획,High," ● 목적: core 패키지를 실제 UI로 연결해 소비 경험을 검증하고 React 개발 기준선을 마련한다.
+T-000019,W-000003,모노레포 스캐폴딩,디자인 시스템 토대,React 바인딩 패키지 초기화(packages/react),진행중,High," ● 목적: core 패키지를 실제 UI로 연결해 소비 경험을 검증하고 React 개발 기준선을 마련한다.
  ● 내용: React 18 + TypeScript 패키지를 생성해 core 로직을 감싼 예제 컴포넌트(Button 등)를 추가하고 Vitest+RTL 테스트 및 Storybook 스토리를 작성한다.
  ● 점검: pnpm --filter @ara/react test, pnpm --filter @ara/react storybook --smoke-test 등이 성공하고 tokens/core 의존성이 정상 연결되는지 확인한다.",
 T-000020,W-000003,모노레포 스캐폴딩,디자인 시스템 토대,아이콘 패키지 초기화(packages/icons),계획,Medium," ● 목적: 공통 아이콘 자산을 모듈화해 React 등 소비자 패키지가 일관된 인터페이스로 사용하도록 한다.
