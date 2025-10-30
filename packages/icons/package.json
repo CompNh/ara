@@ -1,0 +1,50 @@
+{
+  "name": "@ara/icons",
+  "version": "0.0.0",
+  "description": "Ara 디자인 시스템을 위한 SVG 아이콘 모음",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./icons/arrow-right": {
+      "types": "./dist/icons/arrow-right.d.ts",
+      "default": "./dist/icons/arrow-right.js"
+    },
+    "./types": {
+      "types": "./dist/types.d.ts",
+      "default": "./dist/types.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc --project tsconfig.json"
+  },
+  "keywords": [
+    "icons",
+    "svg",
+    "design system"
+  ],
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CompNh/ara.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@ara/tsconfig": "workspace:*"
+  }
+}
