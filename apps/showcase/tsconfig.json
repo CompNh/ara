@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@ara/tsconfig/react-library.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "declaration": false,
+    "declarationMap": false,
+    "emitDeclarationOnly": false,
+    "types": ["vite/client", "node"],
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "env.d.ts",
+    "src/**/*",
+    "vite.config.ts"
+  ]
+}

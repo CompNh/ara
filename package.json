@@ -7,7 +7,12 @@
     "changeset": "changeset",
     "release": "changeset version && changeset publish",
     "check:manifests": "node ./scripts/package-governance/check-manifests.mjs",
-    "lint": "pnpm exec eslint ."
+    "lint": "pnpm exec eslint .",
+    "storybook": "pnpm --filter @ara/storybook storybook",
+    "storybook:build": "pnpm --filter @ara/storybook build-storybook",
+    "showcase:dev": "pnpm --filter @ara/showcase dev",
+    "showcase:build": "pnpm --filter @ara/showcase build",
+    "showcase:preview": "pnpm --filter @ara/showcase preview"
   },
   "devDependencies": {
     "@ara/eslint-config": "workspace:*",
