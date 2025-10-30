@@ -12,7 +12,11 @@ const config: StorybookConfig = {
   },
   viteFinal: async (config) => {
     config.resolve = config.resolve ?? {};
-    config.resolve.preserveSymlinks = true;
+    // Storybook's published ESM bundles expect Node's default symlink resolution
+    // behaviour so that transitive dependencies inside the pnpm virtual store are
+    // visible. Enabling preserveSymlinks on Windows breaks that resolution and
+    // causes "Could not resolve '@storybook/..." errors during bundling.
+    config.resolve.preserveSymlinks = process.platform !== "win32";
     return config;
   }
 };
