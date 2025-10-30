@@ -24,7 +24,7 @@
   "scripts": {
     "pretest": "pnpm --filter @ara/tokens build",
     "prebuild": "pnpm --filter @ara/tokens build",
-    "build": "tsc --project tsconfig.json",
+    "build": "pnpm exec rollup -c",
     "test": "vitest run",
     "test:watch": "vitest"
   },

@@ -9,13 +9,23 @@
     "declarationMap": true,
     "emitDeclarationOnly": false,
     "sourceMap": true,
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "paths": {
-      "@ara/tokens": ["../tokens/dist/index.d.ts", "../tokens/dist/index.js"],
-      "@ara/tokens/*": ["../tokens/dist/*.d.ts", "../tokens/dist/*.js"]
+      "@ara/tokens": [
+        "../tokens/dist/index.d.ts",
+        "../tokens/dist/index.js"
+      ],
+      "@ara/tokens/*": [
+        "../tokens/dist/*.d.ts",
+        "../tokens/dist/*.js"
+      ]
     }
   },
-  "include": ["src/**/*"],
-  "exclude": ["src/**/*.test.ts"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "src/**/*.test.ts"
+  ]
 }
