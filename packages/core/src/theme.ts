@@ -15,7 +15,9 @@ type WidenIfLiteral<T> = T extends Primitive
   : T;
 
 export type DeepPartial<T> = {
-  [K in keyof T]?: T[K] extends Record<string, unknown> ? DeepPartial<T[K]> : WidenIfLiteral<T[K]>;
+  -readonly [K in keyof T]?: T[K] extends Record<string, unknown>
+    ? DeepPartial<T[K]>
+    : WidenIfLiteral<T[K]>;
 };
 
 export type ThemeOverrides = DeepPartial<Theme>;
