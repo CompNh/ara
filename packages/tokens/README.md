@@ -40,7 +40,9 @@ JSON 구조는 `color`와 `typography` 두 최상위 키로 구성되어 있으�
 
 ## 빌드 산출물
 
-`package.json` 의 `exports` 설정을 통해 기본 엔트리(`.`) 외에 `./colors`, `./typography`, `./tokens.json` 경로가 노출된다. 번들러는 `module`/`types` 필드를 이용해 ESM과 타입 선언을 자동으로 해상한다.
+- `package.json` 의 `exports` 는 기본 엔트리(`.`) 외에 `./colors`, `./typography`, `./tokens.json`, `./package.json` 경로를 고정적으로 노출한다.
+- 모든 엔트리는 `types` + `import(default)` 페어를 제공하므로 ESM 번들러와 TypeScript가 동일한 모듈 해상 결과를 갖는다.
+- `typesVersions` 는 `dist/*.d.ts` 파일과 서브패스를 직접 연결해, 오래된 TypeScript 모듈 해상 모드에서도 선언 파일을 안정적으로 찾을 수 있도록 한다.
 
 ## Testing
 

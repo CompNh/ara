@@ -9,17 +9,34 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
       "default": "./dist/index.js"
     },
     "./colors": {
       "types": "./dist/colors.d.ts",
+      "import": "./dist/colors.js",
       "default": "./dist/colors.js"
     },
     "./typography": {
       "types": "./dist/typography.d.ts",
+      "import": "./dist/typography.js",
       "default": "./dist/typography.js"
     },
-    "./tokens.json": "./tokens.json"
+    "./tokens.json": "./tokens.json",
+    "./package.json": "./package.json"
+  },
+  "typesVersions": {
+    "*": {
+      "colors": [
+        "dist/colors.d.ts"
+      ],
+      "typography": [
+        "dist/typography.d.ts"
+      ],
+      "*": [
+        "dist/*.d.ts"
+      ]
+    }
   },
   "files": [
     "dist",
