@@ -25,3 +25,9 @@ const theme = createTheme({
 ```
 
 테마 객체는 `@ara/tokens`이 제공하는 기본 토큰을 기반으로 하며, React 등의 바인딩 레이어에서 그대로 사용할 수 있습니다.
+
+## Testing
+
+- ✅ pnpm --filter @ara/core build
+- ✅ pnpm --filter @ara/core test
+- ✅ pnpm run check:manifests

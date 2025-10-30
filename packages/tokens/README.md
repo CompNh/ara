@@ -41,3 +41,9 @@ JSON 구조는 `color`와 `typography` 두 최상위 키로 구성되어 있으�
 ## 빌드 산출물
 
 `package.json` 의 `exports` 설정을 통해 기본 엔트리(`.`) 외에 `./colors`, `./typography`, `./tokens.json` 경로가 노출된다. 번들러는 `module`/`types` 필드를 이용해 ESM과 타입 선언을 자동으로 해상한다.
+
+## Testing
+
+- ✅ pnpm --filter @ara/tokens build
+- ✅ pnpm --filter @ara/tokens test
+- ✅ pnpm run check:manifests
