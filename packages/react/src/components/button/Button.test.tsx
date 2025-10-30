@@ -33,8 +33,10 @@ describe("Button", () => {
   });
 
   it("테마 덮어쓰기를 반영한다", () => {
+    const customBrand500: string = "#FF6B00";
+
     render(
-      <AraProvider theme={{ color: { brand: { "500": "#FF6B00" } } }}>
+      <AraProvider theme={{ color: { brand: { "500": customBrand500 } } }}>
         <Button>경고</Button>
       </AraProvider>
     );
