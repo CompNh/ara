@@ -5,7 +5,7 @@
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
-    "url": "https://example.com/ara-monorepo.git"
+    "url": "https://github.com/CompNh/ara.git"
   },
   "engines": {
     "node": ">=22.0.0"
