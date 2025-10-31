@@ -25,6 +25,7 @@ W-000004,T1,Button v0 Comp,계획,0,"Button v0
  ● 설계문서 : root/packages/react/src/components/button/README.md
  ● tokens→core→react 종단간 검증
  ● a11y·테스트·문서·Exports 고정
+ ● 디자인 승인 체크리스트 및 쇼케이스 시나리오 포함
  ● canary 프리릴리스 포함
  ● 범위: 일반 버튼/링크(토글 제외)
- ● AC: CI 통과·Tests 통과·Storybook build·ESM+types import·canary 발행",--
+ ● AC: CI 통과·Tests 통과·Storybook build·ESM+types import·canary 발행·디자인 승인",--

@@ -107,18 +107,18 @@ T-000029,W-000004,Button v0 Comp,React 바인딩,React Button 구현,계획,High
 T-000030,W-000004,Button v0 Comp,접근성,A11y 규정 적용,계획,High," ● 내용: role 및 aria 적용(aria-disabled, aria-busy), focus-visible 링, 링크 모드 일관 키보드 동작
  ● 산출물: 접근성 가이드 요약 및 테스트 케이스
  ● 점검: 키보드 시나리오와 ARIA 기대값 통과", 
-T-000031,W-000004,Button v0 Comp,테스트,Vitest+RTL 상호작용 테스트,계획,High," ● 내용: 키보드(Enter 및 Space), 마우스/터치, 영역 이탈 취소, disabled 및 loading 차단 검증
- ● 산출물: 테스트 스위트 및 스냅 최소화
- ● 점검: pnpm --filter @ara/react test 통과", 
-T-000032,W-000004,Button v0 Comp,문서/스토리북,Storybook 스토리 및 MDX,계획,Medium," ● 내용: Playground, Variants, Tones, Sizes, WithIcons, Loading, AsLink, FullWidth 시나리오
- ● 산출물: stories 및 MDX 문서
- ● 점검: build-storybook 스모크 테스트 통과", 
-T-000033,W-000004,Button v0 Comp,테마/토큰,Tokens 연결 및 CSS 변수 표면,계획,Medium," ● 내용: 토큰 매핑과 CSS 변수(--ara-btn-bg 등) 정의, light 및 dark 테마 샘플
- ● 산출물: tokens 소비 예 및 오버라이드 가이드
- ● 점검: 토큰 변경 시 스타일 반영 확인", 
-T-000034,W-000004,Button v0 Comp,빌드/출하,Exports 및 타입 계약 점검,계획,High," ● 내용: exports 및 types 및 module 및 sideEffects 계약 검증, showcase 임포트 스모크
- ● 산출물: package.json exports 맵 정리와 소비 앱 확인
- ● 점검: pnpm --filter @ara/react pack --dry-run 결과 검토", 
+T-000031,W-000004,Button v0 Comp,테스트,Vitest+RTL 상호작용 테스트,계획,High," ● 내용: 키보드(Enter 및 Space), 마우스/터치, 영역 이탈 취소, disabled 및 loading 차단 검증 + 선택 시 시각 회귀(Chromatic 등) 연동 가이드
+ ● 산출물: 테스트 스위트 및 스냅 최소화, 비주얼 회귀 도입 여부 기록
+ ● 점검: pnpm --filter @ara/react test 통과 및(선택) 시각 회귀 보고",
+T-000032,W-000004,Button v0 Comp,문서/스토리북,Storybook 스토리 및 MDX,계획,Medium," ● 내용: Playground, Variants, Tones, Sizes, WithIcons, Loading, AsLink, FullWidth 시나리오 + 디자인 승인 체크리스트(토큰 값 표·QA 항목) 포함
+ ● 산출물: stories 및 MDX 문서 + 디자인 승인 체크리스트
+ ● 점검: build-storybook 스모크 테스트 통과 및 디자인 QA 사인오프",
+T-000033,W-000004,Button v0 Comp,테마/토큰,Tokens 연결 및 CSS 변수 표면,계획,Medium," ● 내용: 토큰 매핑과 CSS 변수(--ara-btn-bg 등) 정의, light 및 dark 테마 샘플, 디자인 QA용 토큰 표 제공
+ ● 산출물: tokens 소비 예 및 오버라이드 가이드 + 토큰 값 표
+ ● 점검: 토큰 변경 시 스타일 반영 및 디자인 체크리스트 충족 확인",
+T-000034,W-000004,Button v0 Comp,빌드/출하,Exports 및 타입 계약 점검,계획,High," ● 내용: exports 및 types 및 module 및 sideEffects 계약 검증, showcase 임포트 스모크(예: apps/showcase 버튼 데모 페이지) 시나리오 명시
+ ● 산출물: package.json exports 맵 정리와 소비 앱 확인 + showcase 페이지 시연 노트
+ ● 점검: pnpm --filter @ara/react pack --dry-run 결과 검토 및 쇼케이스 시나리오 통과",
 T-000035,W-000004,Button v0 Comp,릴리스,Changesets 프리릴리스(canary),계획,High," ● 내용: changeset 추가 및 프리릴리스 채널 배포 드라이런
  ● 산출물: canary 태그 및 설치 확인 메모
  ● 점검: 설치 및 임포트 성공과 간단 사용 예 검증", 
