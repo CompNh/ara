@@ -95,3 +95,30 @@ T-000025,W-000003,모노레포 스캐폴딩,CI/운영 자동화,의존성 자동
 T-000026,W-000003,모노레포 스캐폴딩,문서화,README 구조 섹션 업데이트(모노레포 트리/패키지 표),계획,Medium," ● 목적: 모노레포 구조와 패키지 역할을 문서로 명확히 제시해 신규 기여자의 온보딩 시간을 단축한다.
  ● 내용: README에 디렉터리 트리, 패키지별 역할/의존 관계 표, 공통 설정 참조 절차를 추가한다. 작업 순서를 정리해 패키지 생성 흐름을 안내한다.
  ● 점검: README 개정본에서 항목이 빠짐없이 소개되고 내부 링크/코드 블록이 최신 스캐폴딩 구조와 일치하는지 검토한다.",
+T-000027,W-000004,Button v0 Comp,계약/설계,API 계약 정의(Button),계획,High," ● 목적: Props 목록과 기본값, 이벤트 의미(onPress 계열), 폴리모픽(asChild) 및 링크 모드 범위 확정
+ ● 산출물: packages/react/src/components/button/README.md 계약 섹션 확정
+ ● 점검: 리뷰 승인 후 범위 동결(변경은 후속 이슈로)", 
+T-000028,W-000004,Button v0 Comp,코어(headless),useButton 로직 구현,계획,High," ● 내용: press 시작/종료/확정 시퀀스, disabled 및 loading 차단, Enter 및 Space 키 매핑
+ ● 산출물: packages/core/use-button 구현 및 유닛 테스트 골격
+ ● 점검: pnpm --filter @ara/core test 통과", 
+T-000029,W-000004,Button v0 Comp,React 바인딩,React Button 구현,계획,High," ● 내용: forwardRef, className 병합, data-* 상태 표식, href 및 asChild 처리, ref 전달
+ ● 산출물: packages/react/button 컴포넌트 기본 구현
+ ● 점검: 샘플 임포트 및 렌더 스모크 테스트", 
+T-000030,W-000004,Button v0 Comp,접근성,A11y 규정 적용,계획,High," ● 내용: role 및 aria 적용(aria-disabled, aria-busy), focus-visible 링, 링크 모드 일관 키보드 동작
+ ● 산출물: 접근성 가이드 요약 및 테스트 케이스
+ ● 점검: 키보드 시나리오와 ARIA 기대값 통과", 
+T-000031,W-000004,Button v0 Comp,테스트,Vitest+RTL 상호작용 테스트,계획,High," ● 내용: 키보드(Enter 및 Space), 마우스/터치, 영역 이탈 취소, disabled 및 loading 차단 검증
+ ● 산출물: 테스트 스위트 및 스냅 최소화
+ ● 점검: pnpm --filter @ara/react test 통과", 
+T-000032,W-000004,Button v0 Comp,문서/스토리북,Storybook 스토리 및 MDX,계획,Medium," ● 내용: Playground, Variants, Tones, Sizes, WithIcons, Loading, AsLink, FullWidth 시나리오
+ ● 산출물: stories 및 MDX 문서
+ ● 점검: build-storybook 스모크 테스트 통과", 
+T-000033,W-000004,Button v0 Comp,테마/토큰,Tokens 연결 및 CSS 변수 표면,계획,Medium," ● 내용: 토큰 매핑과 CSS 변수(--ara-btn-bg 등) 정의, light 및 dark 테마 샘플
+ ● 산출물: tokens 소비 예 및 오버라이드 가이드
+ ● 점검: 토큰 변경 시 스타일 반영 확인", 
+T-000034,W-000004,Button v0 Comp,빌드/출하,Exports 및 타입 계약 점검,계획,High," ● 내용: exports 및 types 및 module 및 sideEffects 계약 검증, showcase 임포트 스모크
+ ● 산출물: package.json exports 맵 정리와 소비 앱 확인
+ ● 점검: pnpm --filter @ara/react pack --dry-run 결과 검토", 
+T-000035,W-000004,Button v0 Comp,릴리스,Changesets 프리릴리스(canary),계획,High," ● 내용: changeset 추가 및 프리릴리스 채널 배포 드라이런
+ ● 산출물: canary 태그 및 설치 확인 메모
+ ● 점검: 설치 및 임포트 성공과 간단 사용 예 검증", 
