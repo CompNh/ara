@@ -14,12 +14,55 @@ VS Code(Git Bash) · Windows · React+TypeScript · Node 22 LTS · pnpm(workspac
 4. **의존성 설치**
    - 저장소 루트에서 `pnpm install --no-frozen-lockfile` 또는 CI와 동일하게 `pnpm -w install --no-frozen-lockfile`을 실행해 모든 패키지를 내려받는다.
 
-## 모노레포 워크스페이스 경계
-- `packages/*` : 디자인 시스템 라이브러리와 공통 설정 패키지(`tsconfig`, `eslint-config`, `tokens`, `core`, `react`, `icons` 등)
-- `apps/*` : 스토리북과 쇼케이스 등 소비자 애플리케이션(`storybook`, `showcase`)
-- `scripts/*` : 배포 자동화·스캐폴딩 등 내부 도구 패키지
+## 모노레포 구조 한눈에 보기
+```text
+.
+├─ apps/
+│  ├─ showcase/        # 디자인 시스템 소비 예제를 모아둔 Vite 앱
+│  └─ storybook/       # 컴포넌트 개발용 Storybook 인스턴스
+├─ packages/
+│  ├─ core/            # headless 로직과 테마 시스템
+│  ├─ react/           # React 바인딩 및 컴포넌트 구현
+│  ├─ tokens/          # 디자인 토큰 빌드 및 JSON 배포물
+│  ├─ icons/           # SVG 아이콘과 타입 정의
+│  ├─ eslint-config/   # Flat 구성 기반 ESLint 프리셋
+│  └─ tsconfig/        # TypeScript 공유 설정(base/react-library)
+├─ scripts/            # 빌드·거버넌스 자동화 스크립트
+├─ docs/               # 운영 가이드 및 정책 문서
+└─ planning/           # WBS/Task 정의 자료
+```
 
-> `pnpm -w list --depth -1` 명령으로 위 경로들이 워크스페이스에 인식되는지 수시로 점검한다.
+> `pnpm -w list --depth -1` 명령으로 각 디렉터리가 워크스페이스에 올바르게 등록돼 있는지 수시로 점검한다.
+
+### 패키지 역할과 의존 관계
+| 패키지 | 유형 | 주요 역할 | 워크스페이스 의존성 |
+| --- | --- | --- | --- |
+| `@ara/tokens` | 라이브러리 | 디자인 토큰을 Rollup으로 번들해 JS/TS/JSON 으로 배포 | `@ara/tsconfig` |
+| `@ara/core` | 라이브러리 | 토큰 기반 테마·headless 로직 제공 | `@ara/tokens`, `@ara/tsconfig` |
+| `@ara/icons` | 라이브러리 | 공용 SVG 아이콘과 타입 정의 | `@ara/tsconfig` |
+| `@ara/react` | 라이브러리 | React 컴포넌트와 테마 훅 제공 | `@ara/core`, `@ara/tsconfig` |
+| `@ara/eslint-config` | 설정 | 모노레포 전반에서 공유하는 ESLint Flat 프리셋 | (외부 패키지 중심) |
+| `@ara/tsconfig` | 설정 | `tsconfig.base.json` 및 React 라이브러리 확장 베이스 제공 | - |
+
+### 공통 설정 참조 절차
+1. **TypeScript**
+   - 새 패키지를 생성하면 `tsconfig.build.json` 에서 `"extends": "../../tsconfig.base.json"` 로 루트 설정을 가져온다.
+   - 런타임/테스트 구성용 `tsconfig.json` 은 `tsconfig.build.json` 을 재사용하고, 필요 시 `types` 만 추가한다.
+   - 루트의 `tsconfig.base.json` 은 `@ara/tsconfig/base.json` 을 확장하므로, 공유 설정 변경은 `packages/tsconfig` 패키지에서 먼저 수행한다.
+2. **ESLint**
+   - `eslint.config.js` 또는 패키지별 Flat 설정에서 `import { configs } from "@ara/eslint-config";` 로 프리셋 묶음을 불러온다.
+   - 필요한 override 가 있을 경우 `...configs.xxx` 배열 뒤에 패키지 전용 규칙을 추가한다. (예: 루트는 `configs.node` 사용)
+3. **패키지 매니페스트**
+   - 새 워크스페이스 패키지를 추가할 때는 `docs/package-governance.md` 의 메타데이터 체크리스트를 따르고, 마지막에 `pnpm run check:manifests` 로 검증한다.
+
+### 패키지 스캐폴딩 순서 가이드
+1. **디자인 토큰(`@ara/tokens`)** : 색상, 타이포그래피 등 기초 자산을 우선 정의하고 빌드 파이프라인을 확정한다.
+2. **헤드리스 로직(`@ara/core`)** : 토큰을 소비하는 테마 시스템과 상태 훅을 구현한다.
+3. **아이콘(`@ara/icons`)** : 컴포넌트에서 재사용할 SVG 아이콘과 타입을 생성한다.
+4. **React 레이어(`@ara/react`)** : 위 패키지들을 소비하는 컴포넌트를 작성하고, 스토리/테스트를 붙인다.
+5. **소비 앱(`apps/storybook`, `apps/showcase`)** : 새로운 컴포넌트를 Storybook과 쇼케이스에서 검증한다.
+
+각 단계가 완료될 때마다 관련 의존 패키지를 `pnpm --filter <pkg> build` 로 미리 빌드해 dist 산출물이 존재하는지 확인하고, 최종적으로 `pnpm -w workspace:check` 를 실행해 전체 워크스페이스 일관성을 점검한다.
 
 ### 패키지 거버넌스 정책
 - [패키지 거버넌스 가이드](docs/package-governance.md)를 참고해 `@ara/` 스코프, 공개/비공개 정책, 메타데이터(`engines`, `license`, `repository`)를 맞춘다.
