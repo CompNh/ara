@@ -1,0 +1,52 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":dependencyDashboard",
+    ":semanticCommitTypeAll(build)"
+  ],
+  "labels": [
+    "dependencies"
+  ],
+  "timezone": "Asia/Seoul",
+  "schedule": [
+    "after 20:00 on sunday"
+  ],
+  "prConcurrentLimit": 5,
+  "rangeStrategy": "replace",
+  "commitBodyTable": true,
+  "enabledManagers": [
+    "pnpm",
+    "github-actions"
+  ],
+  "pnpm": {
+    "enabled": true
+  },
+  "packageRules": [
+    {
+      "matchManagers": [
+        "github-actions"
+      ],
+      "groupName": "github-actions",
+      "semanticCommitScope": "actions"
+    },
+    {
+      "matchManagers": [
+        "pnpm"
+      ],
+      "matchDepTypes": [
+        "devDependencies"
+      ],
+      "groupName": "dev dependencies"
+    },
+    {
+      "matchManagers": [
+        "pnpm"
+      ],
+      "matchPackagePatterns": [
+        "^@types/"
+      ],
+      "groupName": "types packages"
+    }
+  ]
+}
