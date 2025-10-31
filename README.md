@@ -25,6 +25,11 @@ VS Code(Git Bash) · Windows · React+TypeScript · Node 22 LTS · pnpm(workspac
 - [패키지 거버넌스 가이드](docs/package-governance.md)를 참고해 `@ara/` 스코프, 공개/비공개 정책, 메타데이터(`engines`, `license`, `repository`)를 맞춘다.
 - 새 패키지를 추가하거나 변경한 뒤에는 `pnpm run check:manifests` 로 자동 점검을 수행한다.
 
+## 워크스페이스 검증 스크립트
+- 루트에서 `pnpm -w lint`, `pnpm -w test`, `pnpm -w build`, `pnpm -w storybook:smoke` 를 실행하면 워크스페이스 전체에 동일한 명령이 순차적으로 적용된다.
+- 위 명령을 한 번에 돌리고 싶다면 `pnpm -w workspace:check` 스크립트를 사용한다. 순서는 `lint → test → build → storybook:smoke` 이며 Storybook 단계는 개발 서버 대신 스모크 테스트 플래그를 사용해 빠르게 종료된다.
+- Changesets 기반 배포 흐름(`pnpm release`)과는 별개의 사전 점검 라인이다. 배포가 필요한 경우에는 변경 사항을 Changeset으로 기록한 뒤 `pnpm release` 를 사용한다.
+
 ## 일정 (WBS/Tasks)
  **경로** : root/planning
  **WBS** : WBS.CSV
