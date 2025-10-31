@@ -21,3 +21,10 @@ W-000003,T1,모노레포 스캐폴딩,진행중,85,"pnpm 모노레포 기준선�
  ● 핵심 UI 패키지 및 앱 골격
  ● 빌드·테스트 스크립트 공유
  ● README 구조 업데이트까지 일괄 정비.",--
+W-000004,T1,Button v0 Comp,계획,0,"Button v0
+ ● 설계문서 : root/packages/react/src/components/button/README.md
+ ● tokens→core→react 종단간 검증
+ ● a11y·테스트·문서·Exports 고정
+ ● canary 프리릴리스 포함
+ ● 범위: 일반 버튼/링크(토글 제외)
+ ● AC: CI 통과·Tests 통과·Storybook build·ESM+types import·canary 발행",--
