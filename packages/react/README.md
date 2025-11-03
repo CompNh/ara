@@ -47,5 +47,5 @@ function App() {
 예를 들어 Button 단위 테스트만 실행하려면 아래와 같이 입력한다.
 
 ```bash
-pnpm --filter @ara/react test -- packages/react/src/components/button/Button.test.tsx
+pnpm --filter @ara/react test -- src/components/button/Button.test.tsx
 ```
