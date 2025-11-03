@@ -1,0 +1,85 @@
+import { Meta, Title, Subtitle, Description, Canvas, ArgsTable, Primary, Controls } from "@storybook/blocks";
+import * as ButtonStories from "./Button.stories";
+
+<Meta of={ButtonStories} />
+
+<Title>Button 버튼</Title>
+
+<Subtitle>토큰 → core → React 바인딩으로 연결된 기본 액션 컴포넌트입니다.</Subtitle>
+
+<Description>
+`Button`은 기본 클릭/키보드/포인터 상호작용을 통합한 프라이머리 액션 컴포넌트입니다. `variant`, `tone`, `size`를
+조합해 제품의 정보 구조에 맞는 위계를 표현하고, `leadingIcon`/`trailingIcon`, `fullWidth`, `asChild` 등 확장 포인트로 다양한 UI에 맞춰
+커스터마이징할 수 있습니다. 링크(`href`)와 버튼(`<button>`) 모두 동일한 Press 계약을 유지합니다.
+</Description>
+
+## Playground
+
+<Primary of={ButtonStories.Playground} />
+<Controls of={ButtonStories.Playground} />
+
+## Variants &amp; Tones
+
+- **Variant**: `solid`, `outline`, `ghost`
+- **Tone**: `primary`, `neutral`, `danger`
+
+`variant`와 `tone`을 조합하면 강조 수준과 의미(긍/중립/위험)를 독립적으로 조절할 수 있습니다.
+
+<Canvas of={ButtonStories.Variants} />
+<Canvas of={ButtonStories.Tones} />
+
+## Sizes
+
+세 가지 크기를 제공하며, 높이/패딩/폰트가 함께 조정됩니다. 디자인 시스템 토큰(`--ara-btn-*`)을 오버라이드하면 제품별 스케일을 쉽게
+맞출 수 있습니다.
+
+<Canvas of={ButtonStories.Sizes} />
+
+## 아이콘 &amp; 상태
+
+아이콘 슬롯과 로딩 상태는 동일한 Press 계약을 유지하면서 시각적 힌트를 제공합니다.
+
+<Canvas of={ButtonStories.WithIcons} />
+<Canvas of={ButtonStories.Loading} />
+
+## 링크 &amp; 레이아웃
+
+링크 모드(`href`)에서도 `useButton`의 접근성 계약이 유지됩니다. `fullWidth`를 사용하면 부모 컨테이너 너비에 맞춰 확장됩니다.
+
+<Canvas of={ButtonStories.AsLink} />
+<Canvas of={ButtonStories.FullWidth} />
+
+## Props
+
+<ArgsTable of={ButtonStories.Playground} />
+
+## 커스터마이징 가이드
+
+```tsx
+<Button
+  tone="neutral"
+  variant="outline"
+  style={{
+    "--ara-btn-bg": "transparent",
+    "--ara-btn-border": "var(--ara-color-accent-500)",
+    "--ara-btn-fg": "var(--ara-color-accent-600)",
+    "--ara-btn-radius": "1.5rem"
+  }}
+>
+  토큰 오버라이드
+</Button>
+```
+
+- `className`에 BEM 형식(`.ara-button__icon`, `.ara-button__label`)을 활용하면 특정 슬롯만 커스터마이징할 수 있습니다.
+- `asChild`를 이용하면 Next.js `Link` 등 사용자 정의 요소로 교체하면서 동일한 Press 이벤트를 유지할 수 있습니다.
+
+## 디자인 QA 체크리스트
+
+| 구분 | 내용 |
+| --- | --- |
+| 색상 | Variant/Tone 조합이 브랜드 팔레트와 WCAG 대비를 충족하는지 확인 |
+| 상태 | `hover/active/focus-visible/disabled/loading` 스타일이 모두 노출되는지 확인 |
+| 아이콘 | 라벨 없는 아이콘 버튼에는 `aria-label`이 지정됐는지 검증 |
+| 레이아웃 | `fullWidth`/다양한 사이즈에서 높이·패딩 균형이 깨지지 않는지 확인 |
+| 접근성 | Space/Enter 키 입력 시 Press 시퀀스가 정확히 동작하는지, 링크 모드에서 `aria-disabled` 처리 여부 확인 |
+
