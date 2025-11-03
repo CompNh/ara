@@ -16,8 +16,10 @@ import { Slot } from "@radix-ui/react-slot";
 import { useAraTheme } from "../../theme/index.js";
 import { useButton, type PressHandler, type Theme } from "@ara/core";
 
+// 버튼 변형(프라이머리, 세컨더리)
 export type ButtonVariant = "primary" | "secondary";
 
+// 내부/소비자 이벤트 핸들러 타입
 type ButtonEventHandlers = {
   readonly onClick?: MouseEventHandler<HTMLElement>;
   readonly onKeyDown?: KeyboardEventHandler<HTMLElement>;
@@ -30,9 +32,11 @@ type ButtonEventHandlers = {
   readonly onBlur?: FocusEventHandler<HTMLElement>;
 };
 
+// 네이티브 버튼/앵커 속성 타입
 type NativeButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 type AnchorButtonProps = AnchorHTMLAttributes<HTMLAnchorElement>;
 
+// 버튼 자체 속성 정의
 interface ButtonOwnProps {
   readonly variant?: ButtonVariant;
   readonly asChild?: boolean;
@@ -44,21 +48,18 @@ interface ButtonOwnProps {
 
 export type ButtonProps = ButtonOwnProps & NativeButtonProps & AnchorButtonProps;
 
+// 버튼의 실제 DOM element 타입
 type ButtonElement = HTMLButtonElement | HTMLAnchorElement;
 
+// className 병합 유틸
 function mergeClassNames(...values: Array<string | undefined | null | false>): string {
   return values.filter(Boolean).join(" ");
 }
 
+// 브라우저가 :focus-visible CSS 선택자를 지원하는지 체크
 const supportsFocusVisible = (() => {
-  if (typeof window === "undefined" || typeof window.CSS === "undefined") {
-    return false;
-  }
-
-  if (typeof window.CSS.supports !== "function") {
-    return false;
-  }
-
+  if (typeof window === "undefined" || typeof window.CSS === "undefined") return false;
+  if (typeof window.CSS.supports !== "function") return false;
   try {
     return window.CSS.supports("selector(:focus-visible)");
   } catch {
@@ -66,6 +67,7 @@ const supportsFocusVisible = (() => {
   }
 })();
 
+// variant별 스타일 구성
 function getVariantStyle(variant: ButtonVariant, theme: Theme): CSSProperties {
   if (variant === "secondary") {
     return {
@@ -74,7 +76,6 @@ function getVariantStyle(variant: ButtonVariant, theme: Theme): CSSProperties {
       borderColor: theme.color.brand["300"]
     };
   }
-
   return {
     backgroundColor: theme.color.brand["500"],
     color: theme.color.neutral["50"],
@@ -82,30 +83,23 @@ function getVariantStyle(variant: ButtonVariant, theme: Theme): CSSProperties {
   };
 }
 
+// 이벤트 핸들러 합성 (내부 핸들러 → 소비자 핸들러 순서로 실행)
+// disabled/loading 시 소비자 핸들러는 건너뛰기
 function composeEventHandlers<Event>(
   ours: ((event: Event) => void) | undefined,
   theirs: ((event: Event) => void) | undefined,
   options: { interactionsDisabled?: boolean } = {}
 ): ((event: Event) => void) | undefined {
-  if (!ours && !theirs) {
-    return undefined;
-  }
-
+  if (!ours && !theirs) return undefined;
   return (event: Event) => {
     ours?.(event);
-
-    if (options.interactionsDisabled) {
-      return;
-    }
-
+    if (options.interactionsDisabled) return;
     theirs?.(event);
   };
 }
 
-export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
-  props,
-  ref
-) {
+// 메인 Button 컴포넌트
+export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(props, ref) {
   const {
     children,
     variant = "primary",
@@ -125,8 +119,11 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
   const theme = useAraTheme();
   const elementType = asChild ? "custom" : href ? "link" : "button";
   const interactionsDisabled = disabled || loading;
+
+  // focus-visible 상태 관리
   const [isFocusVisible, setFocusVisible] = useState(false);
 
+  // core 훅으로부터 클릭/포인터/키보드 인터랙션 처리 props 획득
   const { buttonProps, isPressed } = useButton<HTMLElement>({
     disabled,
     loading,
@@ -137,6 +134,7 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
     onPressEnd
   });
 
+  // 사용자 전달 props에서 이벤트 추출
   const {
     onClick,
     onKeyDown,
@@ -150,19 +148,18 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
     ...domProps
   } = restProps;
 
+  // 포커스 감지 (focus-visible 판별)
   const handleFocus: FocusEventHandler<HTMLElement> = useCallback(
     (event) => {
       if (interactionsDisabled) {
         setFocusVisible(false);
         return;
       }
-
       if (!supportsFocusVisible) {
-        // `:focus-visible` 미지원 환경(jsdom 등)에서는 키보드 유입으로 간주한다.
+        // jsdom 등 :focus-visible 미지원 환경에서는 항상 true
         setFocusVisible(true);
         return;
       }
-
       try {
         setFocusVisible(event.currentTarget.matches(":focus-visible"));
       } catch {
@@ -172,60 +169,30 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
     [interactionsDisabled]
   );
 
+  // blur 시 포커스 표시 해제
   const handleBlur: FocusEventHandler<HTMLElement> = useCallback(() => {
     setFocusVisible(false);
   }, []);
 
+  // 모든 이벤트 핸들러 합성 (내부 + 소비자)
   const interactionHandlers: ButtonEventHandlers = {
-    onClick: composeEventHandlers(
-      buttonProps.onClick,
-      onClick as MouseEventHandler<HTMLElement> | undefined,
-      { interactionsDisabled }
-    ),
-    onKeyDown: composeEventHandlers(
-      buttonProps.onKeyDown,
-      onKeyDown as KeyboardEventHandler<HTMLElement> | undefined,
-      { interactionsDisabled }
-    ),
-    onKeyUp: composeEventHandlers(
-      buttonProps.onKeyUp,
-      onKeyUp as KeyboardEventHandler<HTMLElement> | undefined,
-      { interactionsDisabled }
-    ),
-    onPointerDown: composeEventHandlers(
-      buttonProps.onPointerDown,
-      onPointerDown as PointerEventHandler<HTMLElement> | undefined,
-      { interactionsDisabled }
-    ),
-    onPointerUp: composeEventHandlers(
-      buttonProps.onPointerUp,
-      onPointerUp as PointerEventHandler<HTMLElement> | undefined,
-      { interactionsDisabled }
-    ),
-    onPointerCancel: composeEventHandlers(
-      buttonProps.onPointerCancel,
-      onPointerCancel as PointerEventHandler<HTMLElement> | undefined,
-      { interactionsDisabled }
-    ),
-    onPointerLeave: composeEventHandlers(
-      buttonProps.onPointerLeave,
-      onPointerLeave as PointerEventHandler<HTMLElement> | undefined,
-      { interactionsDisabled }
-    ),
-    onFocus: composeEventHandlers(
-      handleFocus,
-      onFocus as FocusEventHandler<HTMLElement> | undefined
-    ),
-    onBlur: composeEventHandlers(
-      handleBlur,
-      onBlur as FocusEventHandler<HTMLElement> | undefined
-    )
+    onClick: composeEventHandlers(buttonProps.onClick, onClick, { interactionsDisabled }),
+    onKeyDown: composeEventHandlers(buttonProps.onKeyDown, onKeyDown, { interactionsDisabled }),
+    onKeyUp: composeEventHandlers(buttonProps.onKeyUp, onKeyUp, { interactionsDisabled }),
+    onPointerDown: composeEventHandlers(buttonProps.onPointerDown, onPointerDown, { interactionsDisabled }),
+    onPointerUp: composeEventHandlers(buttonProps.onPointerUp, onPointerUp, { interactionsDisabled }),
+    onPointerCancel: composeEventHandlers(buttonProps.onPointerCancel, onPointerCancel, { interactionsDisabled }),
+    onPointerLeave: composeEventHandlers(buttonProps.onPointerLeave, onPointerLeave, { interactionsDisabled }),
+    onFocus: composeEventHandlers(handleFocus, onFocus),
+    onBlur: composeEventHandlers(handleBlur, onBlur)
   };
 
+  // asChild가 true이고 유효한 React element면 polymorphic render
   const isPolymorphic = asChild && isValidElement(children);
   const baseClassName = "ara-button";
   const mergedClassName = mergeClassNames(baseClassName, className);
 
+  // 기본 스타일 (테마 기반)
   const baseStyle: CSSProperties = {
     display: "inline-flex",
     alignItems: "center",
@@ -248,6 +215,7 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
     outline: "none"
   };
 
+  // variant + focus 스타일 합성
   const variantStyle = getVariantStyle(variant, theme);
   const focusRingStyle: CSSProperties | undefined = isFocusVisible
     ? {
@@ -257,6 +225,7 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
       }
     : undefined;
 
+  // 상태별 data-* 속성 설정
   const dataAttributes = {
     "data-variant": variant,
     "data-disabled": disabled ? "" : undefined,
@@ -265,11 +234,13 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
     "data-state": isPressed ? "pressed" : isFocusVisible ? "focus-visible" : undefined
   } as const;
 
+  // 최종 핸들러 병합
   const composedHandlers = {
     ...buttonProps,
     ...interactionHandlers
   };
 
+  // 링크일 경우 접근성 속성 보강
   const anchorAccessibilityProps = href
     ? {
         href,
@@ -278,6 +249,7 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
       }
     : {};
 
+  // custom(asChild) 또는 링크의 경우 role/tabIndex 지정
   const role = elementType === "custom" && !href ? "button" : undefined;
   const tabIndex =
     elementType === "custom" && !href
@@ -285,12 +257,14 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
         ? -1
         : 0
       : undefined;
+
   const accessibilityProps = {
     ...(role ? { role } : {}),
     ...(tabIndex !== undefined ? { tabIndex } : {}),
     ...(interactionsDisabled ? { "aria-disabled": true } : {})
   } as const;
 
+  // 공통 props
   const baseProps = {
     ...domProps,
     ...composedHandlers,
@@ -300,6 +274,7 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
     "aria-busy": loading || undefined
   };
 
+  // ① asChild일 때 (Slot 사용)
   if (isPolymorphic) {
     return (
       <Slot
@@ -313,6 +288,7 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
     );
   }
 
+  // ② href 있을 때 (anchor)
   if (href) {
     return (
       <a
@@ -326,6 +302,7 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
     );
   }
 
+  // ③ 기본 button element
   return (
     <button
       {...baseProps}
