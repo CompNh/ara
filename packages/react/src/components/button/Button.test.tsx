@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { createRef } from "react";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { Button } from "./Button.js";
 import { AraProvider } from "../../theme/index.js";
 import { defaultTheme } from "@ara/core";
@@ -172,5 +172,158 @@ describe("Button", () => {
 
     expect(button).not.toHaveAttribute("data-focus-visible");
     expect(button).not.toHaveAttribute("data-state");
+  });
+
+  it("마우스 press 시퀀스에서 press 핸들러를 호출한다", () => {
+    const onPress = vi.fn();
+    const onPressStart = vi.fn();
+    const onPressEnd = vi.fn();
+
+    render(
+      <Button onPress={onPress} onPressStart={onPressStart} onPressEnd={onPressEnd}>
+        상호작용
+      </Button>
+    );
+
+    const button = screen.getByRole("button", { name: "상호작용" });
+
+    fireEvent.pointerDown(button, { pointerId: 1, pointerType: "mouse", button: 0 });
+
+    expect(onPressStart).toHaveBeenCalledTimes(1);
+    expect(onPressStart).toHaveBeenCalledWith(
+      expect.objectContaining({ type: "pressstart", pointerType: "mouse" })
+    );
+    expect(button).toHaveAttribute("data-state", "pressed");
+
+    fireEvent.pointerUp(button, { pointerId: 1, pointerType: "mouse", button: 0 });
+
+    expect(onPressEnd).toHaveBeenCalledTimes(1);
+    expect(onPressEnd).toHaveBeenCalledWith(
+      expect.objectContaining({ type: "pressend", pointerType: "mouse" })
+    );
+    expect(onPress).toHaveBeenCalledTimes(1);
+    expect(onPress).toHaveBeenCalledWith(
+      expect.objectContaining({ type: "press", pointerType: "mouse" })
+    );
+    expect(button).not.toHaveAttribute("data-state");
+  });
+
+  it("pointercancel 이벤트에서 press를 취소한다", () => {
+    const onPress = vi.fn();
+    const onPressEnd = vi.fn();
+
+    render(
+      <Button onPress={onPress} onPressEnd={onPressEnd}>
+        취소
+      </Button>
+    );
+
+    const button = screen.getByRole("button", { name: "취소" });
+
+    fireEvent.pointerDown(button, { pointerId: 1, pointerType: "mouse", button: 0 });
+    fireEvent.pointerCancel(button, { pointerId: 1, pointerType: "mouse" });
+
+    expect(onPressEnd).toHaveBeenCalledTimes(1);
+    expect(onPressEnd).toHaveBeenCalledWith(
+      expect.objectContaining({ type: "pressend", pointerType: "mouse" })
+    );
+    expect(onPress).not.toHaveBeenCalled();
+    expect(button).not.toHaveAttribute("data-state");
+  });
+
+  it("pointerleave 이벤트에서 press를 취소한다", () => {
+    const onPress = vi.fn();
+
+    render(<Button onPress={onPress}>이탈</Button>);
+
+    const button = screen.getByRole("button", { name: "이탈" });
+
+    fireEvent.pointerDown(button, { pointerId: 1, pointerType: "mouse", button: 0 });
+    fireEvent.pointerLeave(button, { pointerId: 1, pointerType: "mouse" });
+
+    expect(onPress).not.toHaveBeenCalled();
+    expect(button).not.toHaveAttribute("data-state");
+  });
+
+  it("키보드 Enter 입력을 press 이벤트로 처리한다", () => {
+    const onPress = vi.fn();
+    const onPressStart = vi.fn();
+    const onPressEnd = vi.fn();
+
+    render(
+      <Button onPress={onPress} onPressStart={onPressStart} onPressEnd={onPressEnd}>
+        키보드
+      </Button>
+    );
+
+    const button = screen.getByRole("button", { name: "키보드" });
+
+    fireEvent.keyDown(button, { key: "Enter" });
+
+    expect(onPressStart).toHaveBeenCalledWith(
+      expect.objectContaining({ type: "pressstart", pointerType: "keyboard" })
+    );
+    expect(button).toHaveAttribute("data-state", "pressed");
+
+    fireEvent.keyUp(button, { key: "Enter" });
+
+    expect(onPressEnd).toHaveBeenCalledWith(
+      expect.objectContaining({ type: "pressend", pointerType: "keyboard" })
+    );
+    expect(onPress).toHaveBeenCalledWith(
+      expect.objectContaining({ type: "press", pointerType: "keyboard" })
+    );
+    expect(button).not.toHaveAttribute("data-state");
+  });
+
+  it("링크 모드에서도 Space 입력을 press 이벤트로 처리한다", () => {
+    const onPress = vi.fn();
+
+    render(
+      <Button href="/keyboard" onPress={onPress}>
+        링크
+      </Button>
+    );
+
+    const link = screen.getByRole("link", { name: "링크" });
+
+    fireEvent.keyDown(link, { key: " " });
+    fireEvent.keyUp(link, { key: " " });
+
+    expect(onPress).toHaveBeenCalledTimes(1);
+    expect(onPress).toHaveBeenCalledWith(
+      expect.objectContaining({ type: "press", pointerType: "keyboard" })
+    );
+    expect(link).not.toHaveAttribute("data-state");
+  });
+
+  it("disabled와 loading 상태에서 press 핸들러를 호출하지 않는다", () => {
+    const onPress = vi.fn();
+
+    const { rerender } = render(
+      <Button disabled onPress={onPress}>
+        비활성
+      </Button>
+    );
+
+    const disabledButton = screen.getByRole("button", { name: "비활성" });
+
+    fireEvent.pointerDown(disabledButton, { pointerId: 1, pointerType: "mouse", button: 0 });
+    fireEvent.pointerUp(disabledButton, { pointerId: 1, pointerType: "mouse", button: 0 });
+
+    expect(onPress).not.toHaveBeenCalled();
+
+    rerender(
+      <Button loading onPress={onPress}>
+        로딩
+      </Button>
+    );
+
+    const loadingButton = screen.getByRole("button", { name: "로딩" });
+
+    fireEvent.pointerDown(loadingButton, { pointerId: 1, pointerType: "mouse", button: 0 });
+    fireEvent.pointerUp(loadingButton, { pointerId: 1, pointerType: "mouse", button: 0 });
+
+    expect(onPress).not.toHaveBeenCalled();
   });
 });
