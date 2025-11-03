@@ -73,6 +73,11 @@ VS Code(Git Bash) · Windows · React+TypeScript · Node 22 LTS · pnpm(workspac
 - 위 명령을 한 번에 돌리고 싶다면 `pnpm -w workspace:check` 스크립트를 사용한다. 순서는 `lint → test → build → storybook:smoke` 이며 Storybook 단계는 개발 서버 대신 스모크 테스트 플래그를 사용해 빠르게 종료된다.
 - Changesets 기반 배포 흐름(`pnpm release`)과는 별개의 사전 점검 라인이다. 배포가 필요한 경우에는 변경 사항을 Changeset으로 기록한 뒤 `pnpm release` 를 사용한다.
 
+### 패키지별 테스트 실행 팁
+- **패키지 전체 테스트:** `pnpm --filter @ara/react test`
+- **단일 테스트 파일 실행:** `pnpm --filter @ara/react test -- src/components/button/Button.test.tsx`
+  - `--` 뒤에 전달하는 경로는 **패키지 루트(`packages/react`) 기준**이어야 한다. 워크스페이스 루트 경로(예: `packages/react/...`)를 전달하면 Vitest가 테스트 파일을 찾지 못한다.
+
 ## 일정 (WBS/Tasks)
  **경로** : root/planning
  **WBS** : WBS.CSV
