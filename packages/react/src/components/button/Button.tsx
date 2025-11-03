@@ -47,9 +47,9 @@ type AnchorButtonProps = AnchorHTMLAttributes<HTMLAnchorElement>;
 
 // 버튼 자체 속성 정의
 interface ButtonOwnProps {
-  readonly variant?: ButtonVariant;
-  readonly tone?: ButtonTone;
-  readonly size?: ButtonSize;
+  readonly variant?: ButtonVariant | null;
+  readonly tone?: ButtonTone | null;
+  readonly size?: ButtonSize | null;
   readonly asChild?: boolean;
   readonly loading?: boolean;
   readonly onPress?: PressHandler;
@@ -103,7 +103,7 @@ type TonePalette = {
   readonly subtleAlt: string;
 };
 
-function getTonePalette(tone: ButtonTone, theme: Theme): TonePalette {
+function getTonePalette(tone: ButtonTone | null | undefined, theme: Theme): TonePalette {
   if (tone === "neutral") {
     return {
       base: theme.color.neutral["100"],
@@ -136,7 +136,10 @@ function getTonePalette(tone: ButtonTone, theme: Theme): TonePalette {
   };
 }
 
-function getVariantVariables(variant: ButtonVariant, palette: TonePalette): VariantVariables {
+function getVariantVariables(
+  variant: ButtonVariant | null | undefined,
+  palette: TonePalette
+): VariantVariables {
   if (variant === "outline") {
     return {
       background: "transparent",
@@ -188,7 +191,7 @@ type SizeVariables = {
   readonly spinnerSize: number;
 };
 
-function getSizeVariables(size: ButtonSize, theme: Theme): SizeVariables {
+function getSizeVariables(size: ButtonSize | null | undefined, theme: Theme): SizeVariables {
   if (size === "sm") {
     return {
       paddingInline: "0.75rem",
@@ -224,6 +227,27 @@ function getSizeVariables(size: ButtonSize, theme: Theme): SizeVariables {
   };
 }
 
+function normalizeVariant(value: ButtonVariant | null | undefined): ButtonVariant {
+  if (value === "outline" || value === "ghost") {
+    return value;
+  }
+  return "solid";
+}
+
+function normalizeTone(value: ButtonTone | null | undefined): ButtonTone {
+  if (value === "neutral" || value === "danger") {
+    return value;
+  }
+  return "primary";
+}
+
+function normalizeSize(value: ButtonSize | null | undefined): ButtonSize {
+  if (value === "sm" || value === "lg") {
+    return value;
+  }
+  return "md";
+}
+
 // 이벤트 핸들러 합성 (내부 핸들러 → 소비자 핸들러 순서로 실행)
 // disabled/loading 시 소비자 핸들러는 건너뛰기
 function composeEventHandlers<Event>(
@@ -243,16 +267,16 @@ function composeEventHandlers<Event>(
 export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(props, ref) {
   const {
     children,
-    variant = "solid",
-    tone = "primary",
-    size = "md",
+    variant: variantProp,
+    tone: toneProp,
+    size: sizeProp,
     asChild = false,
     href,
     className,
     style,
     disabled = false,
     loading = false,
-    type = "button",
+    type: typeProp = "button",
     onPress,
     onPressStart,
     onPressEnd,
@@ -261,6 +285,11 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(pro
     fullWidth = false,
     ...restProps
   } = props;
+
+  const variant = normalizeVariant(variantProp);
+  const tone = normalizeTone(toneProp);
+  const size = normalizeSize(sizeProp);
+  const type = typeProp ?? "button";
 
   const theme = useAraTheme();
   const tonePalette = useMemo(() => getTonePalette(tone, theme), [tone, theme]);

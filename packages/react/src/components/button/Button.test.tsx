@@ -36,6 +36,19 @@ describe("Button", () => {
     expect(button).toHaveAttribute("data-variant", "outline");
   });
 
+  it("variant 변경 시 스타일을 다시 계산한다", () => {
+    const { rerender } = render(<Button>토글</Button>);
+
+    const button = screen.getByRole("button", { name: "토글" });
+
+    expect(getComputedStyle(button).backgroundColor).toBe("rgb(47, 107, 255)");
+
+    rerender(<Button variant="outline">토글</Button>);
+
+    expect(getComputedStyle(button).backgroundColor).toBe("rgba(0, 0, 0, 0)");
+    expect(getComputedStyle(button).borderColor).toBe("rgb(47, 107, 255)");
+  });
+
   it("tone에 따라 색상을 조정한다", () => {
     render(
       <Button tone="danger">위험</Button>
@@ -85,6 +98,24 @@ describe("Button", () => {
     expect(large.style.paddingTop).toBe(
       "var(--ara-btn-pt, var(--ara-btn-py, 0.75rem))"
     );
+  });
+
+  it("nullish variant/tone/size는 기본값으로 보정된다", () => {
+    render(
+      <Button variant={null} tone={null} size={null}>
+        기본값
+      </Button>
+    );
+
+    const button = screen.getByRole("button", { name: "기본값" });
+
+    expect(button).toHaveAttribute("data-variant", "solid");
+    expect(button).toHaveAttribute("data-tone", "primary");
+    expect(button).toHaveAttribute("data-size", "md");
+    expect(button).toHaveStyle({
+      backgroundColor: defaultTheme.color.brand["500"],
+      color: defaultTheme.color.neutral["50"]
+    });
   });
 
   it("사용자 정의 className과 data 속성을 병합한다", () => {
