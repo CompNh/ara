@@ -1,9 +1,12 @@
 import {
   forwardRef,
   isValidElement,
+  useCallback,
+  useState,
   type AnchorHTMLAttributes,
   type ButtonHTMLAttributes,
   type CSSProperties,
+  type FocusEventHandler,
   type KeyboardEventHandler,
   type MouseEventHandler,
   type PointerEventHandler,
@@ -23,6 +26,8 @@ type ButtonEventHandlers = {
   readonly onPointerUp?: PointerEventHandler<HTMLElement>;
   readonly onPointerCancel?: PointerEventHandler<HTMLElement>;
   readonly onPointerLeave?: PointerEventHandler<HTMLElement>;
+  readonly onFocus?: FocusEventHandler<HTMLElement>;
+  readonly onBlur?: FocusEventHandler<HTMLElement>;
 };
 
 type NativeButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
@@ -44,6 +49,22 @@ type ButtonElement = HTMLButtonElement | HTMLAnchorElement;
 function mergeClassNames(...values: Array<string | undefined | null | false>): string {
   return values.filter(Boolean).join(" ");
 }
+
+const supportsFocusVisible = (() => {
+  if (typeof window === "undefined" || typeof window.CSS === "undefined") {
+    return false;
+  }
+
+  if (typeof window.CSS.supports !== "function") {
+    return false;
+  }
+
+  try {
+    return window.CSS.supports("selector(:focus-visible)");
+  } catch {
+    return false;
+  }
+})();
 
 function getVariantStyle(variant: ButtonVariant, theme: Theme): CSSProperties {
   if (variant === "secondary") {
@@ -104,6 +125,7 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
   const theme = useAraTheme();
   const elementType = asChild ? "custom" : href ? "link" : "button";
   const interactionsDisabled = disabled || loading;
+  const [isFocusVisible, setFocusVisible] = useState(false);
 
   const { buttonProps, isPressed } = useButton<HTMLElement>({
     disabled,
@@ -123,8 +145,36 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
     onPointerUp,
     onPointerCancel,
     onPointerLeave,
+    onFocus,
+    onBlur,
     ...domProps
   } = restProps;
+
+  const handleFocus: FocusEventHandler<HTMLElement> = useCallback(
+    (event) => {
+      if (interactionsDisabled) {
+        setFocusVisible(false);
+        return;
+      }
+
+      if (!supportsFocusVisible) {
+        // `:focus-visible` 미지원 환경(jsdom 등)에서는 키보드 유입으로 간주한다.
+        setFocusVisible(true);
+        return;
+      }
+
+      try {
+        setFocusVisible(event.currentTarget.matches(":focus-visible"));
+      } catch {
+        setFocusVisible(true);
+      }
+    },
+    [interactionsDisabled]
+  );
+
+  const handleBlur: FocusEventHandler<HTMLElement> = useCallback(() => {
+    setFocusVisible(false);
+  }, []);
 
   const interactionHandlers: ButtonEventHandlers = {
     onClick: composeEventHandlers(
@@ -161,6 +211,14 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
       buttonProps.onPointerLeave,
       onPointerLeave as PointerEventHandler<HTMLElement> | undefined,
       { interactionsDisabled }
+    ),
+    onFocus: composeEventHandlers(
+      handleFocus,
+      onFocus as FocusEventHandler<HTMLElement> | undefined
+    ),
+    onBlur: composeEventHandlers(
+      handleBlur,
+      onBlur as FocusEventHandler<HTMLElement> | undefined
     )
   };
 
@@ -184,17 +242,27 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
     letterSpacing: theme.typography.letterSpacing.normal,
     cursor: interactionsDisabled ? "not-allowed" : "pointer",
     opacity: disabled ? 0.6 : 1,
-    transition: "background-color 150ms ease, color 150ms ease, border-color 150ms ease",
-    textDecoration: "none"
+    transition:
+      "background-color 150ms ease, color 150ms ease, border-color 150ms ease, box-shadow 150ms ease, outline 150ms ease",
+    textDecoration: "none",
+    outline: "none"
   };
 
   const variantStyle = getVariantStyle(variant, theme);
+  const focusRingStyle: CSSProperties | undefined = isFocusVisible
+    ? {
+        outline: `2px solid ${theme.color.brand["300"]}`,
+        outlineOffset: 2,
+        boxShadow: `0 0 0 4px ${theme.color.brand["100"]}`
+      }
+    : undefined;
 
   const dataAttributes = {
     "data-variant": variant,
     "data-disabled": disabled ? "" : undefined,
     "data-loading": loading ? "" : undefined,
-    "data-state": isPressed ? "pressed" : undefined
+    "data-focus-visible": isFocusVisible ? "" : undefined,
+    "data-state": isPressed ? "pressed" : isFocusVisible ? "focus-visible" : undefined
   } as const;
 
   const composedHandlers = {
@@ -205,22 +273,41 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
   const anchorAccessibilityProps = href
     ? {
         href,
-        "aria-disabled": disabled || loading ? true : undefined
+        "aria-disabled": disabled || loading ? true : undefined,
+        tabIndex: interactionsDisabled ? -1 : undefined
       }
     : {};
+
+  const role = elementType === "custom" && !href ? "button" : undefined;
+  const tabIndex =
+    elementType === "custom" && !href
+      ? interactionsDisabled
+        ? -1
+        : 0
+      : undefined;
+  const accessibilityProps = {
+    ...(role ? { role } : {}),
+    ...(tabIndex !== undefined ? { tabIndex } : {}),
+    ...(interactionsDisabled ? { "aria-disabled": true } : {})
+  } as const;
 
   const baseProps = {
     ...domProps,
     ...composedHandlers,
     ...dataAttributes,
     className: mergedClassName,
-    style: { ...baseStyle, ...variantStyle, ...style },
+    style: { ...baseStyle, ...variantStyle, ...focusRingStyle, ...style },
     "aria-busy": loading || undefined
   };
 
   if (isPolymorphic) {
     return (
-      <Slot {...baseProps} {...anchorAccessibilityProps} ref={ref as Ref<HTMLElement>}>
+      <Slot
+        {...baseProps}
+        {...anchorAccessibilityProps}
+        {...accessibilityProps}
+        ref={ref as Ref<HTMLElement>}
+      >
         {children}
       </Slot>
     );
@@ -231,6 +318,7 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
       <a
         {...baseProps}
         {...anchorAccessibilityProps}
+        {...accessibilityProps}
         ref={ref as Ref<HTMLAnchorElement>}
       >
         {children}
@@ -241,6 +329,7 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
   return (
     <button
       {...baseProps}
+      {...accessibilityProps}
       type={type}
       disabled={disabled || loading}
       ref={ref as Ref<HTMLButtonElement>}
