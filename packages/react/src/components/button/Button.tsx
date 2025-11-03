@@ -1,7 +1,9 @@
 import {
+  Children,
   forwardRef,
   isValidElement,
   useCallback,
+  useMemo,
   useState,
   type AnchorHTMLAttributes,
   type ButtonHTMLAttributes,
@@ -10,14 +12,21 @@ import {
   type KeyboardEventHandler,
   type MouseEventHandler,
   type PointerEventHandler,
+  type ReactNode,
   type Ref
 } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { useAraTheme } from "../../theme/index.js";
 import { useButton, type PressHandler, type Theme } from "@ara/core";
 
-// 버튼 변형(프라이머리, 세컨더리)
-export type ButtonVariant = "primary" | "secondary";
+// 버튼 변형(시각적 스타일)
+export type ButtonVariant = "solid" | "outline" | "ghost";
+
+// 버튼 톤(강조/의미)
+export type ButtonTone = "primary" | "neutral" | "danger";
+
+// 버튼 크기
+export type ButtonSize = "sm" | "md" | "lg";
 
 // 내부/소비자 이벤트 핸들러 타입
 type ButtonEventHandlers = {
@@ -39,11 +48,16 @@ type AnchorButtonProps = AnchorHTMLAttributes<HTMLAnchorElement>;
 // 버튼 자체 속성 정의
 interface ButtonOwnProps {
   readonly variant?: ButtonVariant;
+  readonly tone?: ButtonTone;
+  readonly size?: ButtonSize;
   readonly asChild?: boolean;
   readonly loading?: boolean;
   readonly onPress?: PressHandler;
   readonly onPressStart?: PressHandler;
   readonly onPressEnd?: PressHandler;
+  readonly leadingIcon?: ReactNode;
+  readonly trailingIcon?: ReactNode;
+  readonly fullWidth?: boolean;
 }
 
 export type ButtonProps = ButtonOwnProps & NativeButtonProps & AnchorButtonProps;
@@ -67,19 +81,146 @@ const supportsFocusVisible = (() => {
   }
 })();
 
-// variant별 스타일 구성
-function getVariantStyle(variant: ButtonVariant, theme: Theme): CSSProperties {
-  if (variant === "secondary") {
+type VariantVariables = {
+  readonly background: string;
+  readonly foreground: string;
+  readonly border: string;
+  readonly backgroundHover: string;
+  readonly foregroundHover: string;
+  readonly borderHover: string;
+  readonly backgroundActive: string;
+  readonly foregroundActive: string;
+  readonly borderActive: string;
+  readonly shadow?: string;
+};
+
+type TonePalette = {
+  readonly base: string;
+  readonly emphasis: string;
+  readonly emphasisAlt: string;
+  readonly contrast: string;
+  readonly subtle: string;
+  readonly subtleAlt: string;
+};
+
+function getTonePalette(tone: ButtonTone, theme: Theme): TonePalette {
+  if (tone === "neutral") {
     return {
-      backgroundColor: theme.color.neutral["100"],
-      color: theme.color.brand["600"],
-      borderColor: theme.color.brand["300"]
+      base: theme.color.neutral["100"],
+      emphasis: theme.color.neutral["200"],
+      emphasisAlt: theme.color.neutral["300"],
+      subtle: theme.color.neutral["50"],
+      subtleAlt: theme.color.neutral["100"],
+      contrast: theme.color.neutral["900"]
     };
   }
+
+  if (tone === "danger") {
+    return {
+      base: theme.color.accent["500"],
+      emphasis: theme.color.accent["600"],
+      emphasisAlt: theme.color.accent["700"],
+      subtle: theme.color.accent["100"],
+      subtleAlt: theme.color.accent["200"],
+      contrast: theme.color.neutral["50"]
+    };
+  }
+
   return {
-    backgroundColor: theme.color.brand["500"],
-    color: theme.color.neutral["50"],
-    borderColor: theme.color.brand["500"]
+    base: theme.color.brand["500"],
+    emphasis: theme.color.brand["600"],
+    emphasisAlt: theme.color.brand["700"],
+    subtle: theme.color.brand["50"],
+    subtleAlt: theme.color.brand["100"],
+    contrast: theme.color.neutral["50"]
+  };
+}
+
+function getVariantVariables(variant: ButtonVariant, palette: TonePalette): VariantVariables {
+  if (variant === "outline") {
+    return {
+      background: "transparent",
+      foreground: palette.base,
+      border: palette.base,
+      backgroundHover: palette.subtle,
+      foregroundHover: palette.emphasis,
+      borderHover: palette.emphasis,
+      backgroundActive: palette.subtleAlt,
+      foregroundActive: palette.emphasisAlt,
+      borderActive: palette.emphasisAlt
+    };
+  }
+
+  if (variant === "ghost") {
+    return {
+      background: "transparent",
+      foreground: palette.base,
+      border: "transparent",
+      backgroundHover: palette.subtle,
+      foregroundHover: palette.emphasis,
+      borderHover: "transparent",
+      backgroundActive: palette.subtleAlt,
+      foregroundActive: palette.emphasisAlt,
+      borderActive: "transparent"
+    };
+  }
+
+  return {
+    background: palette.base,
+    foreground: palette.contrast,
+    border: palette.base,
+    backgroundHover: palette.emphasis,
+    foregroundHover: palette.contrast,
+    borderHover: palette.emphasis,
+    backgroundActive: palette.emphasisAlt,
+    foregroundActive: palette.contrast,
+    borderActive: palette.emphasisAlt
+  };
+}
+
+type SizeVariables = {
+  readonly paddingInline: string;
+  readonly paddingBlock: string;
+  readonly gap: string;
+  readonly fontSize: string;
+  readonly lineHeight: string;
+  readonly minHeight: string;
+  readonly spinnerSize: number;
+};
+
+function getSizeVariables(size: ButtonSize, theme: Theme): SizeVariables {
+  if (size === "sm") {
+    return {
+      paddingInline: "0.75rem",
+      paddingBlock: "0.375rem",
+      gap: "0.375rem",
+      fontSize: theme.typography.fontSize.sm,
+      lineHeight: theme.typography.lineHeight.normal,
+      minHeight: "2.25rem",
+      spinnerSize: 16
+    };
+  }
+
+  if (size === "lg") {
+    return {
+      paddingInline: "1.25rem",
+      paddingBlock: "0.75rem",
+      gap: "0.75rem",
+      fontSize: theme.typography.fontSize.lg,
+      lineHeight: theme.typography.lineHeight.normal,
+      minHeight: "3rem",
+      spinnerSize: 20
+    };
+  }
+
+  return {
+    paddingInline: "1rem",
+    paddingBlock: "0.5rem",
+    gap: "0.5rem",
+    fontSize: theme.typography.fontSize.md,
+    lineHeight: theme.typography.lineHeight.normal,
+    minHeight: "2.5rem",
+    spinnerSize: 18
   };
 }
 
@@ -102,7 +243,9 @@ function composeEventHandlers<Event>(
 export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(props, ref) {
   const {
     children,
-    variant = "primary",
+    variant = "solid",
+    tone = "primary",
+    size = "md",
     asChild = false,
     href,
     className,
@@ -113,10 +256,19 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(pro
     onPress,
     onPressStart,
     onPressEnd,
+    leadingIcon,
+    trailingIcon,
+    fullWidth = false,
     ...restProps
   } = props;
 
   const theme = useAraTheme();
+  const tonePalette = useMemo(() => getTonePalette(tone, theme), [tone, theme]);
+  const variantVariables = useMemo(
+    () => getVariantVariables(variant, tonePalette),
+    [variant, tonePalette]
+  );
+  const sizeVariables = useMemo(() => getSizeVariables(size, theme), [size, theme]);
   const elementType = asChild ? "custom" : href ? "link" : "button";
   const interactionsDisabled = disabled || loading;
 
@@ -197,15 +349,17 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(pro
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    gap: "0.5rem",
-    padding: "0.5rem 1rem",
+    gap: `var(--ara-btn-gap, ${sizeVariables.gap})`,
+    paddingInline: `var(--ara-btn-px, ${sizeVariables.paddingInline})`,
+    paddingBlock: `var(--ara-btn-py, ${sizeVariables.paddingBlock})`,
+    minHeight: `var(--ara-btn-min-height, ${sizeVariables.minHeight})`,
     borderWidth: 1,
     borderStyle: "solid",
-    borderRadius: "0.75rem",
-    fontFamily: theme.typography.fontFamily.sans,
-    fontSize: theme.typography.fontSize.md,
+    borderRadius: "var(--ara-btn-radius, 0.75rem)",
+    fontFamily: `var(--ara-btn-font, ${theme.typography.fontFamily.sans})`,
+    fontSize: `var(--ara-btn-font-size, ${sizeVariables.fontSize})`,
     fontWeight: theme.typography.fontWeight.medium,
-    lineHeight: theme.typography.lineHeight.normal,
+    lineHeight: `var(--ara-btn-line-height, ${sizeVariables.lineHeight})`,
     letterSpacing: theme.typography.letterSpacing.normal,
     cursor: interactionsDisabled ? "not-allowed" : "pointer",
     opacity: disabled ? 0.6 : 1,
@@ -215,8 +369,99 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(pro
     outline: "none"
   };
 
+  const hasLabel = Children.count(children) > 0;
+  const iconStyle: CSSProperties = {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0
+  };
+  const leadingIconNode = leadingIcon ? (
+    <span
+      className="ara-button__icon ara-button__icon--leading"
+      aria-hidden={hasLabel ? true : undefined}
+      style={iconStyle}
+    >
+      {leadingIcon}
+    </span>
+  ) : null;
+  const trailingIconNode = trailingIcon ? (
+    <span
+      className="ara-button__icon ara-button__icon--trailing"
+      aria-hidden={hasLabel ? true : undefined}
+      style={iconStyle}
+    >
+      {trailingIcon}
+    </span>
+  ) : null;
+  const spinnerNode = loading ? (
+    <span
+      className="ara-button__spinner"
+      aria-hidden="true"
+      style={{
+        ...iconStyle,
+        width: sizeVariables.spinnerSize,
+        height: sizeVariables.spinnerSize
+      }}
+    >
+      <svg
+        role="presentation"
+        viewBox="0 0 24 24"
+        width={sizeVariables.spinnerSize}
+        height={sizeVariables.spinnerSize}
+      >
+        <circle
+          cx="12"
+          cy="12"
+          r="9"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeOpacity="0.25"
+          fill="none"
+        />
+        <circle
+          cx="12"
+          cy="12"
+          r="9"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeDasharray="56"
+          strokeDashoffset="28"
+          fill="none"
+        >
+          <animateTransform
+            attributeName="transform"
+            type="rotate"
+            values="0 12 12;360 12 12"
+            dur="0.75s"
+            repeatCount="indefinite"
+          />
+        </circle>
+      </svg>
+    </span>
+  ) : null;
+
+  const labelNode = hasLabel ? (
+    <span className="ara-button__label">{children}</span>
+  ) : null;
+
+  const content = (
+    <>
+      {spinnerNode}
+      {!loading && leadingIconNode}
+      {labelNode}
+      {!loading && trailingIconNode}
+    </>
+  );
+
   // variant + focus 스타일 합성
-  const variantStyle = getVariantStyle(variant, theme);
+  const variantStyle: CSSProperties = {
+    backgroundColor: variantVariables.background,
+    color: variantVariables.foreground,
+    borderColor: variantVariables.border,
+    boxShadow: variantVariables.shadow ?? "none"
+  };
   const focusRingStyle: CSSProperties | undefined = isFocusVisible
     ? {
         outline: `2px solid ${theme.color.brand["300"]}`,
@@ -228,6 +473,8 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(pro
   // 상태별 data-* 속성 설정
   const dataAttributes = {
     "data-variant": variant,
+    "data-tone": tone,
+    "data-size": size,
     "data-disabled": disabled ? "" : undefined,
     "data-loading": loading ? "" : undefined,
     "data-focus-visible": isFocusVisible ? "" : undefined,
@@ -270,7 +517,30 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(pro
     ...composedHandlers,
     ...dataAttributes,
     className: mergedClassName,
-    style: { ...baseStyle, ...variantStyle, ...focusRingStyle, ...style },
+    style: {
+      ...baseStyle,
+      ...variantStyle,
+      ...focusRingStyle,
+      ...style,
+      ...(fullWidth ? { width: "100%" } : {}),
+      "--ara-btn-bg": variantVariables.background,
+      "--ara-btn-bg-hover": variantVariables.backgroundHover,
+      "--ara-btn-bg-active": variantVariables.backgroundActive,
+      "--ara-btn-fg": variantVariables.foreground,
+      "--ara-btn-fg-hover": variantVariables.foregroundHover,
+      "--ara-btn-fg-active": variantVariables.foregroundActive,
+      "--ara-btn-border": variantVariables.border,
+      "--ara-btn-border-hover": variantVariables.borderHover,
+      "--ara-btn-border-active": variantVariables.borderActive,
+      "--ara-btn-gap": sizeVariables.gap,
+      "--ara-btn-px": sizeVariables.paddingInline,
+      "--ara-btn-py": sizeVariables.paddingBlock,
+      "--ara-btn-min-height": sizeVariables.minHeight,
+      "--ara-btn-font-size": sizeVariables.fontSize,
+      "--ara-btn-line-height": sizeVariables.lineHeight,
+      "--ara-btn-font": theme.typography.fontFamily.sans,
+      "--ara-btn-radius": "0.75rem"
+    },
     "aria-busy": loading || undefined
   };
 
@@ -297,7 +567,7 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(pro
         {...accessibilityProps}
         ref={ref as Ref<HTMLAnchorElement>}
       >
-        {children}
+        {content}
       </a>
     );
   }
@@ -311,7 +581,7 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(pro
       disabled={disabled || loading}
       ref={ref as Ref<HTMLButtonElement>}
     >
-      {children}
+      {content}
     </button>
   );
 });

@@ -16,23 +16,49 @@ describe("Button", () => {
       backgroundColor: defaultTheme.color.brand["500"],
       color: defaultTheme.color.neutral["50"]
     });
-    expect(button).toHaveAttribute("data-variant", "primary");
+    expect(button).toHaveAttribute("data-variant", "solid");
+    expect(button).toHaveAttribute("data-tone", "primary");
+    expect(button).toHaveAttribute("data-size", "md");
   });
 
-  it("secondary 변형 스타일을 적용한다", () => {
+  it("outline 변형 스타일을 적용한다", () => {
     render(
       <AraProvider>
-        <Button variant="secondary">보조</Button>
+        <Button variant="outline">보조</Button>
       </AraProvider>
     );
 
     const button = screen.getByRole("button", { name: "보조" });
 
+    expect(button.style.backgroundColor).toBe("transparent");
+    expect(button.style.color).toBe("rgb(47, 107, 255)");
+    expect(button.style.borderColor).toBe("rgb(47, 107, 255)");
+    expect(button).toHaveAttribute("data-variant", "outline");
+  });
+
+  it("tone에 따라 색상을 조정한다", () => {
+    render(
+      <Button tone="danger">위험</Button>
+    );
+
+    const button = screen.getByRole("button", { name: "위험" });
+
     expect(button).toHaveStyle({
-      backgroundColor: defaultTheme.color.neutral["100"],
-      color: defaultTheme.color.brand["600"]
+      backgroundColor: defaultTheme.color.accent["500"],
+      color: defaultTheme.color.neutral["50"]
     });
-    expect(button).toHaveAttribute("data-variant", "secondary");
+    expect(button).toHaveAttribute("data-tone", "danger");
+  });
+
+  it("size prop에 따라 여백과 높이를 조정한다", () => {
+    render(
+      <Button size="sm">작은 버튼</Button>
+    );
+
+    const button = screen.getByRole("button", { name: "작은 버튼" });
+
+    expect(button).toHaveAttribute("data-size", "sm");
+    expect(button.style.minHeight).toBe("var(--ara-btn-min-height, 2.25rem)");
   });
 
   it("사용자 정의 className과 data 속성을 병합한다", () => {
@@ -49,6 +75,29 @@ describe("Button", () => {
     expect(button).toHaveAttribute("data-disabled");
   });
 
+  it("leading/trailing 아이콘과 레이블을 올바르게 렌더링한다", () => {
+    render(
+      <Button
+        leadingIcon={<span data-testid="leading" />}
+        trailingIcon={<span data-testid="trailing" />}
+      >
+        아이콘
+      </Button>
+    );
+
+    expect(screen.getByTestId("leading")).toBeInTheDocument();
+    expect(screen.getByTestId("trailing")).toBeInTheDocument();
+    expect(screen.getByText("아이콘")).toBeInTheDocument();
+  });
+
+  it("fullWidth prop이 적용되면 너비를 확장한다", () => {
+    render(<Button fullWidth>가득</Button>);
+
+    const button = screen.getByRole("button", { name: "가득" });
+
+    expect(button.style.width).toBe("100%");
+  });
+
   it("href가 존재하면 앵커 요소로 렌더링한다", () => {
     render(<Button href="/docs">문서</Button>);
 
@@ -56,7 +105,7 @@ describe("Button", () => {
 
     expect(link.tagName).toBe("A");
     expect(link).toHaveAttribute("href", "/docs");
-    expect(link).toHaveAttribute("data-variant", "primary");
+    expect(link).toHaveAttribute("data-variant", "solid");
   });
 
   it("loading 상태에서 aria 속성을 적용한다", () => {
@@ -67,6 +116,8 @@ describe("Button", () => {
     expect(button).toHaveAttribute("aria-busy", "true");
     expect(button).toHaveAttribute("aria-disabled", "true");
     expect(button).toBeDisabled();
+    expect(button.querySelector(".ara-button__spinner")).not.toBeNull();
+    expect(button.querySelector('svg[role="presentation"]')).not.toBeNull();
   });
 
   it("비활성 링크 모드에서 aria-disabled와 tabIndex를 설정한다", () => {
@@ -95,7 +146,7 @@ describe("Button", () => {
     expect(child).toHaveAttribute("href", "/nested");
     expect(child).toHaveClass("ara-button");
     expect(child).toHaveClass("custom-slot");
-    expect(child).toHaveAttribute("data-variant", "primary");
+    expect(child).toHaveAttribute("data-variant", "solid");
   });
 
   it("asChild 커스텀 요소에 role과 tabIndex를 설정한다", () => {
