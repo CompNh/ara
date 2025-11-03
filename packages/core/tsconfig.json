@@ -2,13 +2,20 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "./tsconfig.build.json",
   "compilerOptions": {
+    "rootDir": ".",
     "noEmit": true,
-    "types": ["vitest/globals"],
+    "types": ["vitest/globals", "react"],
+    "typeRoots": [
+      "../../node_modules/.pnpm/node_modules/@types",
+      "../../node_modules/@types"
+    ],
     "jsx": "react-jsx"
   },
   "include": [
     "src/**/*.ts",
+    "src/**/*.tsx",
     "src/**/*.test.ts",
+    "src/**/*.test.tsx",
     "src/**/*.d.ts",
     "vitest.config.ts"
   ],

@@ -50,7 +50,14 @@ interface ButtonEventHandlers<T extends HTMLElement> {
   readonly onPointerLeave: (event: ReactPointerEvent<T>) => void;
 }
 
-function createPressEvent<E extends ReactSyntheticEvent<Element, Event>>(
+type ModifiableReactEvent = ReactSyntheticEvent<Element, Event> & {
+  readonly shiftKey: boolean;
+  readonly ctrlKey: boolean;
+  readonly altKey: boolean;
+  readonly metaKey: boolean;
+};
+
+function createPressEvent<E extends ModifiableReactEvent>(
   type: PressPhase,
   pointerType: PressPointerType,
   event: E
@@ -112,7 +119,7 @@ export function useButton<T extends HTMLElement = HTMLElement>(
   );
 
   const emitPressStart = useCallback(
-    <E extends ReactSyntheticEvent<Element, Event>>(
+    <E extends ModifiableReactEvent>(
       pointerType: PressPointerType,
       event: E
     ) => {
@@ -123,7 +130,7 @@ export function useButton<T extends HTMLElement = HTMLElement>(
   );
 
   const emitPressEnd = useCallback(
-    <E extends ReactSyntheticEvent<Element, Event>>(
+    <E extends ModifiableReactEvent>(
       pointerType: PressPointerType,
       event: E
     ) => {
@@ -138,7 +145,7 @@ export function useButton<T extends HTMLElement = HTMLElement>(
   );
 
   const emitPress = useCallback(
-    <E extends ReactSyntheticEvent<Element, Event>>(
+    <E extends ModifiableReactEvent>(
       pointerType: PressPointerType,
       event: E
     ) => {
@@ -232,7 +239,7 @@ export function useButton<T extends HTMLElement = HTMLElement>(
   );
 
   const handlePointerLeave = useCallback(
-    (event: React.PointerEvent<T>) => {
+    (event: ReactPointerEvent<T>) => {
       if (activePointerId.current !== event.pointerId) {
         return;
       }
