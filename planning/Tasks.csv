@@ -104,9 +104,9 @@ T-000028,W-000004,Button v0 Comp,코어(headless),useButton 로직 구현,완료
 T-000029,W-000004,Button v0 Comp,React 바인딩,React Button 구현,완료,High," ● 내용: forwardRef, className 병합, data-* 상태 표식, href 및 asChild 처리, ref 전달
  ● 산출물: packages/react/button 컴포넌트 기본 구현
  ● 점검: 샘플 임포트 및 렌더 스모크 테스트",확인
-T-000030,W-000004,Button v0 Comp,접근성,A11y 규정 적용,계획,High," ● 내용: role 및 aria 적용(aria-disabled, aria-busy), focus-visible 링, 링크 모드 일관 키보드 동작
+T-000030,W-000004,Button v0 Comp,접근성,A11y 규정 적용,완료,High," ● 내용: role 및 aria 적용(aria-disabled, aria-busy), focus-visible 링, 링크 모드 일관 키보드 동작
  ● 산출물: 접근성 가이드 요약 및 테스트 케이스
- ● 점검: 키보드 시나리오와 ARIA 기대값 통과", 
+ ● 점검: 키보드 시나리오와 ARIA 기대값 통과",확인
 T-000031,W-000004,Button v0 Comp,테스트,Vitest+RTL 상호작용 테스트,계획,High," ● 내용: 키보드(Enter 및 Space), 마우스/터치, 영역 이탈 취소, disabled 및 loading 차단 검증 + 선택 시 시각 회귀(Chromatic 등) 연동 가이드
  ● 산출물: 테스트 스위트 및 스냅 최소화, 비주얼 회귀 도입 여부 기록
  ● 점검: pnpm --filter @ara/react test 통과 및(선택) 시각 회귀 보고",
