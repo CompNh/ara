@@ -6,7 +6,8 @@ import {
   type CSSProperties,
   type KeyboardEventHandler,
   type MouseEventHandler,
-  type PointerEventHandler
+  type PointerEventHandler,
+  type Ref
 } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { useAraTheme } from "../../theme/index.js";
@@ -116,19 +117,40 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
     onPointerCancel,
     onPointerLeave,
     ...domProps
-  } = restProps as ButtonEventHandlers & Omit<typeof restProps, keyof ButtonEventHandlers>;
+  } = restProps;
 
   const interactionHandlers: ButtonEventHandlers = {
-    onClick: composeEventHandlers(buttonProps.onClick, onClick),
-    onKeyDown: composeEventHandlers(buttonProps.onKeyDown, onKeyDown),
-    onKeyUp: composeEventHandlers(buttonProps.onKeyUp, onKeyUp),
-    onPointerDown: composeEventHandlers(buttonProps.onPointerDown, onPointerDown),
-    onPointerUp: composeEventHandlers(buttonProps.onPointerUp, onPointerUp),
-    onPointerCancel: composeEventHandlers(buttonProps.onPointerCancel, onPointerCancel),
-    onPointerLeave: composeEventHandlers(buttonProps.onPointerLeave, onPointerLeave)
+    onClick: composeEventHandlers(
+      buttonProps.onClick,
+      onClick as MouseEventHandler<HTMLElement> | undefined
+    ),
+    onKeyDown: composeEventHandlers(
+      buttonProps.onKeyDown,
+      onKeyDown as KeyboardEventHandler<HTMLElement> | undefined
+    ),
+    onKeyUp: composeEventHandlers(
+      buttonProps.onKeyUp,
+      onKeyUp as KeyboardEventHandler<HTMLElement> | undefined
+    ),
+    onPointerDown: composeEventHandlers(
+      buttonProps.onPointerDown,
+      onPointerDown as PointerEventHandler<HTMLElement> | undefined
+    ),
+    onPointerUp: composeEventHandlers(
+      buttonProps.onPointerUp,
+      onPointerUp as PointerEventHandler<HTMLElement> | undefined
+    ),
+    onPointerCancel: composeEventHandlers(
+      buttonProps.onPointerCancel,
+      onPointerCancel as PointerEventHandler<HTMLElement> | undefined
+    ),
+    onPointerLeave: composeEventHandlers(
+      buttonProps.onPointerLeave,
+      onPointerLeave as PointerEventHandler<HTMLElement> | undefined
+    )
   };
 
-  const Component = asChild && isValidElement(children) ? Slot : href ? "a" : "button";
+  const isPolymorphic = asChild && isValidElement(children);
   const baseClassName = "ara-button";
   const mergedClassName = mergeClassNames(baseClassName, className);
 
@@ -161,29 +183,56 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
     "data-state": isPressed ? "pressed" : undefined
   } as const;
 
-  const elementSpecificProps =
-    elementType === "button"
-      ? { type, disabled: disabled || loading, "aria-busy": loading || undefined }
-      : {
-          href,
-          "aria-disabled": disabled || loading ? true : undefined,
-          "aria-busy": loading || undefined
-        };
+  const composedHandlers = {
+    ...buttonProps,
+    ...interactionHandlers
+  };
 
-  const componentProps = {
+  const anchorAccessibilityProps = href
+    ? {
+        href,
+        "aria-disabled": disabled || loading ? true : undefined
+      }
+    : {};
+
+  const baseProps = {
     ...domProps,
-    ...interactionHandlers,
+    ...composedHandlers,
     ...dataAttributes,
     className: mergedClassName,
     style: { ...baseStyle, ...variantStyle, ...style },
-    ref,
-    ...elementSpecificProps
+    "aria-busy": loading || undefined
   };
 
+  if (isPolymorphic) {
+    return (
+      <Slot {...baseProps} {...anchorAccessibilityProps} ref={ref as Ref<HTMLElement>}>
+        {children}
+      </Slot>
+    );
+  }
+
+  if (href) {
+    return (
+      <a
+        {...baseProps}
+        {...anchorAccessibilityProps}
+        ref={ref as Ref<HTMLAnchorElement>}
+      >
+        {children}
+      </a>
+    );
+  }
+
   return (
-    <Component {...componentProps}>
+    <button
+      {...baseProps}
+      type={type}
+      disabled={disabled || loading}
+      ref={ref as Ref<HTMLButtonElement>}
+    >
       {children}
-    </Component>
+    </button>
   );
 });
 
