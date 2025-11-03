@@ -95,12 +95,12 @@ T-000025,W-000003,모노레포 스캐폴딩,CI/운영 자동화,의존성 자동
 T-000026,W-000003,모노레포 스캐폴딩,문서화,README 구조 섹션 업데이트(모노레포 트리/패키지 표),완료,Medium," ● 목적: 모노레포 구조와 패키지 역할을 문서로 명확히 제시해 신규 기여자의 온보딩 시간을 단축한다.
  ● 내용: README에 디렉터리 트리, 패키지별 역할/의존 관계 표, 공통 설정 참조 절차를 추가한다. 작업 순서를 정리해 패키지 생성 흐름을 안내한다.
  ● 점검: README 개정본에서 항목이 빠짐없이 소개되고 내부 링크/코드 블록이 최신 스캐폴딩 구조와 일치하는지 검토한다.",확인
-T-000027,W-000004,Button v0 Comp,계약/설계,API 계약 정의(Button),계획,High," ● 목적: Props 목록과 기본값, 이벤트 의미(onPress 계열), 폴리모픽(asChild) 및 링크 모드 범위 확정
+T-000027,W-000004,Button v0 Comp,계약/설계,API 계약 정의(Button),완료,High," ● 목적: Props 목록과 기본값, 이벤트 의미(onPress 계열), 폴리모픽(asChild) 및 링크 모드 범위 확정
  ● 산출물: packages/react/src/components/button/README.md 계약 섹션 확정
- ● 점검: 리뷰 승인 후 범위 동결(변경은 후속 이슈로)", 
-T-000028,W-000004,Button v0 Comp,코어(headless),useButton 로직 구현,계획,High," ● 내용: press 시작/종료/확정 시퀀스, disabled 및 loading 차단, Enter 및 Space 키 매핑
+ ● 점검: 리뷰 승인 후 범위 동결(변경은 후속 이슈로)",확인
+T-000028,W-000004,Button v0 Comp,코어(headless),useButton 로직 구현,완료,High," ● 내용: press 시작/종료/확정 시퀀스, disabled 및 loading 차단, Enter 및 Space 키 매핑
  ● 산출물: packages/core/use-button 구현 및 유닛 테스트 골격
- ● 점검: pnpm --filter @ara/core test 통과", 
+ ● 점검: pnpm --filter @ara/core test 통과",확인
 T-000029,W-000004,Button v0 Comp,React 바인딩,React Button 구현,계획,High," ● 내용: forwardRef, className 병합, data-* 상태 표식, href 및 asChild 처리, ref 전달
  ● 산출물: packages/react/button 컴포넌트 기본 구현
  ● 점검: 샘플 임포트 및 렌더 스모크 테스트", 
