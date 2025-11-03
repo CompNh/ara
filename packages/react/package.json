@@ -82,7 +82,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@ara/core": "workspace:*"
+    "@ara/core": "workspace:*",
+    "@radix-ui/react-slot": "^1.1.0"
   },
   "peerDependencies": {
     "react": "^18.2.0",
