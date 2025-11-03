@@ -61,6 +61,32 @@ describe("Button", () => {
     expect(button.style.minHeight).toBe("var(--ara-btn-min-height, 2.25rem)");
   });
 
+  it("size에 따라 폰트 크기와 패딩이 달라진다", () => {
+    render(
+      <>
+        <Button size="sm">Small</Button>
+        <Button size="lg">Large</Button>
+      </>
+    );
+
+    const [small, large] = screen.getAllByRole("button");
+
+    expect(small.style.fontSize).toBe("var(--ara-btn-font-size, 0.875rem)");
+    expect(large.style.fontSize).toBe("var(--ara-btn-font-size, 1.25rem)");
+    expect(small.style.paddingLeft).toBe(
+      "var(--ara-btn-pl, var(--ara-btn-px, 0.75rem))"
+    );
+    expect(large.style.paddingLeft).toBe(
+      "var(--ara-btn-pl, var(--ara-btn-px, 1.25rem))"
+    );
+    expect(small.style.paddingTop).toBe(
+      "var(--ara-btn-pt, var(--ara-btn-py, 0.375rem))"
+    );
+    expect(large.style.paddingTop).toBe(
+      "var(--ara-btn-pt, var(--ara-btn-py, 0.75rem))"
+    );
+  });
+
   it("사용자 정의 className과 data 속성을 병합한다", () => {
     render(
       <Button className="custom" disabled>
