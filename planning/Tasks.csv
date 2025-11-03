@@ -107,9 +107,9 @@ T-000029,W-000004,Button v0 Comp,React 바인딩,React Button 구현,완료,High
 T-000030,W-000004,Button v0 Comp,접근성,A11y 규정 적용,완료,High," ● 내용: role 및 aria 적용(aria-disabled, aria-busy), focus-visible 링, 링크 모드 일관 키보드 동작
  ● 산출물: 접근성 가이드 요약 및 테스트 케이스
  ● 점검: 키보드 시나리오와 ARIA 기대값 통과",확인
-T-000031,W-000004,Button v0 Comp,테스트,Vitest+RTL 상호작용 테스트,계획,High," ● 내용: 키보드(Enter 및 Space), 마우스/터치, 영역 이탈 취소, disabled 및 loading 차단 검증 + 선택 시 시각 회귀(Chromatic 등) 연동 가이드
+T-000031,W-000004,Button v0 Comp,테스트,Vitest+RTL 상호작용 테스트,완료,High," ● 내용: 키보드(Enter 및 Space), 마우스/터치, 영역 이탈 취소, disabled 및 loading 차단 검증 + 선택 시 시각 회귀(Chromatic 등) 연동 가이드
  ● 산출물: 테스트 스위트 및 스냅 최소화, 비주얼 회귀 도입 여부 기록
- ● 점검: pnpm --filter @ara/react test 통과 및(선택) 시각 회귀 보고",
+ ● 점검: pnpm --filter @ara/react test 통과 및(선택) 시각 회귀 보고",확인
 T-000032,W-000004,Button v0 Comp,문서/스토리북,Storybook 스토리 및 MDX,계획,Medium," ● 내용: Playground, Variants, Tones, Sizes, WithIcons, Loading, AsLink, FullWidth 시나리오 + 디자인 승인 체크리스트(토큰 값 표·QA 항목) 포함
  ● 산출물: stories 및 MDX 문서 + 디자인 승인 체크리스트
  ● 점검: build-storybook 스모크 테스트 통과 및 디자인 QA 사인오프",
