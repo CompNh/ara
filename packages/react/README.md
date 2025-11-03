@@ -42,3 +42,10 @@ function App() {
 - ✅ pnpm --filter @ara/react build
 - ✅ pnpm --filter @ara/react test
 - ✅ pnpm run check:manifests
+
+단일 테스트 파일만 실행하려면 `pnpm --filter @ara/react test -- <테스트 파일 경로>` 형식으로 경로를 전달한다.
+예를 들어 Button 단위 테스트만 실행하려면 아래와 같이 입력한다.
+
+```bash
+pnpm --filter @ara/react test -- packages/react/src/components/button/Button.test.tsx
+```
