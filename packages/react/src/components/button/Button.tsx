@@ -63,7 +63,8 @@ function getVariantStyle(variant: ButtonVariant, theme: Theme): CSSProperties {
 
 function composeEventHandlers<Event>(
   ours: ((event: Event) => void) | undefined,
-  theirs: ((event: Event) => void) | undefined
+  theirs: ((event: Event) => void) | undefined,
+  options: { interactionsDisabled?: boolean } = {}
 ): ((event: Event) => void) | undefined {
   if (!ours && !theirs) {
     return undefined;
@@ -71,6 +72,11 @@ function composeEventHandlers<Event>(
 
   return (event: Event) => {
     ours?.(event);
+
+    if (options.interactionsDisabled) {
+      return;
+    }
+
     theirs?.(event);
   };
 }
@@ -97,6 +103,7 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
 
   const theme = useAraTheme();
   const elementType = asChild ? "custom" : href ? "link" : "button";
+  const interactionsDisabled = disabled || loading;
 
   const { buttonProps, isPressed } = useButton<HTMLElement>({
     disabled,
@@ -122,31 +129,38 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
   const interactionHandlers: ButtonEventHandlers = {
     onClick: composeEventHandlers(
       buttonProps.onClick,
-      onClick as MouseEventHandler<HTMLElement> | undefined
+      onClick as MouseEventHandler<HTMLElement> | undefined,
+      { interactionsDisabled }
     ),
     onKeyDown: composeEventHandlers(
       buttonProps.onKeyDown,
-      onKeyDown as KeyboardEventHandler<HTMLElement> | undefined
+      onKeyDown as KeyboardEventHandler<HTMLElement> | undefined,
+      { interactionsDisabled }
     ),
     onKeyUp: composeEventHandlers(
       buttonProps.onKeyUp,
-      onKeyUp as KeyboardEventHandler<HTMLElement> | undefined
+      onKeyUp as KeyboardEventHandler<HTMLElement> | undefined,
+      { interactionsDisabled }
     ),
     onPointerDown: composeEventHandlers(
       buttonProps.onPointerDown,
-      onPointerDown as PointerEventHandler<HTMLElement> | undefined
+      onPointerDown as PointerEventHandler<HTMLElement> | undefined,
+      { interactionsDisabled }
     ),
     onPointerUp: composeEventHandlers(
       buttonProps.onPointerUp,
-      onPointerUp as PointerEventHandler<HTMLElement> | undefined
+      onPointerUp as PointerEventHandler<HTMLElement> | undefined,
+      { interactionsDisabled }
     ),
     onPointerCancel: composeEventHandlers(
       buttonProps.onPointerCancel,
-      onPointerCancel as PointerEventHandler<HTMLElement> | undefined
+      onPointerCancel as PointerEventHandler<HTMLElement> | undefined,
+      { interactionsDisabled }
     ),
     onPointerLeave: composeEventHandlers(
       buttonProps.onPointerLeave,
-      onPointerLeave as PointerEventHandler<HTMLElement> | undefined
+      onPointerLeave as PointerEventHandler<HTMLElement> | undefined,
+      { interactionsDisabled }
     )
   };
 
@@ -168,7 +182,7 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(
     fontWeight: theme.typography.fontWeight.medium,
     lineHeight: theme.typography.lineHeight.normal,
     letterSpacing: theme.typography.letterSpacing.normal,
-    cursor: disabled || loading ? "not-allowed" : "pointer",
+    cursor: interactionsDisabled ? "not-allowed" : "pointer",
     opacity: disabled ? 0.6 : 1,
     transition: "background-color 150ms ease, color 150ms ease, border-color 150ms ease",
     textDecoration: "none"
