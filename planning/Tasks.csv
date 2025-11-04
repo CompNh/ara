@@ -113,7 +113,7 @@ T-000031,W-000004,Button v0 Comp,테스트,Vitest+RTL 상호작용 테스트,완
 T-000032,W-000004,Button v0 Comp,문서/스토리북,Storybook 스토리 및 MDX,완료,Medium," ● 내용: Playground, Variants, Tones, Sizes, WithIcons, Loading, AsLink, FullWidth 시나리오 + 디자인 승인 체크리스트(토큰 값 표·QA 항목) 포함
  ● 산출물: stories 및 MDX 문서 + 디자인 승인 체크리스트
  ● 점검: build-storybook 스모크 테스트 통과 및 디자인 QA 사인오프",확인
-T-000033,W-000004,Button v0 Comp,테마/토큰,Tokens 연결 및 CSS 변수 표면,계획,Medium," ● 내용: 토큰 매핑과 CSS 변수(--ara-btn-bg 등) 정의, light 및 dark 테마 샘플, 디자인 QA용 토큰 표 제공
+T-000033,W-000004,Button v0 Comp,테마/토큰,Tokens 연결 및 CSS 변수 표면,진행중,Medium," ● 내용: 토큰 매핑과 CSS 변수(--ara-btn-bg 등) 정의, light 및 dark 테마 샘플, 디자인 QA용 토큰 표 제공
  ● 산출물: tokens 소비 예 및 오버라이드 가이드 + 토큰 값 표
  ● 점검: 토큰 변경 시 스타일 반영 및 디자인 체크리스트 충족 확인",
 T-000034,W-000004,Button v0 Comp,빌드/출하,Exports 및 타입 계약 점검,계획,High," ● 내용: exports 및 types 및 module 및 sideEffects 계약 검증, showcase 임포트 스모크(예: apps/showcase 버튼 데모 페이지) 시나리오 명시
@@ -121,4 +121,41 @@ T-000034,W-000004,Button v0 Comp,빌드/출하,Exports 및 타입 계약 점검,
  ● 점검: pnpm --filter @ara/react pack --dry-run 결과 검토 및 쇼케이스 시나리오 통과",
 T-000035,W-000004,Button v0 Comp,릴리스,Changesets 프리릴리스(canary),계획,High," ● 내용: changeset 추가 및 프리릴리스 채널 배포 드라이런
  ● 산출물: canary 태그 및 설치 확인 메모
- ● 점검: 설치 및 임포트 성공과 간단 사용 예 검증", 
+ ● 점검: 설치 및 임포트 성공과 간단 사용 예 검증",
+ T-000036,W-000005,Tokens & ThemeProvider v1,토큰 설계/거버넌스,토큰 명명 규칙/계약 확정,계획,High," ● 목적: 토큰 접두사와 스케일 키(예: color, font-size, space, radius 등) 및 CSS 변수 접두사(--ara-*)를 고정
+ ● 변경 규칙: v1 이후 토큰 키/의미 변경은 Major(Changesets로 명시)
+ ● 산출물: packages/tokens/README.md에 규약 문서화
+ ● 점검: 리뷰 승인 후 변경은 이슈만; README에 v1 동결·Breaking=Major 명시; PR 템플릿에 Breaking? 체크 추가",
+T-000037,W-000005,Tokens & ThemeProvider v1,토큰(컬러),색상 팔레트/역할 정의,계획,High," ● 내용: 기본 팔레트와 역할 색(primary, neutral, danger 등), 상태(hover/active/disabled) 맵핑
+ ● 산출물: packages/tokens/src/colors.ts 및 타입 선언
+ ● 점검: 라이트/다크 대비 기준 충족(WCAG AA: 일반 텍스트 ≥ 4.5:1, 큰 텍스트 ≥ 3:1)",
+T-000038,W-000005,Tokens & ThemeProvider v1,토큰(타이포),타이포그래피 스케일 정의,계획,Medium," ● 내용: 폰트 패밀리, 크기(sm/md/lg 등), weight, line-height, letter-spacing 스케일
+ ● 산출물: packages/tokens/src/typography.ts
+ ● 점검: 디자인 샘플 대비 시각 일치", 
+T-000039,W-000005,Tokens & ThemeProvider v1,토큰(레이아웃),간격/반지름/섀도 스케일,계획,Medium," ● 내용: space(px), radius, elevation(shadow), z-index 스케일과 키 고정
+ ● 산출물: packages/tokens/src/layout.ts
+ ● 점검: Button v0에 적용 시 기대 치수/모양 재현", 
+T-000040,W-000005,Tokens & ThemeProvider v1,CSS 변수 매핑,CSS Vars 생성 및 주입 규칙,계획,High," ● 내용: 토큰→CSS 변수(--ara-*) 변환 테이블 정의, :root와 테마별 변수 세트 구성
+ ● 산출물: packages/tokens/src/css-vars.ts, 생성 스크립트
+ ● 점검: 변수 이름 충돌 없음, d.ts 생성 확인", 
+T-000041,W-000005,Tokens & ThemeProvider v1,ThemeProvider,API 설계 및 기본 구현,계획,High," ● 내용: ThemeProvider 컴포넌트 설계(컨텍스트, 변수 주입, data-theme 또는 class 전략, override API)
+ ● 산출물: packages/react/src/components/theme-provider/index.tsx 및 README.md
+ ● 점검: 중첩 Provider, SSR/StrictMode 스모크 통과", 
+T-000042,W-000005,Tokens & ThemeProvider v1,ThemeProvider,라이트/다크 및 시스템 연동,계획,High," ● 내용: prefers-color-scheme 연동; 사용자 선택 우선; SSR-safe 초기 스타일 인라인 적용(FOUC 방지); 우선순위: 시스템 설정 < 사용자 선택
+ ● 산출물: 테마 스위처 훅과 샘플 코드
+ ● 점검: Storybook 툴바 스위치 동작; 첫 페인트에 테마 깜빡임 없음(스크린 레코딩 확인); 새 탭 초기 로드에서도 유지)",
+T-000043,W-000005,Tokens & ThemeProvider v1,A11y/국제화,RTL 및 포커스 링 토큰,계획,Medium," ● 내용: dir=rtl 지원, 아이콘/여백 방향 보정 규칙, 포커스 링 토큰과 표시 정책
+ ● 산출물: 가이드 섹션 및 데모
+ ● 점검: RTL 스냅샷 및 키보드 내비게이션 정상", 
+T-000044,W-000005,Tokens & ThemeProvider v1,문서/스토리북,Storybook 문서/Controls/테마 스위치,계획,Medium," ● 내용: 토큰 테이블, ThemeProvider 사용 가이드, 테마 스위치 툴바 추가
+ ● 산출물: stories 및 MDX 문서
+ ● 점검: build-storybook 스모크 통과", 
+T-000045,W-000005,Tokens & ThemeProvider v1,빌드/출하,Exports/Types 계약 점검,계획,High," ● 내용: @ara/tokens와 @ara/react/theme-provider의 exports, types, sideEffects 계약 확정
+ ● 산출물: 각 package.json의 exports 맵과 d.ts 출력
+ ● 점검: pnpm --filter @ara/* pack --dry-run 결과 검토", 
+T-000046,W-000005,Tokens & ThemeProvider v1,통합/검증,Button v0 통합 스모크,계획,High," ● 내용: Button v0가 ThemeProvider와 토큰을 소비해 변형(variant/tone/size)과 다크 모드가 정상 반영되는지 확인
+ ● 산출물: showcase 또는 story 샘플
+ ● 점검: 시각/상호작용 회귀 없음", 
+T-000047,W-000005,Tokens & ThemeProvider v1,릴리스,Changesets 프리릴리스(canary),계획,High," ● 내용: changeset 추가 및 프리릴리스 채널 배포 드라이런
+ ● 산출물: canary 태그 및 설치 확인 메모
+ ● 점검: 설치 및 임포트 성공과 간단 사용 예 검증",  
