@@ -17,7 +17,7 @@ import {
 } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { useAraTheme } from "../../theme/index.js";
-import { useButton, type PressHandler, type Theme } from "@ara/core";
+import { useButton, type PressHandler } from "@ara/core";
 
 // 버튼 변형(시각적 스타일)
 export type ButtonVariant = "solid" | "outline" | "ghost";
@@ -80,152 +80,6 @@ const supportsFocusVisible = (() => {
     return false;
   }
 })();
-
-type VariantVariables = {
-  readonly background: string;
-  readonly foreground: string;
-  readonly border: string;
-  readonly backgroundHover: string;
-  readonly foregroundHover: string;
-  readonly borderHover: string;
-  readonly backgroundActive: string;
-  readonly foregroundActive: string;
-  readonly borderActive: string;
-  readonly shadow?: string;
-};
-
-type TonePalette = {
-  readonly base: string;
-  readonly emphasis: string;
-  readonly emphasisAlt: string;
-  readonly contrast: string;
-  readonly subtle: string;
-  readonly subtleAlt: string;
-};
-
-function getTonePalette(tone: ButtonTone | null | undefined, theme: Theme): TonePalette {
-  if (tone === "neutral") {
-    return {
-      base: theme.color.neutral["100"],
-      emphasis: theme.color.neutral["200"],
-      emphasisAlt: theme.color.neutral["300"],
-      subtle: theme.color.neutral["50"],
-      subtleAlt: theme.color.neutral["100"],
-      contrast: theme.color.neutral["900"]
-    };
-  }
-
-  if (tone === "danger") {
-    return {
-      base: theme.color.accent["500"],
-      emphasis: theme.color.accent["600"],
-      emphasisAlt: theme.color.accent["700"],
-      subtle: theme.color.accent["100"],
-      subtleAlt: theme.color.accent["200"],
-      contrast: theme.color.neutral["50"]
-    };
-  }
-
-  return {
-    base: theme.color.brand["500"],
-    emphasis: theme.color.brand["600"],
-    emphasisAlt: theme.color.brand["700"],
-    subtle: theme.color.brand["50"],
-    subtleAlt: theme.color.brand["100"],
-    contrast: theme.color.neutral["50"]
-  };
-}
-
-function getVariantVariables(
-  variant: ButtonVariant | null | undefined,
-  palette: TonePalette
-): VariantVariables {
-  if (variant === "outline") {
-    return {
-      background: "transparent",
-      foreground: palette.base,
-      border: palette.base,
-      backgroundHover: palette.subtle,
-      foregroundHover: palette.emphasis,
-      borderHover: palette.emphasis,
-      backgroundActive: palette.subtleAlt,
-      foregroundActive: palette.emphasisAlt,
-      borderActive: palette.emphasisAlt
-    };
-  }
-
-  if (variant === "ghost") {
-    return {
-      background: "transparent",
-      foreground: palette.base,
-      border: "transparent",
-      backgroundHover: palette.subtle,
-      foregroundHover: palette.emphasis,
-      borderHover: "transparent",
-      backgroundActive: palette.subtleAlt,
-      foregroundActive: palette.emphasisAlt,
-      borderActive: "transparent"
-    };
-  }
-
-  return {
-    background: palette.base,
-    foreground: palette.contrast,
-    border: palette.base,
-    backgroundHover: palette.emphasis,
-    foregroundHover: palette.contrast,
-    borderHover: palette.emphasis,
-    backgroundActive: palette.emphasisAlt,
-    foregroundActive: palette.contrast,
-    borderActive: palette.emphasisAlt
-  };
-}
-
-type SizeVariables = {
-  readonly paddingInline: string;
-  readonly paddingBlock: string;
-  readonly gap: string;
-  readonly fontSize: string;
-  readonly lineHeight: string;
-  readonly minHeight: string;
-  readonly spinnerSize: number;
-};
-
-function getSizeVariables(size: ButtonSize | null | undefined, theme: Theme): SizeVariables {
-  if (size === "sm") {
-    return {
-      paddingInline: "0.75rem",
-      paddingBlock: "0.375rem",
-      gap: "0.375rem",
-      fontSize: theme.typography.fontSize.sm,
-      lineHeight: theme.typography.lineHeight.normal,
-      minHeight: "2.25rem",
-      spinnerSize: 16
-    };
-  }
-
-  if (size === "lg") {
-    return {
-      paddingInline: "1.25rem",
-      paddingBlock: "0.75rem",
-      gap: "0.75rem",
-      fontSize: theme.typography.fontSize.lg,
-      lineHeight: theme.typography.lineHeight.normal,
-      minHeight: "3rem",
-      spinnerSize: 20
-    };
-  }
-
-  return {
-    paddingInline: "1rem",
-    paddingBlock: "0.5rem",
-    gap: "0.5rem",
-    fontSize: theme.typography.fontSize.md,
-    lineHeight: theme.typography.lineHeight.normal,
-    minHeight: "2.5rem",
-    spinnerSize: 18
-  };
-}
 
 function normalizeVariant(value: ButtonVariant | null | undefined): ButtonVariant {
   if (value === "outline" || value === "ghost") {
@@ -292,12 +146,12 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(pro
   const type = typeProp ?? "button";
 
   const theme = useAraTheme();
-  const tonePalette = useMemo(() => getTonePalette(tone, theme), [tone, theme]);
-  const variantVariables = useMemo(
-    () => getVariantVariables(variant, tonePalette),
-    [variant, tonePalette]
+  const buttonTokens = theme.component.button;
+  const variantTokens = useMemo(
+    () => buttonTokens.variant[variant][tone],
+    [buttonTokens.variant, tone, variant]
   );
-  const sizeVariables = useMemo(() => getSizeVariables(size, theme), [size, theme]);
+  const sizeTokens = useMemo(() => buttonTokens.size[size], [buttonTokens.size, size]);
   const elementType = asChild ? "custom" : href ? "link" : "button";
   const interactionsDisabled = disabled || loading;
 
@@ -378,24 +232,26 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(pro
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    gap: `var(--ara-btn-gap, ${sizeVariables.gap})`,
-    paddingInline: `var(--ara-btn-px, ${sizeVariables.paddingInline})`,
-    paddingBlock: `var(--ara-btn-py, ${sizeVariables.paddingBlock})`,
-    paddingLeft: `var(--ara-btn-pl, var(--ara-btn-px, ${sizeVariables.paddingInline}))`,
-    paddingRight: `var(--ara-btn-pr, var(--ara-btn-px, ${sizeVariables.paddingInline}))`,
-    paddingTop: `var(--ara-btn-pt, var(--ara-btn-py, ${sizeVariables.paddingBlock}))`,
-    paddingBottom: `var(--ara-btn-pb, var(--ara-btn-py, ${sizeVariables.paddingBlock}))`,
-    minHeight: `var(--ara-btn-min-height, ${sizeVariables.minHeight})`,
-    borderWidth: 1,
+    gap: `var(--ara-btn-gap, var(--ara-btn-size-${size}-gap, ${sizeTokens.gap}))`,
+    paddingInline: `var(--ara-btn-px, var(--ara-btn-size-${size}-px, ${sizeTokens.paddingInline}))`,
+    paddingBlock: `var(--ara-btn-py, var(--ara-btn-size-${size}-py, ${sizeTokens.paddingBlock}))`,
+    paddingLeft: `var(--ara-btn-pl, var(--ara-btn-px, var(--ara-btn-size-${size}-px, ${sizeTokens.paddingInline})))`,
+    paddingRight: `var(--ara-btn-pr, var(--ara-btn-px, var(--ara-btn-size-${size}-px, ${sizeTokens.paddingInline})))`,
+    paddingTop: `var(--ara-btn-pt, var(--ara-btn-py, var(--ara-btn-size-${size}-py, ${sizeTokens.paddingBlock})))`,
+    paddingBottom: `var(--ara-btn-pb, var(--ara-btn-py, var(--ara-btn-size-${size}-py, ${sizeTokens.paddingBlock})))`,
+    minHeight: `var(--ara-btn-min-height, var(--ara-btn-size-${size}-min-height, ${sizeTokens.minHeight}))`,
+    borderWidth: `var(--ara-btn-border-width, ${buttonTokens.borderWidth})`,
     borderStyle: "solid",
-    borderRadius: "var(--ara-btn-radius, 0.75rem)",
-    fontFamily: `var(--ara-btn-font, ${theme.typography.fontFamily.sans})`,
-    fontSize: `var(--ara-btn-font-size, ${sizeVariables.fontSize})`,
-    fontWeight: theme.typography.fontWeight.medium,
-    lineHeight: `var(--ara-btn-line-height, ${sizeVariables.lineHeight})`,
+    borderRadius: `var(--ara-btn-radius, ${buttonTokens.radius})`,
+    fontFamily: `var(--ara-btn-font, ${buttonTokens.font.family})`,
+    fontSize: `var(--ara-btn-font-size, var(--ara-btn-size-${size}-font-size, ${sizeTokens.fontSize}))`,
+    fontWeight: `var(--ara-btn-font-weight, ${buttonTokens.font.weight})`,
+    lineHeight: `var(--ara-btn-line-height, var(--ara-btn-size-${size}-line-height, ${sizeTokens.lineHeight}))`,
     letterSpacing: theme.typography.letterSpacing.normal,
     cursor: interactionsDisabled ? "not-allowed" : "pointer",
-    opacity: disabled ? 0.6 : 1,
+    opacity: disabled
+      ? `var(--ara-btn-disabled-opacity, ${buttonTokens.disabled.opacity})`
+      : 1,
     transition:
       "background-color 150ms ease, color 150ms ease, border-color 150ms ease, box-shadow 150ms ease, outline 150ms ease",
     textDecoration: "none",
@@ -433,15 +289,15 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(pro
       aria-hidden="true"
       style={{
         ...iconStyle,
-        width: sizeVariables.spinnerSize,
-        height: sizeVariables.spinnerSize
+        width: `var(--ara-btn-spinner-size, var(--ara-btn-size-${size}-spinner, ${sizeTokens.spinnerSize}))`,
+        height: `var(--ara-btn-spinner-size, var(--ara-btn-size-${size}-spinner, ${sizeTokens.spinnerSize}))`
       }}
     >
       <svg
         role="presentation"
         viewBox="0 0 24 24"
-        width={sizeVariables.spinnerSize}
-        height={sizeVariables.spinnerSize}
+        width={`var(--ara-btn-spinner-size, var(--ara-btn-size-${size}-spinner, ${sizeTokens.spinnerSize}))`}
+        height={`var(--ara-btn-spinner-size, var(--ara-btn-size-${size}-spinner, ${sizeTokens.spinnerSize}))`}
       >
         <circle
           cx="12"
@@ -490,16 +346,16 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(pro
 
   // variant + focus 스타일 합성
   const variantStyle: CSSProperties = {
-    backgroundColor: variantVariables.background,
-    color: variantVariables.foreground,
-    borderColor: variantVariables.border,
-    boxShadow: variantVariables.shadow ?? "none"
+    backgroundColor: `var(--ara-btn-bg, var(--ara-btn-variant-${variant}-${tone}-bg, ${variantTokens.background}))`,
+    color: `var(--ara-btn-fg, var(--ara-btn-variant-${variant}-${tone}-fg, ${variantTokens.foreground}))`,
+    borderColor: `var(--ara-btn-border, var(--ara-btn-variant-${variant}-${tone}-border, ${variantTokens.border}))`,
+    boxShadow: `var(--ara-btn-shadow, var(--ara-btn-variant-${variant}-${tone}-shadow, ${variantTokens.shadow ?? "none"}))`
   };
   const focusRingStyle: CSSProperties | undefined = isFocusVisible
     ? {
-        outline: `2px solid ${theme.color.brand["300"]}`,
-        outlineOffset: 2,
-        boxShadow: `0 0 0 4px ${theme.color.brand["100"]}`
+        outline: `var(--ara-btn-focus-outline, ${buttonTokens.focus.outlineWidth} solid ${buttonTokens.focus.outlineColor})`,
+        outlineOffset: `var(--ara-btn-focus-outline-offset, ${buttonTokens.focus.outlineOffset})`,
+        boxShadow: `var(--ara-btn-focus-ring, 0 0 0 ${buttonTokens.focus.ringSize} ${buttonTokens.focus.ringColor})`
       }
     : undefined;
 
@@ -556,23 +412,23 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(pro
       ...focusRingStyle,
       ...style,
       ...(fullWidth ? { width: "100%" } : {}),
-      "--ara-btn-bg": variantVariables.background,
-      "--ara-btn-bg-hover": variantVariables.backgroundHover,
-      "--ara-btn-bg-active": variantVariables.backgroundActive,
-      "--ara-btn-fg": variantVariables.foreground,
-      "--ara-btn-fg-hover": variantVariables.foregroundHover,
-      "--ara-btn-fg-active": variantVariables.foregroundActive,
-      "--ara-btn-border": variantVariables.border,
-      "--ara-btn-border-hover": variantVariables.borderHover,
-      "--ara-btn-border-active": variantVariables.borderActive,
-      "--ara-btn-gap": sizeVariables.gap,
-      "--ara-btn-px": sizeVariables.paddingInline,
-      "--ara-btn-py": sizeVariables.paddingBlock,
-      "--ara-btn-min-height": sizeVariables.minHeight,
-      "--ara-btn-font-size": sizeVariables.fontSize,
-      "--ara-btn-line-height": sizeVariables.lineHeight,
-      "--ara-btn-font": theme.typography.fontFamily.sans,
-      "--ara-btn-radius": "0.75rem"
+      "--ara-btn-bg": `var(--ara-btn-variant-${variant}-${tone}-bg, ${variantTokens.background})`,
+      "--ara-btn-bg-hover": `var(--ara-btn-variant-${variant}-${tone}-bg-hover, ${variantTokens.backgroundHover})`,
+      "--ara-btn-bg-active": `var(--ara-btn-variant-${variant}-${tone}-bg-active, ${variantTokens.backgroundActive})`,
+      "--ara-btn-fg": `var(--ara-btn-variant-${variant}-${tone}-fg, ${variantTokens.foreground})`,
+      "--ara-btn-fg-hover": `var(--ara-btn-variant-${variant}-${tone}-fg-hover, ${variantTokens.foregroundHover})`,
+      "--ara-btn-fg-active": `var(--ara-btn-variant-${variant}-${tone}-fg-active, ${variantTokens.foregroundActive})`,
+      "--ara-btn-border": `var(--ara-btn-variant-${variant}-${tone}-border, ${variantTokens.border})`,
+      "--ara-btn-border-hover": `var(--ara-btn-variant-${variant}-${tone}-border-hover, ${variantTokens.borderHover})`,
+      "--ara-btn-border-active": `var(--ara-btn-variant-${variant}-${tone}-border-active, ${variantTokens.borderActive})`,
+      "--ara-btn-shadow": `var(--ara-btn-variant-${variant}-${tone}-shadow, ${variantTokens.shadow ?? "none"})`,
+      "--ara-btn-gap": `var(--ara-btn-size-${size}-gap, ${sizeTokens.gap})`,
+      "--ara-btn-px": `var(--ara-btn-size-${size}-px, ${sizeTokens.paddingInline})`,
+      "--ara-btn-py": `var(--ara-btn-size-${size}-py, ${sizeTokens.paddingBlock})`,
+      "--ara-btn-min-height": `var(--ara-btn-size-${size}-min-height, ${sizeTokens.minHeight})`,
+      "--ara-btn-font-size": `var(--ara-btn-size-${size}-font-size, ${sizeTokens.fontSize})`,
+      "--ara-btn-line-height": `var(--ara-btn-size-${size}-line-height, ${sizeTokens.lineHeight})`,
+      "--ara-btn-spinner-size": `var(--ara-btn-size-${size}-spinner, ${sizeTokens.spinnerSize})`
     },
     "aria-busy": loading || undefined
   };
