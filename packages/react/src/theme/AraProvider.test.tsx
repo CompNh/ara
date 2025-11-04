@@ -1,27 +1,48 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { defaultTheme } from "@ara/core";
-import { AraProvider } from "./AraProvider.js";
+import {
+  AraProvider,
+  AraThemeBoundary,
+  useAraThemeVariables
+} from "./AraProvider.js";
 
 describe("AraProvider", () => {
-  it("기본적으로 div 컨테이너를 렌더링한다", () => {
+  it("추가 래퍼 없이 자식을 렌더링한다", () => {
     const { container } = render(
       <AraProvider>
         <span>child</span>
       </AraProvider>
     );
 
-    const wrapper = container.firstElementChild;
+    expect(container.firstElementChild?.tagName).toBe("SPAN");
+    expect(container.firstElementChild).toHaveTextContent("child");
+  });
+});
 
-    expect(wrapper?.tagName).toBe("DIV");
-    expect(wrapper).toHaveAttribute("data-ara-theme");
-    expect(wrapper?.querySelector("span")).toHaveTextContent("child");
+describe("AraThemeBoundary", () => {
+  it("기본적으로 div 컨테이너에 변수를 주입한다", () => {
+    const { container } = render(
+      <AraProvider>
+        <AraThemeBoundary>
+          <section data-testid="host">content</section>
+        </AraThemeBoundary>
+      </AraProvider>
+    );
+
+    const host = screen.getByTestId("host");
+
+    expect(container.firstElementChild?.tagName).toBe("DIV");
+    expect(container.firstElementChild).toHaveAttribute("data-ara-theme");
+    expect(host).toHaveTextContent("content");
   });
 
-  it("asChild prop으로 기존 요소를 재사용한다", () => {
+  it("asChild로 기존 요소를 재사용한다", () => {
     const { container } = render(
-      <AraProvider asChild>
-        <section data-testid="host">content</section>
+      <AraProvider>
+        <AraThemeBoundary asChild>
+          <section data-testid="host">content</section>
+        </AraThemeBoundary>
       </AraProvider>
     );
 
@@ -32,5 +53,24 @@ describe("AraProvider", () => {
     expect(host.style.getPropertyValue("--ara-btn-radius")).toBe(
       defaultTheme.component.button.radius
     );
+  });
+
+  it("hook으로 CSS 변수를 노출한다", () => {
+    function Reader() {
+      const variables = useAraThemeVariables();
+      return (
+        <output data-testid="vars" data-radius={variables["--ara-btn-radius"]} />
+      );
+    }
+
+    render(
+      <AraProvider>
+        <Reader />
+      </AraProvider>
+    );
+
+    const vars = screen.getByTestId("vars");
+
+    expect(vars.dataset.radius).toBe(defaultTheme.component.button.radius);
   });
 });

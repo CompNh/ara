@@ -1,5 +1,10 @@
 import { Slot } from "@radix-ui/react-slot";
-import { createContext, type ReactNode, useContext, useMemo } from "react";
+import {
+  createContext,
+  type ReactNode,
+  useContext,
+  useMemo
+} from "react";
 import { createTheme, defaultTheme, type Theme, type ThemeOverrides } from "@ara/core";
 import type { CSSProperties } from "react";
 
@@ -90,15 +95,9 @@ export function AraProvider({ theme, asChild = false, children }: AraProviderPro
     return createTheme(theme);
   }, [theme]);
 
-  const style = useMemo(() => createThemeVariables(value), [value]);
-
-  const Container = asChild ? Slot : "div";
-
   return (
     <ThemeContext.Provider value={value}>
-      <Container data-ara-theme="" style={style}>
-        {children}
-      </Container>
+      {children}
     </ThemeContext.Provider>
   );
 }
@@ -107,6 +106,27 @@ AraProvider.displayName = "AraProvider";
 
 export function useAraTheme(): Theme {
   return useContext(ThemeContext);
+}
+
+export interface AraThemeBoundaryProps {
+  readonly asChild?: boolean;
+  readonly children: ReactNode;
+}
+
+export function useAraThemeVariables(): CSSProperties {
+  const theme = useAraTheme();
+  return useMemo(() => createThemeVariables(theme), [theme]);
+}
+
+export function AraThemeBoundary({ asChild = false, children }: AraThemeBoundaryProps) {
+  const style = useAraThemeVariables();
+  const Container = asChild ? Slot : "div";
+
+  return (
+    <Container data-ara-theme="" style={style}>
+      {children}
+    </Container>
+  );
 }
 
 export { ThemeContext };

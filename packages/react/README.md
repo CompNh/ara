@@ -32,18 +32,31 @@ function App() {
 </AraProvider>
 ```
 
-기본적으로 `AraProvider`는 자식 트리를 `<div data-ara-theme>`로 감싸 CSS 변수를 노출한다. 이미 존재하는 요소를 재사용해야 하거나 테이블과 같이 `div`를 허용하지 않는 문맥에서는 `asChild`를 사용해 외부 래퍼 없이 테마 변수를 주입할 수 있다.
+`AraProvider`는 DOM 래퍼를 추가로 렌더링하지 않는다. CSS 변수 기반 토큰을 DOM에 주입하려면 `AraThemeBoundary` 컴포넌트나
+`useAraThemeVariables` 훅을 사용한다.
 
 ```tsx
-<AraProvider asChild>
-  <tbody>
-    <tr>
-      <td>
-        <Button>표 안의 버튼</Button>
-      </td>
-    </tr>
-  </tbody>
+import { AraProvider, AraThemeBoundary, Button } from "@ara/react";
+
+<AraProvider>
+  <AraThemeBoundary asChild>
+    <tbody>
+      <tr>
+        <td>
+          <Button>표 안의 버튼</Button>
+        </td>
+      </tr>
+    </tbody>
+  </AraThemeBoundary>
 </AraProvider>
+```
+
+CSS 변수 객체가 필요하다면 훅을 호출해 직접 요소에 스타일을 할당할 수 있다.
+
+```tsx
+const variables = useAraThemeVariables();
+
+return <main style={variables}>...</main>;
 ```
 
 ## 개발 스크립트

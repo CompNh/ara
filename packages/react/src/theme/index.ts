@@ -1,1 +1,9 @@
-export { AraProvider, type AraProviderProps, ThemeContext, useAraTheme } from "./AraProvider.js";
+export {
+  AraProvider,
+  AraThemeBoundary,
+  type AraProviderProps,
+  type AraThemeBoundaryProps,
+  ThemeContext,
+  useAraTheme,
+  useAraThemeVariables
+} from "./AraProvider.js";
