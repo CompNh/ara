@@ -12,6 +12,7 @@ const ThemeContext = createContext<Theme>(defaultTheme);
 
 export interface AraProviderProps {
   readonly theme?: ThemeOverrides;
+  readonly asChild?: boolean;
   readonly children: ReactNode;
 }
 
@@ -85,7 +86,7 @@ function createThemeVariables(theme: Theme): CSSProperties {
   return variables;
 }
 
-export function AraProvider({ theme, children }: AraProviderProps) {
+export function AraProvider({ theme, asChild = false, children }: AraProviderProps) {
   const value = useMemo(() => {
     if (!theme) {
       return defaultTheme;
