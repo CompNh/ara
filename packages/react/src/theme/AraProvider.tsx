@@ -1,3 +1,4 @@
+import { Slot } from "@radix-ui/react-slot";
 import { createContext, type ReactNode, useContext, useMemo } from "react";
 import { createTheme, defaultTheme, type Theme, type ThemeOverrides } from "@ara/core";
 import type { CSSProperties } from "react";
@@ -6,6 +7,7 @@ const ThemeContext = createContext<Theme>(defaultTheme);
 
 export interface AraProviderProps {
   readonly theme?: ThemeOverrides;
+  readonly asChild?: boolean;
   readonly children: ReactNode;
 }
 
@@ -79,7 +81,7 @@ function createThemeVariables(theme: Theme): CSSProperties {
   return variables;
 }
 
-export function AraProvider({ theme, children }: AraProviderProps) {
+export function AraProvider({ theme, asChild = false, children }: AraProviderProps) {
   const value = useMemo(() => {
     if (!theme) {
       return defaultTheme;
@@ -90,11 +92,13 @@ export function AraProvider({ theme, children }: AraProviderProps) {
 
   const style = useMemo(() => createThemeVariables(value), [value]);
 
+  const Container = asChild ? Slot : "div";
+
   return (
     <ThemeContext.Provider value={value}>
-      <div data-ara-theme style={style}>
+      <Container data-ara-theme="" style={style}>
         {children}
-      </div>
+      </Container>
     </ThemeContext.Provider>
   );
 }

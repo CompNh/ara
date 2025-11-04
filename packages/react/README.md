@@ -32,6 +32,20 @@ function App() {
 </AraProvider>
 ```
 
+기본적으로 `AraProvider`는 자식 트리를 `<div data-ara-theme>`로 감싸 CSS 변수를 노출한다. 이미 존재하는 요소를 재사용해야 하거나 테이블과 같이 `div`를 허용하지 않는 문맥에서는 `asChild`를 사용해 외부 래퍼 없이 테마 변수를 주입할 수 있다.
+
+```tsx
+<AraProvider asChild>
+  <tbody>
+    <tr>
+      <td>
+        <Button>표 안의 버튼</Button>
+      </td>
+    </tr>
+  </tbody>
+</AraProvider>
+```
+
 ## 개발 스크립트
 
 - `pnpm build` : 타입 선언과 번들 산출물을 생성한다.
