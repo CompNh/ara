@@ -3,6 +3,7 @@ import {
   forwardRef,
   isValidElement,
   useCallback,
+  useEffect,
   useMemo,
   useState,
   type AnchorHTMLAttributes,
@@ -33,6 +34,7 @@ type ButtonEventHandlers = {
   readonly onClick?: MouseEventHandler<HTMLElement>;
   readonly onKeyDown?: KeyboardEventHandler<HTMLElement>;
   readonly onKeyUp?: KeyboardEventHandler<HTMLElement>;
+  readonly onPointerEnter?: PointerEventHandler<HTMLElement>;
   readonly onPointerDown?: PointerEventHandler<HTMLElement>;
   readonly onPointerUp?: PointerEventHandler<HTMLElement>;
   readonly onPointerCancel?: PointerEventHandler<HTMLElement>;
@@ -189,6 +191,7 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(pro
 
   // focus-visible 상태 관리
   const [isFocusVisible, setFocusVisible] = useState(false);
+  const [isHovered, setHovered] = useState(false);
 
   // core 훅으로부터 클릭/포인터/키보드 인터랙션 처리 props 획득
   const { buttonProps, isPressed } = useButton<HTMLElement>({
@@ -201,11 +204,18 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(pro
     onPressEnd
   });
 
+  useEffect(() => {
+    if (interactionsDisabled) {
+      setHovered(false);
+    }
+  }, [interactionsDisabled]);
+
   // 사용자 전달 props에서 이벤트 추출
   const {
     onClick,
     onKeyDown,
     onKeyUp,
+    onPointerEnter,
     onPointerDown,
     onPointerUp,
     onPointerCancel,
@@ -241,15 +251,36 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(pro
     setFocusVisible(false);
   }, []);
 
+  const handlePointerEnter: PointerEventHandler<HTMLElement> = useCallback(
+    (_event) => {
+      if (interactionsDisabled) return;
+      setHovered(true);
+    },
+    [interactionsDisabled]
+  );
+
+  const handlePointerLeave: PointerEventHandler<HTMLElement> = useCallback((_event) => {
+    setHovered(false);
+  }, []);
+
   // 모든 이벤트 핸들러 합성 (내부 + 소비자)
   const interactionHandlers: ButtonEventHandlers = {
     onClick: composeEventHandlers(buttonProps.onClick, onClick, { interactionsDisabled }),
     onKeyDown: composeEventHandlers(buttonProps.onKeyDown, onKeyDown, { interactionsDisabled }),
     onKeyUp: composeEventHandlers(buttonProps.onKeyUp, onKeyUp, { interactionsDisabled }),
+    onPointerEnter: composeEventHandlers(handlePointerEnter, onPointerEnter, { interactionsDisabled }),
     onPointerDown: composeEventHandlers(buttonProps.onPointerDown, onPointerDown, { interactionsDisabled }),
     onPointerUp: composeEventHandlers(buttonProps.onPointerUp, onPointerUp, { interactionsDisabled }),
-    onPointerCancel: composeEventHandlers(buttonProps.onPointerCancel, onPointerCancel, { interactionsDisabled }),
-    onPointerLeave: composeEventHandlers(buttonProps.onPointerLeave, onPointerLeave, { interactionsDisabled }),
+    onPointerCancel: composeEventHandlers(
+      composeEventHandlers(buttonProps.onPointerCancel, handlePointerLeave),
+      onPointerCancel,
+      { interactionsDisabled }
+    ),
+    onPointerLeave: composeEventHandlers(
+      composeEventHandlers(buttonProps.onPointerLeave, handlePointerLeave),
+      onPointerLeave,
+      { interactionsDisabled }
+    ),
     onFocus: composeEventHandlers(handleFocus, onFocus),
     onBlur: composeEventHandlers(handleBlur, onBlur)
   };
@@ -285,9 +316,10 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(pro
       ? `var(--ara-btn-disabled-opacity, ${buttonTokens.disabled.opacity})`
       : 1,
     transition:
-      "background-color 150ms ease, color 150ms ease, border-color 150ms ease, box-shadow 150ms ease, outline 150ms ease",
+      "background-color 150ms ease, color 150ms ease, border-color 150ms ease, box-shadow 150ms ease, outline 150ms ease, transform 150ms ease",
     textDecoration: "none",
-    outline: "none"
+    outline: "none",
+    transform: "translateY(0)"
   };
 
   const hasLabel = Children.count(children) > 0;
@@ -376,13 +408,39 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(pro
     </>
   );
 
+  const baseBackgroundValue = `var(--ara-btn-bg, var(--ara-btn-variant-${variant}-${tone}-bg, ${variantTokens.background}))`;
+  const hoverBackgroundValue = `var(--ara-btn-bg-hover, var(--ara-btn-variant-${variant}-${tone}-bg-hover, ${variantTokens.backgroundHover}))`;
+  const activeBackgroundValue = `var(--ara-btn-bg-active, var(--ara-btn-variant-${variant}-${tone}-bg-active, ${variantTokens.backgroundActive}))`;
+  const baseForegroundValue = `var(--ara-btn-fg, var(--ara-btn-variant-${variant}-${tone}-fg, ${variantTokens.foreground}))`;
+  const hoverForegroundValue = `var(--ara-btn-fg-hover, var(--ara-btn-variant-${variant}-${tone}-fg-hover, ${variantTokens.foregroundHover}))`;
+  const activeForegroundValue = `var(--ara-btn-fg-active, var(--ara-btn-variant-${variant}-${tone}-fg-active, ${variantTokens.foregroundActive}))`;
+  const baseBorderValue = `var(--ara-btn-border, var(--ara-btn-variant-${variant}-${tone}-border, ${variantTokens.border}))`;
+  const hoverBorderValue = `var(--ara-btn-border-hover, var(--ara-btn-variant-${variant}-${tone}-border-hover, ${variantTokens.borderHover}))`;
+  const activeBorderValue = `var(--ara-btn-border-active, var(--ara-btn-variant-${variant}-${tone}-border-active, ${variantTokens.borderActive}))`;
+  const baseShadowValue = `var(--ara-btn-shadow, var(--ara-btn-variant-${variant}-${tone}-shadow, ${variantTokens.shadow ?? "none"}))`;
+
   // variant + focus 스타일 합성
   const variantStyle: CSSProperties = {
-    backgroundColor: `var(--ara-btn-bg, var(--ara-btn-variant-${variant}-${tone}-bg, ${variantTokens.background}))`,
-    color: `var(--ara-btn-fg, var(--ara-btn-variant-${variant}-${tone}-fg, ${variantTokens.foreground}))`,
-    borderColor: `var(--ara-btn-border, var(--ara-btn-variant-${variant}-${tone}-border, ${variantTokens.border}))`,
-    boxShadow: `var(--ara-btn-shadow, var(--ara-btn-variant-${variant}-${tone}-shadow, ${variantTokens.shadow ?? "none"}))`
+    backgroundColor: baseBackgroundValue,
+    color: baseForegroundValue,
+    borderColor: baseBorderValue,
+    boxShadow: baseShadowValue
   };
+
+  const interactionStyle: CSSProperties | undefined = isPressed
+    ? {
+        backgroundColor: activeBackgroundValue,
+        color: activeForegroundValue,
+        borderColor: activeBorderValue,
+        transform: "translateY(1px)"
+      }
+    : isHovered
+      ? {
+          backgroundColor: hoverBackgroundValue,
+          color: hoverForegroundValue,
+          borderColor: hoverBorderValue
+        }
+      : undefined;
   const focusRingStyle: CSSProperties | undefined = isFocusVisible
     ? {
         outline: `var(--ara-btn-focus-outline, ${buttonTokens.focus.outlineWidth} solid ${buttonTokens.focus.outlineColor})`,
@@ -399,7 +457,9 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(pro
     "data-disabled": disabled ? "" : undefined,
     "data-loading": loading ? "" : undefined,
     "data-focus-visible": isFocusVisible ? "" : undefined,
-    "data-state": isPressed ? "pressed" : isFocusVisible ? "focus-visible" : undefined
+    "data-hovered": isHovered ? "" : undefined,
+    "data-pressed": isPressed ? "" : undefined,
+    "data-state": isPressed ? "pressed" : isFocusVisible ? "focus-visible" : isHovered ? "hover" : undefined
   } as const;
 
   // 최종 핸들러 병합
@@ -441,6 +501,7 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(pro
     style: {
       ...baseStyle,
       ...variantStyle,
+      ...interactionStyle,
       ...focusRingStyle,
       ...style,
       ...(fullWidth ? { width: "100%" } : {}),
