@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { Button } from "@ara/react";
+import { Button, type ButtonProps } from "@ara/react/button";
+
+const resetButtonVisuals = {
+  variant: "outline",
+  tone: "neutral"
+} satisfies Pick<ButtonProps, "variant" | "tone">;
 
 export default function App() {
   const [count, setCount] = useState(0);
@@ -19,7 +24,7 @@ export default function App() {
       <p>버튼을 클릭해 상호작용을 확인하세요.</p>
       <div style={{ display: "flex", gap: "0.75rem" }}>
         <Button onClick={() => setCount((prev) => prev + 1)}>기본 버튼</Button>
-        <Button variant="secondary" onClick={() => setCount(0)}>
+        <Button {...resetButtonVisuals} onClick={() => setCount(0)}>
           초기화
         </Button>
       </div>

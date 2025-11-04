@@ -5,7 +5,18 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@ara/*": ["packages/*/src"]
+      "@ara/core": ["packages/core/src/index.ts"],
+      "@ara/core/*": ["packages/core/src/*"],
+      "@ara/react": ["packages/react/src/index.ts"],
+      "@ara/react/components": ["packages/react/src/components/index.ts"],
+      "@ara/react/components/*": ["packages/react/src/components/*"],
+      "@ara/react/button": ["packages/react/src/components/button/index.ts"],
+      "@ara/react/*": ["packages/react/src/*"],
+      "@ara/icons": ["packages/icons/src/index.ts"],
+      "@ara/icons/*": ["packages/icons/src/*"],
+      "@ara/tokens": ["packages/tokens/src/index.ts"],
+      "@ara/tokens/*": ["packages/tokens/src/*"],
+      "@ara/tsconfig/*": ["packages/tsconfig/*"]
     }
   },
   "include": [],

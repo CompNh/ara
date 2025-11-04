@@ -19,6 +19,27 @@ export default defineConfig({
   resolve: {
     alias: [
       {
+        find: "@ara/react/button",
+        replacement: resolve(
+          currentDir,
+          "../../packages/react/src/components/button/index.ts"
+        )
+      },
+      {
+        find: "@ara/react/components",
+        replacement: resolve(
+          currentDir,
+          "../../packages/react/src/components/index.ts"
+        )
+      },
+      {
+        find: "@ara/react/components/",
+        replacement: `${resolve(
+          currentDir,
+          "../../packages/react/src/components"
+        )}/`
+      },
+      {
         find: "@ara/react",
         replacement: resolve(currentDir, "../../packages/react/src")
       },
