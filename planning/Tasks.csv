@@ -110,9 +110,9 @@ T-000030,W-000004,Button v0 Comp,접근성,A11y 규정 적용,완료,High," ● 
 T-000031,W-000004,Button v0 Comp,테스트,Vitest+RTL 상호작용 테스트,완료,High," ● 내용: 키보드(Enter 및 Space), 마우스/터치, 영역 이탈 취소, disabled 및 loading 차단 검증 + 선택 시 시각 회귀(Chromatic 등) 연동 가이드
  ● 산출물: 테스트 스위트 및 스냅 최소화, 비주얼 회귀 도입 여부 기록
  ● 점검: pnpm --filter @ara/react test 통과 및(선택) 시각 회귀 보고",확인
-T-000032,W-000004,Button v0 Comp,문서/스토리북,Storybook 스토리 및 MDX,계획,Medium," ● 내용: Playground, Variants, Tones, Sizes, WithIcons, Loading, AsLink, FullWidth 시나리오 + 디자인 승인 체크리스트(토큰 값 표·QA 항목) 포함
+T-000032,W-000004,Button v0 Comp,문서/스토리북,Storybook 스토리 및 MDX,완료,Medium," ● 내용: Playground, Variants, Tones, Sizes, WithIcons, Loading, AsLink, FullWidth 시나리오 + 디자인 승인 체크리스트(토큰 값 표·QA 항목) 포함
  ● 산출물: stories 및 MDX 문서 + 디자인 승인 체크리스트
- ● 점검: build-storybook 스모크 테스트 통과 및 디자인 QA 사인오프",
+ ● 점검: build-storybook 스모크 테스트 통과 및 디자인 QA 사인오프",확인
 T-000033,W-000004,Button v0 Comp,테마/토큰,Tokens 연결 및 CSS 변수 표면,계획,Medium," ● 내용: 토큰 매핑과 CSS 변수(--ara-btn-bg 등) 정의, light 및 dark 테마 샘플, 디자인 QA용 토큰 표 제공
  ● 산출물: tokens 소비 예 및 오버라이드 가이드 + 토큰 값 표
  ● 점검: 토큰 변경 시 스타일 반영 및 디자인 체크리스트 충족 확인",

@@ -14,7 +14,8 @@ const config: StorybookConfig = {
   viteFinal: async (config) => {
     config.resolve = config.resolve ?? {};
     const aliases = config.resolve.alias ?? [];
-    const resolvePackages = (pkg: string) => path.resolve(__dirname, `../../packages/${pkg}/src`);
+    const resolvePackages = (pkg: string) =>
+      path.resolve(__dirname, "..", "..", "..", "packages", pkg, "src");
     config.resolve.alias = [
       ...(Array.isArray(aliases) ? aliases : Object.entries(aliases).map(([find, replacement]) => ({ find, replacement }))),
       { find: "@ara/react", replacement: resolvePackages("react") },
