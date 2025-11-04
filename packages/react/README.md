@@ -32,6 +32,33 @@ function App() {
 </AraProvider>
 ```
 
+`AraProvider`는 DOM 래퍼를 추가로 렌더링하지 않는다. CSS 변수 기반 토큰을 DOM에 주입하려면 `AraThemeBoundary` 컴포넌트나
+`useAraThemeVariables` 훅을 사용한다.
+
+```tsx
+import { AraProvider, AraThemeBoundary, Button } from "@ara/react";
+
+<AraProvider>
+  <AraThemeBoundary asChild>
+    <tbody>
+      <tr>
+        <td>
+          <Button>표 안의 버튼</Button>
+        </td>
+      </tr>
+    </tbody>
+  </AraThemeBoundary>
+</AraProvider>
+```
+
+CSS 변수 객체가 필요하다면 훅을 호출해 직접 요소에 스타일을 할당할 수 있다.
+
+```tsx
+const variables = useAraThemeVariables();
+
+return <main style={variables}>...</main>;
+```
+
 ## 개발 스크립트
 
 - `pnpm build` : 타입 선언과 번들 산출물을 생성한다.

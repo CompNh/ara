@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import type { ThemeOverrides } from "@ara/core";
-import { AraProvider, Button } from "@ara/react";
+import { AraProvider, AraThemeBoundary, Button } from "@ara/react";
 
 const ArrowRightIcon = () => (
   <svg
@@ -21,7 +21,9 @@ const meta = {
   decorators: [
     (Story) => (
       <AraProvider>
-        <Story />
+        <AraThemeBoundary>
+          <Story />
+        </AraThemeBoundary>
       </AraProvider>
     )
   ],
@@ -215,15 +217,17 @@ export const ThemeSamples: Story = {
       <section>
         <h4 style={{ margin: "0 0 0.75rem", fontSize: "0.875rem", color: "#475569" }}>라이트 (기본)</h4>
         <AraProvider>
-          <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-            <Button {...args}>Primary</Button>
-            <Button {...args} variant="outline">
-              Outline
-            </Button>
-            <Button {...args} tone="danger">
-              Danger
-            </Button>
-          </div>
+          <AraThemeBoundary asChild>
+            <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
+              <Button {...args}>Primary</Button>
+              <Button {...args} variant="outline">
+                Outline
+              </Button>
+              <Button {...args} tone="danger">
+                Danger
+              </Button>
+            </div>
+          </AraThemeBoundary>
         </AraProvider>
       </section>
       <section
@@ -236,15 +240,17 @@ export const ThemeSamples: Story = {
       >
         <h4 style={{ margin: 0, marginBottom: "0.75rem", fontSize: "0.875rem" }}>다크 (테마 오버라이드)</h4>
         <AraProvider theme={darkTheme}>
-          <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-            <Button {...args}>Primary</Button>
-            <Button {...args} variant="outline">
-              Outline
-            </Button>
-            <Button {...args} tone="danger">
-              Danger
-            </Button>
-          </div>
+          <AraThemeBoundary asChild>
+            <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
+              <Button {...args}>Primary</Button>
+              <Button {...args} variant="outline">
+                Outline
+              </Button>
+              <Button {...args} tone="danger">
+                Danger
+              </Button>
+            </div>
+          </AraThemeBoundary>
         </AraProvider>
       </section>
     </div>

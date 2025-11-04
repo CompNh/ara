@@ -1,7 +1,7 @@
 import { createRoot } from "react-dom/client";
 import { StrictMode } from "react";
 import App from "./App.tsx";
-import { AraProvider } from "@ara/react";
+import { AraProvider, AraThemeBoundary } from "@ara/react";
 
 const container = document.getElementById("root");
 
@@ -14,7 +14,9 @@ const root = createRoot(container);
 root.render(
   <StrictMode>
     <AraProvider>
-      <App />
+      <AraThemeBoundary>
+        <App />
+      </AraThemeBoundary>
     </AraProvider>
   </StrictMode>
 );
