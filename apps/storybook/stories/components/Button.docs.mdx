@@ -57,7 +57,7 @@ import * as ButtonStories from "./Button.stories";
 
 ## Tokens &amp; CSS 변수
 
-`AraProvider`는 `data-ara-theme` 컨테이너에 디자인 토큰을 CSS 변수로 노출합니다. Button 컴포넌트는 아래 구조를 사용합니다.
+`AraProvider`는 기본적으로 `data-ara-theme` 컨테이너에 디자인 토큰을 CSS 변수로 노출합니다. `asChild`를 사용하면 기존 요소를 재사용하면서 동일한 토큰을 주입할 수 있습니다. Button 컴포넌트는 아래 구조를 사용합니다.
 
 ### Variant &amp; Tone
 

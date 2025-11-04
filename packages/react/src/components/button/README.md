@@ -67,7 +67,7 @@
 
 ## 5) 시각/토큰 계약 (Tokens → CSS Vars)
 
-- `AraProvider`는 자식 subtree를 `<div data-ara-theme>`로 감싸며 토큰을 CSS 변수로 노출한다.
+- `AraProvider`는 기본적으로 자식 subtree를 `<div data-ara-theme>`로 감싸며 토큰을 CSS 변수로 노출한다. `asChild`를 사용하면 외부 래퍼 없이 기존 요소에 `data-ara-theme`와 CSS 변수를 주입할 수 있다.
 - Button은 토큰을 **두 단계**로 소비한다.
   1. 전역 토큰: `--ara-btn-font`, `--ara-btn-font-weight`, `--ara-btn-radius`, `--ara-btn-border-width`,
      `--ara-btn-disabled-opacity`, `--ara-btn-focus-outline`, `--ara-btn-focus-outline-offset`, `--ara-btn-focus-ring`
