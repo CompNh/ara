@@ -67,18 +67,14 @@
 
 ## 5) 시각/토큰 계약 (Tokens → CSS Vars)
 
-- 상태별 CSS 변수(오버라이드 가능):  
-  `--ara-btn-bg`, `--ara-btn-fg`, `--ara-btn-border`, `--ara-btn-shadow`,  
-  `--ara-btn-bg-hover`, `--ara-btn-fg-hover`, `--ara-btn-border-hover`,  
-  `--ara-btn-bg-active`, `--ara-btn-fg-active`, `--ara-btn-border-active`,  
-  `--ara-btn-radius`, `--ara-btn-gap`, `--ara-btn-px`, `--ara-btn-py`,  
-  `--ara-btn-font`, `--ara-btn-font-size`, `--ara-btn-line-height`
-- 변형 매핑(예):  
-  `variant = solid|outline|ghost` → 위 변수 세트 값 주입  
-  `size = sm|md|lg` → `px/py/font-size/line-height` 조합  
-  `tone = primary|neutral|danger` → 팔레트 바인딩
-- **data-attributes(스타일 훅):**  
-  `[data-variant]`, `[data-tone]`, `[data-size]`, `[data-loading]`, `[data-disabled]`, `[data-state="hover|active|focus-visible"]`
+- `AraProvider`는 자식 subtree를 `<div data-ara-theme>`로 감싸며 토큰을 CSS 변수로 노출한다.
+- Button은 토큰을 **두 단계**로 소비한다.
+  1. 전역 토큰: `--ara-btn-font`, `--ara-btn-font-weight`, `--ara-btn-radius`, `--ara-btn-border-width`,
+     `--ara-btn-disabled-opacity`, `--ara-btn-focus-outline`, `--ara-btn-focus-outline-offset`, `--ara-btn-focus-ring`
+  2. Variant/Tone별 토큰: `--ara-btn-variant-{variant}-{tone}-{state}` (`state = bg|fg|border|bg-hover|...|shadow`)
+  3. Size별 토큰: `--ara-btn-size-{size}-px|py|gap|font-size|line-height|min-height|spinner`
+- 컴포넌트는 위 토큰을 `var(--ara-btn-*, fallback)` 형태로 참조해 토큰 미정의 시에도 기본값을 유지한다.
+- **data-attributes(스타일 훅):** `[data-variant]`, `[data-tone]`, `[data-size]`, `[data-loading]`, `[data-disabled]`, `[data-state="hover|active|focus-visible"]`
 
 ---
 

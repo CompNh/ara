@@ -1,11 +1,82 @@
 import { createContext, type ReactNode, useContext, useMemo } from "react";
 import { createTheme, defaultTheme, type Theme, type ThemeOverrides } from "@ara/core";
+import type { CSSProperties } from "react";
 
 const ThemeContext = createContext<Theme>(defaultTheme);
 
 export interface AraProviderProps {
   readonly theme?: ThemeOverrides;
   readonly children: ReactNode;
+}
+
+function createThemeVariables(theme: Theme): CSSProperties {
+  const variables: Record<string, string> = {};
+
+  for (const [rampName, ramp] of Object.entries(theme.color)) {
+    for (const [shade, value] of Object.entries(ramp)) {
+      variables[`--ara-color-${rampName}-${shade}`] = value;
+    }
+  }
+
+  for (const [familyName, value] of Object.entries(theme.typography.fontFamily)) {
+    variables[`--ara-font-family-${familyName}`] = value;
+  }
+
+  for (const [sizeName, value] of Object.entries(theme.typography.fontSize)) {
+    variables[`--ara-font-size-${sizeName}`] = value;
+  }
+
+  for (const [weightName, value] of Object.entries(theme.typography.fontWeight)) {
+    variables[`--ara-font-weight-${weightName}`] = String(value);
+  }
+
+  for (const [spacingName, value] of Object.entries(theme.typography.letterSpacing)) {
+    variables[`--ara-letter-spacing-${spacingName}`] = value;
+  }
+
+  for (const [lineHeightName, value] of Object.entries(theme.typography.lineHeight)) {
+    variables[`--ara-line-height-${lineHeightName}`] = value;
+  }
+
+  const button = theme.component.button;
+
+  variables["--ara-btn-radius"] = button.radius;
+  variables["--ara-btn-border-width"] = button.borderWidth;
+  variables["--ara-btn-font"] = button.font.family;
+  variables["--ara-btn-font-weight"] = String(button.font.weight);
+  variables["--ara-btn-disabled-opacity"] = String(button.disabled.opacity);
+  variables["--ara-btn-focus-outline"] = `${button.focus.outlineWidth} solid ${button.focus.outlineColor}`;
+  variables["--ara-btn-focus-outline-offset"] = button.focus.outlineOffset;
+  variables["--ara-btn-focus-ring"] = `0 0 0 ${button.focus.ringSize} ${button.focus.ringColor}`;
+
+  for (const [variantName, tones] of Object.entries(button.variant)) {
+    for (const [toneName, token] of Object.entries(tones)) {
+      const prefix = `--ara-btn-variant-${variantName}-${toneName}`;
+      variables[`${prefix}-bg`] = token.background;
+      variables[`${prefix}-fg`] = token.foreground;
+      variables[`${prefix}-border`] = token.border;
+      variables[`${prefix}-bg-hover`] = token.backgroundHover;
+      variables[`${prefix}-fg-hover`] = token.foregroundHover;
+      variables[`${prefix}-border-hover`] = token.borderHover;
+      variables[`${prefix}-bg-active`] = token.backgroundActive;
+      variables[`${prefix}-fg-active`] = token.foregroundActive;
+      variables[`${prefix}-border-active`] = token.borderActive;
+      variables[`${prefix}-shadow`] = token.shadow ?? "none";
+    }
+  }
+
+  for (const [sizeName, token] of Object.entries(button.size)) {
+    const prefix = `--ara-btn-size-${sizeName}`;
+    variables[`${prefix}-gap`] = token.gap;
+    variables[`${prefix}-px`] = token.paddingInline;
+    variables[`${prefix}-py`] = token.paddingBlock;
+    variables[`${prefix}-font-size`] = token.fontSize;
+    variables[`${prefix}-line-height`] = token.lineHeight;
+    variables[`${prefix}-min-height`] = token.minHeight;
+    variables[`${prefix}-spinner`] = token.spinnerSize;
+  }
+
+  return variables;
 }
 
 export function AraProvider({ theme, children }: AraProviderProps) {
@@ -17,7 +88,15 @@ export function AraProvider({ theme, children }: AraProviderProps) {
     return createTheme(theme);
   }, [theme]);
 
-  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
+  const style = useMemo(() => createThemeVariables(value), [value]);
+
+  return (
+    <ThemeContext.Provider value={value}>
+      <div data-ara-theme style={style}>
+        {children}
+      </div>
+    </ThemeContext.Provider>
+  );
 }
 
 AraProvider.displayName = "AraProvider";

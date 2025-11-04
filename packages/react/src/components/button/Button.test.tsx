@@ -12,10 +12,12 @@ describe("Button", () => {
     const button = screen.getByRole("button", { name: "확인" });
 
     expect(button).toBeInTheDocument();
-    expect(button).toHaveStyle({
-      backgroundColor: defaultTheme.color.brand["500"],
-      color: defaultTheme.color.neutral["50"]
-    });
+    expect(button.style.backgroundColor).toBe(
+      "var(--ara-btn-bg, var(--ara-btn-variant-solid-primary-bg, #2F6BFF))"
+    );
+    expect(button.style.color).toBe(
+      "var(--ara-btn-fg, var(--ara-btn-variant-solid-primary-fg, #F8FAFC))"
+    );
     expect(button).toHaveAttribute("data-variant", "solid");
     expect(button).toHaveAttribute("data-tone", "primary");
     expect(button).toHaveAttribute("data-size", "md");
@@ -30,9 +32,15 @@ describe("Button", () => {
 
     const button = screen.getByRole("button", { name: "보조" });
 
-    expect(button.style.backgroundColor).toBe("transparent");
-    expect(button.style.color).toBe("rgb(47, 107, 255)");
-    expect(button.style.borderColor).toBe("rgb(47, 107, 255)");
+    expect(button.style.backgroundColor).toBe(
+      "var(--ara-btn-bg, var(--ara-btn-variant-outline-primary-bg, transparent))"
+    );
+    expect(button.style.color).toBe(
+      "var(--ara-btn-fg, var(--ara-btn-variant-outline-primary-fg, #2F6BFF))"
+    );
+    expect(button.style.borderColor).toBe(
+      "var(--ara-btn-border, var(--ara-btn-variant-outline-primary-border, #2F6BFF))"
+    );
     expect(button).toHaveAttribute("data-variant", "outline");
   });
 
@@ -41,12 +49,18 @@ describe("Button", () => {
 
     const button = screen.getByRole("button", { name: "토글" });
 
-    expect(getComputedStyle(button).backgroundColor).toBe("rgb(47, 107, 255)");
+    expect(button.style.backgroundColor).toBe(
+      "var(--ara-btn-bg, var(--ara-btn-variant-solid-primary-bg, #2F6BFF))"
+    );
 
     rerender(<Button variant="outline">토글</Button>);
 
-    expect(getComputedStyle(button).backgroundColor).toBe("rgba(0, 0, 0, 0)");
-    expect(getComputedStyle(button).borderColor).toBe("rgb(47, 107, 255)");
+    expect(button.style.backgroundColor).toBe(
+      "var(--ara-btn-bg, var(--ara-btn-variant-outline-primary-bg, transparent))"
+    );
+    expect(button.style.borderColor).toBe(
+      "var(--ara-btn-border, var(--ara-btn-variant-outline-primary-border, #2F6BFF))"
+    );
   });
 
   it("tone에 따라 색상을 조정한다", () => {
@@ -56,10 +70,12 @@ describe("Button", () => {
 
     const button = screen.getByRole("button", { name: "위험" });
 
-    expect(button).toHaveStyle({
-      backgroundColor: defaultTheme.color.accent["500"],
-      color: defaultTheme.color.neutral["50"]
-    });
+    expect(button.style.backgroundColor).toBe(
+      "var(--ara-btn-bg, var(--ara-btn-variant-solid-danger-bg, #D946EF))"
+    );
+    expect(button.style.color).toBe(
+      "var(--ara-btn-fg, var(--ara-btn-variant-solid-danger-fg, #F8FAFC))"
+    );
     expect(button).toHaveAttribute("data-tone", "danger");
   });
 
@@ -71,7 +87,9 @@ describe("Button", () => {
     const button = screen.getByRole("button", { name: "작은 버튼" });
 
     expect(button).toHaveAttribute("data-size", "sm");
-    expect(button.style.minHeight).toBe("var(--ara-btn-min-height, 2.25rem)");
+    expect(button.style.minHeight).toBe(
+      "var(--ara-btn-min-height, var(--ara-btn-size-sm-min-height, 2.25rem))"
+    );
   });
 
   it("size에 따라 폰트 크기와 패딩이 달라진다", () => {
@@ -84,19 +102,23 @@ describe("Button", () => {
 
     const [small, large] = screen.getAllByRole("button");
 
-    expect(small.style.fontSize).toBe("var(--ara-btn-font-size, 0.875rem)");
-    expect(large.style.fontSize).toBe("var(--ara-btn-font-size, 1.25rem)");
+    expect(small.style.fontSize).toBe(
+      "var(--ara-btn-font-size, var(--ara-btn-size-sm-font-size, 0.875rem))"
+    );
+    expect(large.style.fontSize).toBe(
+      "var(--ara-btn-font-size, var(--ara-btn-size-lg-font-size, 1.25rem))"
+    );
     expect(small.style.paddingLeft).toBe(
-      "var(--ara-btn-pl, var(--ara-btn-px, 0.75rem))"
+      "var(--ara-btn-pl, var(--ara-btn-px, var(--ara-btn-size-sm-px, 0.75rem)))"
     );
     expect(large.style.paddingLeft).toBe(
-      "var(--ara-btn-pl, var(--ara-btn-px, 1.25rem))"
+      "var(--ara-btn-pl, var(--ara-btn-px, var(--ara-btn-size-lg-px, 1.25rem)))"
     );
     expect(small.style.paddingTop).toBe(
-      "var(--ara-btn-pt, var(--ara-btn-py, 0.375rem))"
+      "var(--ara-btn-pt, var(--ara-btn-py, var(--ara-btn-size-sm-py, 0.375rem)))"
     );
     expect(large.style.paddingTop).toBe(
-      "var(--ara-btn-pt, var(--ara-btn-py, 0.75rem))"
+      "var(--ara-btn-pt, var(--ara-btn-py, var(--ara-btn-size-lg-py, 0.75rem)))"
     );
   });
 
@@ -112,10 +134,12 @@ describe("Button", () => {
     expect(button).toHaveAttribute("data-variant", "solid");
     expect(button).toHaveAttribute("data-tone", "primary");
     expect(button).toHaveAttribute("data-size", "md");
-    expect(button).toHaveStyle({
-      backgroundColor: defaultTheme.color.brand["500"],
-      color: defaultTheme.color.neutral["50"]
-    });
+    expect(button.style.backgroundColor).toBe(
+      "var(--ara-btn-bg, var(--ara-btn-variant-solid-primary-bg, #2F6BFF))"
+    );
+    expect(button.style.color).toBe(
+      "var(--ara-btn-fg, var(--ara-btn-variant-solid-primary-fg, #F8FAFC))"
+    );
   });
 
   it("사용자 정의 className과 data 속성을 병합한다", () => {
