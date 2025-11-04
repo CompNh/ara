@@ -79,6 +79,65 @@ describe("Button", () => {
     expect(button).toHaveAttribute("data-tone", "danger");
   });
 
+  it("포인터 호버 시 토큰 기반 hover 스타일을 적용한다", () => {
+    render(<Button>호버</Button>);
+
+    const button = screen.getByRole("button", { name: "호버" });
+
+    fireEvent.pointerEnter(button, { pointerType: "mouse" });
+
+    expect(button).toHaveAttribute("data-hovered", "");
+    expect(button.style.backgroundColor).toBe(
+      "var(--ara-btn-bg-hover, var(--ara-btn-variant-solid-primary-bg-hover, #1F4FCC))"
+    );
+    expect(button.style.color).toBe(
+      "var(--ara-btn-fg-hover, var(--ara-btn-variant-solid-primary-fg-hover, #F8FAFC))"
+    );
+    expect(button.style.borderColor).toBe(
+      "var(--ara-btn-border-hover, var(--ara-btn-variant-solid-primary-border-hover, #1F4FCC))"
+    );
+
+    fireEvent.pointerLeave(button, { pointerType: "mouse" });
+
+    expect(button).not.toHaveAttribute("data-hovered");
+    expect(button.style.backgroundColor).toBe(
+      "var(--ara-btn-bg, var(--ara-btn-variant-solid-primary-bg, #2F6BFF))"
+    );
+  });
+
+  it("포인터 press 시 active 토큰과 프레스를 반영한다", () => {
+    render(<Button>프레스</Button>);
+
+    const button = screen.getByRole("button", { name: "프레스" });
+
+    fireEvent.pointerDown(button, {
+      pointerType: "mouse",
+      pointerId: 1,
+      button: 0
+    });
+
+    expect(button).toHaveAttribute("data-pressed", "");
+    expect(button.style.backgroundColor).toBe(
+      "var(--ara-btn-bg-active, var(--ara-btn-variant-solid-primary-bg-active, #173CA3))"
+    );
+    expect(button.style.color).toBe(
+      "var(--ara-btn-fg-active, var(--ara-btn-variant-solid-primary-fg-active, #F8FAFC))"
+    );
+    expect(button.style.borderColor).toBe(
+      "var(--ara-btn-border-active, var(--ara-btn-variant-solid-primary-border-active, #173CA3))"
+    );
+    expect(button.style.transform).toBe("translateY(1px)");
+
+    fireEvent.pointerUp(button, {
+      pointerType: "mouse",
+      pointerId: 1,
+      button: 0
+    });
+
+    expect(button).not.toHaveAttribute("data-pressed");
+    expect(button.style.transform).toBe("translateY(0)");
+  });
+
   it("size prop에 따라 여백과 높이를 조정한다", () => {
     render(
       <Button size="sm">작은 버튼</Button>
