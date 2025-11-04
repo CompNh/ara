@@ -17,7 +17,7 @@ import {
 } from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { useAraTheme } from "../../theme/index.js";
-import { useButton, type PressHandler } from "@ara/core";
+import { useButton, type PressHandler, type Theme } from "@ara/core";
 
 // 버튼 변형(시각적 스타일)
 export type ButtonVariant = "solid" | "outline" | "ghost";
@@ -68,6 +68,35 @@ type ButtonElement = HTMLButtonElement | HTMLAnchorElement;
 // className 병합 유틸
 function mergeClassNames(...values: Array<string | undefined | null | false>): string {
   return values.filter(Boolean).join(" ");
+}
+
+type ButtonComponentTokens = Theme["component"]["button"];
+type VariantTokens = ButtonComponentTokens["variant"][string][string];
+type SizeTokens = ButtonComponentTokens["size"][string];
+
+function getFirstRecordValue<T>(record: Record<string, T> | Readonly<Record<string, T>>): T {
+  const [firstKey] = Object.keys(record);
+  if (firstKey === undefined) {
+    throw new Error("Button tokens are missing required values.");
+  }
+  const value = record[firstKey as keyof typeof record];
+  if (value === undefined) {
+    throw new Error("Button tokens are missing required values.");
+  }
+  return value as T;
+}
+
+function resolveVariantTokens(
+  tokens: ButtonComponentTokens,
+  variant: ButtonVariant,
+  tone: ButtonTone
+): VariantTokens {
+  const variantMap = tokens.variant[variant] ?? getFirstRecordValue(tokens.variant);
+  return variantMap[tone] ?? getFirstRecordValue(variantMap);
+}
+
+function resolveSizeTokens(tokens: ButtonComponentTokens, size: ButtonSize): SizeTokens {
+  return tokens.size[size] ?? getFirstRecordValue(tokens.size);
 }
 
 // 브라우저가 :focus-visible CSS 선택자를 지원하는지 체크
@@ -148,10 +177,13 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(pro
   const theme = useAraTheme();
   const buttonTokens = theme.component.button;
   const variantTokens = useMemo(
-    () => buttonTokens.variant[variant][tone],
-    [buttonTokens.variant, tone, variant]
+    () => resolveVariantTokens(buttonTokens, variant, tone),
+    [buttonTokens, variant, tone]
   );
-  const sizeTokens = useMemo(() => buttonTokens.size[size], [buttonTokens.size, size]);
+  const sizeTokens = useMemo(
+    () => resolveSizeTokens(buttonTokens, size),
+    [buttonTokens, size]
+  );
   const elementType = asChild ? "custom" : href ? "link" : "button";
   const interactionsDisabled = disabled || loading;
 
