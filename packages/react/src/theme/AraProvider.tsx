@@ -8,6 +8,8 @@ import {
 import { createTheme, defaultTheme, type Theme, type ThemeOverrides } from "@ara/core";
 import type { CSSProperties } from "react";
 
+type ThemeCSSVariables = CSSProperties & Record<`--${string}`, string>;
+
 const ThemeContext = createContext<Theme>(defaultTheme);
 
 export interface AraProviderProps {
@@ -16,8 +18,8 @@ export interface AraProviderProps {
   readonly children: ReactNode;
 }
 
-function createThemeVariables(theme: Theme): CSSProperties {
-  const variables: Record<string, string> = {};
+function createThemeVariables(theme: Theme): ThemeCSSVariables {
+  const variables: ThemeCSSVariables = {} as ThemeCSSVariables;
 
   for (const [rampName, ramp] of Object.entries(theme.color)) {
     for (const [shade, value] of Object.entries(ramp)) {
@@ -97,7 +99,7 @@ export function AraProvider({ theme, asChild = false, children }: AraProviderPro
 
   return (
     <ThemeContext.Provider value={value}>
-      {children}
+      {asChild ? <Slot>{children}</Slot> : children}
     </ThemeContext.Provider>
   );
 }
@@ -113,7 +115,7 @@ export interface AraThemeBoundaryProps {
   readonly children: ReactNode;
 }
 
-export function useAraThemeVariables(): CSSProperties {
+export function useAraThemeVariables(): ThemeCSSVariables {
   const theme = useAraTheme();
   return useMemo(() => createThemeVariables(theme), [theme]);
 }
