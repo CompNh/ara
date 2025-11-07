@@ -252,14 +252,14 @@ export const Button = forwardRef<ButtonElement, ButtonProps>(function Button(pro
   }, []);
 
   const handlePointerEnter: PointerEventHandler<HTMLElement> = useCallback(
-    (_event) => {
+    () => {
       if (interactionsDisabled) return;
       setHovered(true);
     },
     [interactionsDisabled]
   );
 
-  const handlePointerLeave: PointerEventHandler<HTMLElement> = useCallback((_event) => {
+  const handlePointerLeave: PointerEventHandler<HTMLElement> = useCallback(() => {
     setHovered(false);
   }, []);
 
