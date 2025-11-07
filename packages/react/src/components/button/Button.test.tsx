@@ -3,7 +3,6 @@ import { createRef } from "react";
 import { describe, expect, it, vi } from "vitest";
 import { Button } from "./Button.js";
 import { AraProvider } from "../../theme/index.js";
-import { defaultTheme } from "@ara/core";
 
 describe("Button", () => {
   it("기본 테마에서 버튼을 렌더링한다", () => {
@@ -159,7 +158,10 @@ describe("Button", () => {
       </>
     );
 
-    const [small, large] = screen.getAllByRole("button");
+    const [small, large] = screen.getAllByRole("button") as [
+      HTMLButtonElement,
+      HTMLButtonElement
+    ];
 
     expect(small.style.fontSize).toBe(
       "var(--ara-btn-font-size, var(--ara-btn-size-sm-font-size, 0.875rem))"
