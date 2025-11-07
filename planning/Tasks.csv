@@ -119,9 +119,9 @@ T-000033,W-000004,Button v0 Comp,테마/토큰,Tokens 연결 및 CSS 변수 표�
 T-000034,W-000004,Button v0 Comp,빌드/출하,Exports 및 타입 계약 점검,완료,High," ● 내용: exports 및 types 및 module 및 sideEffects 계약 검증, showcase 임포트 스모크(예: apps/showcase 버튼 데모 페이지) 시나리오 명시
  ● 산출물: package.json exports 맵 정리와 소비 앱 확인 + showcase 페이지 시연 노트
  ● 점검: pnpm --filter @ara/react pack --dry-run 결과 검토 및 쇼케이스 시나리오 통과",확인
-T-000035,W-000004,Button v0 Comp,릴리스,Changesets 프리릴리스(canary),계획,High," ● 내용: changeset 추가 및 프리릴리스 채널 배포 드라이런
+T-000035,W-000004,Button v0 Comp,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가 및 프리릴리스 채널 배포 드라이런
  ● 산출물: canary 태그 및 설치 확인 메모
- ● 점검: 설치 및 임포트 성공과 간단 사용 예 검증",
+ ● 점검: 설치 및 임포트 성공과 간단 사용 예 검증",확인
  T-000036,W-000005,Tokens & ThemeProvider v1,토큰 설계/거버넌스,토큰 명명 규칙/계약 확정,계획,High," ● 목적: 토큰 접두사와 스케일 키(예: color, font-size, space, radius 등) 및 CSS 변수 접두사(--ara-*)를 고정
  ● 변경 규칙: v1 이후 토큰 키/의미 변경은 Major(Changesets로 명시)
  ● 산출물: packages/tokens/README.md에 규약 문서화
