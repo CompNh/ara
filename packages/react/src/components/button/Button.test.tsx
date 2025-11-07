@@ -278,7 +278,6 @@ describe("Button", () => {
   it("asChild로 자식 요소에 속성을 전달한다", () => {
     render(
       <Button asChild href="/nested" className="custom-slot">
-        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a data-testid="child">중첩</a>
       </Button>
     );
