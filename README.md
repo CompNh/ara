@@ -72,6 +72,7 @@ VS Code(Git Bash) · Windows · React+TypeScript · Node 22 LTS · pnpm(workspac
 - 루트에서 `pnpm -w lint`, `pnpm -w test`, `pnpm -w build`, `pnpm -w storybook:smoke` 를 실행하면 워크스페이스 전체에 동일한 명령이 순차적으로 적용된다.
 - 위 명령을 한 번에 돌리고 싶다면 `pnpm -w workspace:check` 스크립트를 사용한다. 순서는 `lint → test → build → storybook:smoke` 이며 Storybook 단계는 개발 서버 대신 스모크 테스트 플래그를 사용해 빠르게 종료된다.
 - Changesets 기반 배포 흐름(`pnpm release`)과는 별개의 사전 점검 라인이다. 배포가 필요한 경우에는 변경 사항을 Changeset으로 기록한 뒤 `pnpm release` 를 사용한다.
+- canary 프리릴리스 드라이런 순서는 [Changesets Canary 가이드](docs/releases/canary.md)를 따른다.
 
 ### 패키지별 테스트 실행 팁
 - **패키지 전체 테스트:** `pnpm --filter @ara/react test`
