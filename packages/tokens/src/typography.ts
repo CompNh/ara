@@ -13,28 +13,39 @@ export const typography = {
     sm: "0.875rem",  // 14px
     md: "1rem",      // 16px
     lg: "1.25rem",   // 20px
-    xl: "1.5rem"     // 24px
+    xl: "1.5rem",    // 24px
+    "2xl": "1.875rem", // 30px
+    "3xl": "2.25rem",  // 36px
+    "4xl": "3rem"      // 48px
   },
 
   // 줄 높이(line-height) 스케일
   lineHeight: {
-    tight: "1.25",   // 조밀한 행간
-    normal: "1.5",   // 일반 행간
-    relaxed: "1.75"  // 넉넉한 행간
+    tightest: "1.1",   // 극도로 조밀한 행간 (대형 헤드라인)
+    tighter: "1.25",   // 조밀한 행간 (헤드라인)
+    tight: "1.35",     // 타이틀/부제목
+    normal: "1.5",     // 기본 본문
+    relaxed: "1.65",   // 설명/캡션
+    loose: "1.8"       // 넉넉한 행간 (읽기 중심)
   },
 
   // 글자 굵기(weight)
   fontWeight: {
-    regular: 400, // 기본
-    medium: 500,  // 중간(버튼, 헤드라인 등)
-    bold: 700     // 굵게
+    light: 300,    // 보조 본문
+    regular: 400,  // 기본
+    medium: 500,   // 중간(버튼, 헤드라인 등)
+    semibold: 600, // 강조 타이틀
+    bold: 700      // 굵게
   },
 
   // 자간(letter-spacing)
   letterSpacing: {
-    tighter: "-0.01em", // 약간 좁힘
-    normal: "0",
-    wider: "0.05em"     // 넓힘
+    tightest: "-0.02em", // 헤드라인 대문자
+    tighter: "-0.01em",  // 약간 좁힘
+    tight: "-0.005em",   // 소제목
+    normal: "0",         // 기본
+    wide: "0.02em",      // 넓힘
+    wider: "0.05em"      // 크게 넓힘
   }
 } as const; // as const → 리터럴 고정 (readonly, 타입 추론 강화)
 
