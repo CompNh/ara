@@ -5,5 +5,6 @@ export {
   type AraThemeBoundaryProps,
   ThemeContext,
   useAraTheme,
+  useAraThemeVariableTable,
   useAraThemeVariables
 } from "./AraProvider.js";

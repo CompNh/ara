@@ -83,6 +83,7 @@
   },
   "dependencies": {
     "@ara/core": "workspace:*",
+    "@ara/tokens": "workspace:*",
     "@radix-ui/react-slot": "^1.1.0"
   },
   "peerDependencies": {
