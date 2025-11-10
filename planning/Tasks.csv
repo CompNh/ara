@@ -122,10 +122,10 @@ T-000034,W-000004,Button v0 Comp,빌드/출하,Exports 및 타입 계약 점검,
 T-000035,W-000004,Button v0 Comp,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가 및 프리릴리스 채널 배포 드라이런
  ● 산출물: canary 태그 및 설치 확인 메모
  ● 점검: 설치 및 임포트 성공과 간단 사용 예 검증",확인
- T-000036,W-000005,Tokens & ThemeProvider v1,토큰 설계/거버넌스,토큰 명명 규칙/계약 확정,계획,High," ● 목적: 토큰 접두사와 스케일 키(예: color, font-size, space, radius 등) 및 CSS 변수 접두사(--ara-*)를 고정
+T-000036,W-000005,Tokens & ThemeProvider v1,토큰 설계/거버넌스,토큰 명명 규칙/계약 확정,완료,High," ● 목적: 토큰 접두사와 스케일 키(예: color, font-size, space, radius 등) 및 CSS 변수 접두사(--ara-*)를 고정
  ● 변경 규칙: v1 이후 토큰 키/의미 변경은 Major(Changesets로 명시)
  ● 산출물: packages/tokens/README.md에 규약 문서화
- ● 점검: 리뷰 승인 후 변경은 이슈만; README에 v1 동결·Breaking=Major 명시; PR 템플릿에 Breaking? 체크 추가",
+ ● 점검: 리뷰 승인 후 변경은 이슈만; README에 v1 동결·Breaking=Major 명시; PR 템플릿에 Breaking? 체크 추가",확인
 T-000037,W-000005,Tokens & ThemeProvider v1,토큰(컬러),색상 팔레트/역할 정의,계획,High," ● 내용: 기본 팔레트와 역할 색(primary, neutral, danger 등), 상태(hover/active/disabled) 맵핑
  ● 산출물: packages/tokens/src/colors.ts 및 타입 선언
  ● 점검: 라이트/다크 대비 기준 충족(WCAG AA: 일반 텍스트 ≥ 4.5:1, 큰 텍스트 ≥ 3:1)",
