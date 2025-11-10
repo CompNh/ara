@@ -35,7 +35,7 @@ describe("Button", () => {
       "var(--ara-btn-bg, var(--ara-btn-variant-outline-primary-bg, #FFFFFF))"
     );
     expect(button.style.color).toBe(
-      "var(--ara-btn-fg, var(--ara-btn-variant-outline-primary-fg, #2563EB))"
+      "var(--ara-btn-fg, var(--ara-btn-variant-outline-primary-fg, #1D4ED8))"
     );
     expect(button.style.borderColor).toBe(
       "var(--ara-btn-border, var(--ara-btn-variant-outline-primary-border, #2563EB))"
@@ -59,6 +59,9 @@ describe("Button", () => {
     );
     expect(button.style.borderColor).toBe(
       "var(--ara-btn-border, var(--ara-btn-variant-outline-primary-border, #2563EB))"
+    );
+    expect(button.style.color).toBe(
+      "var(--ara-btn-fg, var(--ara-btn-variant-outline-primary-fg, #1D4ED8))"
     );
   });
 

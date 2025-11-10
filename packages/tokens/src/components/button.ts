@@ -46,9 +46,9 @@ const tonePalettes: Record<string, TonePalette> = {
     subtleBackground: colors.palette.brand["50"],
     subtleBackgroundHover: colors.palette.brand["100"],
     subtleBackgroundActive: colors.palette.brand["200"],
-    outlineForeground: colors.palette.brand["600"],
-    outlineForegroundHover: colors.palette.brand["700"],
-    outlineForegroundActive: colors.palette.brand["800"]
+    outlineForeground: colors.palette.brand["700"],
+    outlineForegroundHover: colors.palette.brand["800"],
+    outlineForegroundActive: colors.palette.brand["900"]
   },
   neutral: {
     interaction: lightTheme.interactive.neutral,
@@ -64,9 +64,9 @@ const tonePalettes: Record<string, TonePalette> = {
     subtleBackground: colors.palette.danger["50"],
     subtleBackgroundHover: colors.palette.danger["100"],
     subtleBackgroundActive: colors.palette.danger["200"],
-    outlineForeground: colors.palette.danger["600"],
-    outlineForegroundHover: colors.palette.danger["700"],
-    outlineForegroundActive: colors.palette.danger["800"]
+    outlineForeground: colors.palette.danger["700"],
+    outlineForegroundHover: colors.palette.danger["800"],
+    outlineForegroundActive: colors.palette.danger["900"]
   }
 };
 
