@@ -17,6 +17,11 @@
       "import": "./dist/colors.js",
       "default": "./dist/colors.js"
     },
+    "./layout": {
+      "types": "./dist/layout.d.ts",
+      "import": "./dist/layout.js",
+      "default": "./dist/layout.js"
+    },
     "./typography": {
       "types": "./dist/typography.d.ts",
       "import": "./dist/typography.js",
@@ -29,6 +34,9 @@
     "*": {
       "colors": [
         "dist/colors.d.ts"
+      ],
+      "layout": [
+        "dist/layout.d.ts"
       ],
       "typography": [
         "dist/typography.d.ts"
@@ -50,6 +58,7 @@
   "keywords": [
     "design tokens",
     "colors",
+    "layout",
     "typography"
   ],
   "engines": {
