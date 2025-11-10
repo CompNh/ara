@@ -9,28 +9,19 @@ import { createTheme, defaultTheme, type Theme, type ThemeOverrides } from "@ara
 import type { CSSProperties } from "react";
 
 type ThemeCSSVariableName = `--${string}`;
+type ThemeCSSVariableValue = string | number;
 type ThemeCSSVariables = CSSProperties & Record<ThemeCSSVariableName, string>;
 
 function assignVariable(
   variables: ThemeCSSVariables,
   name: ThemeCSSVariableName,
-  value: string
+  value: ThemeCSSVariableValue
 ) {
-  variables[name] = value;
+  variables[name] = typeof value === "string" ? value : String(value);
 }
 
-const ThemeContext = createContext<Theme>(defaultTheme);
-
-export interface AraProviderProps {
-  readonly theme?: ThemeOverrides;
-  readonly asChild?: boolean;
-  readonly children: ReactNode;
-}
-
-function createThemeVariables(theme: Theme): ThemeCSSVariables {
-  const variables: ThemeCSSVariables = {} as ThemeCSSVariables;
-
-  for (const [rampName, ramp] of Object.entries(theme.color)) {
+function assignColorRampVariables(variables: ThemeCSSVariables, theme: Theme) {
+  for (const [rampName, ramp] of Object.entries(theme.color.palette)) {
     for (const [shade, value] of Object.entries(ramp)) {
       assignVariable(
         variables,
@@ -39,7 +30,58 @@ function createThemeVariables(theme: Theme): ThemeCSSVariables {
       );
     }
   }
+}
 
+function assignColorRoleVariables(variables: ThemeCSSVariables, theme: Theme) {
+  for (const [themeName, role] of Object.entries(theme.color.role)) {
+    for (const [surfaceName, value] of Object.entries(role.surface)) {
+      assignVariable(
+        variables,
+        `--ara-color-role-${themeName}-surface-${surfaceName}` as ThemeCSSVariableName,
+        value
+      );
+    }
+
+    for (const [textName, value] of Object.entries(role.text)) {
+      assignVariable(
+        variables,
+        `--ara-color-role-${themeName}-text-${textName}` as ThemeCSSVariableName,
+        value
+      );
+    }
+
+    for (const [borderName, value] of Object.entries(role.border)) {
+      assignVariable(
+        variables,
+        `--ara-color-role-${themeName}-border-${borderName}` as ThemeCSSVariableName,
+        value
+      );
+    }
+
+    for (const [roleName, states] of Object.entries(role.interactive)) {
+      for (const [stateName, tokens] of Object.entries(states)) {
+        const prefix = `--ara-color-role-${themeName}-interactive-${roleName}-${stateName}`;
+        assignVariable(
+          variables,
+          `${prefix}-bg` as ThemeCSSVariableName,
+          tokens.background
+        );
+        assignVariable(
+          variables,
+          `${prefix}-fg` as ThemeCSSVariableName,
+          tokens.foreground
+        );
+        assignVariable(
+          variables,
+          `${prefix}-border` as ThemeCSSVariableName,
+          tokens.border
+        );
+      }
+    }
+  }
+}
+
+function assignTypographyVariables(variables: ThemeCSSVariables, theme: Theme) {
   for (const [familyName, value] of Object.entries(theme.typography.fontFamily)) {
     assignVariable(
       variables,
@@ -60,7 +102,7 @@ function createThemeVariables(theme: Theme): ThemeCSSVariables {
     assignVariable(
       variables,
       `--ara-font-weight-${weightName}` as ThemeCSSVariableName,
-      String(value)
+      value
     );
   }
 
@@ -79,22 +121,50 @@ function createThemeVariables(theme: Theme): ThemeCSSVariables {
       value
     );
   }
+}
 
+function assignLayoutVariables(variables: ThemeCSSVariables, theme: Theme) {
+  for (const [spaceName, value] of Object.entries(theme.layout.space)) {
+    assignVariable(
+      variables,
+      `--ara-space-${spaceName}` as ThemeCSSVariableName,
+      value
+    );
+  }
+
+  for (const [radiusName, value] of Object.entries(theme.layout.radius)) {
+    assignVariable(
+      variables,
+      `--ara-radius-${radiusName}` as ThemeCSSVariableName,
+      value
+    );
+  }
+
+  for (const [elevationName, value] of Object.entries(theme.layout.elevation)) {
+    assignVariable(
+      variables,
+      `--ara-elevation-${elevationName}` as ThemeCSSVariableName,
+      value
+    );
+  }
+
+  for (const [zIndexName, value] of Object.entries(theme.layout.zIndex)) {
+    assignVariable(
+      variables,
+      `--ara-z-index-${zIndexName}` as ThemeCSSVariableName,
+      value
+    );
+  }
+}
+
+function assignButtonVariables(variables: ThemeCSSVariables, theme: Theme) {
   const button = theme.component.button;
 
   assignVariable(variables, "--ara-btn-radius", button.radius);
   assignVariable(variables, "--ara-btn-border-width", button.borderWidth);
   assignVariable(variables, "--ara-btn-font", button.font.family);
-  assignVariable(
-    variables,
-    "--ara-btn-font-weight",
-    String(button.font.weight)
-  );
-  assignVariable(
-    variables,
-    "--ara-btn-disabled-opacity",
-    String(button.disabled.opacity)
-  );
+  assignVariable(variables, "--ara-btn-font-weight", button.font.weight);
+  assignVariable(variables, "--ara-btn-disabled-opacity", button.disabled.opacity);
   assignVariable(
     variables,
     "--ara-btn-focus-outline",
@@ -114,11 +184,7 @@ function createThemeVariables(theme: Theme): ThemeCSSVariables {
   for (const [variantName, tones] of Object.entries(button.variant)) {
     for (const [toneName, token] of Object.entries(tones)) {
       const prefix = `--ara-btn-variant-${variantName}-${toneName}`;
-      assignVariable(
-        variables,
-        `${prefix}-bg` as ThemeCSSVariableName,
-        token.background
-      );
+      assignVariable(variables, `${prefix}-bg` as ThemeCSSVariableName, token.background);
       assignVariable(
         variables,
         `${prefix}-fg` as ThemeCSSVariableName,
@@ -169,11 +235,7 @@ function createThemeVariables(theme: Theme): ThemeCSSVariables {
 
   for (const [sizeName, token] of Object.entries(button.size)) {
     const prefix = `--ara-btn-size-${sizeName}`;
-    assignVariable(
-      variables,
-      `${prefix}-gap` as ThemeCSSVariableName,
-      token.gap
-    );
+    assignVariable(variables, `${prefix}-gap` as ThemeCSSVariableName, token.gap);
     assignVariable(
       variables,
       `${prefix}-px` as ThemeCSSVariableName,
@@ -205,6 +267,24 @@ function createThemeVariables(theme: Theme): ThemeCSSVariables {
       token.spinnerSize
     );
   }
+}
+
+const ThemeContext = createContext<Theme>(defaultTheme);
+
+export interface AraProviderProps {
+  readonly theme?: ThemeOverrides;
+  readonly asChild?: boolean;
+  readonly children: ReactNode;
+}
+
+function createThemeVariables(theme: Theme): ThemeCSSVariables {
+  const variables: ThemeCSSVariables = {} as ThemeCSSVariables;
+
+  assignColorRampVariables(variables, theme);
+  assignColorRoleVariables(variables, theme);
+  assignTypographyVariables(variables, theme);
+  assignLayoutVariables(variables, theme);
+  assignButtonVariables(variables, theme);
 
   return variables;
 }

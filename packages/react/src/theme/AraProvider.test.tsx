@@ -53,13 +53,31 @@ describe("AraThemeBoundary", () => {
     expect(host.style.getPropertyValue("--ara-btn-radius")).toBe(
       defaultTheme.component.button.radius
     );
+    expect(host.style.getPropertyValue("--ara-color-brand-500")).toBe(
+      defaultTheme.color.palette.brand["500"]
+    );
+    expect(host.style.getPropertyValue("--ara-space-md")).toBe(
+      defaultTheme.layout.space.md
+    );
+    expect(
+      host.style.getPropertyValue(
+        "--ara-color-role-light-interactive-primary-default-bg"
+      )
+    ).toBe(defaultTheme.color.role.light.interactive.primary.default.background);
   });
 
   it("hook으로 CSS 변수를 노출한다", () => {
     function Reader() {
       const variables = useAraThemeVariables();
       return (
-        <output data-testid="vars" data-radius={variables["--ara-btn-radius"]} />
+        <output
+          data-testid="vars"
+          data-radius={variables["--ara-btn-radius"]}
+          data-space-lg={variables["--ara-space-lg"]}
+          data-role-surface={
+            variables["--ara-color-role-light-surface-canvas"]
+          }
+        />
       );
     }
 
@@ -72,5 +90,9 @@ describe("AraThemeBoundary", () => {
     const vars = screen.getByTestId("vars");
 
     expect(vars.dataset.radius).toBe(defaultTheme.component.button.radius);
+    expect(vars.dataset.spaceLg).toBe(defaultTheme.layout.space.lg);
+    expect(vars.dataset.roleSurface).toBe(
+      defaultTheme.color.role.light.surface.canvas
+    );
   });
 });
