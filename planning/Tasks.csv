@@ -138,9 +138,9 @@ T-000039,W-000005,Tokens & ThemeProvider v1,토큰(레이아웃),간격/반지�
 T-000040,W-000005,Tokens & ThemeProvider v1,CSS 변수 매핑,CSS Vars 생성 및 주입 규칙,완료,High," ● 내용: 토큰→CSS 변수(--ara-*) 변환 테이블 정의, :root와 테마별 변수 세트 구성
  ● 산출물: packages/tokens/src/css-vars.ts, 생성 스크립트
  ● 점검: 변수 이름 충돌 없음, d.ts 생성 확인",확인 
-T-000041,W-000005,Tokens & ThemeProvider v1,ThemeProvider,API 설계 및 기본 구현,계획,High," ● 내용: ThemeProvider 컴포넌트 설계(컨텍스트, 변수 주입, data-theme 또는 class 전략, override API)
+T-000041,W-000005,Tokens & ThemeProvider v1,ThemeProvider,API 설계 및 기본 구현,완료,High," ● 내용: ThemeProvider 컴포넌트 설계(컨텍스트, 변수 주입, data-theme 또는 class 전략, override API)
  ● 산출물: packages/react/src/components/theme-provider/index.tsx 및 README.md
- ● 점검: 중첩 Provider, SSR/StrictMode 스모크 통과", 
+ ● 점검: 중첩 Provider, SSR/StrictMode 스모크 통과",확인
 T-000042,W-000005,Tokens & ThemeProvider v1,ThemeProvider,라이트/다크 및 시스템 연동,계획,High," ● 내용: prefers-color-scheme 연동; 사용자 선택 우선; SSR-safe 초기 스타일 인라인 적용(FOUC 방지); 우선순위: 시스템 설정 < 사용자 선택
  ● 산출물: 테마 스위처 훅과 샘플 코드
  ● 점검: Storybook 툴바 스위치 동작; 첫 페인트에 테마 깜빡임 없음(스크린 레코딩 확인); 새 탭 초기 로드에서도 유지)",
