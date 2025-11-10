@@ -281,6 +281,8 @@ describe("Button", () => {
   it("asChild로 자식 요소에 속성을 전달한다", () => {
     render(
       <Button asChild href="/nested" className="custom-slot">
+        {/* Slot 테스트에서는 Button이 href를 주입하므로 lint를 비활성화한다. */}
+        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
         <a data-testid="child">중첩</a>
       </Button>
     );
