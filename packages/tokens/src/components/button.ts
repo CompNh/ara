@@ -2,12 +2,13 @@ import { colors } from "../colors.js";
 import { typography } from "../typography.js";
 
 type TonePalette = {
-  readonly base: string;
-  readonly emphasis: string;
-  readonly emphasisAlt: string;
-  readonly contrast: string;
-  readonly subtle: string;
-  readonly subtleAlt: string;
+  readonly interaction: import("../colors.js").InteractionTokens;
+  readonly subtleBackground: string;
+  readonly subtleBackgroundHover: string;
+  readonly subtleBackgroundActive: string;
+  readonly outlineForeground: string;
+  readonly outlineForegroundHover: string;
+  readonly outlineForegroundActive: string;
 };
 
 type VariantToken = {
@@ -37,71 +38,82 @@ type SizeToken = {
 
 type SizeMap = Record<string, SizeToken>;
 
+const lightTheme = colors.role.light;
+
 const tonePalettes: Record<string, TonePalette> = {
   primary: {
-    base: colors.brand["500"],
-    emphasis: colors.brand["600"],
-    emphasisAlt: colors.brand["700"],
-    subtle: colors.brand["50"],
-    subtleAlt: colors.brand["100"],
-    contrast: colors.neutral["50"]
+    interaction: lightTheme.interactive.primary,
+    subtleBackground: colors.palette.brand["50"],
+    subtleBackgroundHover: colors.palette.brand["100"],
+    subtleBackgroundActive: colors.palette.brand["200"],
+    outlineForeground: colors.palette.brand["700"],
+    outlineForegroundHover: colors.palette.brand["800"],
+    outlineForegroundActive: colors.palette.brand["900"]
   },
   neutral: {
-    base: colors.neutral["100"],
-    emphasis: colors.neutral["200"],
-    emphasisAlt: colors.neutral["300"],
-    subtle: colors.neutral["50"],
-    subtleAlt: colors.neutral["100"],
-    contrast: colors.neutral["900"]
+    interaction: lightTheme.interactive.neutral,
+    subtleBackground: colors.palette.neutral["50"],
+    subtleBackgroundHover: colors.palette.neutral["100"],
+    subtleBackgroundActive: colors.palette.neutral["200"],
+    outlineForeground: colors.palette.neutral["700"],
+    outlineForegroundHover: colors.palette.neutral["800"],
+    outlineForegroundActive: colors.palette.neutral["900"]
   },
   danger: {
-    base: colors.accent["500"],
-    emphasis: colors.accent["600"],
-    emphasisAlt: colors.accent["700"],
-    subtle: colors.accent["100"],
-    subtleAlt: colors.accent["200"],
-    contrast: colors.neutral["50"]
+    interaction: lightTheme.interactive.danger,
+    subtleBackground: colors.palette.danger["50"],
+    subtleBackgroundHover: colors.palette.danger["100"],
+    subtleBackgroundActive: colors.palette.danger["200"],
+    outlineForeground: colors.palette.danger["700"],
+    outlineForegroundHover: colors.palette.danger["800"],
+    outlineForegroundActive: colors.palette.danger["900"]
   }
 };
 
 function createSolidVariant(palette: TonePalette): VariantToken {
+  const { interaction } = palette;
+
   return {
-    background: palette.base,
-    foreground: palette.contrast,
-    border: palette.base,
-    backgroundHover: palette.emphasis,
-    foregroundHover: palette.contrast,
-    borderHover: palette.emphasis,
-    backgroundActive: palette.emphasisAlt,
-    foregroundActive: palette.contrast,
-    borderActive: palette.emphasisAlt
+    background: interaction.default.background,
+    foreground: interaction.default.foreground,
+    border: interaction.default.border,
+    backgroundHover: interaction.hover.background,
+    foregroundHover: interaction.hover.foreground,
+    borderHover: interaction.hover.border,
+    backgroundActive: interaction.active.background,
+    foregroundActive: interaction.active.foreground,
+    borderActive: interaction.active.border
   };
 }
 
 function createOutlineVariant(palette: TonePalette): VariantToken {
+  const { interaction } = palette;
+
   return {
-    background: "transparent",
-    foreground: palette.base,
-    border: palette.base,
-    backgroundHover: palette.subtle,
-    foregroundHover: palette.emphasis,
-    borderHover: palette.emphasis,
-    backgroundActive: palette.subtleAlt,
-    foregroundActive: palette.emphasisAlt,
-    borderActive: palette.emphasisAlt
+    background: lightTheme.surface.surface,
+    foreground: palette.outlineForeground,
+    border: interaction.default.border,
+    backgroundHover: palette.subtleBackground,
+    foregroundHover: palette.outlineForegroundHover,
+    borderHover: interaction.hover.border,
+    backgroundActive: palette.subtleBackgroundActive,
+    foregroundActive: palette.outlineForegroundActive,
+    borderActive: interaction.active.border
   };
 }
 
 function createGhostVariant(palette: TonePalette): VariantToken {
+  const { interaction } = palette;
+
   return {
     background: "transparent",
-    foreground: palette.base,
+    foreground: palette.outlineForeground,
     border: "transparent",
-    backgroundHover: palette.subtle,
-    foregroundHover: palette.emphasis,
+    backgroundHover: palette.subtleBackground,
+    foregroundHover: palette.outlineForegroundHover,
     borderHover: "transparent",
-    backgroundActive: palette.subtleAlt,
-    foregroundActive: palette.emphasisAlt,
+    backgroundActive: palette.subtleBackgroundActive,
+    foregroundActive: palette.outlineForegroundActive,
     borderActive: "transparent"
   };
 }
@@ -161,10 +173,10 @@ export const button = {
   },
   focus: {
     outlineWidth: "2px",
-    outlineColor: colors.brand["300"],
+    outlineColor: lightTheme.border.focus,
     outlineOffset: "2px",
     ringSize: "4px",
-    ringColor: colors.brand["100"]
+    ringColor: colors.palette.brand["100"]
   },
   disabled: {
     opacity: 0.6
