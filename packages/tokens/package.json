@@ -22,6 +22,11 @@
       "import": "./dist/layout.js",
       "default": "./dist/layout.js"
     },
+    "./css-vars": {
+      "types": "./dist/css-vars.d.ts",
+      "import": "./dist/css-vars.js",
+      "default": "./dist/css-vars.js"
+    },
     "./typography": {
       "types": "./dist/typography.d.ts",
       "import": "./dist/typography.js",
@@ -38,6 +43,9 @@
       "layout": [
         "dist/layout.d.ts"
       ],
+      "css-vars": [
+        "dist/css-vars.d.ts"
+      ],
       "typography": [
         "dist/typography.d.ts"
       ],
@@ -53,7 +61,8 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "build": "pnpm exec rollup -c"
+    "build": "pnpm exec rollup -c",
+    "generate:css-vars": "node ./scripts/generate-css-vars.mjs"
   },
   "keywords": [
     "design tokens",

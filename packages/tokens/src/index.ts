@@ -7,6 +7,7 @@ export * from "./colors.js";
 export * from "./typography.js";
 export * from "./layout.js";
 export * from "./components/button.js";
+export * from "./css-vars.js";
 
 export const tokens = {
   color: colors,
