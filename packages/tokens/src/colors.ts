@@ -307,10 +307,12 @@ const role = {
 } as const;
 
 export const colors = {
+  ...palette,
   palette,
   role
 } as const;
 
+export type ColorTokens = typeof colors;
 export type ColorPalette = typeof palette;
 export type ColorRampName = keyof ColorPalette;
 export type ColorRamp<TName extends ColorRampName = ColorRampName> = ColorPalette[TName];
