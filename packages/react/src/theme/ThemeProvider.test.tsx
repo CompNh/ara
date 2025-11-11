@@ -168,6 +168,18 @@ describe("ThemeProvider", () => {
     expect(boundary?.style.colorScheme).toBe("dark");
   });
 
+  it("direction prop으로 경계 요소의 dir 속성을 지정한다", () => {
+    const { container } = render(
+      <ThemeProvider direction="rtl">
+        <section data-testid="host">content</section>
+      </ThemeProvider>
+    );
+
+    const boundary = getBoundary(container);
+
+    expect(boundary).toHaveAttribute("dir", "rtl");
+  });
+
   it("시스템 선호도에 따라 모드를 결정한다", () => {
     matchMediaControl = createMatchMediaMock(true);
     const stub = vi.fn(() => matchMediaControl.mediaQueryList);
@@ -187,6 +199,18 @@ describe("ThemeProvider", () => {
 
     expect(boundary).toHaveAttribute("data-ara-theme", "dark");
     expect(boundary?.style.colorScheme).toBe("dark");
+  });
+
+  it("direction prop은 asChild 요소로 전달된다", () => {
+    render(
+      <ThemeProvider asChild direction="rtl">
+        <section data-testid="host">content</section>
+      </ThemeProvider>
+    );
+
+    const host = screen.getByTestId("host");
+
+    expect(host).toHaveAttribute("dir", "rtl");
   });
 
   it("theme 오버라이드를 컨텍스트와 CSS 변수에 반영한다", () => {

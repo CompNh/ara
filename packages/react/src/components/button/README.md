@@ -59,9 +59,11 @@
 - ARIA:
   - `disabled` → 버튼: `disabled`; 링크: `aria-disabled="true"` + 상호작용 취소
   - `loading`  → `aria-busy="true"`(spinner는 `aria-hidden="true"`)
-- 포커스 링: 키보드 유입에서만 명확(마우스 클릭 시 최소화). `:focus-visible` 우선.
+- 포커스 링: 키보드 유입에서만 명확(마우스 클릭 시 최소화). `:focus-visible` 우선. CSS 변수 `--ara-btn-focus-outline`,
+  `--ara-btn-focus-ring`으로 색상·두께를 조정해 키보드 사용자가 명확히 인지하도록 한다.
 - 레이블: 아이콘만 있는 경우 `aria-label` 또는 `aria-labelledby` 필수. `children` 문자열/요소가 제공되면 별도 레이블 불필요.
-- RTL: 아이콘 정렬, 여백, 포커스 링 방향성 확인.
+- RTL: `ThemeProvider`/`AraThemeBoundary`의 `direction="rtl"`로 우→좌 언어를 지원한다. flex 레이아웃과 논리 속성 덕분에 아이콘과
+  여백 방향이 자동으로 반전되며 Storybook `Accessibility` 데모로 시각 상태를 검증한다.
 
 ---
 

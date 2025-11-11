@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import type { ThemeOverrides } from "@ara/core";
 import { AraProvider, AraThemeBoundary, Button } from "@ara/react";
@@ -257,5 +258,65 @@ export const ThemeSamples: Story = {
   ),
   parameters: {
     controls: { exclude: ["tone", "variant", "size"] }
+  }
+};
+
+export const Accessibility: Story = {
+  render: (args) => {
+    const focusOverride = {
+      "--ara-btn-focus-outline": "3px solid var(--ara-color-brand-500)",
+      "--ara-btn-focus-ring": "0 0 0 6px rgba(37, 99, 235, 0.3)"
+    } as CSSProperties;
+
+    return (
+      <div style={{ display: "grid", gap: "1.5rem", maxWidth: "520px" }}>
+        <section>
+          <h4 style={{ margin: "0 0 0.75rem", fontSize: "0.875rem", color: "#475569" }}>
+            RTL 방향
+          </h4>
+          <AraProvider>
+            <AraThemeBoundary asChild direction="rtl">
+              <div
+                style={{
+                  display: "flex",
+                  gap: "0.75rem",
+                  flexWrap: "wrap",
+                  justifyContent: "flex-start"
+                }}
+              >
+                <Button
+                  {...args}
+                  leadingIcon={<ArrowRightIcon />}
+                  trailingIcon={<ArrowRightIcon />}
+                >
+                  오른쪽에서 시작
+                </Button>
+                <Button
+                  {...args}
+                  variant="outline"
+                  leadingIcon={<ArrowRightIcon />}
+                >
+                  아이콘 정렬 확인
+                </Button>
+              </div>
+            </AraThemeBoundary>
+          </AraProvider>
+        </section>
+        <section>
+          <h4 style={{ margin: "0 0 0.75rem", fontSize: "0.875rem", color: "#475569" }}>
+            포커스 링 커스터마이징
+          </h4>
+          <p style={{ margin: "0 0 0.75rem", fontSize: "0.8125rem", color: "#64748B" }}>
+            CSS 변수로 `--ara-btn-focus-outline`과 `--ara-btn-focus-ring`을 덮어써 시각을 조정합니다.
+          </p>
+          <Button {...args} style={focusOverride}>
+            포커스 스타일
+          </Button>
+        </section>
+      </div>
+    );
+  },
+  parameters: {
+    controls: { exclude: ["leadingIcon", "trailingIcon"] }
   }
 };

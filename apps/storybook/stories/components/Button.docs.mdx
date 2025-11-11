@@ -55,6 +55,14 @@ import * as ButtonStories from "./Button.stories";
 
 <Canvas of={ButtonStories.ThemeSamples} />
 
+## RTL &amp; Focus Ring
+
+`ThemeProvider` 또는 `AraThemeBoundary`의 `direction="rtl"` 속성으로 아랍어·히브리어 등 우→좌 언어 흐름을 지원할 수 있습니다.
+버튼은 플렉스 기반 레이아웃과 CSS 논리 프로퍼티를 사용해 아이콘과 여백이 자동으로 재정렬됩니다. 포커스 시각은
+`--ara-btn-focus-outline`, `--ara-btn-focus-ring` CSS 변수를 덮어써서 키보드 사용자에게 더 두드러지게 표시할 수 있습니다.
+
+<Canvas of={ButtonStories.Accessibility} />
+
 ## Tokens &amp; CSS 변수
 
 `AraProvider`는 컨텍스트만 제공해 DOM 구조를 바꾸지 않습니다. CSS 변수 기반 토큰이 필요하면 `AraThemeBoundary` 또는 `useAraThemeVariables`로 원하는 요소에 `data-ara-theme`와 스타일을 주입하세요. Button 컴포넌트는 아래 구조를 사용합니다.

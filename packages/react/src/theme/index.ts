@@ -3,6 +3,7 @@ export {
   AraThemeBoundary,
   type AraProviderProps,
   type AraThemeBoundaryProps,
+  type TextDirection,
   ThemeContext,
   useAraTheme,
   useAraThemeVariableTable,
