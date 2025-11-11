@@ -1,6 +1,7 @@
 import { Slot } from "@radix-ui/react-slot";
 import {
   createContext,
+  type CSSProperties,
   type ReactNode,
   useContext,
   useMemo
@@ -85,10 +86,17 @@ export function AraThemeBoundary({
   children
 }: AraThemeBoundaryProps) {
   const style = useAraThemeVariables(mode);
+  const cssStyle = useMemo<CSSProperties>(
+    () => ({
+      ...style,
+      colorScheme: mode
+    }),
+    [mode, style]
+  );
   const Container = asChild ? Slot : "div";
 
   return (
-    <Container data-ara-theme={mode} style={style}>
+    <Container data-ara-theme={mode} style={cssStyle}>
       {children}
     </Container>
   );
