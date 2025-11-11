@@ -1,0 +1,77 @@
+import {
+  ArgsTable,
+  Canvas,
+  Controls,
+  Description,
+  Meta,
+  Subtitle,
+  Title
+} from "@storybook/blocks";
+import * as ThemeStories from "./Theme.stories";
+
+<Meta of={ThemeStories} />
+
+<Title>ThemeProvider &amp; Tokens</Title>
+<Subtitle>토큰 기반 테마 시스템과 Storybook 전역 테마 스위치 사용 가이드</Subtitle>
+
+<Description>
+Ara 디자인 시스템의 토큰(`@ara/tokens`)은 ThemeProvider를 통해 CSS 변수로 주입됩니다. 이 문서는 토큰 구조와 ThemeProvider 사용법,
+그리고 Storybook 우측 상단 툴바에 추가된 라이트/다크/시스템 테마 스위치를 함께 설명합니다.
+</Description>
+
+## Playground
+
+ThemeProvider가 모드에 따라 어떤 CSS 변수를 제공하는지 빠르게 살펴볼 수 있는 데모입니다. 툴바의 🌞/🌙 아이콘이나 Controls 패널에서
+`mode`를 변경해 라이트/다크 모드를 즉시 비교해 보세요.
+
+<Canvas of={ThemeStories.Playground} />
+<Controls of={ThemeStories.Playground} />
+
+## ThemeProvider Props
+
+<ArgsTable of={ThemeStories.Playground} />
+
+- `mode`는 `"system" | "light" | "dark"`를 받아 전역 컬러 모드를 결정합니다.
+- `storageKey`를 `null`로 지정하면 로컬 스토리지에 사용자 모드를 저장하지 않아 스토리북 같은 일회성 환경에 적합합니다.
+- `theme`에 `ThemeOverrides`를 전달하면 토큰 일부만 덮어써 커스텀 테마를 만들 수 있습니다.
+
+## 컬러 팔레트
+
+역할 기반 컬러 롤(role)과 원본 팔레트 램프를 모두 노출합니다. Storybook 테마 스위치를 이용하면 동일한 팔레트가 다크 모드에서 어떻게
+표면/텍스트 색으로 매핑되는지 확인할 수 있습니다.
+
+<Canvas of={ThemeStories.ColorPalette} />
+
+## 타이포그래피 스케일
+
+폰트 패밀리와 크기, 행간 토큰이 어떤 스케일을 갖는지 미리보기합니다. 각 항목은 `--ara-font-size-*`, `--ara-line-height-*` CSS 변수로
+자동 변환됩니다.
+
+<Canvas of={ThemeStories.TypographyScale} />
+
+## 레이아웃 토큰
+
+간격(`space`), 반지름(`radius`), 섀도(`elevation`), 레이어 순서(`zIndex`) 값을 시각적으로 비교할 수 있습니다.
+
+<Canvas of={ThemeStories.LayoutTokens} />
+
+## 커스텀 테마 예시
+
+`ThemeOverrides`로 다크 모드 표면·텍스트 색상을 오버라이드하고 버튼 라운드 값을 조정한 예제입니다. 자체 서비스에 맞춘 팔레트나 모양을
+테스트할 때 이 패턴을 참고하세요.
+
+<Canvas of={ThemeStories.CustomTheme} />
+
+## CSS 변수 요약
+
+| 범주 | CSS 변수 | 설명 |
+| --- | --- | --- |
+| 표면(light) | `--ara-color-role-light-surface-surface` | 라이트 모드의 기본 surface 배경색 |
+| 표면(dark) | `--ara-color-role-dark-surface-surface` | 다크 모드의 기본 surface 배경색 |
+| 본문 텍스트 | `--ara-color-role-light-text-primary` | 기본 본문 텍스트 색상 |
+| 인터랙션(primary) | `--ara-color-role-light-interactive-primary-default-bg` | 프라이머리 액션의 기본 배경색 |
+| 간격 | `--ara-space-md` | 공통 중간 패딩/마진 값(16px) |
+| 버튼 | `--ara-btn-variant-solid-primary-bg` | 버튼 solid/primary 배경 토큰 |
+
+위 변수들은 ThemeProvider가 `data-ara-theme` 영역에 직접 주입하므로, 전역 스타일시트나 CSS-in-JS에서도 `var(--ara-...)` 형태로
+즉시 사용할 수 있습니다.

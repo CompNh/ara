@@ -1,7 +1,7 @@
 {
   "name": "@ara/react",
   "version": "0.0.0",
-  "description": "Ara 디자인 시스템의 React 컴포넌트 바인딩",
+  "description": "Ara \ub514\uc790\uc778 \uc2dc\uc2a4\ud15c\uc758 React \ucef4\ud3ec\ub10c\ud2b8 \ubc14\uc778\ub529",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -84,7 +84,8 @@
   "dependencies": {
     "@ara/core": "workspace:*",
     "@ara/tokens": "workspace:*",
-    "@radix-ui/react-slot": "^1.1.0"
+    "@radix-ui/react-slot": "^1.1.0",
+    "@radix-ui/react-compose-refs": "^1.1.0"
   },
   "peerDependencies": {
     "react": "^18.2.0",
