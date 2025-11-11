@@ -145,11 +145,6 @@ function createBootstrapScript(data: BootstrapData): string {
       return;
     }
 
-    const target = script.nextElementSibling;
-    if (!(target instanceof HTMLElement)) {
-      return;
-    }
-
     const parse = (value) => (value === "light" || value === "dark" ? value : null);
     const rootVariables = data.variables.root ?? {};
     const themeVariables = data.variables.themes ?? {};
@@ -181,20 +176,87 @@ function createBootstrapScript(data: BootstrapData): string {
       resolved = data.defaultMode;
     }
 
-    const apply = (variables) => {
-      if (!variables) {
+    const applyVariables = (element, variables) => {
+      if (!variables || !(element instanceof HTMLElement)) {
         return;
       }
 
       for (const [name, value] of Object.entries(variables)) {
-        target.style.setProperty(name, value);
+        element.style.setProperty(name, value);
       }
     };
 
-    target.setAttribute("data-ara-theme", resolved);
-    target.style.colorScheme = resolved;
+    const clearVariables = (element, variables) => {
+      if (!variables || !(element instanceof HTMLElement)) {
+        return;
+      }
 
-    apply(rootVariables);
-    apply(themeVariables[resolved]);
+      for (const name of Object.keys(variables)) {
+        element.style.removeProperty(name);
+      }
+    };
+
+    const applyTheme = (element) => {
+      if (!(element instanceof HTMLElement)) {
+        return false;
+      }
+
+      element.setAttribute("data-ara-theme", resolved);
+      element.style.colorScheme = resolved;
+      applyVariables(element, rootVariables);
+      applyVariables(element, themeVariables[resolved]);
+      return true;
+    };
+
+    const clearTheme = (element) => {
+      if (!(element instanceof HTMLElement)) {
+        return;
+      }
+
+      element.removeAttribute("data-ara-theme");
+      element.style.colorScheme = "";
+      clearVariables(element, rootVariables);
+      clearVariables(element, themeVariables[resolved]);
+    };
+
+    const root = document.documentElement;
+    const appliedToRoot = applyTheme(root);
+
+    const applyToBoundary = () => {
+      const boundary = script.nextElementSibling;
+      if (!(boundary instanceof HTMLElement)) {
+        return false;
+      }
+
+      applyTheme(boundary);
+      if (appliedToRoot && boundary !== root) {
+        clearTheme(root);
+      }
+      return true;
+    };
+
+    if (applyToBoundary()) {
+      return;
+    }
+
+    const retry = () => {
+      if (applyToBoundary()) {
+        return;
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", () => {
+          applyToBoundary();
+        }, { once: true });
+      } else {
+        applyToBoundary();
+      }
+    };
+
+    if (typeof queueMicrotask === "function") {
+      queueMicrotask(retry);
+    } else {
+      setTimeout(retry, 0);
+    }
   })();`;
 }
