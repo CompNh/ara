@@ -172,16 +172,16 @@ describe("Button", () => {
     expect(large.style.fontSize).toBe(
       "var(--ara-btn-font-size, var(--ara-btn-size-lg-font-size, 1.25rem))"
     );
-    expect(small.style.paddingLeft).toBe(
+    expect(small.style.paddingInlineStart).toBe(
       "var(--ara-btn-pl, var(--ara-btn-px, var(--ara-btn-size-sm-px, 0.75rem)))"
     );
-    expect(large.style.paddingLeft).toBe(
+    expect(large.style.paddingInlineStart).toBe(
       "var(--ara-btn-pl, var(--ara-btn-px, var(--ara-btn-size-lg-px, 1.25rem)))"
     );
-    expect(small.style.paddingTop).toBe(
+    expect(small.style.paddingBlockStart).toBe(
       "var(--ara-btn-pt, var(--ara-btn-py, var(--ara-btn-size-sm-py, 0.375rem)))"
     );
-    expect(large.style.paddingTop).toBe(
+    expect(large.style.paddingBlockStart).toBe(
       "var(--ara-btn-pt, var(--ara-btn-py, var(--ara-btn-size-lg-py, 0.75rem)))"
     );
   });

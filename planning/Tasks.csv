@@ -144,9 +144,9 @@ T-000041,W-000005,Tokens & ThemeProvider v1,ThemeProvider,API 설계 및 기본 
 T-000042,W-000005,Tokens & ThemeProvider v1,ThemeProvider,라이트/다크 및 시스템 연동,완료,High," ● 내용: prefers-color-scheme 연동; 사용자 선택 우선; SSR-safe 초기 스타일 인라인 적용(FOUC 방지); 우선순위: 시스템 설정 < 사용자 선택
  ● 산출물: 테마 스위처 훅과 샘플 코드
  ● 점검: Storybook 툴바 스위치 동작; 첫 페인트에 테마 깜빡임 없음(스크린 레코딩 확인); 새 탭 초기 로드에서도 유지)",확인
-T-000043,W-000005,Tokens & ThemeProvider v1,A11y/국제화,RTL 및 포커스 링 토큰,계획,Medium," ● 내용: dir=rtl 지원, 아이콘/여백 방향 보정 규칙, 포커스 링 토큰과 표시 정책
+T-000043,W-000005,Tokens & ThemeProvider v1,A11y/국제화,RTL 및 포커스 링 토큰,완료,Medium," ● 내용: dir=rtl 지원, 아이콘/여백 방향 보정 규칙, 포커스 링 토큰과 표시 정책
  ● 산출물: 가이드 섹션 및 데모
- ● 점검: RTL 스냅샷 및 키보드 내비게이션 정상", 
+ ● 점검: RTL 스냅샷 및 키보드 내비게이션 정상",확인
 T-000044,W-000005,Tokens & ThemeProvider v1,문서/스토리북,Storybook 문서/Controls/테마 스위치,계획,Medium," ● 내용: 토큰 테이블, ThemeProvider 사용 가이드, 테마 스위치 툴바 추가
  ● 산출물: stories 및 MDX 문서
  ● 점검: build-storybook 스모크 통과", 
