@@ -11,4 +11,13 @@ export {
 export {
   ThemeProvider,
   type ThemeProviderProps
-} from "../components/theme-provider/index.js";
+} from "./ThemeProvider.js";
+export {
+  ColorModeProvider,
+  DEFAULT_COLOR_MODE_STORAGE_KEY,
+  useColorMode,
+  type ColorMode,
+  type ColorScheme,
+  type ColorModeContextValue,
+  type ColorModeProviderProps
+} from "./color-mode.js";
