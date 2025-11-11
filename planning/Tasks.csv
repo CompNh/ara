@@ -147,9 +147,9 @@ T-000042,W-000005,Tokens & ThemeProvider v1,ThemeProvider,라이트/다크 및 �
 T-000043,W-000005,Tokens & ThemeProvider v1,A11y/국제화,RTL 및 포커스 링 토큰,완료,Medium," ● 내용: dir=rtl 지원, 아이콘/여백 방향 보정 규칙, 포커스 링 토큰과 표시 정책
  ● 산출물: 가이드 섹션 및 데모
  ● 점검: RTL 스냅샷 및 키보드 내비게이션 정상",확인
-T-000044,W-000005,Tokens & ThemeProvider v1,문서/스토리북,Storybook 문서/Controls/테마 스위치,계획,Medium," ● 내용: 토큰 테이블, ThemeProvider 사용 가이드, 테마 스위치 툴바 추가
+T-000044,W-000005,Tokens & ThemeProvider v1,문서/스토리북,Storybook 문서/Controls/테마 스위치,완료,Medium," ● 내용: 토큰 테이블, ThemeProvider 사용 가이드, 테마 스위치 툴바 추가
  ● 산출물: stories 및 MDX 문서
- ● 점검: build-storybook 스모크 통과", 
+ ● 점검: build-storybook 스모크 통과",확인
 T-000045,W-000005,Tokens & ThemeProvider v1,빌드/출하,Exports/Types 계약 점검,계획,High," ● 내용: @ara/tokens와 @ara/react/theme-provider의 exports, types, sideEffects 계약 확정
  ● 산출물: 각 package.json의 exports 맵과 d.ts 출력
  ● 점검: pnpm --filter @ara/* pack --dry-run 결과 검토", 
