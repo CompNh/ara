@@ -18,6 +18,8 @@ import {
 const ThemeContext = createContext<Theme>(defaultTheme);
 const DEFAULT_COLOR_THEME: ColorThemeName = "light";
 
+export type TextDirection = "ltr" | "rtl" | "auto";
+
 function resolveThemeVariables(
   table: ThemeCSSVariableTable,
   mode: ColorThemeName
@@ -65,6 +67,7 @@ export function useAraTheme(): Theme {
 export interface AraThemeBoundaryProps {
   readonly asChild?: boolean;
   readonly mode?: ColorThemeName;
+  readonly direction?: TextDirection;
   readonly children: ReactNode;
 }
 
@@ -83,6 +86,7 @@ export function useAraThemeVariables(
 export function AraThemeBoundary({
   asChild = false,
   mode = DEFAULT_COLOR_THEME,
+  direction,
   children
 }: AraThemeBoundaryProps) {
   const style = useAraThemeVariables(mode);
@@ -96,7 +100,7 @@ export function AraThemeBoundary({
   const Container = asChild ? Slot : "div";
 
   return (
-    <Container data-ara-theme={mode} style={cssStyle}>
+    <Container data-ara-theme={mode} dir={direction ?? undefined} style={cssStyle}>
       {children}
     </Container>
   );

@@ -38,6 +38,20 @@ describe("AraThemeBoundary", () => {
     expect(host).toHaveTextContent("content");
   });
 
+  it("direction prop으로 텍스트 흐름을 지정할 수 있다", () => {
+    const { container } = render(
+      <AraProvider>
+        <AraThemeBoundary direction="rtl">
+          <section data-testid="host">content</section>
+        </AraThemeBoundary>
+      </AraProvider>
+    );
+
+    const boundary = container.firstElementChild as HTMLElement | null;
+
+    expect(boundary).toHaveAttribute("dir", "rtl");
+  });
+
   it("asChild로 기존 요소를 재사용한다", () => {
     const { container } = render(
       <AraProvider>
@@ -65,6 +79,20 @@ describe("AraThemeBoundary", () => {
         "--ara-color-role-light-interactive-primary-default-bg"
       )
     ).toBe(defaultTheme.color.role.light.interactive.primary.default.background);
+  });
+
+  it("direction prop은 asChild 요소에도 전달된다", () => {
+    render(
+      <AraProvider>
+        <AraThemeBoundary asChild direction="rtl">
+          <section data-testid="host">content</section>
+        </AraThemeBoundary>
+      </AraProvider>
+    );
+
+    const host = screen.getByTestId("host");
+
+    expect(host).toHaveAttribute("dir", "rtl");
   });
 
   it("mode prop으로 지정한 테마 변수를 적용한다", () => {
