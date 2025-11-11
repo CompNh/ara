@@ -5,6 +5,7 @@ export {
   ThemeProvider,
   type AraProviderProps,
   type AraThemeBoundaryProps,
+  type TextDirection,
   type ThemeProviderProps,
   useAraTheme,
   useAraThemeVariables,

@@ -4,7 +4,8 @@ import type { ColorThemeName } from "@ara/tokens/colors";
 import {
   AraProvider,
   AraThemeBoundary,
-  useAraThemeVariableTable
+  useAraThemeVariableTable,
+  type TextDirection
 } from "./AraProvider.js";
 import {
   ColorModeProvider,
@@ -22,6 +23,7 @@ export interface ThemeProviderProps {
   readonly asChild?: boolean;
   readonly children: ReactNode;
   readonly onModeChange?: (mode: ColorThemeName) => void;
+  readonly direction?: TextDirection;
 }
 
 const DEFAULT_MODE: ColorThemeName = "light";
@@ -34,7 +36,8 @@ export function ThemeProvider({
   storageKey = DEFAULT_COLOR_MODE_STORAGE_KEY,
   asChild = false,
   children,
-  onModeChange
+  onModeChange,
+  direction
 }: ThemeProviderProps) {
   return (
     <AraProvider theme={theme}>
@@ -43,6 +46,7 @@ export function ThemeProvider({
         defaultMode={defaultMode}
         storageKey={storageKey}
         asChild={asChild}
+        direction={direction}
         onModeChange={onModeChange}
       >
         {children}
@@ -56,7 +60,13 @@ ThemeProvider.displayName = "ThemeProvider";
 interface ThemeProviderInnerProps
   extends Pick<
     ThemeProviderProps,
-    "mode" | "defaultMode" | "storageKey" | "asChild" | "children" | "onModeChange"
+    | "mode"
+    | "defaultMode"
+    | "storageKey"
+    | "asChild"
+    | "children"
+    | "onModeChange"
+    | "direction"
   > {}
 
 function ThemeProviderInner({
@@ -65,7 +75,8 @@ function ThemeProviderInner({
   storageKey = DEFAULT_COLOR_MODE_STORAGE_KEY,
   asChild,
   children,
-  onModeChange
+  onModeChange,
+  direction
 }: ThemeProviderInnerProps) {
   const table = useAraThemeVariableTable();
 
@@ -82,19 +93,22 @@ function ThemeProviderInner({
         storageKey={storageKey}
         table={table}
       />
-      <ResolvedThemeBoundary asChild={asChild}>{children}</ResolvedThemeBoundary>
+      <ResolvedThemeBoundary asChild={asChild} direction={direction}>
+        {children}
+      </ResolvedThemeBoundary>
     </ColorModeProvider>
   );
 }
 
 function ResolvedThemeBoundary({
   asChild,
-  children
-}: Pick<ThemeProviderProps, "asChild" | "children">) {
+  children,
+  direction
+}: Pick<ThemeProviderProps, "asChild" | "children" | "direction">) {
   const { mode } = useColorMode();
 
   return (
-    <AraThemeBoundary mode={mode} asChild={asChild}>
+    <AraThemeBoundary mode={mode} asChild={asChild} direction={direction}>
       {children}
     </AraThemeBoundary>
   );
