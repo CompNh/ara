@@ -84,7 +84,6 @@ function createMatchMediaMock(initial = false) {
 
   const setMatches = (value: boolean) => {
     matches = value;
-    mediaQueryList.matches = value;
 
     if (typeof mediaQueryList.onchange === "function") {
       mediaQueryList.onchange({ matches: value, media: COLOR_SCHEME_QUERY } as MediaQueryListEvent);
