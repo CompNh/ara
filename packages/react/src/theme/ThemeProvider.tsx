@@ -57,17 +57,16 @@ export function ThemeProvider({
 
 ThemeProvider.displayName = "ThemeProvider";
 
-interface ThemeProviderInnerProps
-  extends Pick<
-    ThemeProviderProps,
-    | "mode"
-    | "defaultMode"
-    | "storageKey"
-    | "asChild"
-    | "children"
-    | "onModeChange"
-    | "direction"
-  > {}
+type ThemeProviderInnerProps = Pick<
+  ThemeProviderProps,
+  | "mode"
+  | "defaultMode"
+  | "storageKey"
+  | "asChild"
+  | "children"
+  | "onModeChange"
+  | "direction"
+>;
 
 function ThemeProviderInner({
   mode = "system",
