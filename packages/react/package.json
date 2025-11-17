@@ -22,6 +22,11 @@
       "import": "./dist/components/index.js",
       "default": "./dist/components/index.js"
     },
+    "./components/theme-provider": {
+      "types": "./dist/components/theme-provider/index.d.ts",
+      "import": "./dist/components/theme-provider/index.js",
+      "default": "./dist/components/theme-provider/index.js"
+    },
     "./components/button": {
       "types": "./dist/components/button/index.d.ts",
       "import": "./dist/components/button/index.js",
@@ -31,6 +36,11 @@
       "types": "./dist/components/button/index.d.ts",
       "import": "./dist/components/button/index.js",
       "default": "./dist/components/button/index.js"
+    },
+    "./theme-provider": {
+      "types": "./dist/components/theme-provider/index.d.ts",
+      "import": "./dist/components/theme-provider/index.js",
+      "default": "./dist/components/theme-provider/index.js"
     },
     "./package.json": "./package.json"
   },
@@ -42,8 +52,14 @@
       "components/*": [
         "dist/components/*/index.d.ts"
       ],
+      "components/theme-provider": [
+        "dist/components/theme-provider/index.d.ts"
+      ],
       "button": [
         "dist/components/button/index.d.ts"
+      ],
+      "theme-provider": [
+        "dist/components/theme-provider/index.d.ts"
       ],
       "theme": [
         "dist/theme/index.d.ts"
