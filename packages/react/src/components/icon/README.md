@@ -24,3 +24,9 @@ function Example() {
   return <Icon icon={ArrowRight} size="sm" tone="primary" aria-label="다음" />;
 }
 ```
+
+## 접근성
+
+- 제목(`title`)이나 라벨(`aria-label`/`aria-labelledby`)이 없으면 기본으로 `aria-hidden="true"` 로 처리해 장식용 아이콘으로 숨긴다.
+- `title` 을 제공하면 내부 `title` 요소에 `id` 를 부여하고 `role="img"`, `aria-labelledby` 로 연결해 스크린 리더가 읽을 수 있도록 한다.
+- `aria-label` 또는 `aria-labelledby` 를 전달하면 `role="img"` 로 노출하며, 키보드 포커스 흐름에는 영향을 주지 않는다.
