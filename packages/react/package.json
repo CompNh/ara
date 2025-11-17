@@ -1,7 +1,7 @@
 {
   "name": "@ara/react",
-  "version": "0.0.0",
-  "description": "Ara \ub514\uc790\uc778 \uc2dc\uc2a4\ud15c\uc758 React \ucef4\ud3ec\ub10c\ud2b8 \ubc14\uc778\ub529",
+  "version": "0.1.0-canary.0",
+  "description": "Ara 디자인 시스템의 React 컴포넌트 바인딩",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",

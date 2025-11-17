@@ -1,6 +1,6 @@
 {
   "name": "@ara/tokens",
-  "version": "0.0.0",
+  "version": "0.1.0-canary.0",
   "description": "Ara 디자인 시스템을 위한 디자인 토큰 모음",
   "type": "module",
   "main": "./dist/index.js",

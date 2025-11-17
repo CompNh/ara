@@ -1,0 +1,17 @@
+{
+  "mode": "pre",
+  "tag": "canary",
+  "initialVersions": {
+    "@ara/showcase": "0.0.0",
+    "@ara/storybook": "0.0.0",
+    "@ara/core": "0.0.0",
+    "@ara/eslint-config": "0.0.0",
+    "@ara/icons": "0.0.0",
+    "@ara/react": "0.0.0",
+    "@ara/tokens": "0.0.0",
+    "@ara/tsconfig": "0.0.0"
+  },
+  "changesets": [
+    "button-canary-release"
+  ]
+}
