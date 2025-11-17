@@ -1,6 +1,6 @@
 # @ara/icons
 
-Ara 디자인 시스템에서 사용하는 SVG 아이콘을 제공하는 패키지입니다. 아이콘 정의는 순수 TypeScript 객체로 제공되며, React 등의 렌더러에서 재사용할 수 있도록 설계되었습니다.
+Ara 디자인 시스템에서 사용하는 SVG 아이콘을 React 컴포넌트로 제공하는 패키지입니다. 각 아이콘은 `title` 프롭을 받아 필요한 경우 `role="img"` 로 렌더링되며, 기본적으로 `currentColor` 를 상속합니다.
 
 ## 계약(Contract)
 
@@ -30,10 +30,16 @@ pnpm add @ara/icons
 ## 사용 예시
 
 ```ts
-import { arrowRight } from "@ara/icons/icons/arrow-right";
+import { ArrowRight } from "@ara/icons/icons/arrow-right";
 
-console.log(arrowRight.viewBox);
+console.log(<ArrowRight title="이동" />);
 ```
+
+## 아이콘 생성기
+
+- 원본 SVG는 `packages/icons/svgs` 폴더에 저장하고, 변환된 TSX 파일은 `packages/icons/src/icons` 에 생성됩니다.
+- 변환은 루트에서 `pnpm gen:icons` 로 실행합니다. 새 SVG를 추가하거나 기존 아이콘을 수정한 뒤 스크립트를 돌리면 개별 파일과 인덱스가 자동으로 갱신됩니다.
+- 변경 사항만 확인하고 싶다면 `pnpm gen:icons -- --diff` 로 실행하여 생성 결과와 기존 파일의 차이를 확인할 수 있습니다.
 
 ## 빌드
 
