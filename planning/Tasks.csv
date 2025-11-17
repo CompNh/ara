@@ -159,3 +159,36 @@ T-000046,W-000005,Tokens & ThemeProvider v1,통합/검증,Button v0 통합 스�
 T-000047,W-000005,Tokens & ThemeProvider v1,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가 및 프리릴리스 채널 배포 드라이런
  ● 산출물: canary 태그 및 설치 확인 메모
  ● 점검: 설치 및 임포트 성공과 간단 사용 예 검증",확인
+T-000048,W-000006,Icons v0,규약/설계,아이콘 계약/명명 규칙 확정,계획,High," ● 목적: 파일명/심볼명(파스칼케이스), 카테고리, size 스케일(sm/md/lg), tone(현재색 currentColor 우선) 규약 확정
+ ● 산출물: packages/icons/README.md 규약, 계약 동결(변경=Major) 문구 명시
+ ● 점검: 리뷰 승인 후 계약 동결 공지", 
+T-000049,W-000006,Icons v0,파이프라인,SVG 최적화(svgo) 설정,계획,High," ● 내용: precision/cleanupAttrs/mergePaths 등 svgo 설정 고정, removeViewBox 비활성화 확인, preserveLicense 플러그인 검토, 최적화 전후 diff 캡처
+ ● 산출물: packages/icons/svgo.config.mjs, 최적화 전후 시각 동일성 비교 스냅
+ ● 점검: diff 스크린샷 기록 및 설정 리뷰", 
+T-000050,W-000006,Icons v0,파이프라인,아이콘 코드 생성기(generator),계획,High," ● 내용: SVG→TSX 변환(React 컴포넌트), viewBox 유지, title prop 지원, tree-shakable export 생성, 변환 전후 스냅샷 비교 옵션(--diff), 샘플 3종 생성
+ ● 산출물: scripts/generate-icons.(ts|mjs) + 샘플 3종, pnpm gen:icons 스모크 통과
+ ● 점검: pnpm gen:icons 실행 로그 및 시각 diff 확인", 
+T-000051,W-000006,Icons v0,React 컴포넌트,Icon 베이스 구현(@ara/react/icon),계획,High," ● 내용: <Icon> 래퍼(size/tone/strokeWidth/filled)·forwardRef·className 병합·currentColor 기본, Tokens 연동
+ ● 산출물: packages/react/src/components/icon/index.tsx + README.md
+ ● 점검: ref 포워딩/Props 계약 스냅", 
+T-000052,W-000006,Icons v0,접근성,A11y 규정 적용,계획,High," ● 내용: aria-hidden 기본(true), title 제공 시 role=\"img\"+aria-labelledby 처리 가이드, 키보드 탐색 영향 없음 확인
+ ● 산출물: A11y 섹션/테스트 케이스
+ ● 점검: 라벨링 시 스크린리더 읽힘 및 포커스 영향 없음", 
+T-000053,W-000006,Icons v0,테스트,Vitest+RTL 테스트,계획,Medium," ● 내용: size/tone props 반영, aria-hidden/role=img 변환, currentColor 상속 및 명시적 color 우선순위, ThemeProvider 토큰 상속, tree-shaking(번들 검사) 최소 테스트
+ ● 산출물: 테스트 스위트
+ ● 점검: pnpm --filter @ara/react test 통과", 
+T-000054,W-000006,Icons v0,문서/스토리북,Storybook 아이콘 갤러리/Docs,계획,Medium," ● 내용: 아이콘 리스트 갤러리, Controls(size/tone/strokeWidth 기본값 포함), 타이틀 접근성 예시, 시각 회귀(Chromatic 또는 build-storybook 스모크) 옵션
+ ● 산출물: stories 및 MDX
+ ● 점검: build-storybook 스모크 또는 시각 스냅샷 확인", 
+T-000055,W-000006,Icons v0,토큰 연동,Tokens 색/사이즈 매핑,계획,Medium," ● 내용: size 스케일(sm/md/lg)·색 토큰(primary/neutral/danger) 매핑 가이드, currentColor 우선 순위, ThemeProvider 상속 우선순위 가이드/테스트
+ ● 산출물: 가이드/예시 코드
+ ● 점검: ThemeProvider 테마 변경 시 색상 상속 확인", 
+T-000056,W-000006,Icons v0,통합,Button/Inputs와 통합 스모크,계획,Medium," ● 내용: Button leading/trailingIcon, 향후 TextField 내 prefix/suffix 아이콘 예시
+ ● 산출물: showcase 또는 stories
+ ● 점검: 리그레션 없음", 
+T-000057,W-000006,Icons v0,빌드/출하,Exports/Types/Tree-shaking 점검,계획,High," ● 내용: @ara/icons 개별(@ara/icons/Plus)·집합(@ara/icons) 동시 제공, sideEffects:false, types 확인, pnpm --filter @ara/icons pack --dry-run + lint 묶은 check:icons 스크립트, CI에서 exports 해상도 검증
+ ● 산출물: package.json exports 맵·d.ts 출력, check:icons 스크립트 로그
+ ● 점검: pnpm --filter @ara/icons pack --dry-run 결과 검토", 
+T-000058,W-000006,Icons v0,릴리스,Changesets 프리릴리스(canary),계획,High," ● 내용: changeset 추가 및 canary 배포 드라이런, 태그명 규칙과 설치 검증 로그 README 릴리스 섹션 기록
+ ● 산출물: canary 태그·설치 확인 메모
+ ● 점검: 설치/임포트/간단 사용 예 검증", 
