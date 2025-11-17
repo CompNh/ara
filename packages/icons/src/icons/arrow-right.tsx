@@ -1,13 +1,13 @@
 import type { IconProps } from "../types.js";
 export const ArrowRight = ({ title, ...props }: IconProps) => (
   <svg
-    {...props}
     width="24"
     height="24"
     viewBox="0 0 24 24"
     fill="none"
     aria-hidden={title ? undefined : true}
     role={title ? "img" : undefined}
+    {...props}
   >
     {title ? <title>{title}</title> : null}
 

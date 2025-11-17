@@ -157,15 +157,17 @@ function buildIconComponent(name, svgNode) {
   const attributeBlock = formatAttributes(attributes, 2);
   const childBlock = renderedChildren.length > 0 ? `\n${renderedChildren.join("\n")}\n` : "\n";
   const normalizedChildBlock = childBlock.trim() ? childBlock.trimEnd() : "";
+  const attributeLines = attributeBlock ? attributeBlock.slice(1) : "";
 
   return [
     'import type { IconProps } from "../types.js";',
     "",
     `export const ${name} = ({ title, ...props }: IconProps) => (`,
     "  <svg",
-    `    {...props}${attributeBlock}`,
+    attributeLines,
     "    aria-hidden={title ? undefined : true}",
     "    role={title ? \"img\" : undefined}",
+    "    {...props}",
     "  >",
     "    {title ? <title>{title}</title> : null}",
     normalizedChildBlock,
