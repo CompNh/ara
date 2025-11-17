@@ -4,6 +4,7 @@ import {
   createElement,
   forwardRef,
   isValidElement,
+  useId,
   type CSSProperties,
   type ComponentClass,
   type ComponentType,
@@ -63,7 +64,7 @@ function resolveStrokeWidth(tokens: IconComponentTokens, strokeWidth: IconProps[
 
 function applyIconOverrides(
   node: ReactNode,
-  options: { strokeWidth?: number; filled: boolean }
+  options: { strokeWidth?: number; filled: boolean; titleId?: string }
 ): ReactNode {
   if (!isValidElement(node)) {
     return node;
@@ -77,15 +78,21 @@ function applyIconOverrides(
 
   const nextProps: Record<string, unknown> = {};
 
-  if (options.strokeWidth !== undefined) {
-    const hasStroke = node.props.stroke !== undefined || node.props.strokeWidth !== undefined;
-    if (typeof node.type === "string" && hasStroke) {
+  if (typeof node.type === "string") {
+    if (
+      options.strokeWidth !== undefined &&
+      (node.props.stroke !== undefined || node.props.strokeWidth !== undefined)
+    ) {
       nextProps.strokeWidth = options.strokeWidth;
     }
-  }
 
-  if (options.filled && (node.props.fill === undefined || node.props.fill === "none")) {
-    nextProps.fill = "currentColor";
+    if (options.titleId && node.type === "title" && node.props.id === undefined) {
+      nextProps.id = options.titleId;
+    }
+
+    if (options.filled && (node.props.fill === undefined || node.props.fill === "none")) {
+      nextProps.fill = "currentColor";
+    }
   }
 
   if (resolvedChildren !== children || Object.keys(nextProps).length > 0) {
@@ -109,6 +116,11 @@ export const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(props, re
     className,
     style,
     color,
+    role,
+    title,
+    "aria-label": ariaLabel,
+    "aria-labelledby": ariaLabelledby,
+    "aria-hidden": ariaHidden,
     ...restProps
   } = props;
 
@@ -118,6 +130,26 @@ export const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(props, re
   const size = resolveSize(iconTokens, sizeProp);
   const toneColor = resolveTone(iconTokens, toneProp);
   const strokeWidth = resolveStrokeWidth(iconTokens, strokeWidthProp);
+  const titleId = useId();
+
+  const hasAccessibleName = Boolean(title ?? ariaLabel ?? ariaLabelledby);
+  const generatedTitleId = title ? `${titleId}-title` : undefined;
+  const resolvedAriaLabelledby = ariaLabelledby ?? generatedTitleId;
+
+  const accessibilityProps: Pick<IconSourceProps, "role" | "aria-label" | "aria-labelledby" | "aria-hidden"> =
+    hasAccessibleName
+      ? {
+          role: role ?? "img",
+          "aria-label": ariaLabel,
+          "aria-labelledby": resolvedAriaLabelledby,
+          "aria-hidden": ariaHidden
+        }
+      : {
+          role,
+          "aria-label": undefined,
+          "aria-labelledby": undefined,
+          "aria-hidden": ariaHidden ?? true
+        };
 
   const mergedStyle: CSSProperties = {
     ...style,
@@ -132,6 +164,8 @@ export const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(props, re
 
   const iconProps: IconSourceProps = {
     ...restProps,
+    title,
+    ...accessibilityProps,
     className: mergeClassNames("ara-icon", className),
     style: mergedStyle,
     width: size,
@@ -142,7 +176,11 @@ export const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(props, re
     ? createElement(IconComponent, iconProps)
     : (IconComponent as FunctionComponent<IconSourceProps>)(iconProps);
 
-  const enhancedIcon = applyIconOverrides(iconNode, { strokeWidth, filled }) as ReactElement;
+  const enhancedIcon = applyIconOverrides(iconNode, {
+    strokeWidth,
+    filled,
+    titleId: title ? resolvedAriaLabelledby : undefined
+  }) as ReactElement;
 
   return cloneElement(enhancedIcon, { ref });
 });

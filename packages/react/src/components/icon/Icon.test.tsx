@@ -5,14 +5,16 @@ import { createRef } from "react";
 import { describe, expect, it } from "vitest";
 import { Icon } from "./index.js";
 
-const FilledIcon = (props: IconSourceProps) => (
+const FilledIcon = ({ title, ...props }: IconSourceProps) => (
   <svg viewBox="0 0 24 24" fill="none" {...props}>
+    {title ? <title>{title}</title> : null}
     <path d="M4 12h16" fill="currentColor" />
   </svg>
 );
 
-const StrokeIcon = (props: IconSourceProps) => (
+const StrokeIcon = ({ title, ...props }: IconSourceProps) => (
   <svg viewBox="0 0 24 24" fill="none" {...props}>
+    {title ? <title>{title}</title> : null}
     <path d="M4 12h16" stroke="currentColor" strokeWidth="2" />
     <path d="M12 4v16" stroke="currentColor" strokeWidth="2" />
   </svg>
@@ -32,6 +34,34 @@ describe("Icon", () => {
     const { getByTestId } = render(<Icon icon={FilledIcon} tone="danger" data-testid="icon" />);
 
     expect(getByTestId("icon")).toHaveStyle({ color: defaultTheme.component.icon.tone.danger });
+  });
+
+  it("제목이나 라벨이 없으면 장식용으로 aria-hidden을 설정한다", () => {
+    const { getByTestId } = render(<Icon icon={FilledIcon} data-testid="icon" />);
+
+    expect(getByTestId("icon")).toHaveAttribute("aria-hidden", "true");
+    expect(getByTestId("icon")).not.toHaveAttribute("role");
+  });
+
+  it("title을 제공하면 role과 aria-labelledby를 연결한다", () => {
+    const { getByTestId } = render(<Icon icon={FilledIcon} title="확인" data-testid="icon" />);
+
+    const icon = getByTestId("icon");
+    const title = icon.querySelector("title");
+
+    expect(icon).toHaveAttribute("role", "img");
+    expect(icon).not.toHaveAttribute("aria-hidden");
+    expect(icon.getAttribute("aria-labelledby")).toBe(title?.id);
+  });
+
+  it("aria-label을 제공하면 스크린리더가 읽을 수 있도록 노출한다", () => {
+    const { getByTestId } = render(<Icon icon={FilledIcon} aria-label="삭제" data-testid="icon" />);
+
+    const icon = getByTestId("icon");
+
+    expect(icon).toHaveAttribute("role", "img");
+    expect(icon).toHaveAttribute("aria-label", "삭제");
+    expect(icon).not.toHaveAttribute("aria-hidden");
   });
 
   it("strokeWidth와 filled 옵션을 아이콘 노드에 덮어쓴다", () => {
