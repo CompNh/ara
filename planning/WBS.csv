@@ -39,7 +39,7 @@ W-000005,T1,Tokens & ThemeProvider v1,완료,100,"Tokens v1 & ThemeProvider
  ● Storybook 문서/Controls 포함
  ● Exports: @ara/tokens, @ara/react/theme-provider (ESM+types)
  ● AC: CI 통과·Storybook build·ESM+types import·테마 스위치 데모·canary 발행",
-W-000006,T1,Icons v0,진행,18,"Icons v0
+W-000006,T1,Icons v0,진행,27,"Icons v0
  ● 설계문서 : root/packages/icons/README.md · root/packages/react/src/components/icon/README.md
  ● SVG→TS 파이프라인(svgo+generator), 1아이콘=1엔트리(tree-shaking), 최적화 전후 diff 캡처
  ● React <Icon> 계약(size/tone/stroke|filled) + a11y(aria-hidden 기본, title 시 role=img+aria-labelledby)

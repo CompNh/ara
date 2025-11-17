@@ -165,9 +165,9 @@ T-000048,W-000006,Icons v0,규약/설계,아이콘 계약/명명 규칙 확정,�
 T-000049,W-000006,Icons v0,파이프라인,SVG 최적화(svgo) 설정,완료,High," ● 내용: precision/cleanupAttrs/mergePaths 등 svgo 설정 고정, removeViewBox 비활성화 확인, preserveLicense 플러그인 검토, 최적화 전후 diff 캡처
  ● 산출물: packages/icons/svgo.config.mjs, 최적화 전후 시각 동일성 비교 스냅
  ● 점검: diff 스크린샷 기록 및 설정 리뷰",확인
-T-000050,W-000006,Icons v0,파이프라인,아이콘 코드 생성기(generator),계획,High," ● 내용: SVG→TSX 변환(React 컴포넌트), viewBox 유지, title prop 지원, tree-shakable export 생성, 변환 전후 스냅샷 비교 옵션(--diff), 샘플 3종 생성
+T-000050,W-000006,Icons v0,파이프라인,아이콘 코드 생성기(generator),완료,High," ● 내용: SVG→TSX 변환(React 컴포넌트), viewBox 유지, title prop 지원, tree-shakable export 생성, 변환 전후 스냅샷 비교 옵션(--diff), 샘플 3종 생성
  ● 산출물: scripts/generate-icons.(ts|mjs) + 샘플 3종, pnpm gen:icons 스모크 통과
- ● 점검: pnpm gen:icons 실행 로그 및 시각 diff 확인", 
+ ● 점검: pnpm gen:icons 실행 로그 및 시각 diff 확인",확인
 T-000051,W-000006,Icons v0,React 컴포넌트,Icon 베이스 구현(@ara/react/icon),계획,High," ● 내용: <Icon> 래퍼(size/tone/strokeWidth/filled)·forwardRef·className 병합·currentColor 기본, Tokens 연동
  ● 산출물: packages/react/src/components/icon/index.tsx + README.md
  ● 점검: ref 포워딩/Props 계약 스냅", 
