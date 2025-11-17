@@ -64,6 +64,19 @@ describe("Icon", () => {
     expect(icon).not.toHaveAttribute("aria-hidden");
   });
 
+  it("aria-labelledby를 제공하면 라벨 참조를 존중하고 role을 img로 노출한다", () => {
+    const labelledbyId = "custom-title";
+    const { getByTestId } = render(
+      <Icon icon={FilledIcon} aria-labelledby={labelledbyId} data-testid="icon" />
+    );
+
+    const icon = getByTestId("icon");
+
+    expect(icon).toHaveAttribute("role", "img");
+    expect(icon).toHaveAttribute("aria-labelledby", labelledbyId);
+    expect(icon).not.toHaveAttribute("aria-hidden");
+  });
+
   it("strokeWidth와 filled 옵션을 아이콘 노드에 덮어쓴다", () => {
     const { container } = render(
       <Icon icon={StrokeIcon} strokeWidth={1.25} filled aria-label="완료" />
