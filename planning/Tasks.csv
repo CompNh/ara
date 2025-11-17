@@ -168,9 +168,9 @@ T-000049,W-000006,Icons v0,파이프라인,SVG 최적화(svgo) 설정,완료,Hig
 T-000050,W-000006,Icons v0,파이프라인,아이콘 코드 생성기(generator),완료,High," ● 내용: SVG→TSX 변환(React 컴포넌트), viewBox 유지, title prop 지원, tree-shakable export 생성, 변환 전후 스냅샷 비교 옵션(--diff), 샘플 3종 생성
  ● 산출물: scripts/generate-icons.(ts|mjs) + 샘플 3종, pnpm gen:icons 스모크 통과
  ● 점검: pnpm gen:icons 실행 로그 및 시각 diff 확인",확인
-T-000051,W-000006,Icons v0,React 컴포넌트,Icon 베이스 구현(@ara/react/icon),계획,High," ● 내용: <Icon> 래퍼(size/tone/strokeWidth/filled)·forwardRef·className 병합·currentColor 기본, Tokens 연동
+T-000051,W-000006,Icons v0,React 컴포넌트,Icon 베이스 구현(@ara/react/icon),완료,High," ● 내용: <Icon> 래퍼(size/tone/strokeWidth/filled)·forwardRef·className 병합·currentColor 기본, Tokens 연동
  ● 산출물: packages/react/src/components/icon/index.tsx + README.md
- ● 점검: ref 포워딩/Props 계약 스냅", 
+ ● 점검: ref 포워딩/Props 계약 스냅",확인
 T-000052,W-000006,Icons v0,접근성,A11y 규정 적용,계획,High," ● 내용: aria-hidden 기본(true), title 제공 시 role=\""img\""+aria-labelledby 처리 가이드, 키보드 탐색 영향 없음 확인
  ● 산출물: A11y 섹션/테스트 케이스
  ● 점검: 라벨링 시 스크린리더 읽힘 및 포커스 영향 없음""",
