@@ -1,9 +1,11 @@
-import { arrowRight } from "./icons/arrow-right.js";
-
-export type { IconDefinition, IconName } from "./types.js";
-export { createIcon } from "./create-icon.js";
-export { arrowRight };
-
+export type { IconProps } from "./types.js";
+import { ArrowRight } from "./icons/arrow-right.js";
+import { CheckCircle } from "./icons/check-circle.js";
+import { Plus } from "./icons/plus.js";
+export { ArrowRight, CheckCircle, Plus };
 export const icons = {
-  arrowRight,
+  ArrowRight,
+  CheckCircle,
+  Plus
 } as const;
+export type IconName = keyof typeof icons;
