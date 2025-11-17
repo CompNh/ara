@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import type { ThemeOverrides } from "@ara/core";
-import { AraProvider, AraThemeBoundary, Button } from "@ara/react";
+import { AraProvider, AraThemeBoundary, Button, ThemeProvider } from "@ara/react";
 
 const ArrowRightIcon = () => (
   <svg
@@ -217,19 +217,17 @@ export const ThemeSamples: Story = {
     <div style={{ display: "grid", gap: "1.5rem", maxWidth: "520px" }}>
       <section>
         <h4 style={{ margin: "0 0 0.75rem", fontSize: "0.875rem", color: "#475569" }}>라이트 (기본)</h4>
-        <AraProvider>
-          <AraThemeBoundary asChild>
-            <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-              <Button {...args}>Primary</Button>
-              <Button {...args} variant="outline">
-                Outline
-              </Button>
-              <Button {...args} tone="danger">
-                Danger
-              </Button>
-            </div>
-          </AraThemeBoundary>
-        </AraProvider>
+        <ThemeProvider mode="light" storageKey={null}>
+          <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
+            <Button {...args}>Primary</Button>
+            <Button {...args} variant="outline">
+              Outline
+            </Button>
+            <Button {...args} tone="danger">
+              Danger
+            </Button>
+          </div>
+        </ThemeProvider>
       </section>
       <section
         style={{
@@ -240,24 +238,140 @@ export const ThemeSamples: Story = {
         }}
       >
         <h4 style={{ margin: 0, marginBottom: "0.75rem", fontSize: "0.875rem" }}>다크 (테마 오버라이드)</h4>
-        <AraProvider theme={darkTheme}>
-          <AraThemeBoundary asChild>
-            <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-              <Button {...args}>Primary</Button>
-              <Button {...args} variant="outline">
-                Outline
-              </Button>
-              <Button {...args} tone="danger">
-                Danger
-              </Button>
-            </div>
-          </AraThemeBoundary>
-        </AraProvider>
+        <ThemeProvider mode="dark" defaultMode="dark" storageKey={null} theme={darkTheme}>
+          <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
+            <Button {...args}>Primary</Button>
+            <Button {...args} variant="outline">
+              Outline
+            </Button>
+            <Button {...args} tone="danger">
+              Danger
+            </Button>
+          </div>
+        </ThemeProvider>
       </section>
     </div>
   ),
   parameters: {
     controls: { exclude: ["tone", "variant", "size"] }
+  }
+};
+
+type ColorModeSampleProps = {
+  readonly mode: "light" | "dark";
+  readonly args: Story["args"];
+};
+
+function ColorModeSample({ mode, args }: ColorModeSampleProps) {
+  const surface = `var(--ara-color-role-${mode}-surface-surface)`;
+  const elevated = `var(--ara-color-role-${mode}-surface-elevated)`;
+  const textPrimary = `var(--ara-color-role-${mode}-text-primary)`;
+  const textSecondary = `var(--ara-color-role-${mode}-text-secondary)`;
+  const border = `var(--ara-color-role-${mode}-border-default)`;
+
+  return (
+    <ThemeProvider mode={mode} defaultMode={mode} storageKey={null}>
+      <section
+        style={{
+          background: surface,
+          color: textPrimary,
+          padding: "var(--ara-space-lg)",
+          borderRadius: "var(--ara-radius-lg)",
+          border: `1px solid ${border}`,
+          display: "grid",
+          gap: "var(--ara-space-md)",
+          boxShadow: "var(--ara-elevation-md)"
+        }}
+      >
+        <header>
+          <p
+            style={{
+              margin: 0,
+              color: textSecondary,
+              fontSize: "0.875rem",
+              display: "flex",
+              alignItems: "center",
+              gap: "var(--ara-space-xs)"
+            }}
+          >
+            <span
+              style={{
+                width: "0.5rem",
+                height: "0.5rem",
+                borderRadius: "9999px",
+                display: "inline-block",
+                background: `var(--ara-color-role-${mode}-interactive-primary-default-bg)`
+              }}
+            />
+            {mode === "light" ? "라이트" : "다크"} 모드
+          </p>
+          <h4 style={{ margin: "0 0 var(--ara-space-sm)", fontSize: "1rem" }}>
+            ThemeProvider 연동
+          </h4>
+          <p style={{ margin: 0, color: textSecondary, fontSize: "0.875rem" }}>
+            Button 토큰이 모드별 CSS 변수(--ara-color-role-*)와 크기 토큰(--ara-btn-size-*)을 소비하는지 확인합니다.
+          </p>
+        </header>
+        <div
+          style={{
+            display: "grid",
+            gap: "var(--ara-space-sm)",
+            background: elevated,
+            padding: "var(--ara-space-md)",
+            borderRadius: "var(--ara-radius-md)",
+            border: `1px solid ${border}`
+          }}
+        >
+          <div style={{ display: "flex", gap: "var(--ara-space-sm)", flexWrap: "wrap" }}>
+            <Button {...args}>Primary</Button>
+            <Button {...args} variant="outline">
+              Outline
+            </Button>
+            <Button {...args} variant="ghost">
+              Ghost
+            </Button>
+            <Button {...args} tone="neutral">
+              Neutral
+            </Button>
+            <Button {...args} tone="danger">
+              Danger
+            </Button>
+          </div>
+          <div style={{ display: "flex", gap: "var(--ara-space-sm)", flexWrap: "wrap" }}>
+            <Button {...args} size="sm">
+              Small
+            </Button>
+            <Button {...args} size="md">
+              Medium
+            </Button>
+            <Button {...args} size="lg">
+              Large
+            </Button>
+          </div>
+        </div>
+      </section>
+    </ThemeProvider>
+  );
+}
+
+export const ThemeIntegration: Story = {
+  render: (args) => (
+    <div
+      style={{
+        display: "grid",
+        gap: "var(--ara-space-lg)",
+        maxWidth: "min(960px, 100%)"
+      }}
+    >
+      <ColorModeSample mode="light" args={args} />
+      <ColorModeSample mode="dark" args={args} />
+    </div>
+  ),
+  parameters: {
+    controls: { exclude: ["variant", "tone", "size"] }
+  },
+  args: {
+    children: "토큰 반영"
   }
 };
 
