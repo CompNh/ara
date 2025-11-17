@@ -1,9 +1,10 @@
-import { defaultTheme } from "@ara/core";
+import { defaultTheme, type ThemeOverrides } from "@ara/core";
 import type { IconProps as IconSourceProps } from "@ara/icons/types";
 import { render } from "@testing-library/react";
 import { createRef } from "react";
 import { describe, expect, it } from "vitest";
 import { Icon } from "./index.js";
+import { ThemeProvider } from "../theme-provider/index.js";
 
 const FilledIcon = ({ title, ...props }: IconSourceProps) => (
   <svg viewBox="0 0 24 24" fill="none" {...props}>
@@ -88,6 +89,89 @@ describe("Icon", () => {
 
     expect(strokeValues.every((value) => value === "1.25" || value === null)).toBe(true);
     expect(fillValues.some((value) => value === "currentColor")).toBe(true);
+  });
+
+  it("tone이 없으면 currentColor 상속을 막지 않는다", () => {
+    const { container, getByTestId } = render(
+      <div style={{ color: "rgb(12, 34, 56)" }}>
+        <Icon icon={FilledIcon} data-testid="icon" />
+      </div>
+    );
+
+    const icon = getByTestId("icon");
+    const path = container.querySelector("path");
+
+    expect(icon.style.color).toBe("");
+    expect(path?.getAttribute("fill")).toBe("currentColor");
+  });
+
+  it("색상은 color prop > style color > tone 순으로 적용한다", () => {
+    const { getByTestId, rerender } = render(
+      <Icon icon={FilledIcon} tone="primary" style={{ color: "rgb(1, 2, 3)" }} data-testid="icon" />
+    );
+
+    const icon = getByTestId("icon");
+    expect(icon).toHaveStyle({ color: "rgb(1, 2, 3)" });
+
+    rerender(
+      <Icon
+        icon={FilledIcon}
+        tone="primary"
+        style={{ color: "rgb(1, 2, 3)" }}
+        color="rgb(9, 9, 9)"
+        data-testid="icon"
+      />
+    );
+
+    expect(icon).toHaveStyle({ color: "rgb(9, 9, 9)" });
+  });
+
+  it("size 프롭에 숫자와 커스텀 단위를 그대로 반영한다", () => {
+    const { getByTestId, rerender } = render(
+      <Icon icon={FilledIcon} size={32} data-testid="icon" aria-label="크기" />
+    );
+
+    const icon = getByTestId("icon");
+    expect(icon).toHaveAttribute("width", "32");
+    expect(icon).toHaveAttribute("height", "32");
+
+    rerender(<Icon icon={FilledIcon} size="2rem" data-testid="icon" aria-label="크기" />);
+
+    expect(icon).toHaveAttribute("width", "2rem");
+    expect(icon).toHaveAttribute("height", "2rem");
+  });
+
+  it("ThemeProvider에서 덮어쓴 아이콘 토큰을 사용한다", () => {
+    const customTheme: ThemeOverrides = {
+      component: {
+        icon: {
+          size: { md: "3rem" },
+          tone: {
+            primary: "#123456",
+            neutral: defaultTheme.component.icon.tone.neutral,
+            danger: defaultTheme.component.icon.tone.danger
+          },
+          strokeWidth: {
+            default: 1.5
+          }
+        }
+      }
+    };
+
+    const { container, getByTestId } = render(
+      <ThemeProvider theme={customTheme}>
+        <Icon icon={StrokeIcon} tone="primary" data-testid="icon" />
+      </ThemeProvider>
+    );
+
+    const icon = getByTestId("icon");
+    const paths = container.querySelectorAll("path");
+    const strokeValues = Array.from(paths).map((path) => path.getAttribute("stroke-width"));
+
+    expect(icon).toHaveAttribute("width", "3rem");
+    expect(icon).toHaveAttribute("height", "3rem");
+    expect(icon).toHaveStyle({ color: "#123456" });
+    expect(strokeValues.every((value) => value === "1.5" || value === null)).toBe(true);
   });
 
   it("ref를 최종 SVG 엘리먼트로 포워딩한다", () => {

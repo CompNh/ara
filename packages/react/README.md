@@ -71,8 +71,13 @@ return <main style={variables}>...</main>;
 - ✅ pnpm run check:manifests
 
 단일 테스트 파일만 실행하려면 `pnpm --filter @ara/react test -- <테스트 파일 경로>` 형식으로 경로를 전달한다.
+이때 경로는 **패키지 루트 기준**이어야 한다. 예를 들어 리포지토리 루트에서 `packages/react/...`를 포함한 경로를 넘기면
+Vitest가 상대 경로를 찾지 못해 `No test files found`가 발생하므로 아래 예시처럼 `src/...`부터 전달한다.
+
 예를 들어 Button 단위 테스트만 실행하려면 아래와 같이 입력한다.
 
 ```bash
 pnpm --filter @ara/react test -- src/components/button/Button.test.tsx
 ```
+
+Icon 테스트만 실행할 때도 동일하게 경로를 `src/components/icon/Icon.test.tsx` 형식으로 넘겨야 한다.
