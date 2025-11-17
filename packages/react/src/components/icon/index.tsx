@@ -5,7 +5,9 @@ import {
   forwardRef,
   isValidElement,
   type CSSProperties,
+  type ComponentClass,
   type ComponentType,
+  type FunctionComponent,
   type ReactElement,
   type ReactNode,
   type Ref
@@ -93,6 +95,10 @@ function applyIconOverrides(
   return node;
 }
 
+function isClassComponent(component: IconComponent): component is ComponentClass<IconSourceProps> {
+  return Boolean((component as ComponentClass<IconSourceProps>).prototype?.render);
+}
+
 export const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(props, ref: Ref<SVGSVGElement>) {
   const {
     icon: IconComponent,
@@ -124,15 +130,19 @@ export const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(props, re
     mergedStyle.color = resolvedColor;
   }
 
-  const renderedIcon = createElement(IconComponent, {
+  const iconProps: IconSourceProps = {
     ...restProps,
     className: mergeClassNames("ara-icon", className),
     style: mergedStyle,
     width: size,
     height: size
-  });
+  };
 
-  const enhancedIcon = applyIconOverrides(renderedIcon, { strokeWidth, filled }) as ReactElement;
+  const iconNode = isClassComponent(IconComponent)
+    ? createElement(IconComponent, iconProps)
+    : (IconComponent as FunctionComponent<IconSourceProps>)(iconProps);
+
+  const enhancedIcon = applyIconOverrides(iconNode, { strokeWidth, filled }) as ReactElement;
 
   return cloneElement(enhancedIcon, { ref });
 });
