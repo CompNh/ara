@@ -31,7 +31,7 @@ W-000004,T1,Button v0 Comp,완료,100,"Button v0
  ● AC: CI 통과·Tests 통과·Storybook build·ESM+types import·canary 발행·디자인 승인",--
 W-000005,T1,Tokens & ThemeProvider v1,완료,100,"Tokens v1 & ThemeProvider
  ● 설계문서
-          - root/packages/tokens/README.md 
+          - root/packages/tokens/README.md
           - root/packages/react/src/components/theme-provider/README.md
  ● 색상·타이포·간격 토큰 정의 → CSS 변수화 및 사이즈 스케일 고정
  ● ThemeProvider: light/dark 테마, CSS vars 주입, 사용자 오버라이드 API
@@ -39,3 +39,11 @@ W-000005,T1,Tokens & ThemeProvider v1,완료,100,"Tokens v1 & ThemeProvider
  ● Storybook 문서/Controls 포함
  ● Exports: @ara/tokens, @ara/react/theme-provider (ESM+types)
  ● AC: CI 통과·Storybook build·ESM+types import·테마 스위치 데모·canary 발행",
+W-000006,T1,Icons v0,계획,0,"Icons v0
+ ● 설계문서 : root/packages/icons/README.md · root/packages/react/src/components/icon/README.md
+ ● SVG→TS 파이프라인(svgo+generator), 1아이콘=1엔트리(tree-shaking), 최적화 전후 diff 캡처
+ ● React <Icon> 계약(size/tone/stroke|filled) + a11y(aria-hidden 기본, title 시 role=img+aria-labelledby)
+ ● Tokens 연동(size·color), ThemeProvider 상속(currentColor) 및 우선순위 가이드/테스트
+ ● Exports/배포: @ara/icons(개별/집합) · @ara/react/icon, check:icons(dry-run+lint)·CI 해상도 검증
+ ● 문서/스토리북: 아이콘 갤러리 Controls 기본값, 시각 회귀 스냅샷 옵션, 접근성 예시 포함
+ ● AC: CI·Tests·Storybook·pack dry-run·canary",--
