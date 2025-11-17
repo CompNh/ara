@@ -174,9 +174,9 @@ T-000051,W-000006,Icons v0,React 컴포넌트,Icon 베이스 구현(@ara/react/i
 T-000052,W-000006,Icons v0,접근성,A11y 규정 적용,완료,High," ● 내용: aria-hidden 기본(true), title 제공 시 role=\""img\""+aria-labelledby 처리 가이드, 키보드 탐색 영향 없음 확인
  ● 산출물: A11y 섹션/테스트 케이스
  ● 점검: 라벨링 시 스크린리더 읽힘 및 포커스 영향 없음",확인
-T-000053,W-000006,Icons v0,테스트,Vitest+RTL 테스트,계획,Medium," ● 내용: size/tone props 반영, aria-hidden/role=img 변환, currentColor 상속 및 명시적 color 우선순위, ThemeProvider 토큰 상속, tree-shaking(번들 검사) 최소 테스트
+T-000053,W-000006,Icons v0,테스트,Vitest+RTL 테스트,완료,Medium," ● 내용: size/tone props 반영, aria-hidden/role=img 변환, currentColor 상속 및 명시적 color 우선순위, ThemeProvider 토큰 상속, tree-shaking(번들 검사) 최소 테스트
  ● 산출물: 테스트 스위트
- ● 점검: pnpm --filter @ara/react test 통과", 
+ ● 점검: pnpm --filter @ara/react test 통과",확인
 T-000054,W-000006,Icons v0,문서/스토리북,Storybook 아이콘 갤러리/Docs,계획,Medium," ● 내용: 아이콘 리스트 갤러리, Controls(size/tone/strokeWidth 기본값 포함), 타이틀 접근성 예시, 시각 회귀(Chromatic 또는 build-storybook 스모크) 옵션
  ● 산출물: stories 및 MDX
  ● 점검: build-storybook 스모크 또는 시각 스냅샷 확인", 
