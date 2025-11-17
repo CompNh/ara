@@ -227,6 +227,29 @@ function createButtonVariables(theme: Tokens): CSSVariableMap {
   return variables;
 }
 
+function createIconVariables(theme: Tokens): CSSVariableMap {
+  const variables: CSSVariableMap = {} as CSSVariableMap;
+  const icon = theme.component.icon;
+
+  for (const [sizeName, value] of Object.entries(icon.size)) {
+    assignVariable(variables, `--ara-icon-size-${sizeName}` as CSSVariableName, value);
+  }
+
+  for (const [toneName, value] of Object.entries(icon.tone)) {
+    assignVariable(variables, `--ara-icon-tone-${toneName}` as CSSVariableName, value);
+  }
+
+  for (const [strokeName, value] of Object.entries(icon.strokeWidth)) {
+    assignVariable(
+      variables,
+      `--ara-icon-stroke-width-${strokeName}` as CSSVariableName,
+      value
+    );
+  }
+
+  return variables;
+}
+
 function createColorRoleVariables(
   theme: Tokens,
   themeName: ColorThemeName
@@ -305,7 +328,8 @@ export function createCSSVariableTable(theme: Tokens): ThemeCSSVariableTable {
     createPaletteVariables(theme),
     createTypographyVariables(theme),
     createLayoutVariables(theme),
-    createButtonVariables(theme)
+    createButtonVariables(theme),
+    createIconVariables(theme)
   );
 
   const themes = createThemeCSSVariables(theme);

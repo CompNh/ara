@@ -27,6 +27,11 @@
       "import": "./dist/components/theme-provider/index.js",
       "default": "./dist/components/theme-provider/index.js"
     },
+    "./components/icon": {
+      "types": "./dist/components/icon/index.d.ts",
+      "import": "./dist/components/icon/index.js",
+      "default": "./dist/components/icon/index.js"
+    },
     "./components/button": {
       "types": "./dist/components/button/index.d.ts",
       "import": "./dist/components/button/index.js",
@@ -36,6 +41,11 @@
       "types": "./dist/components/button/index.d.ts",
       "import": "./dist/components/button/index.js",
       "default": "./dist/components/button/index.js"
+    },
+    "./icon": {
+      "types": "./dist/components/icon/index.d.ts",
+      "import": "./dist/components/icon/index.js",
+      "default": "./dist/components/icon/index.js"
     },
     "./theme-provider": {
       "types": "./dist/components/theme-provider/index.d.ts",
@@ -57,6 +67,9 @@
       ],
       "button": [
         "dist/components/button/index.d.ts"
+      ],
+      "icon": [
+        "dist/components/icon/index.d.ts"
       ],
       "theme-provider": [
         "dist/components/theme-provider/index.d.ts"
