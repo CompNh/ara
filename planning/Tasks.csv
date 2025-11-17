@@ -159,12 +159,12 @@ T-000046,W-000005,Tokens & ThemeProvider v1,통합/검증,Button v0 통합 스�
 T-000047,W-000005,Tokens & ThemeProvider v1,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가 및 프리릴리스 채널 배포 드라이런
  ● 산출물: canary 태그 및 설치 확인 메모
  ● 점검: 설치 및 임포트 성공과 간단 사용 예 검증",확인
-T-000048,W-000006,Icons v0,규약/설계,아이콘 계약/명명 규칙 확정,계획,High," ● 목적: 파일명/심볼명(파스칼케이스), 카테고리, size 스케일(sm/md/lg), tone(현재색 currentColor 우선) 규약 확정
+T-000048,W-000006,Icons v0,규약/설계,아이콘 계약/명명 규칙 확정,완료,High," ● 목적: 파일명/심볼명(파스칼케이스), 카테고리, size 스케일(sm/md/lg), tone(현재색 currentColor 우선) 규약 확정
  ● 산출물: packages/icons/README.md 규약, 계약 동결(변경=Major) 문구 명시
- ● 점검: 리뷰 승인 후 계약 동결 공지", 
-T-000049,W-000006,Icons v0,파이프라인,SVG 최적화(svgo) 설정,계획,High," ● 내용: precision/cleanupAttrs/mergePaths 등 svgo 설정 고정, removeViewBox 비활성화 확인, preserveLicense 플러그인 검토, 최적화 전후 diff 캡처
+ ● 점검: 리뷰 승인 후 계약 동결 공지",확인
+T-000049,W-000006,Icons v0,파이프라인,SVG 최적화(svgo) 설정,완료,High," ● 내용: precision/cleanupAttrs/mergePaths 등 svgo 설정 고정, removeViewBox 비활성화 확인, preserveLicense 플러그인 검토, 최적화 전후 diff 캡처
  ● 산출물: packages/icons/svgo.config.mjs, 최적화 전후 시각 동일성 비교 스냅
- ● 점검: diff 스크린샷 기록 및 설정 리뷰", 
+ ● 점검: diff 스크린샷 기록 및 설정 리뷰",확인
 T-000050,W-000006,Icons v0,파이프라인,아이콘 코드 생성기(generator),계획,High," ● 내용: SVG→TSX 변환(React 컴포넌트), viewBox 유지, title prop 지원, tree-shakable export 생성, 변환 전후 스냅샷 비교 옵션(--diff), 샘플 3종 생성
  ● 산출물: scripts/generate-icons.(ts|mjs) + 샘플 3종, pnpm gen:icons 스모크 통과
  ● 점검: pnpm gen:icons 실행 로그 및 시각 diff 확인", 
