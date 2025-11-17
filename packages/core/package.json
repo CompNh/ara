@@ -1,6 +1,6 @@
 {
   "name": "@ara/core",
-  "version": "0.0.0",
+  "version": "0.1.0-canary.0",
   "description": "Ara 디자인 시스템의 headless 코어 유틸리티",
   "type": "module",
   "main": "./dist/index.js",

@@ -103,8 +103,6 @@ function createOutlineVariant(palette: TonePalette): VariantToken {
 }
 
 function createGhostVariant(palette: TonePalette): VariantToken {
-  const { interaction } = palette;
-
   return {
     background: "transparent",
     foreground: palette.outlineForeground,
