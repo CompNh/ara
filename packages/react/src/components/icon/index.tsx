@@ -1,6 +1,7 @@
 import {
   Children,
   cloneElement,
+  createElement,
   forwardRef,
   isValidElement,
   type CSSProperties,
@@ -123,7 +124,7 @@ export const Icon = forwardRef<SVGSVGElement, IconProps>(function Icon(props, re
     mergedStyle.color = resolvedColor;
   }
 
-  const renderedIcon = IconComponent({
+  const renderedIcon = createElement(IconComponent, {
     ...restProps,
     className: mergeClassNames("ara-icon", className),
     style: mergedStyle,
