@@ -22,6 +22,8 @@ const config: StorybookConfig = {
       { find: "@ara/react/", replacement: `${resolvePackages("react")}/` },
       { find: "@ara/core", replacement: resolvePackages("core") },
       { find: "@ara/core/", replacement: `${resolvePackages("core")}/` },
+      { find: "@ara/icons", replacement: resolvePackages("icons") },
+      { find: "@ara/icons/", replacement: `${resolvePackages("icons")}/` },
       { find: "@ara/tokens", replacement: resolvePackages("tokens") },
       { find: "@ara/tokens/", replacement: `${resolvePackages("tokens")}/` }
     ];
