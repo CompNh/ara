@@ -150,12 +150,12 @@ T-000043,W-000005,Tokens & ThemeProvider v1,A11y/국제화,RTL 및 포커스 링
 T-000044,W-000005,Tokens & ThemeProvider v1,문서/스토리북,Storybook 문서/Controls/테마 스위치,완료,Medium," ● 내용: 토큰 테이블, ThemeProvider 사용 가이드, 테마 스위치 툴바 추가
  ● 산출물: stories 및 MDX 문서
  ● 점검: build-storybook 스모크 통과",확인
-T-000045,W-000005,Tokens & ThemeProvider v1,빌드/출하,Exports/Types 계약 점검,계획,High," ● 내용: @ara/tokens와 @ara/react/theme-provider의 exports, types, sideEffects 계약 확정
+T-000045,W-000005,Tokens & ThemeProvider v1,빌드/출하,Exports/Types 계약 점검,완료,High," ● 내용: @ara/tokens와 @ara/react/theme-provider의 exports, types, sideEffects 계약 확정
  ● 산출물: 각 package.json의 exports 맵과 d.ts 출력
- ● 점검: pnpm --filter @ara/* pack --dry-run 결과 검토", 
-T-000046,W-000005,Tokens & ThemeProvider v1,통합/검증,Button v0 통합 스모크,계획,High," ● 내용: Button v0가 ThemeProvider와 토큰을 소비해 변형(variant/tone/size)과 다크 모드가 정상 반영되는지 확인
+ ● 점검: pnpm --filter @ara/* pack --dry-run 결과 검토",확인
+T-000046,W-000005,Tokens & ThemeProvider v1,통합/검증,Button v0 통합 스모크,완료,High," ● 내용: Button v0가 ThemeProvider와 토큰을 소비해 변형(variant/tone/size)과 다크 모드가 정상 반영되는지 확인
  ● 산출물: showcase 또는 story 샘플
- ● 점검: 시각/상호작용 회귀 없음", 
+ ● 점검: 시각/상호작용 회귀 없음",확인
 T-000047,W-000005,Tokens & ThemeProvider v1,릴리스,Changesets 프리릴리스(canary),계획,High," ● 내용: changeset 추가 및 프리릴리스 채널 배포 드라이런
  ● 산출물: canary 태그 및 설치 확인 메모
  ● 점검: 설치 및 임포트 성공과 간단 사용 예 검증",  
