@@ -13,6 +13,14 @@ Ara 디자인 시스템에서 사용하는 SVG 아이콘을 제공하는 패키�
 - **스트로크/필 규칙**: 가능한 한 `fill="currentColor"`를 사용해 단색 스타일을 우선합니다. stroke 기반 아이콘은 `stroke="currentColor"` + `strokeWidth` 기본값(2)을 권장하며, 루트 `<svg>`의 `fill="none"` 설정을 통해 stroke-only 스타일을 보장합니다.
 - **대체 텍스트**: 아이콘 데이터 객체에는 접근성 텍스트를 포함하지 않습니다. 실제 접근성 처리는 소비 레이어(React Icon 컴포넌트)에서 `title` 또는 `aria-label`을 전달하는 방식으로 수행합니다.
 
+## SVG 최적화 (SVGO)
+
+- 설정 파일: [`svgo.config.mjs`](./svgo.config.mjs)
+- precision: `3`(floatPrecision), `multipass: true` 로 고정합니다.
+- `preset-default`에서 `removeViewBox: false`를 오버라이드하여 뷰박스를 유지하고, `cleanupAttrs`·`mergePaths`를 활성화해 불필요한 속성을 정리하고 path를 병합합니다.
+- 라이선스 주석을 보존하기 위해 `preserveLicense` 플러그인을 함께 사용합니다.
+- 실행 예시: 원본 SVG 폴더를 덮어쓸 때 `pnpm --filter @ara/icons svgo -- --input ./svgs --output ./svgs` (입력·출력 경로를 상황에 맞게 교체)를 사용합니다. 최적화 전후 시각 차이를 확인해야 하는 경우, 출력 폴더를 따로 지정한 뒤 뷰어에서 두 파일을 비교하거나 `git diff`로 path 병합/precision 변화를 확인합니다.
+
 ## 설치
 
 ```bash

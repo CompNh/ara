@@ -43,7 +43,8 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "build": "pnpm exec rollup -c"
+    "build": "pnpm exec rollup -c",
+    "svgo": "pnpm exec svgo -c svgo.config.mjs"
   },
   "keywords": [
     "icons",
@@ -62,6 +63,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@ara/tsconfig": "workspace:*"
+    "@ara/tsconfig": "workspace:*",
+    "svgo": "3"
   }
 }
