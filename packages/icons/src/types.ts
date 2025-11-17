@@ -1,9 +1,5 @@
-export type IconName = string;
+import type { SVGProps } from "react";
 
-export interface IconDefinition {
-  readonly name: IconName;
-  readonly viewBox: string;
-  readonly paths: readonly string[];
-  readonly width?: number;
-  readonly height?: number;
+export interface IconProps extends SVGProps<SVGSVGElement> {
+  readonly title?: string;
 }
