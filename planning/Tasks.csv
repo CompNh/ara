@@ -189,6 +189,6 @@ T-000056,W-000006,Icons v0,통합,Button/Inputs와 통합 스모크,완료,Mediu
 T-000057,W-000006,Icons v0,빌드/출하,Exports/Types/Tree-shaking 점검,완료,High," ● 내용: @ara/icons 개별(@ara/icons/Plus)·집합(@ara/icons) 동시 제공, sideEffects:false, types 확인, pnpm --filter @ara/icons pack --dry-run + lint 묶은 check:icons 스크립트, CI에서 exports 해상도 검증
  ● 산출물: package.json exports 맵·d.ts 출력, check:icons 스크립트 로그
  ● 점검: pnpm --filter @ara/icons pack --dry-run 결과 검토",확인
-T-000058,W-000006,Icons v0,릴리스,Changesets 프리릴리스(canary),계획,High," ● 내용: changeset 추가 및 canary 배포 드라이런, 태그명 규칙과 설치 검증 로그 README 릴리스 섹션 기록
+T-000058,W-000006,Icons v0,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가 및 canary 배포 드라이런, 태그명 규칙과 설치 검증 로그 README 릴리스 섹션 기록
  ● 산출물: canary 태그·설치 확인 메모
- ● 점검: 설치/임포트/간단 사용 예 검증", 
+ ● 점검: 설치/임포트/간단 사용 예 검증",확인
