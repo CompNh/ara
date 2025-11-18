@@ -1,6 +1,7 @@
+import type { CSSProperties } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { icons as iconSet, type IconName } from "@ara/icons";
-import { AraProvider, AraThemeBoundary, Icon } from "@ara/react";
+import { AraProvider, AraThemeBoundary, Button, Icon } from "@ara/react";
 
 const iconOptions = Object.keys(iconSet) as IconName[];
 
@@ -185,6 +186,95 @@ export const Accessibility: Story = {
             <span id={labelId}>성공 상태 아이콘</span>
           </div>
         </div>
+      </div>
+    );
+  }
+};
+
+export const ComponentIntegration: Story = {
+  parameters: {
+    controls: {
+      exclude: ["icon", "strokeWidth"]
+    }
+  },
+  render: () => {
+    const buttonIconSize = "sm";
+    const fieldStyle = {
+      display: "grid",
+      gap: "0.35rem",
+      maxWidth: "400px"
+    } satisfies CSSProperties;
+    const inputShellStyle = {
+      display: "grid",
+      gridTemplateColumns: "auto 1fr auto",
+      alignItems: "center",
+      gap: "0.5rem",
+      padding: "0.5rem 0.75rem",
+      border: "1px solid #E2E8F0",
+      borderRadius: "0.75rem",
+      background: "#FFFFFF",
+      boxShadow: "0px 1px 2px rgba(15, 23, 42, 0.05)",
+      color: "#0F172A"
+    } satisfies CSSProperties;
+    const inputStyle = {
+      width: "100%",
+      border: "none",
+      outline: "none",
+      font: "inherit",
+      color: "inherit",
+      background: "transparent"
+    } satisfies CSSProperties;
+    const helperStyle = {
+      margin: 0,
+      fontSize: "0.8125rem",
+      color: "#64748B"
+    } satisfies CSSProperties;
+
+    return (
+      <div style={{ display: "grid", gap: "1.5rem", maxWidth: "720px" }}>
+        <section style={{ display: "grid", gap: "0.5rem" }}>
+          <h4 style={{ margin: 0, color: "#0F172A" }}>Button 슬롯 연동</h4>
+          <p style={{ margin: 0, fontSize: "0.9rem", color: "#475569" }}>
+            `leadingIcon` / `trailingIcon` 슬롯에 `Icon`을 직접 넣어 토큰 크기와 currentColor 규칙을 공유합니다.
+          </p>
+          <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
+            <Button leadingIcon={<Icon icon={Plus} size={buttonIconSize} aria-hidden />}>새 항목</Button>
+            <Button
+              variant="outline"
+              trailingIcon={<Icon icon={ArrowRight} size={buttonIconSize} aria-hidden />}
+            >
+              다음 단계
+            </Button>
+            <Button
+              tone="neutral"
+              variant="ghost"
+              trailingIcon={<Icon icon={CheckCircle} size={buttonIconSize} aria-hidden />}
+            >
+              검토 완료
+            </Button>
+          </div>
+        </section>
+
+        <section style={{ display: "grid", gap: "0.5rem" }}>
+          <h4 style={{ margin: 0, color: "#0F172A" }}>입력 필드 접두/접미 예시</h4>
+          <p style={{ margin: 0, fontSize: "0.9rem", color: "#475569" }}>
+            TextField 컴포넌트가 도입되면 동일한 패턴으로 prefix/suffix 아이콘을 배치할 수 있습니다.
+          </p>
+          <label style={fieldStyle}>
+            <span style={{ fontSize: "0.875rem", color: "#0F172A" }}>워크플로우 URL</span>
+            <div style={inputShellStyle}>
+              <Icon icon={CheckCircle} tone="primary" size="md" aria-hidden />
+              <input
+                type="text"
+                defaultValue="https://ara.design/workflows"
+                aria-label="워크플로우 URL"
+                style={inputStyle}
+              />
+              <Icon icon={ArrowRight} size="sm" aria-hidden />
+            </div>
+            <p style={helperStyle}>prefix/suffix 슬롯을 활용해 상태나 액션 힌트를 함께 노출합니다.</p>
+          </label>
+        </section>
       </div>
     );
   }
