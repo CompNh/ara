@@ -84,6 +84,14 @@ VS Code(Git Bash) · Windows · React+TypeScript · Node 22 LTS · pnpm(workspac
  **WBS** : WBS.CSV
  **Task** : Tasks.CSV
 
+## 릴리스 메모 (canary 드라이런)
+- dist-tag는 `canary` 를 사용하며, `pnpm exec changeset pre enter canary` → `pnpm exec changeset publish --tag canary` 순서로 프리릴리스
+  버전을 발행한다.
+- W-000006 / T-000058: `.changeset/icons-canary-release.md` Changeset으로 `@ara/icons` v0 canary 배포를 준비했다.
+- `pnpm --filter @ara/icons pack:dry-run` 출력에서 `ara-icons-0.0.0.tgz`(엔트리 34개) 안에 `dist/*` 산출물이 포함된 것을 확인했다.
+- `node --input-type=module -e "import('./packages/icons/dist/index.js').then(m=>console.log(Object.keys(m)))"` 실행 시 `ArrowRight`,
+  `CheckCircle`, `Plus`, `__ICON_TYPES__`, `icons` 익스포트가 노출되는 것을 확인했다.
+
 ## Git 설정
 - 커밋 템플릿은 `.github/COMMIT_TEMPLATE` 을 직접 사용한다.
 - Conventional Commits를 강제하는 `commit-msg` 훅과 함께 사용한다.
