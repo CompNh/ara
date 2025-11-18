@@ -183,9 +183,9 @@ T-000054,W-000006,Icons v0,문서/스토리북,Storybook 아이콘 갤러리/Doc
 T-000055,W-000006,Icons v0,토큰 연동,Tokens 색/사이즈 매핑,완료,Medium," ● 내용: size 스케일(sm/md/lg)·색 토큰(primary/neutral/danger) 매핑 가이드, currentColor 우선 순위, ThemeProvider 상속 우선순위 가이드/테스트
  ● 산출물: 가이드/예시 코드
  ● 점검: ThemeProvider 테마 변경 시 색상 상속 확인",확인
-T-000056,W-000006,Icons v0,통합,Button/Inputs와 통합 스모크,계획,Medium," ● 내용: Button leading/trailingIcon, 향후 TextField 내 prefix/suffix 아이콘 예시
+T-000056,W-000006,Icons v0,통합,Button/Inputs와 통합 스모크,완료,Medium," ● 내용: Button leading/trailingIcon, 향후 TextField 내 prefix/suffix 아이콘 예시
  ● 산출물: showcase 또는 stories
- ● 점검: 리그레션 없음", 
+ ● 점검: 리그레션 없음",확인
 T-000057,W-000006,Icons v0,빌드/출하,Exports/Types/Tree-shaking 점검,계획,High," ● 내용: @ara/icons 개별(@ara/icons/Plus)·집합(@ara/icons) 동시 제공, sideEffects:false, types 확인, pnpm --filter @ara/icons pack --dry-run + lint 묶은 check:icons 스크립트, CI에서 exports 해상도 검증
  ● 산출물: package.json exports 맵·d.ts 출력, check:icons 스크립트 로그
  ● 점검: pnpm --filter @ara/icons pack --dry-run 결과 검토", 
