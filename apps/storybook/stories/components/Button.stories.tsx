@@ -1,20 +1,8 @@
 import type { CSSProperties } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import type { ThemeOverrides } from "@ara/core";
-import { AraProvider, AraThemeBoundary, Button, ThemeProvider } from "@ara/react";
-
-const ArrowRightIcon = () => (
-  <svg
-    aria-hidden="true"
-    focusable="false"
-    viewBox="0 0 24 24"
-    width={16}
-    height={16}
-    fill="currentColor"
-  >
-    <path d="M4 11h10.17l-3.58-3.59L12 6l6 6-6 6-1.41-1.41L14.17 13H4z" />
-  </svg>
-);
+import { ArrowRight, CheckCircle, Plus } from "@ara/icons";
+import { AraProvider, AraThemeBoundary, Button, Icon, ThemeProvider } from "@ara/react";
 
 const meta = {
   title: "Components/Button",
@@ -177,8 +165,8 @@ export const Sizes: Story = {
 
 export const WithIcons: Story = {
   args: {
-    leadingIcon: <ArrowRightIcon />,
-    trailingIcon: <ArrowRightIcon />,
+    leadingIcon: <Icon icon={Plus} size="sm" aria-hidden />,
+    trailingIcon: <Icon icon={ArrowRight} size="sm" aria-hidden />,
     children: "아이콘 포함"
   }
 };
@@ -400,15 +388,15 @@ export const Accessibility: Story = {
               >
                 <Button
                   {...args}
-                  leadingIcon={<ArrowRightIcon />}
-                  trailingIcon={<ArrowRightIcon />}
+                  leadingIcon={<Icon icon={ArrowRight} size="sm" aria-hidden />}
+                  trailingIcon={<Icon icon={ArrowRight} size="sm" aria-hidden />}
                 >
                   오른쪽에서 시작
                 </Button>
                 <Button
                   {...args}
                   variant="outline"
-                  leadingIcon={<ArrowRightIcon />}
+                  leadingIcon={<Icon icon={ArrowRight} size="sm" aria-hidden />}
                 >
                   아이콘 정렬 확인
                 </Button>
