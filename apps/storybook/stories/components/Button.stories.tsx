@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import type { ThemeOverrides } from "@ara/core";
-import { ArrowRight, CheckCircle, Plus } from "@ara/icons";
+import { ArrowRight, Plus } from "@ara/icons";
 import { AraProvider, AraThemeBoundary, Button, Icon, ThemeProvider } from "@ara/react";
 
 const meta = {
