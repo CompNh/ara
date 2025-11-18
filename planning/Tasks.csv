@@ -192,3 +192,39 @@ T-000057,W-000006,Icons v0,빌드/출하,Exports/Types/Tree-shaking 점검,완�
 T-000058,W-000006,Icons v0,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가 및 canary 배포 드라이런, 태그명 규칙과 설치 검증 로그 README 릴리스 섹션 기록
  ● 산출물: canary 태그·설치 확인 메모
  ● 점검: 설치/임포트/간단 사용 예 검증",확인
+T-000059,W-000007,Layout Primitives v0,계약/설계,레이아웃 계약/네이밍/Props 확정,계획,High," ● 목적: Stack/Flex/Grid/Spacer의 공통 Props(간격 gap, 정렬 align/justify, 방향, 래핑, responsive), 네이밍·경로(@ara/react/stack 등) 고정
+ ● 산출물: packages/react/src/components/layout/README.md(계약)
+ ● 점검: 리뷰 승인 후 계약 동결(변경=Major)",확인
+T-000060,W-000007,Layout Primitives v0,React(컴포넌트),Stack 구현,계획,High," ● 내용: 수직/수평 스택, gap/align/justify, divider 슬롯(옵션), wrap 지원
+ ● 산출물: packages/react/src/components/stack/index.tsx + README
+ ● 점검: 샘플 렌더·Props 스냅",확인
+T-000061,W-000007,Layout Primitives v0,React(컴포넌트),Flex 구현,계획,High," ● 내용: 디폴트 flex 컨테이너 래퍼, gap/align/justify/flexWrap/flexDirection, inline 옵션
+ ● 산출물: packages/react/src/components/flex/index.tsx
+ ● 점검: 스타일/클래스 병합·ref 포워딩",확인
+T-000062,W-000007,Layout Primitives v0,React(컴포넌트),Grid 구현,계획,High," ● 내용: columns/rows/gap/areas 템플릿·auto placement, responsive props(sm/md/lg)
+ ● 산출물: packages/react/src/components/grid/index.tsx
+ ● 점검: responsive props→데스크탑/모바일 스냅 확인",확인
+T-000063,W-000007,Layout Primitives v0,React(컴포넌트),Spacer 구현,계획,Medium," ● 내용: 공간 삽입 전용 컴포넌트(size 토큰 사용), inline 방향 지원
+ ● 산출물: packages/react/src/components/spacer/index.tsx
+ ● 점검: size 스냅·접근성 영향 없음",확인
+T-000064,W-000007,Layout Primitives v0,접근성/국제화,RTL/논리속성/탭순서 안전,계획,High," ● 내용: 논리적 방향 속성( block/inline ) 우선, RTL에서 간격/정렬 일관성, tab 순서·읽기 순서 영향 없음 보증
+ ● 산출물: A11y/RTL 가이드와 테스트 케이스
+ ● 점검: RTL 스냅·키보드 탐색 영향 0",확인
+T-000065,W-000007,Layout Primitives v0,토큰 연동,Tokens 간격/반지름 매핑,계획,Medium," ● 내용: space/radius 토큰→CSS 변수 매핑, gap/패딩에 적용, ThemeProvider 상속 확인
+ ● 산출물: 가이드 및 예시
+ ● 점검: 테마 변경 시 간격 일관성",확인
+T-000066,W-000007,Layout Primitives v0,테스트,Vitest+RTL(Responsive/RTL) 테스트,계획,High," ● 내용: responsive props 해석, RTL 전환 시 레이아웃 동일성, class 병합·style 우선순위
+ ● 산출물: 테스트 스위트
+ ● 점검: pnpm --filter @ara/react test 통과",확인
+T-000067,W-000007,Layout Primitives v0,문서/스토리북,스토리/MDX(Playground/Patterns),계획,Medium," ● 내용: Stack/Flex/Grid/Spacer 데모, 레이아웃 패턴(툴바, 카드 그리드), Controls로 props 조절
+ ● 산출물: stories 및 MDX
+ ● 점검: build-storybook 스모크",확인
+T-000068,W-000007,Layout Primitives v0,통합,Button/Form와 통합 스모크,계획,Medium," ● 내용: Button 그룹(Stack), Form 레이아웃(Grid), 아이콘/텍스트 정렬(Flex)
+ ● 산출물: showcase 또는 stories
+ ● 점검: 회귀 없음",확인
+T-000069,W-000007,Layout Primitives v0,빌드/출하,Exports/Types 계약 점검,계획,High," ● 내용: @ara/react/stack|flex|grid|spacer 서브패스, sideEffects:false, types/exports 해상도
+ ● 산출물: package.json exports 맵·d.ts
+ ● 점검: pnpm --filter @ara/react pack --dry-run",확인
+T-000070,W-000007,Layout Primitives v0,릴리스,Changesets 프리릴리스(canary),계획,High," ● 내용: changeset 추가·canary 배포 드라이런
+ ● 산출물: canary 태그·설치 확인 메모
+ ● 점검: 설치/임포트/간단 예제 검증",확인
