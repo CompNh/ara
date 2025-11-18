@@ -12,6 +12,7 @@ const ROOT_DIR = path.resolve(__dirname, "..");
 const DEFAULT_INPUT_DIR = path.join(ROOT_DIR, "packages/icons/svgs");
 const DEFAULT_OUTPUT_DIR = path.join(ROOT_DIR, "packages/icons/src/icons");
 const INDEX_PATH = path.join(ROOT_DIR, "packages/icons/src/index.ts");
+const ENTRYPOINT_DIR = path.join(ROOT_DIR, "packages/icons/src");
 
 const parser = new XMLParser({
   ignoreAttributes: false,
@@ -29,6 +30,8 @@ const ATTRIBUTE_NAME_MAP = new Map([
 ]);
 
 const INDENT = "  ";
+const RESERVED_ENTRYPOINTS = new Set(["index.ts", "types.ts"]);
+const ENTRYPOINT_NAME_PATTERN = /^[A-Z][A-Za-z0-9]*\.ts$/;
 
 function parseArgs(argv) {
   const args = { input: DEFAULT_INPUT_DIR, output: DEFAULT_OUTPUT_DIR, diff: false };
@@ -206,6 +209,30 @@ function buildIndexFile(definitions) {
     .concat("\n");
 }
 
+function buildEntrypointFile(name, fileName) {
+  return `export { ${name} } from "./icons/${fileName}.js";\n`;
+}
+
+async function removeObsoleteEntrypoints(activeEntrypoints, diffMode) {
+  const existing = await fs.readdir(ENTRYPOINT_DIR);
+
+  for (const file of existing) {
+    if (!ENTRYPOINT_NAME_PATTERN.test(file)) continue;
+    if (RESERVED_ENTRYPOINTS.has(file)) continue;
+    if (activeEntrypoints.has(file)) continue;
+
+    const targetPath = path.join(ENTRYPOINT_DIR, file);
+
+    if (diffMode) {
+      console.log(`[REMOVED] ${path.relative(ROOT_DIR, targetPath)}`);
+      continue;
+    }
+
+    await fs.rm(targetPath);
+    console.log(`[REMOVED] ${path.relative(ROOT_DIR, targetPath)}`);
+  }
+}
+
 async function showDiff(targetPath, nextContent) {
   const diff = spawnSync("diff", ["-u", targetPath, "-"], {
     input: nextContent,
@@ -281,6 +308,22 @@ async function main() {
 
   const indexSource = buildIndexFile(definitions);
   await writeFile(INDEX_PATH, indexSource, args.diff);
+
+  const activeEntrypoints = new Set(
+    definitions.map((definition) => `${definition.name}.ts`)
+  );
+
+  await removeObsoleteEntrypoints(activeEntrypoints, args.diff);
+
+  for (const definition of definitions) {
+    const entrypointPath = path.join(ENTRYPOINT_DIR, `${definition.name}.ts`);
+    const entrypointSource = buildEntrypointFile(
+      definition.name,
+      definition.fileName
+    );
+
+    await writeFile(entrypointPath, entrypointSource, args.diff);
+  }
 }
 
 main().catch((error) => {
