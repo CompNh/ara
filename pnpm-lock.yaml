@@ -96,6 +96,9 @@ importers:
 
   apps/storybook:
     dependencies:
+      '@ara/icons':
+        specifier: workspace:*
+        version: link:../../packages/icons
       '@ara/react':
         specifier: workspace:*
         version: link:../../packages/react
