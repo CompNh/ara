@@ -4,6 +4,7 @@ import { icons as iconSet, type IconName } from "@ara/icons";
 import { AraProvider, AraThemeBoundary, Button, Icon } from "@ara/react";
 
 const iconOptions = Object.keys(iconSet) as IconName[];
+const { Plus, ArrowRight, CheckCircle } = iconSet;
 
 const meta = {
   title: "Components/Icon",
