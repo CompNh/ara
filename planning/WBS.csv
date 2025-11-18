@@ -47,7 +47,7 @@ W-000006,T1,Icons v0,완료,100,"Icons v0
  ● Exports/배포: @ara/icons(개별/집합) · @ara/react/icon, check:icons(dry-run+lint)·CI 해상도 검증
  ● 문서/스토리북: 아이콘 갤러리 Controls 기본값, 시각 회귀 스냅샷 옵션, 접근성 예시 포함
  ● AC: CI·Tests·Storybook·pack dry-run·canary",--
-W-000007,T1,Layout Primitives v0,계획,0,"Layout Primitives v0
+W-000007,T1,Layout Primitives v0,완료,100,"Layout Primitives v0
  ● Stack·Flex·Grid·Spacer
  ● 간격/정렬/래핑/분배 API
  ● responsive props(sm/md/lg…)
