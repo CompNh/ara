@@ -75,52 +75,76 @@ export const Gallery: Story = {
     void _icon;
 
     return (
-    <div style={{ display: "grid", gap: "1.25rem" }}>
-      <p style={{ margin: 0, color: "#475569", fontSize: "0.875rem" }}>
-        워크스페이스에 포함된 아이콘을 토큰 기반 스타일로 렌더링합니다. size/tone/strokeWidth 컨트롤로 공통 값을 조정하고, filled
-        로 컬러 영역을 채웁니다.
-      </p>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))",
-          gap: "1rem",
-          alignItems: "center"
-        }}
-      >
-        {iconOptions.map((name) => {
-          const IconComponent = iconSet[name];
+      <div style={{ display: "grid", gap: "1rem" }}>
+        <div
+          style={{
+            display: "grid",
+            gap: "0.4rem",
+            color: "#475569",
+            fontSize: "0.875rem"
+          }}
+        >
+          <p style={{ margin: 0 }}>
+            워크스페이스 아이콘을 토큰 규칙(size/tone/strokeWidth)으로 미리보기합니다. filled 토글로 채움 여부를 확인하세요.
+          </p>
+          <p style={{ margin: 0 }}>
+            카드 안의 미리보기는 중앙 정렬된 48px 박스 안에 표시되어 실제 UI 배치와 비슷하게 확인할 수 있습니다.
+          </p>
+        </div>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))",
+            gap: "1rem",
+            alignItems: "stretch"
+          }}
+        >
+          {iconOptions.map((name) => {
+            const IconComponent = iconSet[name];
 
-          return (
-            <figure
-              key={name}
-              style={{
-                display: "grid",
-                gap: "0.5rem",
-                justifyItems: "center",
-                padding: "0.75rem",
-                border: "1px solid #E2E8F0",
-                borderRadius: "0.75rem",
-                background: "#FFFFFF"
-              }}
-            >
-              <Icon icon={IconComponent} aria-hidden {...rest} />
-              <figcaption
+            return (
+              <figure
+                key={name}
                 style={{
-                  margin: 0,
-                  fontSize: "0.8125rem",
-                  color: "#475569",
-                  textAlign: "center",
-                  wordBreak: "keep-all"
+                  display: "grid",
+                  gap: "0.75rem",
+                  justifyItems: "center",
+                  padding: "1rem 0.75rem",
+                  border: "1px solid #E2E8F0",
+                  borderRadius: "0.75rem",
+                  background: "#FFFFFF",
+                  boxShadow: "0px 1px 2px rgba(0, 0, 0, 0.03)"
                 }}
               >
-                {name}
-              </figcaption>
-            </figure>
-          );
-        })}
+                <span
+                  style={{
+                    display: "grid",
+                    placeItems: "center",
+                    width: "3rem",
+                    height: "3rem",
+                    borderRadius: "0.75rem",
+                    background: "#F8FAFC",
+                    color: "#0F172A"
+                  }}
+                >
+                  <Icon icon={IconComponent} aria-hidden {...rest} />
+                </span>
+                <figcaption
+                  style={{
+                    margin: 0,
+                    fontSize: "0.8125rem",
+                    color: "#475569",
+                    textAlign: "center",
+                    wordBreak: "keep-all"
+                  }}
+                >
+                  {name}
+                </figcaption>
+              </figure>
+            );
+          })}
+        </div>
       </div>
-    </div>
     );
   }
 };
