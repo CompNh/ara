@@ -17,7 +17,8 @@
     "workspace:check": "pnpm -w lint && pnpm -w test && pnpm -w build && pnpm -w storybook:smoke",
     "showcase:dev": "pnpm --filter @ara/showcase dev",
     "showcase:build": "pnpm --filter @ara/showcase build",
-    "showcase:preview": "pnpm --filter @ara/showcase preview"
+    "showcase:preview": "pnpm --filter @ara/showcase preview",
+    "check:icons": "pnpm --filter @ara/icons lint && pnpm --filter @ara/icons build && pnpm --filter @ara/icons run check:exports && pnpm --filter @ara/icons run pack:dry-run"
   },
   "devDependencies": {
     "@ara/eslint-config": "workspace:*",

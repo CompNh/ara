@@ -30,9 +30,11 @@ pnpm add @ara/icons
 ## 사용 예시
 
 ```ts
-import { ArrowRight } from "@ara/icons/icons/arrow-right";
+import { ArrowRight } from "@ara/icons"; // 집합 엔트리포인트
+import { Plus } from "@ara/icons/Plus"; // 개별 엔트리포인트
 
 console.log(<ArrowRight title="이동" />);
+console.log(<Plus title="추가" />);
 ```
 
 ## 아이콘 생성기
