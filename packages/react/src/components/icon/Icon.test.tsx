@@ -37,6 +37,17 @@ describe("Icon", () => {
     expect(getByTestId("icon")).toHaveStyle({ color: defaultTheme.component.icon.tone.danger });
   });
 
+  it("size 토큰 키를 테마 값으로 매핑한다", () => {
+    const { getByTestId } = render(
+      <Icon icon={FilledIcon} size="lg" data-testid="icon" aria-label="크기" />
+    );
+
+    const icon = getByTestId("icon");
+
+    expect(icon).toHaveAttribute("width", defaultTheme.component.icon.size.lg);
+    expect(icon).toHaveAttribute("height", defaultTheme.component.icon.size.lg);
+  });
+
   it("제목이나 라벨이 없으면 장식용으로 aria-hidden을 설정한다", () => {
     const { getByTestId } = render(<Icon icon={FilledIcon} data-testid="icon" />);
 
@@ -172,6 +183,33 @@ describe("Icon", () => {
     expect(icon).toHaveAttribute("height", "3rem");
     expect(icon).toHaveStyle({ color: "#123456" });
     expect(strokeValues.every((value) => value === "1.5" || value === null)).toBe(true);
+  });
+
+  it("ThemeProvider 토큰이 상위 currentColor 상속보다 우선한다", () => {
+    const customTheme: ThemeOverrides = {
+      component: {
+        icon: {
+          size: { sm: "0.875rem" },
+          tone: {
+            primary: "#13579B"
+          }
+        }
+      }
+    };
+
+    const { getByTestId } = render(
+      <ThemeProvider theme={customTheme}>
+        <div style={{ color: "rgb(10, 20, 30)" }}>
+          <Icon icon={FilledIcon} size="sm" tone="primary" data-testid="icon" />
+        </div>
+      </ThemeProvider>
+    );
+
+    const icon = getByTestId("icon");
+
+    expect(icon).toHaveAttribute("width", "0.875rem");
+    expect(icon).toHaveAttribute("height", "0.875rem");
+    expect(icon).toHaveStyle({ color: "#13579B" });
   });
 
   it("ref를 최종 SVG 엘리먼트로 포워딩한다", () => {
