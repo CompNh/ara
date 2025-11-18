@@ -167,22 +167,23 @@ export const Accessibility: Story = {
     const labelId = "icon-title-sample";
 
     return (
-      <div
-        style={{
-          display: "grid",
-          gap: "0.75rem",
-          maxWidth: 420,
-          fontSize: "0.9375rem",
-          color: "#334155"
-        }}
-      >
-        <p style={{ margin: 0 }}>
-          `title` 을 전달하면 내부 `title` 요소와 `role=&quot;img&quot;` 이 생성되고, `aria-labelledby` 로 연결되어 스크린 리더가 읽을 수
-          있습니다. 추가 라벨이 필요하면 `aria-label` 또는 `aria-labelledby` 를 넘겨주세요.
-        </p>
-        <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
-          <Icon icon={icon} {...rest} aria-labelledby={labelId} />
-          <span id={labelId}>성공 상태 아이콘</span>
+      <div style={{ display: "grid", gap: "1rem" }}>
+        <div
+          style={{
+            display: "grid",
+            gap: "0.4rem",
+            color: "#475569",
+            fontSize: "0.875rem"
+          }}
+        >
+          <p style={{ margin: 0 }}>
+            `title` 을 전달하면 내부 `title` 요소와 `role=&quot;img&quot;` 이 생성되고, `aria-labelledby` 로 연결되어 스크린 리더가 읽을 수
+            있습니다. 추가 라벨이 필요하면 `aria-label` 또는 `aria-labelledby` 를 넘겨주세요.
+          </p>
+          <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+            <Icon icon={icon} {...rest} aria-labelledby={labelId} />
+            <span id={labelId}>성공 상태 아이콘</span>
+          </div>
         </div>
       </div>
     );
