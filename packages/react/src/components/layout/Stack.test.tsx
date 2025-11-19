@@ -19,7 +19,7 @@ describe("Stack", () => {
     expect(style.flexDirection).toBe("column");
     expect(style.gap).toBe("0px");
     expect(style.alignItems).toBe("stretch");
-    expect(style.justifyContent).toBe("flex-start");
+    expect(style.justifyContent).toBe("start");
     expect(style.flexWrap).toBe("nowrap");
   });
 
@@ -71,8 +71,8 @@ describe("Stack", () => {
     expect(element.getAttribute("dir")).toBe("rtl");
     expect(style.flexDirection).toBe("row");
     expect(style.gap).toBe(defaultTheme.layout.space.md);
-    expect(style.justifyContent).toBe("flex-start");
-    expect(style.alignItems).toBe("flex-end");
+    expect(style.justifyContent).toBe("start");
+    expect(style.alignItems).toBe("end");
   });
 
   it("반응형 프롭을 media query 규칙으로 출력한다", () => {

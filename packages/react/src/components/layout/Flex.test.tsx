@@ -19,7 +19,7 @@ describe("Flex", () => {
     expect(style.flexDirection).toBe("row");
     expect(style.gap).toBe("0px");
     expect(style.alignItems).toBe("stretch");
-    expect(style.justifyContent).toBe("flex-start");
+    expect(style.justifyContent).toBe("start");
     expect(style.flexWrap).toBe("nowrap");
   });
 
@@ -89,7 +89,7 @@ describe("Flex", () => {
     expect(element.getAttribute("dir")).toBe("rtl");
     expect(style.flexDirection).toBe("row");
     expect(style.gap).toBe(defaultTheme.layout.space.md);
-    expect(style.justifyContent).toBe("flex-end");
-    expect(style.alignItems).toBe("flex-start");
+    expect(style.justifyContent).toBe("end");
+    expect(style.alignItems).toBe("start");
   });
 });
