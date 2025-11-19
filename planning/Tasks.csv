@@ -201,8 +201,8 @@ T-000060,W-000007,Layout Primitives v0,React(컴포넌트),Stack 구현,완료,H
 T-000061,W-000007,Layout Primitives v0,React(컴포넌트),Flex 구현,완료,High," ● 내용: 디폴트 flex 컨테이너 래퍼, gap/align/justify/flexWrap/flexDirection, inline 옵션
  ● 산출물: packages/react/src/components/flex/index.tsx
  ● 점검: 스타일/클래스 병합·ref 포워딩",확인
-T-000062,W-000007,Layout Primitives v0,React(컴포넌트),Grid 구현,계획,High," ● 내용: columns/rows/gap/areas 템플릿·auto placement, responsive props(sm/md/lg)
- ● 산출물: packages/react/src/components/grid/index.tsx
+T-000062,W-000007,Layout Primitives v0,React(컴포넌트),Grid 구현,완료,High," ● 내용: columns/rows/gap/areas 템플릿·auto placement, responsive props(sm/md/lg)
+ ● 산출물: packages/react/src/components/layout/Grid.tsx
  ● 점검: responsive props→데스크탑/모바일 스냅 확인",확인
 T-000063,W-000007,Layout Primitives v0,React(컴포넌트),Spacer 구현,계획,Medium," ● 내용: 공간 삽입 전용 컴포넌트(size 토큰 사용), inline 방향 지원
  ● 산출물: packages/react/src/components/spacer/index.tsx
