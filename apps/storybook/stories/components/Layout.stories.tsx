@@ -97,13 +97,13 @@ export const DirectionShowcase: Story = {
   render: () => (
     <Stack gap="lg">
       <Stack gap="xs">
-        <div style={{ fontWeight: 600 }}>orientation="horizontal"</div>
+        <div style={{ fontWeight: 600 }}>orientation=&quot;horizontal&quot;</div>
         <Stack orientation="horizontal" gap="sm" align="center">
           {renderBoxes()}
         </Stack>
       </Stack>
       <Stack gap="xs">
-        <div style={{ fontWeight: 600 }}>orientation="vertical"</div>
+        <div style={{ fontWeight: 600 }}>orientation=&quot;vertical&quot;</div>
         <Stack orientation="vertical" gap="sm">
           {renderBoxes()}
         </Stack>
