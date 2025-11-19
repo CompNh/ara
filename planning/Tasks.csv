@@ -204,7 +204,7 @@ T-000061,W-000007,Layout Primitives v0,React(컴포넌트),Flex 구현,완료,Hi
 T-000062,W-000007,Layout Primitives v0,React(컴포넌트),Grid 구현,완료,High," ● 내용: columns/rows/gap/areas 템플릿·auto placement, responsive props(sm/md/lg)
  ● 산출물: packages/react/src/components/layout/Grid.tsx
  ● 점검: responsive props→데스크탑/모바일 스냅 확인",확인
-T-000063,W-000007,Layout Primitives v0,React(컴포넌트),Spacer 구현,계획,Medium," ● 내용: 공간 삽입 전용 컴포넌트(size 토큰 사용), inline 방향 지원
+T-000063,W-000007,Layout Primitives v0,React(컴포넌트),Spacer 구현,완료,Medium," ● 내용: 공간 삽입 전용 컴포넌트(size 토큰 사용), inline 방향 지원
  ● 산출물: packages/react/src/components/spacer/index.tsx
  ● 점검: size 스냅·접근성 영향 없음",확인
 T-000064,W-000007,Layout Primitives v0,접근성/국제화,RTL/논리속성/탭순서 안전,계획,High," ● 내용: 논리적 방향 속성( block/inline ) 우선, RTL에서 간격/정렬 일관성, tab 순서·읽기 순서 영향 없음 보증
