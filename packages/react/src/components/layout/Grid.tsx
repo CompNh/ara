@@ -84,9 +84,10 @@ function resolveAreas(areas?: string[]): string | undefined {
   return areas.map((area) => `"${area}"`).join(" ");
 }
 
-type GridComponent = <T extends ElementType = "div">(
-  props: GridProps<T> & { ref?: Ref<HTMLElement> }
-) => JSX.Element;
+interface GridComponent {
+  <T extends ElementType = "div">(props: GridProps<T> & { ref?: Ref<HTMLElement> }): JSX.Element;
+  displayName?: string;
+}
 
 export const Grid = forwardRef(function Grid<T extends ElementType = "div">(
   props: GridProps<T>,

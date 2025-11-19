@@ -114,7 +114,7 @@ export function mapWrap(value: FlexWrap): CSSProperties["flexWrap"] {
   return value === false ? "nowrap" : value;
 }
 
-function toLayoutVariable<Scale extends LayoutKey>(
+function toLayoutVariable<Scale extends LayoutKey<"space"> | LayoutKey<"radius">>(
   category: "space" | "radius",
   token: Scale,
   fallback: string

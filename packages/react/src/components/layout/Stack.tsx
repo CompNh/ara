@@ -85,9 +85,10 @@ function withDividers(children: ReactNode, divider: ReactNode | undefined): Reac
   return spaced;
 }
 
-type StackComponent = <T extends ElementType = "div">(
-  props: StackProps<T> & { ref?: Ref<HTMLElement> }
-) => JSX.Element;
+interface StackComponent {
+  <T extends ElementType = "div">(props: StackProps<T> & { ref?: Ref<HTMLElement> }): JSX.Element;
+  displayName?: string;
+}
 
 export const Stack = forwardRef(function Stack<T extends ElementType = "div">(
   props: StackProps<T>,
