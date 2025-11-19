@@ -159,6 +159,29 @@ export const ResponsiveStack: Story = {
   )
 };
 
+export const FlexPlayground: Story = {
+  name: "Playground (Flex)",
+  args: {
+    orientation: "horizontal",
+    gap: "md",
+    align: "center",
+    justify: "start",
+    wrap: false,
+    inline: false
+  },
+  argTypes: {
+    orientation: meta.argTypes?.orientation,
+    direction: meta.argTypes?.direction,
+    gap: meta.argTypes?.gap,
+    align: meta.argTypes?.align,
+    justify: meta.argTypes?.justify,
+    wrap: meta.argTypes?.wrap,
+    inline: meta.argTypes?.inline,
+    as: meta.argTypes?.as
+  },
+  render: (args) => <Flex {...args}>{renderBoxes()}</Flex>
+};
+
 export const FlexToolbar: Story = {
   name: "Toolbar (Flex)",
   parameters: {
@@ -228,6 +251,48 @@ export const GridCards: Story = {
   )
 };
 
+export const GridPlayground: Story = {
+  name: "Playground (Grid)",
+  args: {
+    columns: 3,
+    rows: "auto",
+    gap: "md",
+    columnGap: undefined,
+    rowGap: undefined,
+    align: "stretch",
+    justify: "stretch",
+    autoFlow: "row",
+    inline: false
+  },
+  argTypes: {
+    columns: { control: "object" },
+    rows: { control: "object" },
+    areas: { control: "object" },
+    gap: meta.argTypes?.gap,
+    columnGap: meta.argTypes?.gap,
+    rowGap: meta.argTypes?.gap,
+    align: {
+      control: "select",
+      options: ["start", "center", "end", "stretch"]
+    },
+    justify: {
+      control: "select",
+      options: ["start", "center", "end", "stretch"]
+    },
+    autoFlow: {
+      control: "select",
+      options: ["row", "column", "dense", "row dense", "column dense"]
+    },
+    inline: meta.argTypes?.inline,
+    as: meta.argTypes?.as
+  },
+  render: (args) => (
+    <Grid {...args} style={{ minWidth: "280px" }}>
+      {renderBoxes(6)}
+    </Grid>
+  )
+};
+
 export const SpacerPatterns: Story = {
   name: "Spacer Patterns",
   args: {
@@ -251,5 +316,38 @@ export const SpacerPatterns: Story = {
       <Spacer size={24} direction="inline" inline />
       <span style={{ color: "var(--ara-color-text-muted, #475569)" }}>텍스트 사이에도 인라인 Spacer를 넣을 수 있습니다.</span>
     </Stack>
+  )
+};
+
+export const SpacerPlayground: Story = {
+  name: "Playground (Spacer)",
+  args: {
+    size: "md",
+    direction: "block",
+    inline: false,
+    shrink: true,
+    grow: false
+  },
+  argTypes: {
+    size: { control: "text" },
+    direction: {
+      control: "select",
+      options: ["block", "inline"]
+    },
+    inline: { control: "boolean" },
+    shrink: { control: "boolean" },
+    grow: { control: "boolean" },
+    as: { control: false }
+  },
+  render: (args) => (
+    <Flex gap="md" align="center">
+      <Button variant="outline" tone="neutral">
+        이전
+      </Button>
+      <Spacer {...args} data-testid="spacer-preview" />
+      <Button tone="neutral" variant="ghost" trailingIcon={<ArrowRight aria-hidden />}>
+        다음
+      </Button>
+    </Flex>
   )
 };

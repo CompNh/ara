@@ -34,6 +34,14 @@ Canvas 기본 예제의 `direction="column"` 상태는 세로 스택(위→아�
 <Primary of={LayoutStories.Playground} />
 <Controls of={LayoutStories.Playground} />
 
+## Playground (Flex)
+
+Flex에서 `orientation` 별칭을 그대로 사용할 수 있습니다. `inline`으로 컨테이너를 인라인 플렉스로 전환하고, `wrap`을 통해 여러 줄
+로 넘길 수 있습니다.
+
+<Canvas of={LayoutStories.FlexPlayground} />
+<Controls of={LayoutStories.FlexPlayground} />
+
 ## Responsive
 
 `direction`, `gap`, `align`, `justify`, `wrap`은 모두 반응형 객체를 받을 수 있습니다. 아래 예시는 모바일에서 세로 스택, 데스크톱에서 가로 스택으로
@@ -49,6 +57,13 @@ Canvas 기본 예제의 `direction="column"` 상태는 세로 스택(위→아�
 <Canvas of={LayoutStories.FlexToolbar} />
 <Canvas of={LayoutStories.GridCards} />
 
+## Playground (Grid)
+
+열·행 정의에 반응형 객체나 CSS 템플릿 문자열을 넣어 다양한 레이아웃을 실험할 수 있습니다. `areas` 배열로 네임드 영역도 지정할 수 있습니다.
+
+<Canvas of={LayoutStories.GridPlayground} />
+<Controls of={LayoutStories.GridPlayground} />
+
 ## Spacer 활용
 
 컨테이너가 아닌 요소 사이에 간격만 필요할 때 `Spacer`를 사용합니다. `direction="inline"`으로 인라인 흐름에 맞춰 넣거나, `grow`/`shrink`로
@@ -56,8 +71,15 @@ Canvas 기본 예제의 `direction="column"` 상태는 세로 스택(위→아�
 
 <Canvas of={LayoutStories.SpacerPatterns} />
 
+## Playground (Spacer)
+
+`size`를 토큰/픽셀 단위로 조정하고, 인라인/블록 방향과 `grow`/`shrink` 동작을 바로 확인할 수 있습니다.
+
+<Canvas of={LayoutStories.SpacerPlayground} />
+<Controls of={LayoutStories.SpacerPlayground} />
+
 ## Props
 
-Stack의 공통 props를 Controls로 조정하고, Flex/Grid는 `render` 예제를 참고하세요.
+Stack·Flex·Grid·Spacer의 주요 props는 각 Playground의 Controls에서 바로 조정하거나 아래 표에서 확인할 수 있습니다.
 
 <ArgsTable of={LayoutStories.Playground} />
