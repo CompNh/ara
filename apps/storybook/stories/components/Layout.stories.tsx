@@ -1,4 +1,4 @@
-import type { CSSProperties } from "react";
+import type { ComponentProps, CSSProperties } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { ArrowRight, Plus } from "@ara/icons";
 import { AraProvider, AraThemeBoundary, Button, Flex, Grid, Spacer, Stack } from "@ara/react";
@@ -65,6 +65,9 @@ const meta = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
+type FlexStory = StoryObj<ComponentProps<typeof Flex>>;
+type GridStory = StoryObj<ComponentProps<typeof Grid>>;
+type SpacerStory = StoryObj<ComponentProps<typeof Spacer>>;
 
 const renderBoxes = (count = 4) =>
   Array.from({ length: count }, (_, index) => (
@@ -120,7 +123,7 @@ export const LogicalAxisLegend: Story = {
         Flexbox naming은 논리 축(inline/block) 기준입니다. 글쓰기 방향이 바뀌면 축의 화살표도 함께 바뀝니다. 직관적인 `orientation`
         prop으로도 같은 축을 설정할 수 있습니다.
       </div>
-      <Stack direction="row" gap="md" wrap>
+      <Stack direction="row" gap="md" wrap="wrap">
         <Stack gap="xs" style={axisCardStyle}>
           <div style={{ fontWeight: 600 }}>row = inline axis</div>
           <div style={{ color: "var(--ara-color-text-muted, #475569)" }}>
@@ -152,14 +155,14 @@ export const ResponsiveStack: Story = {
       gap={{ base: "md", md: "xl" }}
       align={{ base: "stretch", md: "center" }}
       justify={{ base: "start", md: "between" }}
-      wrap={{ base: true, md: false }}
+      wrap={{ base: "wrap", md: false }}
     >
       {renderBoxes(3)}
     </Stack>
   )
 };
 
-export const FlexPlayground: Story = {
+export const FlexPlayground: FlexStory = {
   name: "Playground (Flex)",
   args: {
     orientation: "horizontal",
@@ -197,7 +200,7 @@ export const FlexToolbar: Story = {
       align={{ base: "stretch", sm: "center" }}
       justify="between"
       gap="md"
-      wrap
+      wrap="wrap"
       style={{ border: "1px solid var(--ara-color-border-weak, #e5e7eb)", padding: "1rem", borderRadius: "0.75rem" }}
     >
       <Stack orientation={{ base: "vertical", sm: "horizontal" }} gap="sm" align={{ base: "start", sm: "center" }}>
@@ -207,7 +210,7 @@ export const FlexToolbar: Story = {
           <div style={boxStyle}>정렬</div>
         </Stack>
       </Stack>
-      <Flex gap="sm" align="center" wrap={{ base: true, sm: false }} justify="end">
+      <Flex gap="sm" align="center" wrap={{ base: "wrap", sm: false }} justify="end">
         <Button variant="outline" tone="neutral">
           필터 저장
         </Button>
@@ -242,7 +245,7 @@ export const GridCards: Story = {
             반응형 `columns`를 이용해 뷰포트 크기에 따라 열 수를 조절합니다. `gap`, `rowGap`, `columnGap`은
             레이아웃 토큰을 그대로 사용합니다.
           </div>
-          <Flex gap="sm" align="center" wrap>
+          <Flex gap="sm" align="center" wrap="wrap">
             <Button variant="ghost" size="sm" tone="neutral">
               자세히
             </Button>
@@ -256,7 +259,7 @@ export const GridCards: Story = {
   )
 };
 
-export const GridPlayground: Story = {
+export const GridPlayground: GridStory = {
   name: "Playground (Grid)",
   args: {
     columns: 3,
@@ -315,7 +318,7 @@ export const SpacerPatterns: Story = {
     controls: { exclude: ["wrap", "inline", "divider", "as"] }
   },
   render: (args) => (
-    <Stack {...args} wrap>
+    <Stack {...args} wrap="wrap">
       <Button variant="outline" tone="neutral">
         기본 액션
       </Button>
@@ -329,7 +332,7 @@ export const SpacerPatterns: Story = {
   )
 };
 
-export const SpacerPlayground: Story = {
+export const SpacerPlayground: SpacerStory = {
   name: "Playground (Spacer)",
   args: {
     size: "md",
