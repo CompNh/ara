@@ -195,8 +195,8 @@ T-000058,W-000006,Icons v0,릴리스,Changesets 프리릴리스(canary),완료,H
 T-000059,W-000007,Layout Primitives v0,계약/설계,레이아웃 계약/네이밍/Props 확정,완료,High," ● 목적: Stack/Flex/Grid/Spacer의 공통 Props(간격 gap, 정렬 align/justify, 방향, 래핑, responsive), 네이밍·경로(@ara/react/stack 등) 고정
  ● 산출물: packages/react/src/components/layout/README.md(계약)
  ● 점검: 리뷰 승인 후 계약 동결(변경=Major)",확인
-T-000060,W-000007,Layout Primitives v0,React(컴포넌트),Stack 구현,계획,High," ● 내용: 수직/수평 스택, gap/align/justify, divider 슬롯(옵션), wrap 지원
- ● 산출물: packages/react/src/components/stack/index.tsx + README
+T-000060,W-000007,Layout Primitives v0,React(컴포넌트),Stack 구현,완료,High," ● 내용: 수직/수평 스택, gap/align/justify, divider 슬롯(옵션), wrap 지원
+ ● 산출물: packages/react/src/components/layout/Stack.tsx + README
  ● 점검: 샘플 렌더·Props 스냅",확인
 T-000061,W-000007,Layout Primitives v0,React(컴포넌트),Flex 구현,계획,High," ● 내용: 디폴트 flex 컨테이너 래퍼, gap/align/justify/flexWrap/flexDirection, inline 옵션
  ● 산출물: packages/react/src/components/flex/index.tsx
