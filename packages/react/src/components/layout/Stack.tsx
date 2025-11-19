@@ -4,6 +4,7 @@ import {
   forwardRef,
   isValidElement,
   useMemo,
+  useId,
   type ComponentPropsWithoutRef,
   type CSSProperties,
   type ElementType,
@@ -180,12 +181,13 @@ function withDividers(children: ReactNode, divider: ReactNode | undefined): Reac
   return spaced;
 }
 
-let stackId = 0;
 function useStackClassName(): string {
+  const reactId = useId();
+
   return useMemo(() => {
-    stackId += 1;
-    return `ara-stack-${stackId}`;
-  }, []);
+    const sanitizedId = reactId.replace(/:/g, "-");
+    return `ara-stack-${sanitizedId}`;
+  }, [reactId]);
 }
 
 export const Stack = forwardRef<HTMLElement, StackProps>(function Stack(props, ref: Ref<HTMLElement>) {
