@@ -47,7 +47,32 @@ describe("Stack", () => {
       </Stack>
     );
 
-    expect(getAllByTestId("divider")).toHaveLength(2);
+    const dividers = getAllByTestId("divider");
+
+    expect(dividers).toHaveLength(2);
+    dividers.forEach((element) => {
+      expect(element).toHaveAttribute("aria-hidden", "true");
+      expect(element).toHaveAttribute("role", "presentation");
+      expect(element).toHaveAttribute("tabindex", "-1");
+    });
+  });
+
+  it("RTL 방향에서도 논리적 정렬과 간격을 유지한다", () => {
+    const { getByTestId } = render(
+      <Stack direction="row" gap="md" justify="start" align="end" dir="rtl" data-testid="stack">
+        <span>왼쪽</span>
+        <span>오른쪽</span>
+      </Stack>
+    );
+
+    const element = getByTestId("stack");
+    const style = getComputedStyle(element);
+
+    expect(element.getAttribute("dir")).toBe("rtl");
+    expect(style.flexDirection).toBe("row");
+    expect(style.gap).toBe(defaultTheme.layout.space.md);
+    expect(style.justifyContent).toBe("flex-start");
+    expect(style.alignItems).toBe("flex-end");
   });
 
   it("반응형 프롭을 media query 규칙으로 출력한다", () => {
