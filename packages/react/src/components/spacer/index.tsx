@@ -15,7 +15,15 @@ interface SpacerOwnProps<T extends ElementType = "div"> {
 export type SpacerProps<T extends ElementType = "div"> = SpacerOwnProps<T> &
   Omit<ComponentPropsWithoutRef<T>, keyof SpacerOwnProps<T> | "as">;
 
-export const Spacer = forwardRef<HTMLElement, SpacerProps>(function Spacer(props, ref: Ref<HTMLElement>) {
+interface SpacerComponent {
+  <T extends ElementType = "div">(props: SpacerProps<T> & { ref?: Ref<HTMLElement> }): JSX.Element;
+  displayName?: string;
+}
+
+export const Spacer = forwardRef(function Spacer<T extends ElementType = "div">(
+  props: SpacerProps<T>,
+  ref: Ref<HTMLElement>
+) {
   const {
     as,
     size,
@@ -55,6 +63,6 @@ export const Spacer = forwardRef<HTMLElement, SpacerProps>(function Spacer(props
   const resolvedClassName = mergeClassNames("ara-spacer", className);
 
   return <Component ref={ref} className={resolvedClassName} style={resolvedStyle} aria-hidden {...restProps} />;
-});
+}) as SpacerComponent;
 
 Spacer.displayName = "Spacer";
