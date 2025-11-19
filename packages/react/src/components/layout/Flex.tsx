@@ -41,7 +41,14 @@ interface FlexOwnProps<T extends ElementType = "div"> {
 export type FlexProps<T extends ElementType = "div"> = FlexOwnProps<T> &
   Omit<ComponentPropsWithoutRef<T>, keyof FlexOwnProps<T> | "as">;
 
-export const Flex = forwardRef<HTMLElement, FlexProps>(function Flex(props, ref: Ref<HTMLElement>) {
+type FlexComponent = <T extends ElementType = "div">(
+  props: FlexProps<T> & { ref?: Ref<HTMLElement> }
+) => JSX.Element;
+
+export const Flex = forwardRef(function Flex<T extends ElementType = "div">(
+  props: FlexProps<T>,
+  ref: Ref<HTMLElement>
+) {
   const {
     as,
     direction: directionProp,
@@ -132,6 +139,6 @@ export const Flex = forwardRef<HTMLElement, FlexProps>(function Flex(props, ref:
       </Component>
     </>
   );
-});
+}) as FlexComponent;
 
 Flex.displayName = "Flex";

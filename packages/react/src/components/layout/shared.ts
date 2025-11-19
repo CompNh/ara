@@ -26,6 +26,7 @@ export type FlexAlign = "start" | "center" | "end" | "stretch" | "baseline";
 export type FlexJustify = "start" | "center" | "end" | "between" | "around" | "evenly";
 export type FlexWrap = false | "wrap" | "wrap-reverse";
 export type SpaceScale = LayoutKey<"space">;
+export type RadiusScale = LayoutKey<"radius">;
 
 export function mergeClassNames(...values: Array<string | undefined | null | false>): string {
   return values.filter(Boolean).join(" ");
@@ -95,9 +96,9 @@ export function mapAlign(value: FlexAlign): CSSProperties["alignItems"] {
 export function mapJustify(value: FlexJustify): CSSProperties["justifyContent"] {
   switch (value) {
     case "start":
-      return "start";
+      return "flex-start";
     case "end":
-      return "end";
+      return "flex-end";
     case "between":
       return "space-between";
     case "around":
@@ -105,7 +106,7 @@ export function mapJustify(value: FlexJustify): CSSProperties["justifyContent"] 
     case "evenly":
       return "space-evenly";
     default:
-      return "start";
+      return "flex-start";
   }
 }
 
@@ -113,11 +114,30 @@ export function mapWrap(value: FlexWrap): CSSProperties["flexWrap"] {
   return value === false ? "nowrap" : value;
 }
 
+function toLayoutVariable<Scale extends LayoutKey>(
+  category: "space" | "radius",
+  token: Scale,
+  fallback: string
+): string {
+  const name = `--ara-${category}-${token}` as const;
+  return `var(${name}, ${fallback})`;
+}
+
 export function resolveSpaceValue(value: SpaceScale | string | number, theme: Theme): string {
   if (typeof value === "number") return `${value}px`;
   if (typeof value === "string") {
     const tokenValue = theme.layout.space[value as SpaceScale];
-    return tokenValue ?? value;
+    return tokenValue ? toLayoutVariable("space", value as SpaceScale, tokenValue) : value;
+  }
+
+  return "0px";
+}
+
+export function resolveRadiusValue(value: RadiusScale | string | number, theme: Theme): string {
+  if (typeof value === "number") return `${value}px`;
+  if (typeof value === "string") {
+    const tokenValue = theme.layout.radius[value as RadiusScale];
+    return tokenValue ? toLayoutVariable("radius", value as RadiusScale, tokenValue) : value;
   }
 
   return "0px";

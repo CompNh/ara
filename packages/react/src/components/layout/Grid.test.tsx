@@ -47,8 +47,8 @@ describe("Grid", () => {
 
     expect(style.gridTemplateColumns).toBe("repeat(3, minmax(0, 1fr))");
     expect(style.gridTemplateRows).toBe("auto auto");
-    expect(style.gap).toBe(defaultTheme.layout.space.md);
-    expect(style.columnGap).toBe(defaultTheme.layout.space.lg);
+    expect(style.gap).toBe(`var(--ara-space-md, ${defaultTheme.layout.space.md})`);
+    expect(style.columnGap).toBe(`var(--ara-space-lg, ${defaultTheme.layout.space.lg})`);
     expect(style.rowGap).toBe("8px");
     expect(style.alignItems).toBe("center");
     expect(style.justifyItems).toBe("end");
@@ -77,14 +77,14 @@ describe("Grid", () => {
 
     expect(cssText).toContain("@media (min-width: 768px)");
     expect(cssText).toContain("grid-template-columns:1fr 2fr");
-    expect(cssText).toContain(`gap:${defaultTheme.layout.space.md}`);
-    expect(cssText).toContain(`column-gap:${defaultTheme.layout.space.lg}`);
+    expect(cssText).toContain(`gap:var(--ara-space-md, ${defaultTheme.layout.space.md})`);
+    expect(cssText).toContain(`column-gap:var(--ara-space-lg, ${defaultTheme.layout.space.lg})`);
     expect(cssText).toContain("grid-auto-flow:column");
     expect(cssText).toContain("align-items:start");
     expect(cssText).toContain("@media (min-width: 1024px)");
     expect(cssText).toContain("grid-template-rows:repeat(3, minmax(0, auto))");
     expect(cssText).toContain("justify-items:center");
-    expect(cssText).toContain(`row-gap:${defaultTheme.layout.space.xl}`);
+    expect(cssText).toContain(`row-gap:var(--ara-space-xl, ${defaultTheme.layout.space.xl})`);
   });
 
   it("areas와 inline 옵션을 지원한다", () => {
@@ -123,7 +123,7 @@ describe("Grid", () => {
 
     expect(element.getAttribute("dir")).toBe("rtl");
     expect(style.gridTemplateColumns).toBe("repeat(2, minmax(0, 1fr))");
-    expect(style.gap).toBe(defaultTheme.layout.space.sm);
+    expect(style.gap).toBe(`var(--ara-space-sm, ${defaultTheme.layout.space.sm})`);
     expect(style.justifyItems).toBe("end");
     expect(style.alignItems).toBe("start");
   });

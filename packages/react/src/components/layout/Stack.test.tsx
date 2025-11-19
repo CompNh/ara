@@ -2,6 +2,7 @@ import { defaultTheme } from "@ara/core";
 import { render } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { Stack } from "./Stack.js";
+import type { CSSProperties } from "react";
 
 describe("Stack", () => {
   it("기본 column 스택으로 gap과 정렬을 설정한다", () => {
@@ -19,12 +20,12 @@ describe("Stack", () => {
     expect(style.flexDirection).toBe("column");
     expect(style.gap).toBe("0px");
     expect(style.alignItems).toBe("stretch");
-    expect(style.justifyContent).toBe("start");
+    expect(style.justifyContent).toBe("flex-start");
     expect(style.flexWrap).toBe("nowrap");
   });
 
   it("간격과 정렬 토큰을 CSS 값으로 매핑한다", () => {
-    const { getByTestId } = render(
+    const { getByTestId, container } = render(
       <Stack gap="lg" align="center" justify="between" data-testid="stack">
         <span>왼쪽</span>
         <span>오른쪽</span>
@@ -32,10 +33,12 @@ describe("Stack", () => {
     );
 
     const style = getComputedStyle(getByTestId("stack"));
+    const cssText = container.querySelector("style")?.textContent ?? "";
 
-    expect(style.gap).toBe(defaultTheme.layout.space.lg);
+    expect(style.gap).toBe(`var(--ara-space-lg, ${defaultTheme.layout.space.lg})`);
     expect(style.alignItems).toBe("center");
     expect(style.justifyContent).toBe("space-between");
+    expect(cssText).toContain(`gap:var(--ara-space-lg, ${defaultTheme.layout.space.lg});`);
   });
 
   it("divider를 자식 사이에 삽입한다", () => {
@@ -70,7 +73,7 @@ describe("Stack", () => {
 
     expect(element.getAttribute("dir")).toBe("rtl");
     expect(style.flexDirection).toBe("row");
-    expect(style.gap).toBe(defaultTheme.layout.space.md);
+    expect(style.gap).toBe(`var(--ara-space-md, ${defaultTheme.layout.space.md})`);
     expect(style.justifyContent).toBe("flex-start");
     expect(style.alignItems).toBe("end");
   });
@@ -87,7 +90,7 @@ describe("Stack", () => {
 
     expect(style.flexDirection).toBe("column-reverse");
     expect(style.justifyContent).toBe("flex-end");
-    expect(style.gap).toBe(defaultTheme.layout.space.sm);
+    expect(style.gap).toBe(`var(--ara-space-sm, ${defaultTheme.layout.space.sm})`);
   });
 
   it("반응형 프롭을 media query 규칙으로 출력한다", () => {
@@ -125,5 +128,25 @@ describe("Stack", () => {
 
     expect(element.tagName).toBe("SECTION");
     expect(getComputedStyle(element).display).toBe("inline-flex");
+  });
+
+  it("상위 CSS 변수에 정의된 공간 토큰 값을 상속한다", () => {
+    const overrideStyle = { "--ara-space-lg": "28px" } as CSSProperties;
+
+    const { getByTestId } = render(
+      <div style={overrideStyle}>
+        <Stack gap="lg" data-testid="stack">
+          <span>왼쪽</span>
+          <span>오른쪽</span>
+        </Stack>
+      </div>
+    );
+
+    const style = getComputedStyle(getByTestId("stack"));
+
+    expect(style.gap).toBe(`var(--ara-space-lg, ${defaultTheme.layout.space.lg})`);
+    expect((getByTestId("stack").parentElement as HTMLElement).style.getPropertyValue("--ara-space-lg")).toBe(
+      "28px"
+    );
   });
 });
