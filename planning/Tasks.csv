@@ -210,7 +210,7 @@ T-000063,W-000007,Layout Primitives v0,React(컴포넌트),Spacer 구현,완료,
 T-000064,W-000007,Layout Primitives v0,접근성/국제화,RTL/논리속성/탭순서 안전,완료,High," ● 내용: 논리적 방향 속성( block/inline ) 우선, RTL에서 간격/정렬 일관성, tab 순서·읽기 순서 영향 없음 보증
  ● 산출물: A11y/RTL 가이드와 테스트 케이스
  ● 점검: RTL 스냅·키보드 탐색 영향 0",확인
-T-000065,W-000007,Layout Primitives v0,토큰 연동,Tokens 간격/반지름 매핑,계획,Medium," ● 내용: space/radius 토큰→CSS 변수 매핑, gap/패딩에 적용, ThemeProvider 상속 확인
+T-000065,W-000007,Layout Primitives v0,토큰 연동,Tokens 간격/반지름 매핑,완료,Medium," ● 내용: space/radius 토큰→CSS 변수 매핑, gap/패딩에 적용, ThemeProvider 상속 확인
  ● 산출물: 가이드 및 예시
  ● 점검: 테마 변경 시 간격 일관성",확인
 T-000066,W-000007,Layout Primitives v0,테스트,Vitest+RTL(Responsive/RTL) 테스트,계획,High," ● 내용: responsive props 해석, RTL 전환 시 레이아웃 동일성, class 병합·style 우선순위
