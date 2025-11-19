@@ -13,6 +13,7 @@ import {
   type Breakpoint,
   type FlexAlign,
   type FlexDirection,
+  type FlexOrientation,
   type FlexJustify,
   type FlexWrap,
   type Responsive,
@@ -22,6 +23,7 @@ import {
   mapJustify,
   mapWrap,
   mergeClassNames,
+  normalizeDirection,
   normalizeResponsiveValue,
   resolveSpaceValue,
   useLayoutClassName
@@ -30,6 +32,7 @@ import {
 interface FlexOwnProps<T extends ElementType = "div"> {
   readonly as?: T;
   readonly direction?: Responsive<FlexDirection>;
+  readonly orientation?: Responsive<FlexOrientation>;
   readonly gap?: Responsive<SpaceScale | string | number>;
   readonly align?: Responsive<FlexAlign>;
   readonly justify?: Responsive<FlexJustify>;
@@ -53,6 +56,7 @@ export const Flex = forwardRef(function Flex<T extends ElementType = "div">(
   const {
     as,
     direction: directionProp,
+    orientation: orientationProp,
     gap: gapProp,
     align: alignProp,
     justify: justifyProp,
@@ -68,8 +72,8 @@ export const Flex = forwardRef(function Flex<T extends ElementType = "div">(
   const generatedClassName = useLayoutClassName("flex");
 
   const direction = useMemo(
-    () => normalizeResponsiveValue<FlexDirection>(directionProp, "row"),
-    [directionProp]
+    () => normalizeDirection(directionProp, orientationProp, "row", "horizontal"),
+    [directionProp, orientationProp]
   );
   const gap = useMemo(
     () => normalizeResponsiveValue<SpaceScale | string | number>(gapProp, 0),
