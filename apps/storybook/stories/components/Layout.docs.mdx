@@ -1,4 +1,4 @@
-import { Meta, Title, Subtitle, Description, Canvas, Primary, Controls, ArgsTable } from "@storybook/blocks";
+import { Meta, Title, Subtitle, Description, Canvas, Primary, Controls, ArgsTable, Story } from "@storybook/blocks";
 import * as LayoutStories from "./Layout.stories";
 
 <Meta of={LayoutStories} />
@@ -31,16 +31,20 @@ Canvas 기본 예제의 `direction="column"` 상태는 세로 스택(위→아�
 
 ## Playground (Stack)
 
-<Primary of={LayoutStories.Playground} />
-<Controls of={LayoutStories.Playground} />
+<Story of={LayoutStories.Playground}>
+  <Primary />
+  <Controls />
+</Story>
 
 ## Playground (Flex)
 
 Flex에서 `orientation` 별칭을 그대로 사용할 수 있습니다. `inline`으로 컨테이너를 인라인 플렉스로 전환하고, `wrap`을 통해 여러 줄
 로 넘길 수 있습니다.
 
-<Canvas of={LayoutStories.FlexPlayground} />
-<Controls of={LayoutStories.FlexPlayground} />
+<Story of={LayoutStories.FlexPlayground}>
+  <Canvas />
+  <Controls />
+</Story>
 
 ## Responsive
 
@@ -61,8 +65,10 @@ Flex에서 `orientation` 별칭을 그대로 사용할 수 있습니다. `inline
 
 열·행 정의에 반응형 객체나 CSS 템플릿 문자열을 넣어 다양한 레이아웃을 실험할 수 있습니다. `areas` 배열로 네임드 영역도 지정할 수 있습니다.
 
-<Canvas of={LayoutStories.GridPlayground} />
-<Controls of={LayoutStories.GridPlayground} />
+<Story of={LayoutStories.GridPlayground}>
+  <Canvas />
+  <Controls />
+</Story>
 
 ## Spacer 활용
 
@@ -75,8 +81,10 @@ Flex에서 `orientation` 별칭을 그대로 사용할 수 있습니다. `inline
 
 `size`를 토큰/픽셀 단위로 조정하고, 인라인/블록 방향과 `grow`/`shrink` 동작을 바로 확인할 수 있습니다.
 
-<Canvas of={LayoutStories.SpacerPlayground} />
-<Controls of={LayoutStories.SpacerPlayground} />
+<Story of={LayoutStories.SpacerPlayground}>
+  <Canvas />
+  <Controls />
+</Story>
 
 ## Props
 
