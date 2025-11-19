@@ -1,0 +1,47 @@
+import { Meta, Title, Subtitle, Description, Canvas, Primary, Controls, ArgsTable } from "@storybook/blocks";
+import * as LayoutStories from "./Layout.stories";
+
+<Meta of={LayoutStories} />
+
+<Title>Layout Primitives</Title>
+
+<Subtitle>Stack, Flex, Grid, Spacer를 사용해 간격과 정렬을 토큰 기반으로 구성합니다.</Subtitle>
+
+<Description>
+`@ara/react`의 레이아웃 프리미티브는 CSS 논리 프로퍼티와 반응형 속성을 우선으로 설계되었습니다. `gap`, `padding`, `wrap` 등 대부분의 간격은
+토큰을 통해 일관되게 적용할 수 있으며, `Responsive` 타입(`{ base, sm, md, lg }`)으로 뷰포트에 따라 유연하게 변합니다. RTL 환경에서도 동일한
+간격과 정렬을 유지합니다.
+</Description>
+
+## Playground (Stack)
+
+<Primary of={LayoutStories.Playground} />
+<Controls of={LayoutStories.Playground} />
+
+## Responsive
+
+`direction`, `gap`, `align`, `justify`, `wrap`은 모두 반응형 객체를 받을 수 있습니다. 아래 예시는 모바일에서 세로 스택, 데스크톱에서 가로 스택으로
+자동 전환합니다.
+
+<Canvas of={LayoutStories.ResponsiveStack} />
+
+## Patterns
+
+툴바, 카드 그리드처럼 자주 쓰는 패턴을 Flex/Grid로 조합할 수 있습니다. 버튼·입력 등 실제 컴포넌트를 그대로 배치하면 실제 레이아웃에 가까운
+간격을 검증할 수 있습니다.
+
+<Canvas of={LayoutStories.FlexToolbar} />
+<Canvas of={LayoutStories.GridCards} />
+
+## Spacer 활용
+
+컨테이너가 아닌 요소 사이에 간격만 필요할 때 `Spacer`를 사용합니다. `direction="inline"`으로 인라인 흐름에 맞춰 넣거나, `grow`/`shrink`로
+플렉스 컨텍스트에서 남는 공간을 채우는 세퍼레이터로도 활용할 수 있습니다.
+
+<Canvas of={LayoutStories.SpacerPatterns} />
+
+## Props
+
+Stack의 공통 props를 Controls로 조정하고, Flex/Grid는 `render` 예제를 참고하세요.
+
+<ArgsTable of={LayoutStories.Playground} />
