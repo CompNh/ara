@@ -20,9 +20,9 @@ interface SpacerComponent {
   displayName?: string;
 }
 
-export const Spacer = forwardRef(function Spacer<T extends ElementType = "div">(
-  props: SpacerProps<T>,
-  ref: Ref<HTMLElement>
+export const Spacer = forwardRef<HTMLElement, SpacerProps<ElementType>>(function Spacer(
+  props,
+  ref
 ) {
   const {
     as,
