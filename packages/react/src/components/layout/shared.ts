@@ -80,9 +80,9 @@ export function createRule(selector: string, styles: Partial<CSSProperties>): st
 export function mapAlign(value: FlexAlign): CSSProperties["alignItems"] {
   switch (value) {
     case "start":
-      return "flex-start";
+      return "start";
     case "end":
-      return "flex-end";
+      return "end";
     case "center":
       return "center";
     case "baseline":

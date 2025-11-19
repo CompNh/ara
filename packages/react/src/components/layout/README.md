@@ -25,7 +25,7 @@
 | **direction** | `Responsive<"row" \| "row-reverse" \| "column" \| "column-reverse">` | `"column"` | 스택 방향. `row`는 수평, `column`은 수직 스택을 의미한다. |
 | **gap** | `Responsive<SpaceScale \| string \| number>` | `0` | 자식 간 간격. 숫자는 `px`로 해석한다. |
 | **align** | `Responsive<"start" \| "center" \| "end" \| "stretch" \| "baseline">` | `"stretch"` | 교차 축 정렬(`align-items`). `start/end`는 논리적 시작/끝을 따른다. |
-| **justify** | `Responsive<"start" \| "center" \| "end" \| "between" \| "around" \| "evenly">` | `"start"` | 주 축 정렬(`justify-content`). |
+| **justify** | `Responsive<"start" \| "center" \| "end" \| "between" \| "around" \| "evenly">` | `"start"` | 주 축 정렬(`justify-content`). `start/end`는 `flex-start`/`flex-end`로 출력해 `flex-direction` (reverse 포함)의 주축을 따른다. |
 | **wrap** | `Responsive<false \| "wrap" \| "wrap-reverse">` | `false` | 스택 내 요소를 여러 줄로 감쌀지 여부. `false`는 `nowrap`과 동일하다. |
 | **divider** | `ReactNode` | — | 각 자식 사이에 삽입할 구분선 요소. 첫/마지막 위치에는 그리지 않는다. |
 | **inline** | `boolean` | `false` | `inline-flex` 로 렌더링해 텍스트 흐름 안에서 배치한다. |
@@ -41,7 +41,7 @@
 | **direction** | `Responsive<"row" \| "row-reverse" \| "column" \| "column-reverse">` | `"row"` | 메인 축 방향(`flex-direction`). |
 | **gap** | `Responsive<SpaceScale \| string \| number>` | `0` | 자식 간 간격. |
 | **align** | `Responsive<"start" \| "center" \| "end" \| "stretch" \| "baseline">` | `"stretch"` | `align-items`. |
-| **justify** | `Responsive<"start" \| "center" \| "end" \| "between" \| "around" \| "evenly">` | `"start"` | `justify-content`. |
+| **justify** | `Responsive<"start" \| "center" \| "end" \| "between" \| "around" \| "evenly">` | `"start"` | `justify-content`. `start/end`는 `flex-start`/`flex-end`로 매핑되어 역방향 `flex-direction`에서도 주 축 시작/끝을 따른다. |
 | **wrap** | `Responsive<false \| "wrap" \| "wrap-reverse">` | `false` | `flex-wrap` 설정. |
 | **inline** | `boolean` | `false` | `inline-flex` 렌더링. |
 | **as** | `ElementType` | `"div"` | 시맨틱 태그 교체. |
@@ -82,7 +82,13 @@
 
 ## 설계/계약 메모
 
-- 정렬·방향 프롭은 **논리적 start/end** 어휘를 사용해 RTL 전환 시 자동 반영한다.
+- 정렬·방향 프롭은 **논리적 start/end** 어휘를 사용해 RTL 전환 시 자동 반영하되, `justify`는 `flex-direction`의 주 축(역방향 포함)을 따르도록 `flex-start`/`flex-end`를 사용한다.
 - Stack/Flex/Grid는 기본적으로 `box-sizing: border-box`를 사용하며, 자식 요소의 `margin`과 무관하게 `gap`으로 일관된 간격을 만든다.
 - 반응형 프롭은 **가장 작은 구간부터 점진적으로 덮어쓴다**. 예를 들어 `gap={{ base: "sm", md: "lg" }}` 는 모바일에서 `sm`, 768px 이상에서 `lg`를 사용한다.
 - Spacer는 레이아웃 컨테이너와 무관하게 단독 사용 가능하며, 접근성을 위해 시맨틱 의미가 없는 요소를 기본으로 사용한다.
+
+## RTL & 접근성 가이드
+
+- `start`/`end` 정렬 값은 CSS 논리 정렬 속성으로 출력돼 `dir="rtl"`에서도 동일한 공간·정렬을 보장한다.
+- Spacer는 `inline-size`/`block-size`를 사용해 방향 전환 시에도 간격이 뒤섞이지 않으며, `aria-hidden`으로 탭 순서에서 제외된다.
+- Stack의 `divider`는 `role="presentation"`, `tabIndex={-1}`, `aria-hidden`을 기본으로 적용해 화면 읽기/탭 순서를 흐트러뜨리지 않는다.

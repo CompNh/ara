@@ -207,7 +207,7 @@ T-000062,W-000007,Layout Primitives v0,React(컴포넌트),Grid 구현,완료,Hi
 T-000063,W-000007,Layout Primitives v0,React(컴포넌트),Spacer 구현,완료,Medium," ● 내용: 공간 삽입 전용 컴포넌트(size 토큰 사용), inline 방향 지원
  ● 산출물: packages/react/src/components/spacer/index.tsx
  ● 점검: size 스냅·접근성 영향 없음",확인
-T-000064,W-000007,Layout Primitives v0,접근성/국제화,RTL/논리속성/탭순서 안전,계획,High," ● 내용: 논리적 방향 속성( block/inline ) 우선, RTL에서 간격/정렬 일관성, tab 순서·읽기 순서 영향 없음 보증
+T-000064,W-000007,Layout Primitives v0,접근성/국제화,RTL/논리속성/탭순서 안전,완료,High," ● 내용: 논리적 방향 속성( block/inline ) 우선, RTL에서 간격/정렬 일관성, tab 순서·읽기 순서 영향 없음 보증
  ● 산출물: A11y/RTL 가이드와 테스트 케이스
  ● 점검: RTL 스냅·키보드 탐색 영향 0",확인
 T-000065,W-000007,Layout Primitives v0,토큰 연동,Tokens 간격/반지름 매핑,계획,Medium," ● 내용: space/radius 토큰→CSS 변수 매핑, gap/패딩에 적용, ThemeProvider 상속 확인
