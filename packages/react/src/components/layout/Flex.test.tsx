@@ -89,7 +89,22 @@ describe("Flex", () => {
     expect(element.getAttribute("dir")).toBe("rtl");
     expect(style.flexDirection).toBe("row");
     expect(style.gap).toBe(defaultTheme.layout.space.md);
-    expect(style.justifyContent).toBe("end");
+    expect(style.justifyContent).toBe("flex-end");
     expect(style.alignItems).toBe("start");
+  });
+
+  it("역방향 축에서도 플렉스 시작/끝 정렬을 유지한다", () => {
+    const { getByTestId } = render(
+      <Flex direction="row-reverse" justify="start" gap="sm" data-testid="flex">
+        <span>첫째</span>
+        <span>둘째</span>
+      </Flex>
+    );
+
+    const style = getComputedStyle(getByTestId("flex"));
+
+    expect(style.flexDirection).toBe("row-reverse");
+    expect(style.justifyContent).toBe("flex-start");
+    expect(style.gap).toBe(defaultTheme.layout.space.sm);
   });
 });

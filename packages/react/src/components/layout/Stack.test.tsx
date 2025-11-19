@@ -71,8 +71,23 @@ describe("Stack", () => {
     expect(element.getAttribute("dir")).toBe("rtl");
     expect(style.flexDirection).toBe("row");
     expect(style.gap).toBe(defaultTheme.layout.space.md);
-    expect(style.justifyContent).toBe("start");
+    expect(style.justifyContent).toBe("flex-start");
     expect(style.alignItems).toBe("end");
+  });
+
+  it("역방향 컬럼에서도 플렉스 주 축 정렬을 따른다", () => {
+    const { getByTestId } = render(
+      <Stack direction="column-reverse" justify="end" gap="sm" data-testid="stack">
+        <span>첫째</span>
+        <span>둘째</span>
+      </Stack>
+    );
+
+    const style = getComputedStyle(getByTestId("stack"));
+
+    expect(style.flexDirection).toBe("column-reverse");
+    expect(style.justifyContent).toBe("flex-end");
+    expect(style.gap).toBe(defaultTheme.layout.space.sm);
   });
 
   it("반응형 프롭을 media query 규칙으로 출력한다", () => {
