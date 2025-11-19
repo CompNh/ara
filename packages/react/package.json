@@ -144,7 +144,7 @@
   ],
   "sideEffects": false,
   "scripts": {
-    "prebuild": "pnpm --filter @ara/core build",
+    "prebuild": "pnpm --filter @ara/icons build && pnpm --filter @ara/core build",
     "build": "pnpm exec rollup -c",
     "pretest": "pnpm --filter @ara/core build",
     "test": "pnpm exec vitest run",

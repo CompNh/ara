@@ -1,6 +1,7 @@
 import { defaultTheme } from "@ara/core";
 import { render } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import type { CSSProperties } from "react";
 
 import { Spacer } from "./index.js";
 
@@ -12,7 +13,7 @@ describe("Spacer", () => {
     const style = getComputedStyle(element);
 
     expect(style.display).toBe("block");
-    expect(style.height).toBe(defaultTheme.layout.space.md);
+    expect(style.height).toBe(`var(--ara-space-md, ${defaultTheme.layout.space.md})`);
     expect(style.flexShrink).toBe("1");
     expect(style.flexGrow).toBe("0");
     expect(element.getAttribute("aria-hidden")).toBe("true");
@@ -40,7 +41,23 @@ describe("Spacer", () => {
     expect(element.tagName).toBe("SPAN");
     expect(style.flexShrink).toBe("0");
     expect(style.flexGrow).toBe("1");
-    expect(style.height).toBe(defaultTheme.layout.space.sm);
+    expect(style.height).toBe(`var(--ara-space-sm, ${defaultTheme.layout.space.sm})`);
     expect(style.backgroundColor).toBe("rgb(255, 0, 0)");
+  });
+
+  it("상위 CSS 변수에 정의된 공간 값을 사용한다", () => {
+    const style = { "--ara-space-md": "20px" } as CSSProperties;
+
+    const { getByTestId } = render(
+      <div style={style}>
+        <Spacer size="md" data-testid="spacer" />
+      </div>
+    );
+
+    const element = getByTestId("spacer");
+    const computed = getComputedStyle(element);
+
+    expect(computed.height).toBe(`var(--ara-space-md, ${defaultTheme.layout.space.md})`);
+    expect((element.parentElement as HTMLElement).style.getPropertyValue("--ara-space-md")).toBe("20px");
   });
 });

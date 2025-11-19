@@ -19,7 +19,7 @@ describe("Flex", () => {
     expect(style.flexDirection).toBe("row");
     expect(style.gap).toBe("0px");
     expect(style.alignItems).toBe("stretch");
-    expect(style.justifyContent).toBe("start");
+    expect(style.justifyContent).toBe("flex-start");
     expect(style.flexWrap).toBe("nowrap");
   });
 
@@ -33,7 +33,7 @@ describe("Flex", () => {
 
     const style = getComputedStyle(getByTestId("flex"));
 
-    expect(style.gap).toBe(defaultTheme.layout.space.lg);
+    expect(style.gap).toBe(`var(--ara-space-lg, ${defaultTheme.layout.space.lg})`);
     expect(style.alignItems).toBe("center");
     expect(style.justifyContent).toBe("space-between");
   });
@@ -88,7 +88,7 @@ describe("Flex", () => {
 
     expect(element.getAttribute("dir")).toBe("rtl");
     expect(style.flexDirection).toBe("row");
-    expect(style.gap).toBe(defaultTheme.layout.space.md);
+    expect(style.gap).toBe(`var(--ara-space-md, ${defaultTheme.layout.space.md})`);
     expect(style.justifyContent).toBe("flex-end");
     expect(style.alignItems).toBe("start");
   });
@@ -105,6 +105,6 @@ describe("Flex", () => {
 
     expect(style.flexDirection).toBe("row-reverse");
     expect(style.justifyContent).toBe("flex-start");
-    expect(style.gap).toBe(defaultTheme.layout.space.sm);
+    expect(style.gap).toBe(`var(--ara-space-sm, ${defaultTheme.layout.space.sm})`);
   });
 });
