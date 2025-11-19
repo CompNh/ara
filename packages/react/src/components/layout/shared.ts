@@ -123,7 +123,7 @@ export function resolveSpaceValue(value: SpaceScale | string | number, theme: Th
   return "0px";
 }
 
-export function useLayoutClassName(component: "stack" | "flex"): string {
+export function useLayoutClassName(component: "stack" | "flex" | "grid"): string {
   const reactId = useId();
 
   return useMemo(() => {
