@@ -80,9 +80,9 @@ export function createRule(selector: string, styles: Partial<CSSProperties>): st
 export function mapAlign(value: FlexAlign): CSSProperties["alignItems"] {
   switch (value) {
     case "start":
-      return "flex-start";
+      return "start";
     case "end":
-      return "flex-end";
+      return "end";
     case "center":
       return "center";
     case "baseline":
@@ -95,9 +95,9 @@ export function mapAlign(value: FlexAlign): CSSProperties["alignItems"] {
 export function mapJustify(value: FlexJustify): CSSProperties["justifyContent"] {
   switch (value) {
     case "start":
-      return "flex-start";
+      return "start";
     case "end":
-      return "flex-end";
+      return "end";
     case "between":
       return "space-between";
     case "around":
@@ -105,7 +105,7 @@ export function mapJustify(value: FlexJustify): CSSProperties["justifyContent"] 
     case "evenly":
       return "space-evenly";
     default:
-      return "flex-start";
+      return "start";
   }
 }
 

@@ -86,3 +86,9 @@
 - Stack/Flex/Grid는 기본적으로 `box-sizing: border-box`를 사용하며, 자식 요소의 `margin`과 무관하게 `gap`으로 일관된 간격을 만든다.
 - 반응형 프롭은 **가장 작은 구간부터 점진적으로 덮어쓴다**. 예를 들어 `gap={{ base: "sm", md: "lg" }}` 는 모바일에서 `sm`, 768px 이상에서 `lg`를 사용한다.
 - Spacer는 레이아웃 컨테이너와 무관하게 단독 사용 가능하며, 접근성을 위해 시맨틱 의미가 없는 요소를 기본으로 사용한다.
+
+## RTL & 접근성 가이드
+
+- `start`/`end` 정렬 값은 CSS 논리 정렬 속성으로 출력돼 `dir="rtl"`에서도 동일한 공간·정렬을 보장한다.
+- Spacer는 `inline-size`/`block-size`를 사용해 방향 전환 시에도 간격이 뒤섞이지 않으며, `aria-hidden`으로 탭 순서에서 제외된다.
+- Stack의 `divider`는 `role="presentation"`, `tabIndex={-1}`, `aria-hidden`을 기본으로 적용해 화면 읽기/탭 순서를 흐트러뜨리지 않는다.
