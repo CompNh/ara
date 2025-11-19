@@ -17,6 +17,7 @@ import {
   type Breakpoint,
   type FlexAlign,
   type FlexDirection,
+  type FlexOrientation,
   type FlexJustify,
   type FlexWrap,
   type Responsive,
@@ -26,6 +27,7 @@ import {
   mapJustify,
   mapWrap,
   mergeClassNames,
+  normalizeDirection,
   normalizeResponsiveValue,
   resolveSpaceValue,
   useLayoutClassName
@@ -39,6 +41,7 @@ type StackWrap = FlexWrap;
 interface StackOwnProps<T extends ElementType = "div"> {
   readonly as?: T;
   readonly direction?: Responsive<StackDirection>;
+  readonly orientation?: Responsive<FlexOrientation>;
   readonly gap?: Responsive<SpaceScale | string | number>;
   readonly align?: Responsive<StackAlign>;
   readonly justify?: Responsive<StackJustify>;
@@ -97,6 +100,7 @@ export const Stack = forwardRef(function Stack<T extends ElementType = "div">(
   const {
     as,
     direction: directionProp,
+    orientation: orientationProp,
     gap: gapProp,
     align: alignProp,
     justify: justifyProp,
@@ -113,8 +117,8 @@ export const Stack = forwardRef(function Stack<T extends ElementType = "div">(
   const generatedClassName = useLayoutClassName("stack");
 
   const direction = useMemo(
-    () => normalizeResponsiveValue<StackDirection>(directionProp, "column"),
-    [directionProp]
+    () => normalizeDirection(directionProp, orientationProp, "column", "vertical"),
+    [directionProp, orientationProp]
   );
   const gap = useMemo(
     () => normalizeResponsiveValue<SpaceScale | string | number>(gapProp, 0),

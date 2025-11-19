@@ -1,0 +1,84 @@
+import { Meta, Title, Subtitle, Description, Canvas, Primary, Controls, ArgsTable, Story } from "@storybook/blocks";
+import * as LayoutStories from "./Layout.stories";
+
+<Meta of={LayoutStories} />
+
+<Title>Layout Primitives</Title>
+
+<Subtitle>Stack, Flex, Grid, Spacer를 사용해 간격과 정렬을 토큰 기반으로 구성합니다.</Subtitle>
+
+<Description>
+`@ara/react`의 레이아웃 프리미티브는 CSS 논리 프로퍼티와 반응형 속성을 우선으로 설계되었습니다. `gap`, `padding`, `wrap` 등 대부분의 간격은
+토큰을 통해 일관되게 적용할 수 있으며, `Responsive` 타입(`{ base, sm, md, lg }`)으로 뷰포트에 따라 유연하게 변합니다. RTL 환경에서도 동일한
+간격과 정렬을 유지합니다.
+
+가장 직관적인 축 지정 방법은 `orientation` prop을 사용하는 것입니다. `horizontal`/`vertical`(또는 `horizontal-reverse`/`vertical-reverse`)만 전달하면
+가로/세로 흐름을 바로 지정할 수 있습니다. 기존 Flexbox 명칭(`row`, `column`)도 `direction` prop으로 그대로 쓸 수 있지만, 기본 안내는 `orientation`
+값을 기준으로 제공합니다.
+</Description>
+
+<Canvas of={LayoutStories.DirectionShowcase} />
+<Canvas of={LayoutStories.LogicalAxisLegend} />
+
+## Playground (Stack)
+
+<Story of={LayoutStories.Playground}>
+  <Primary />
+  <Controls />
+</Story>
+
+## Playground (Flex)
+
+Flex에서 `orientation` 별칭을 그대로 사용할 수 있습니다. `inline`으로 컨테이너를 인라인 플렉스로 전환하고, `wrap`을 통해 여러 줄
+로 넘길 수 있습니다.
+
+<Story of={LayoutStories.FlexPlayground}>
+  <Canvas />
+  <Controls />
+</Story>
+
+## Responsive
+
+`direction`, `gap`, `align`, `justify`, `wrap`은 모두 반응형 객체를 받을 수 있습니다. 아래 예시는 모바일에서 세로 스택, 데스크톱에서 가로 스택으로
+자동 전환합니다.
+
+<Canvas of={LayoutStories.ResponsiveStack} />
+
+## Patterns
+
+툴바, 카드 그리드처럼 자주 쓰는 패턴을 Flex/Grid로 조합할 수 있습니다. 버튼·입력 등 실제 컴포넌트를 그대로 배치하면 실제 레이아웃에 가까운
+간격을 검증할 수 있습니다.
+
+<Canvas of={LayoutStories.FlexToolbar} />
+<Canvas of={LayoutStories.GridCards} />
+
+## Playground (Grid)
+
+열·행 정의에 반응형 객체나 CSS 템플릿 문자열을 넣어 다양한 레이아웃을 실험할 수 있습니다. `areas` 배열로 네임드 영역도 지정할 수 있습니다.
+
+<Story of={LayoutStories.GridPlayground}>
+  <Canvas />
+  <Controls />
+</Story>
+
+## Spacer 활용
+
+컨테이너가 아닌 요소 사이에 간격만 필요할 때 `Spacer`를 사용합니다. `direction="inline"`으로 인라인 흐름에 맞춰 넣거나, `grow`/`shrink`로
+플렉스 컨텍스트에서 남는 공간을 채우는 세퍼레이터로도 활용할 수 있습니다.
+
+<Canvas of={LayoutStories.SpacerPatterns} />
+
+## Playground (Spacer)
+
+`size`를 토큰/픽셀 단위로 조정하고, 인라인/블록 방향과 `grow`/`shrink` 동작을 바로 확인할 수 있습니다.
+
+<Story of={LayoutStories.SpacerPlayground}>
+  <Canvas />
+  <Controls />
+</Story>
+
+## Props
+
+Stack·Flex·Grid·Spacer의 주요 props는 각 Playground의 Controls에서 바로 조정하거나 아래 표에서 확인할 수 있습니다.
+
+<ArgsTable of={LayoutStories.Playground} />

@@ -22,6 +22,7 @@ export type Responsive<T> =
 export type ResponsiveMap<T> = { base: T; sm?: T; md?: T; lg?: T };
 
 export type FlexDirection = "row" | "row-reverse" | "column" | "column-reverse";
+export type FlexOrientation = "horizontal" | "horizontal-reverse" | "vertical" | "vertical-reverse";
 export type FlexAlign = "start" | "center" | "end" | "stretch" | "baseline";
 export type FlexJustify = "start" | "center" | "end" | "between" | "around" | "evenly";
 export type FlexWrap = false | "wrap" | "wrap-reverse";
@@ -56,6 +57,39 @@ export function normalizeResponsiveValue<T>(value: Responsive<T> | undefined, fa
   }
 
   return { base: (value ?? fallback) as T };
+}
+
+function mapOrientationToDirection(value: FlexOrientation): FlexDirection {
+  switch (value) {
+    case "horizontal":
+      return "row";
+    case "horizontal-reverse":
+      return "row-reverse";
+    case "vertical-reverse":
+      return "column-reverse";
+    case "vertical":
+    default:
+      return "column";
+  }
+}
+
+export function normalizeDirection(
+  direction: Responsive<FlexDirection> | undefined,
+  orientation: Responsive<FlexOrientation> | undefined,
+  defaultDirection: FlexDirection,
+  defaultOrientation: FlexOrientation
+): ResponsiveMap<FlexDirection> {
+  if (orientation !== undefined) {
+    const normalizedOrientation = normalizeResponsiveValue<FlexOrientation>(orientation, defaultOrientation);
+    return {
+      base: mapOrientationToDirection(normalizedOrientation.base),
+      sm: normalizedOrientation.sm ? mapOrientationToDirection(normalizedOrientation.sm) : undefined,
+      md: normalizedOrientation.md ? mapOrientationToDirection(normalizedOrientation.md) : undefined,
+      lg: normalizedOrientation.lg ? mapOrientationToDirection(normalizedOrientation.lg) : undefined
+    };
+  }
+
+  return normalizeResponsiveValue<FlexDirection>(direction, defaultDirection);
 }
 
 export function toCSSValue(value: string | number | undefined): string | undefined {
