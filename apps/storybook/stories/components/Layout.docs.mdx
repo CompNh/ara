@@ -11,6 +11,9 @@ import * as LayoutStories from "./Layout.stories";
 `@ara/react`의 레이아웃 프리미티브는 CSS 논리 프로퍼티와 반응형 속성을 우선으로 설계되었습니다. `gap`, `padding`, `wrap` 등 대부분의 간격은
 토큰을 통해 일관되게 적용할 수 있으며, `Responsive` 타입(`{ base, sm, md, lg }`)으로 뷰포트에 따라 유연하게 변합니다. RTL 환경에서도 동일한
 간격과 정렬을 유지합니다.
+
+`direction`은 표준 flex-direction 그대로 동작합니다. `row`는 인라인 축을 따라 좌→우(또는 RTL에서는 우→좌)로, `column`은 블록 축을 따라 위→
+아래로 정렬됩니다. 예상한 방향과 다르게 보이면 `writing-mode` 또는 RTL 여부를 확인해주세요.
 </Description>
 
 ## Playground (Stack)
