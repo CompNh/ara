@@ -60,12 +60,25 @@ function mergeClassNames(...values: Array<string | undefined | null | false>): s
 }
 
 function normalizeResponsiveValue<T>(value: Responsive<T> | undefined, fallback: T): ResponsiveMap<T> {
-  if (value && typeof value === "object" && !Array.isArray(value)) {
+  if (
+    value !== undefined &&
+    typeof value === "object" &&
+    value !== null &&
+    !Array.isArray(value) &&
+    ("base" in value || "sm" in value || "md" in value || "lg" in value)
+  ) {
+    const responsiveValue = value as {
+      base?: T;
+      sm?: T;
+      md?: T;
+      lg?: T;
+    };
+
     return {
-      base: value.base ?? fallback,
-      sm: value.sm,
-      md: value.md,
-      lg: value.lg
+      base: responsiveValue.base ?? fallback,
+      sm: responsiveValue.sm,
+      md: responsiveValue.md,
+      lg: responsiveValue.lg
     };
   }
 
@@ -195,16 +208,25 @@ export const Stack = forwardRef<HTMLElement, StackProps>(function Stack(props, r
   const generatedClassName = useStackClassName();
 
   const direction = useMemo(
-    () => normalizeResponsiveValue(directionProp, "column"),
+    () => normalizeResponsiveValue<StackDirection>(directionProp, "column"),
     [directionProp]
   );
-  const gap = useMemo(() => normalizeResponsiveValue(gapProp, 0), [gapProp]);
-  const align = useMemo(() => normalizeResponsiveValue(alignProp, "stretch"), [alignProp]);
+  const gap = useMemo(
+    () => normalizeResponsiveValue<SpaceScale | string | number>(gapProp, 0),
+    [gapProp]
+  );
+  const align = useMemo(
+    () => normalizeResponsiveValue<StackAlign>(alignProp, "stretch"),
+    [alignProp]
+  );
   const justify = useMemo(
-    () => normalizeResponsiveValue(justifyProp, "start"),
+    () => normalizeResponsiveValue<StackJustify>(justifyProp, "start"),
     [justifyProp]
   );
-  const wrap = useMemo(() => normalizeResponsiveValue(wrapProp, false), [wrapProp]);
+  const wrap = useMemo(
+    () => normalizeResponsiveValue<StackWrap>(wrapProp, false),
+    [wrapProp]
+  );
 
   const resolvedClassName = mergeClassNames("ara-stack", generatedClassName, className);
 
