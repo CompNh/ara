@@ -55,7 +55,12 @@ function cloneDividerNode(divider: ReactNode, index: number): ReactNode {
   if (isValidElement(divider)) {
     const element = divider as ReactElement;
     const key = element.key ?? `divider-${index}`;
-    return cloneElement(element, { key });
+    return cloneElement(element, {
+      key,
+      role: element.props.role ?? "presentation",
+      tabIndex: element.props.tabIndex ?? -1,
+      "aria-hidden": element.props["aria-hidden"] ?? true
+    });
   }
 
   return (

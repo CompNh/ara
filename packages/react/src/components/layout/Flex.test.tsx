@@ -74,4 +74,22 @@ describe("Flex", () => {
     expect(element.tagName).toBe("SECTION");
     expect(getComputedStyle(element).display).toBe("inline-flex");
   });
+
+  it("RTL 방향에서도 논리적 정렬과 간격을 유지한다", () => {
+    const { getByTestId } = render(
+      <Flex direction="row" gap="md" justify="end" align="start" dir="rtl" data-testid="flex">
+        <span>왼쪽</span>
+        <span>오른쪽</span>
+      </Flex>
+    );
+
+    const element = getByTestId("flex");
+    const style = getComputedStyle(element);
+
+    expect(element.getAttribute("dir")).toBe("rtl");
+    expect(style.flexDirection).toBe("row");
+    expect(style.gap).toBe(defaultTheme.layout.space.md);
+    expect(style.justifyContent).toBe("flex-end");
+    expect(style.alignItems).toBe("flex-start");
+  });
 });

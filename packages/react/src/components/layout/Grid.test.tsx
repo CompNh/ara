@@ -109,4 +109,22 @@ describe("Grid", () => {
     expect(style.display).toBe("inline-grid");
     expect(style.gridTemplateAreas).toBe('"header header" "main sidebar"');
   });
+
+  it("RTL 방향에서도 간격과 정렬을 유지한다", () => {
+    const { getByTestId } = render(
+      <Grid columns={2} gap="sm" justify="end" align="start" dir="rtl" data-testid="grid">
+        <span>1</span>
+        <span>2</span>
+      </Grid>
+    );
+
+    const element = getByTestId("grid");
+    const style = getComputedStyle(element);
+
+    expect(element.getAttribute("dir")).toBe("rtl");
+    expect(style.gridTemplateColumns).toBe("repeat(2, minmax(0, 1fr))");
+    expect(style.gap).toBe(defaultTheme.layout.space.sm);
+    expect(style.justifyItems).toBe("end");
+    expect(style.alignItems).toBe("start");
+  });
 });
