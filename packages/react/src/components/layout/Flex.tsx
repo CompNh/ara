@@ -1,13 +1,9 @@
 import {
-  Children,
-  cloneElement,
   forwardRef,
-  isValidElement,
   useMemo,
   type ComponentPropsWithoutRef,
   type CSSProperties,
   type ElementType,
-  type ReactElement,
   type ReactNode,
   type Ref
 } from "react";
@@ -31,56 +27,21 @@ import {
   useLayoutClassName
 } from "./shared.js";
 
-type StackDirection = FlexDirection;
-type StackAlign = FlexAlign;
-type StackJustify = FlexJustify;
-type StackWrap = FlexWrap;
-
-interface StackOwnProps<T extends ElementType = "div"> {
+interface FlexOwnProps<T extends ElementType = "div"> {
   readonly as?: T;
-  readonly direction?: Responsive<StackDirection>;
+  readonly direction?: Responsive<FlexDirection>;
   readonly gap?: Responsive<SpaceScale | string | number>;
-  readonly align?: Responsive<StackAlign>;
-  readonly justify?: Responsive<StackJustify>;
-  readonly wrap?: Responsive<StackWrap>;
-  readonly divider?: ReactNode;
+  readonly align?: Responsive<FlexAlign>;
+  readonly justify?: Responsive<FlexJustify>;
+  readonly wrap?: Responsive<FlexWrap>;
   readonly inline?: boolean;
   readonly children?: ReactNode;
 }
 
-export type StackProps<T extends ElementType = "div"> = StackOwnProps<T> &
-  Omit<ComponentPropsWithoutRef<T>, keyof StackOwnProps<T> | "as">;
+export type FlexProps<T extends ElementType = "div"> = FlexOwnProps<T> &
+  Omit<ComponentPropsWithoutRef<T>, keyof FlexOwnProps<T> | "as">;
 
-function cloneDividerNode(divider: ReactNode, index: number): ReactNode {
-  if (isValidElement(divider)) {
-    const element = divider as ReactElement;
-    const key = element.key ?? `divider-${index}`;
-    return cloneElement(element, { key });
-  }
-
-  return (
-    <span aria-hidden key={`divider-${index}`}>
-      {divider}
-    </span>
-  );
-}
-
-function withDividers(children: ReactNode, divider: ReactNode | undefined): ReactNode[] {
-  const items = Children.toArray(children);
-  if (!divider || items.length <= 1) return items;
-
-  const spaced: ReactNode[] = [];
-  items.forEach((child, index) => {
-    spaced.push(child);
-    if (index < items.length - 1) {
-      spaced.push(cloneDividerNode(divider, index));
-    }
-  });
-
-  return spaced;
-}
-
-export const Stack = forwardRef<HTMLElement, StackProps>(function Stack(props, ref: Ref<HTMLElement>) {
+export const Flex = forwardRef<HTMLElement, FlexProps>(function Flex(props, ref: Ref<HTMLElement>) {
   const {
     as,
     direction: directionProp,
@@ -88,7 +49,6 @@ export const Stack = forwardRef<HTMLElement, StackProps>(function Stack(props, r
     align: alignProp,
     justify: justifyProp,
     wrap: wrapProp,
-    divider,
     inline = false,
     className,
     children,
@@ -97,10 +57,10 @@ export const Stack = forwardRef<HTMLElement, StackProps>(function Stack(props, r
 
   const Component = (as ?? "div") as ElementType;
   const theme = useAraTheme();
-  const generatedClassName = useLayoutClassName("stack");
+  const generatedClassName = useLayoutClassName("flex");
 
   const direction = useMemo(
-    () => normalizeResponsiveValue<StackDirection>(directionProp, "column"),
+    () => normalizeResponsiveValue<FlexDirection>(directionProp, "row"),
     [directionProp]
   );
   const gap = useMemo(
@@ -108,19 +68,19 @@ export const Stack = forwardRef<HTMLElement, StackProps>(function Stack(props, r
     [gapProp]
   );
   const align = useMemo(
-    () => normalizeResponsiveValue<StackAlign>(alignProp, "stretch"),
+    () => normalizeResponsiveValue<FlexAlign>(alignProp, "stretch"),
     [alignProp]
   );
   const justify = useMemo(
-    () => normalizeResponsiveValue<StackJustify>(justifyProp, "start"),
+    () => normalizeResponsiveValue<FlexJustify>(justifyProp, "start"),
     [justifyProp]
   );
   const wrap = useMemo(
-    () => normalizeResponsiveValue<StackWrap>(wrapProp, false),
+    () => normalizeResponsiveValue<FlexWrap>(wrapProp, false),
     [wrapProp]
   );
 
-  const resolvedClassName = mergeClassNames("ara-stack", generatedClassName, className);
+  const resolvedClassName = mergeClassNames("ara-flex", generatedClassName, className);
 
   const baseStyles = useMemo<Partial<CSSProperties>>(
     () => ({
@@ -144,11 +104,11 @@ export const Stack = forwardRef<HTMLElement, StackProps>(function Stack(props, r
             gap[breakpoint] !== undefined
               ? resolveSpaceValue(gap[breakpoint] as SpaceScale | string | number, theme)
               : undefined,
-          alignItems: align[breakpoint] ? mapAlign(align[breakpoint] as StackAlign) : undefined,
+          alignItems: align[breakpoint] ? mapAlign(align[breakpoint] as FlexAlign) : undefined,
           justifyContent: justify[breakpoint]
-            ? mapJustify(justify[breakpoint] as StackJustify)
+            ? mapJustify(justify[breakpoint] as FlexJustify)
             : undefined,
-          flexWrap: wrap[breakpoint] !== undefined ? mapWrap(wrap[breakpoint] as StackWrap) : undefined
+          flexWrap: wrap[breakpoint] !== undefined ? mapWrap(wrap[breakpoint] as FlexWrap) : undefined
         };
 
         const rule = createRule(`.${generatedClassName}`, styles);
@@ -164,16 +124,14 @@ export const Stack = forwardRef<HTMLElement, StackProps>(function Stack(props, r
     [baseStyles, generatedClassName, responsiveRules]
   );
 
-  const content = withDividers(children, divider);
-
   return (
     <>
       <style dangerouslySetInnerHTML={{ __html: cssText }} />
       <Component ref={ref} className={resolvedClassName} {...restProps}>
-        {content}
+        {children}
       </Component>
     </>
   );
 });
 
-Stack.displayName = "Stack";
+Flex.displayName = "Flex";
