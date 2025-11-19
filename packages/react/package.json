@@ -27,6 +27,11 @@
       "import": "./dist/components/layout/index.js",
       "default": "./dist/components/layout/index.js"
     },
+    "./components/spacer": {
+      "types": "./dist/components/spacer/index.d.ts",
+      "import": "./dist/components/spacer/index.js",
+      "default": "./dist/components/spacer/index.js"
+    },
     "./components/flex": {
       "types": "./dist/components/layout/index.d.ts",
       "import": "./dist/components/layout/index.js",
@@ -67,6 +72,11 @@
       "import": "./dist/components/layout/index.js",
       "default": "./dist/components/layout/index.js"
     },
+    "./spacer": {
+      "types": "./dist/components/spacer/index.d.ts",
+      "import": "./dist/components/spacer/index.js",
+      "default": "./dist/components/spacer/index.js"
+    },
     "./flex": {
       "types": "./dist/components/layout/index.d.ts",
       "import": "./dist/components/layout/index.js",
@@ -93,6 +103,9 @@
       "components/layout": [
         "dist/components/layout/index.d.ts"
       ],
+      "components/spacer": [
+        "dist/components/spacer/index.d.ts"
+      ],
       "components/flex": [
         "dist/components/layout/index.d.ts"
       ],
@@ -104,6 +117,9 @@
       ],
       "icon": [
         "dist/components/icon/index.d.ts"
+      ],
+      "spacer": [
+        "dist/components/spacer/index.d.ts"
       ],
       "flex": [
         "dist/components/layout/index.d.ts"
