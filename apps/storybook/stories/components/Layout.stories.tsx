@@ -169,6 +169,11 @@ export const FlexPlayground: Story = {
     wrap: false,
     inline: false
   },
+  parameters: {
+    controls: {
+      include: ["orientation", "gap", "align", "justify", "wrap", "inline"]
+    }
+  },
   argTypes: {
     orientation: meta.argTypes?.orientation,
     direction: meta.argTypes?.direction,
@@ -264,6 +269,11 @@ export const GridPlayground: Story = {
     autoFlow: "row",
     inline: false
   },
+  parameters: {
+    controls: {
+      include: ["columns", "rows", "areas", "gap", "columnGap", "rowGap", "align", "justify", "autoFlow", "inline"]
+    }
+  },
   argTypes: {
     columns: { control: "object" },
     rows: { control: "object" },
@@ -327,6 +337,11 @@ export const SpacerPlayground: Story = {
     inline: false,
     shrink: true,
     grow: false
+  },
+  parameters: {
+    controls: {
+      include: ["size", "direction", "inline", "shrink", "grow"]
+    }
   },
   argTypes: {
     size: { control: "text" },
