@@ -12,9 +12,22 @@ import * as LayoutStories from "./Layout.stories";
 토큰을 통해 일관되게 적용할 수 있으며, `Responsive` 타입(`{ base, sm, md, lg }`)으로 뷰포트에 따라 유연하게 변합니다. RTL 환경에서도 동일한
 간격과 정렬을 유지합니다.
 
-`direction`은 표준 flex-direction 그대로 동작합니다. `row`는 인라인 축을 따라 좌→우(또는 RTL에서는 우→좌)로, `column`은 블록 축을 따라 위→
-아래로 정렬됩니다. 예상한 방향과 다르게 보이면 `writing-mode` 또는 RTL 여부를 확인해주세요.
+`orientation` prop에서 **horizontal / vertical**처럼 직관적인 이름을 선택하거나, CSS Flexbox 명칭을 그대로 쓸 때는 `direction`으로 `row` / `column`을 전달할
+ 수 있습니다. 두 prop은 동일하게 동작하며, 논리 축(inline/block) 기준으로 스타일을 계산합니다.
+
+- orientation: `horizontal`(row), `horizontal-reverse`(row-reverse), `vertical`(column), `vertical-reverse`(column-reverse)
+- direction: Flexbox 명칭 그대로(`row`, `column` 등). 예상한 방향과 다르면 페이지의 `writing-mode`(세로쓰기인지)나 RTL 여부를 확인해주세요.
+
+### Row vs Column
+
+- `row`: 가로(인라인) 축 정렬. LTR 기준 좌→우 순서로 나란히 배치됩니다.
+- `column`: 세로(블록) 축 정렬. 위→아래로 쌓이며, 상단 영역이 첫 번째 아이템입니다.
+
+Canvas 기본 예제의 `direction="column"` 상태는 세로 스택(위→아래)이며, `row`로 바꾸면 가로 스택(좌→우)으로 바뀝니다. 논리 축을 사용하므로 RTL에서는 `row`가 우→좌로, `column`은 동일하게 위→아래로 정렬됩니다.
 </Description>
+
+<Canvas of={LayoutStories.DirectionShowcase} />
+<Canvas of={LayoutStories.LogicalAxisLegend} />
 
 ## Playground (Stack)
 

@@ -29,7 +29,7 @@ const meta = {
     layout: "padded"
   },
   args: {
-    direction: "column",
+    orientation: "vertical",
     gap: "md",
     align: "stretch",
     justify: "start",
@@ -37,10 +37,11 @@ const meta = {
     inline: false
   },
   argTypes: {
-    direction: {
+    orientation: {
       control: "select",
-      options: ["row", "row-reverse", "column", "column-reverse"]
+      options: ["horizontal", "horizontal-reverse", "vertical", "vertical-reverse"]
     },
+    direction: { control: false },
     gap: { control: "text" },
     align: {
       control: "select",
@@ -72,18 +73,82 @@ const renderBoxes = (count = 4) =>
     </div>
   ));
 
+const axisCardStyle: CSSProperties = {
+  borderRadius: "0.75rem",
+  border: "1px dashed var(--ara-color-border-weak, #e5e7eb)",
+  background: "var(--ara-color-surface-weak, #f8fafc)",
+  padding: "0.75rem 1rem",
+  width: "100%",
+  minWidth: "220px"
+};
+
 export const Playground: Story = {
   render: (args) => <Stack {...args}>{renderBoxes()}</Stack>
+};
+
+export const DirectionShowcase: Story = {
+  name: "Orientation (직관 이름)",
+  parameters: {
+    controls: { disable: true }
+  },
+  render: () => (
+    <Stack gap="lg">
+      <Stack gap="xs">
+        <div style={{ fontWeight: 600 }}>orientation="horizontal"</div>
+        <Stack orientation="horizontal" gap="sm" align="center">
+          {renderBoxes()}
+        </Stack>
+      </Stack>
+      <Stack gap="xs">
+        <div style={{ fontWeight: 600 }}>orientation="vertical"</div>
+        <Stack orientation="vertical" gap="sm">
+          {renderBoxes()}
+        </Stack>
+      </Stack>
+    </Stack>
+  )
+};
+
+export const LogicalAxisLegend: Story = {
+  name: "Inline / Block 축 설명",
+  parameters: {
+    controls: { disable: true }
+  },
+  render: () => (
+    <Stack gap="md">
+      <div style={{ fontWeight: 600 }}>
+        Flexbox naming은 논리 축(inline/block) 기준입니다. 글쓰기 방향이 바뀌면 축의 화살표도 함께 바뀝니다. 직관적인 `orientation`
+        prop으로도 같은 축을 설정할 수 있습니다.
+      </div>
+      <Stack direction="row" gap="md" wrap>
+        <Stack gap="xs" style={axisCardStyle}>
+          <div style={{ fontWeight: 600 }}>row = inline axis</div>
+          <div style={{ color: "var(--ara-color-text-muted, #475569)" }}>
+            LTR: 좌 → 우 · RTL: 우 → 좌. 인라인 축을 따라 콘텐츠가 이어집니다.
+          </div>
+        </Stack>
+        <Stack gap="xs" style={axisCardStyle}>
+          <div style={{ fontWeight: 600 }}>column = block axis</div>
+          <div style={{ color: "var(--ara-color-text-muted, #475569)" }}>
+            `horizontal-tb`에서는 위 → 아래. 세로쓰기(`vertical-rl` 등)에서는 글 흐름을 따라 오른쪽 → 왼쪽으로 내려갑니다.
+          </div>
+        </Stack>
+      </Stack>
+      <div style={{ color: "var(--ara-color-text-muted, #475569)" }}>
+        컬럼이 가로를 의미하는 표/그리드 용어와 달리, Flexbox에서는 inline/block 논리 축을 기준으로 이름이 붙었습니다.
+      </div>
+    </Stack>
+  )
 };
 
 export const ResponsiveStack: Story = {
   name: "Responsive Stack",
   parameters: {
-    controls: { exclude: ["direction", "gap", "align", "justify", "wrap", "inline"] }
+    controls: { exclude: ["orientation", "gap", "align", "justify", "wrap", "inline"] }
   },
   render: () => (
     <Stack
-      direction={{ base: "column", md: "row" }}
+      orientation={{ base: "vertical", md: "horizontal" }}
       gap={{ base: "md", md: "xl" }}
       align={{ base: "stretch", md: "center" }}
       justify={{ base: "start", md: "between" }}
@@ -107,7 +172,7 @@ export const FlexToolbar: Story = {
       wrap
       style={{ border: "1px solid var(--ara-color-border-weak, #e5e7eb)", padding: "1rem", borderRadius: "0.75rem" }}
     >
-      <Stack direction={{ base: "column", sm: "row" }} gap="sm" align={{ base: "start", sm: "center" }}>
+      <Stack orientation={{ base: "vertical", sm: "horizontal" }} gap="sm" align={{ base: "start", sm: "center" }}>
         <div style={{ fontWeight: 600 }}>프로젝트</div>
         <Stack direction="row" gap="sm" align="center">
           <div style={boxStyle}>상태 필터</div>
@@ -166,7 +231,7 @@ export const GridCards: Story = {
 export const SpacerPatterns: Story = {
   name: "Spacer Patterns",
   args: {
-    direction: "row",
+    orientation: "horizontal",
     gap: "sm",
     align: "center",
     justify: "start"
