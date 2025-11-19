@@ -127,4 +127,26 @@ describe("Grid", () => {
     expect(style.justifyItems).toBe("end");
     expect(style.alignItems).toBe("start");
   });
+
+  it("className 병합과 인라인 style 우선순위를 보장한다", () => {
+    const { getByTestId } = render(
+      <Grid
+        data-testid="grid"
+        className="custom-grid"
+        style={{ gridTemplateColumns: "auto 1fr", gap: "5px" }}
+      >
+        <span>1</span>
+        <span>2</span>
+      </Grid>
+    );
+
+    const element = getByTestId("grid");
+    const style = getComputedStyle(element);
+    const classNames = element.className.split(" ");
+
+    expect(classNames).toEqual(expect.arrayContaining(["ara-grid", "custom-grid"]));
+    expect(classNames.some((name) => /^ara-grid-[\w-]+$/.test(name))).toBe(true);
+    expect(style.gridTemplateColumns).toBe("auto 1fr");
+    expect(style.gap).toBe("5px");
+  });
 });
