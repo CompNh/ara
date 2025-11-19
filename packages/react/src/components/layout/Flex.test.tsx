@@ -19,7 +19,7 @@ describe("Flex", () => {
     expect(style.flexDirection).toBe("row");
     expect(style.gap).toBe("0px");
     expect(style.alignItems).toBe("stretch");
-    expect(style.justifyContent).toBe("flex-start");
+    expect(style.justifyContent).toBe("start");
     expect(style.flexWrap).toBe("nowrap");
   });
 
