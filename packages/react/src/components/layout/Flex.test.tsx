@@ -107,4 +107,26 @@ describe("Flex", () => {
     expect(style.justifyContent).toBe("flex-start");
     expect(style.gap).toBe(`var(--ara-space-sm, ${defaultTheme.layout.space.sm})`);
   });
+
+  it("사용자 className과 인라인 스타일이 기본 규칙보다 우선한다", () => {
+    const { getByTestId } = render(
+      <Flex
+        data-testid="flex"
+        className="custom-flex"
+        style={{ gap: "12px", flexDirection: "column" }}
+      >
+        <span>첫째</span>
+        <span>둘째</span>
+      </Flex>
+    );
+
+    const element = getByTestId("flex");
+    const style = getComputedStyle(element);
+    const classNames = element.className.split(" ");
+
+    expect(classNames).toEqual(expect.arrayContaining(["ara-flex", "custom-flex"]));
+    expect(classNames.some((name) => /^ara-flex-[\w-]+$/.test(name))).toBe(true);
+    expect(style.gap).toBe("12px");
+    expect(style.flexDirection).toBe("column");
+  });
 });
