@@ -234,7 +234,7 @@ T-000071,W-000008,TextField v0 Comp,계약/설계,API 계약 정의(TextField),�
 T-000072,W-000008,TextField v0 Comp,코어(headless),useTextField 로직 구현,완료,High," ● 내용: id 관리(labelId/descriptionId/errorId), aria 연결(aria-invalid/required/aria-describedby), controlled/uncontrolled 상태, composition(IME) 이벤트 안전, onCommit(Enter) 합성(IME 중엔 무시)
  ● 산출물: packages/core/use-text-field + 유닛 테스트 골격
  ● 점검: pnpm --filter @ara/core test 통과",확인
-T-000073,W-000008,TextField v0 Comp,React 바인딩,TextField 구현,계획,High," ● 내용: forwardRef, 슬롯 구조(label/input/helper/error/prefix/suffix/clear/password-toggle), className 병합, data-* 상태 표식(invalid/focused/disabled), tokens 매핑(size/tone)
+T-000073,W-000008,TextField v0 Comp,React 바인딩,TextField 구현,완료,High," ● 내용: forwardRef, 슬롯 구조(label/input/helper/error/prefix/suffix/clear/password-toggle), className 병합, data-* 상태 표식(invalid/focused/disabled), tokens 매핑(size/tone)
  ● 산출물: packages/react/src/components/text-field/index.tsx
  ● 점검: 스모크 렌더·ref 포워딩·Props 스냅",확인
 T-000074,W-000008,TextField v0 Comp,접근성,라벨/에러 연결 및 ARIA,계획,High," ● 내용: label→input ‘for/id’ 연결, error/helper를 aria-describedby로 연결, invalid/required 반영, autoComplete 가이드
