@@ -1,4 +1,5 @@
 import "@testing-library/jest-dom/vitest";
+import type { ChangeEvent } from "react";
 import { describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render } from "@testing-library/react";
 import { TextField } from "./TextField.js";
@@ -24,10 +25,32 @@ describe("TextField", () => {
     expect(error.id).toContain(input.id);
   });
 
-  it("clearable과 Escape 키로 값을 초기화한다", () => {
+  it("clearable과 Escape 키로 값을 초기화하고 onChange에 동일한 이벤트를 제공한다", () => {
     const onValueChange = vi.fn();
+    const changeSnapshot: {
+      target: EventTarget | null;
+      currentTarget: EventTarget | null;
+      name?: string;
+      value?: string;
+    } = {
+      target: null,
+      currentTarget: null
+    };
+    const onChange = vi.fn<(event: ChangeEvent<HTMLInputElement>) => void>((event) => {
+      changeSnapshot.target = event.target;
+      changeSnapshot.currentTarget = event.currentTarget;
+      changeSnapshot.name = event.currentTarget.name;
+      changeSnapshot.value = event.currentTarget.value;
+    });
     const { getByRole, getByLabelText } = render(
-      <TextField label="이름" clearable defaultValue="hello" onValueChange={onValueChange} />
+      <TextField
+        label="이름"
+        name="nickname"
+        clearable
+        defaultValue="hello"
+        onValueChange={onValueChange}
+        onChange={onChange}
+      />
     );
 
     const input = getByLabelText("이름") as HTMLInputElement;
@@ -39,6 +62,10 @@ describe("TextField", () => {
     expect(onValueChange).toHaveBeenCalledWith("");
     expect(input.value).toBe("");
     expect(document.activeElement).toBe(input);
+
+    expect(changeSnapshot.target).toBe(changeSnapshot.currentTarget);
+    expect(changeSnapshot.value).toBe("");
+    expect(changeSnapshot.name).toBe("nickname");
 
     fireEvent.change(input, { target: { value: "next" } });
     fireEvent.keyDown(input, { key: "Escape" });

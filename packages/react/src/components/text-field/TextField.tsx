@@ -194,16 +194,19 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
   const internalInputRef = useRef<HTMLInputElement>(null);
   const mergedInputRef = composeRefs(internalInputRef, inputRef);
 
-  const applyValue = useCallback(
-    (next: string) => {
-      const syntheticEvent = {
-        target: { value: next }
-      } as unknown as ChangeEvent<HTMLInputElement>;
-      inputProps.onChange(syntheticEvent);
-      onChangeProp?.(syntheticEvent);
-    },
-    [inputProps, onChangeProp]
-  );
+  const applyValue = useCallback((next: string) => {
+    const inputElement = internalInputRef.current;
+
+    if (!inputElement) return;
+
+    const prototype = Object.getPrototypeOf(inputElement);
+    const valueSetter =
+      Object.getOwnPropertyDescriptor(prototype, "value")?.set ??
+      Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
+
+    valueSetter?.call(inputElement, next);
+    inputElement.dispatchEvent(new Event("input", { bubbles: true }));
+  }, []);
 
   const handleClear = useCallback(() => {
     if (!clearable) return;
