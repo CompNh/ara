@@ -44,6 +44,7 @@ export type TextFieldProps = TextFieldOwnProps &
     readonly type?: TextFieldType;
     readonly value?: string;
     readonly defaultValue?: string;
+    readonly onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   };
 
 const supportsFocusVisible = (() => {
