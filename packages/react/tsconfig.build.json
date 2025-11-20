@@ -14,30 +14,13 @@
     "moduleResolution": "Bundler",
     "types": ["react", "react-dom"],
     "paths": {
-      "@ara/core": [
-        "../core/dist/index.d.ts",
-        "../core/dist/index.js"
-      ],
-      "@ara/core/*": [
-        "../core/dist/*.d.ts",
-        "../core/dist/*.js"
-      ],
-      "@ara/icons": [
-        "../icons/dist/index.d.ts",
-        "../icons/dist/index.js"
-      ],
-      "@ara/icons/*": [
-        "../icons/dist/*.d.ts",
-        "../icons/dist/*.js"
-      ],
-      "@ara/tokens": [
-        "../tokens/dist/index.d.ts",
-        "../tokens/dist/index.js"
-      ],
-      "@ara/tokens/*": [
-        "../tokens/dist/*.d.ts",
-        "../tokens/dist/*.js"
-      ]
+      "@ara/core": ["./node_modules/@ara/core/dist/index.d.ts"],
+      "@ara/core/*": ["./node_modules/@ara/core/dist/*.d.ts"],
+      "@ara/icons": ["./node_modules/@ara/icons/dist/index.d.ts"],
+      "@ara/icons/types": ["./node_modules/@ara/icons/dist/types.d.ts"],
+      "@ara/icons/*": ["./node_modules/@ara/icons/dist/*.d.ts"],
+      "@ara/tokens": ["./node_modules/@ara/tokens/dist/index.d.ts"],
+      "@ara/tokens/*": ["./node_modules/@ara/tokens/dist/*.d.ts"]
     }
   },
   "include": [
