@@ -222,7 +222,7 @@ T-000067,W-000007,Layout Primitives v0,문서/스토리북,스토리/MDX(Playgro
 T-000068,W-000007,Layout Primitives v0,통합,Button/Form와 통합 스모크,완료,Medium," ● 내용: Button 그룹(Stack), Form 레이아웃(Grid), 아이콘/텍스트 정렬(Flex)
  ● 산출물: showcase 또는 stories
  ● 점검: 회귀 없음",확인
-T-000069,W-000007,Layout Primitives v0,빌드/출하,Exports/Types 계약 점검,계획,High," ● 내용: @ara/react/stack|flex|grid|spacer 서브패스, sideEffects:false, types/exports 해상도
+T-000069,W-000007,Layout Primitives v0,빌드/출하,Exports/Types 계약 점검,완료,High," ● 내용: @ara/react/stack|flex|grid|spacer 서브패스, sideEffects:false, types/exports 해상도
  ● 산출물: package.json exports 맵·d.ts
  ● 점검: pnpm --filter @ara/react pack --dry-run",확인
 T-000070,W-000007,Layout Primitives v0,릴리스,Changesets 프리릴리스(canary),계획,High," ● 내용: changeset 추가·canary 배포 드라이런
