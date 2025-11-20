@@ -27,20 +27,25 @@
       "import": "./dist/components/layout/index.js",
       "default": "./dist/components/layout/index.js"
     },
+    "./components/grid": {
+      "types": "./dist/components/layout/Grid.d.ts",
+      "import": "./dist/components/layout/Grid.js",
+      "default": "./dist/components/layout/Grid.js"
+    },
     "./components/spacer": {
       "types": "./dist/components/spacer/index.d.ts",
       "import": "./dist/components/spacer/index.js",
       "default": "./dist/components/spacer/index.js"
     },
     "./components/flex": {
-      "types": "./dist/components/layout/index.d.ts",
-      "import": "./dist/components/layout/index.js",
-      "default": "./dist/components/layout/index.js"
+      "types": "./dist/components/layout/Flex.d.ts",
+      "import": "./dist/components/layout/Flex.js",
+      "default": "./dist/components/layout/Flex.js"
     },
     "./components/stack": {
-      "types": "./dist/components/layout/index.d.ts",
-      "import": "./dist/components/layout/index.js",
-      "default": "./dist/components/layout/index.js"
+      "types": "./dist/components/layout/Stack.d.ts",
+      "import": "./dist/components/layout/Stack.js",
+      "default": "./dist/components/layout/Stack.js"
     },
     "./components/theme-provider": {
       "types": "./dist/components/theme-provider/index.d.ts",
@@ -67,10 +72,15 @@
       "import": "./dist/components/icon/index.js",
       "default": "./dist/components/icon/index.js"
     },
+    "./grid": {
+      "types": "./dist/components/layout/Grid.d.ts",
+      "import": "./dist/components/layout/Grid.js",
+      "default": "./dist/components/layout/Grid.js"
+    },
     "./stack": {
-      "types": "./dist/components/layout/index.d.ts",
-      "import": "./dist/components/layout/index.js",
-      "default": "./dist/components/layout/index.js"
+      "types": "./dist/components/layout/Stack.d.ts",
+      "import": "./dist/components/layout/Stack.js",
+      "default": "./dist/components/layout/Stack.js"
     },
     "./spacer": {
       "types": "./dist/components/spacer/index.d.ts",
@@ -78,9 +88,9 @@
       "default": "./dist/components/spacer/index.js"
     },
     "./flex": {
-      "types": "./dist/components/layout/index.d.ts",
-      "import": "./dist/components/layout/index.js",
-      "default": "./dist/components/layout/index.js"
+      "types": "./dist/components/layout/Flex.d.ts",
+      "import": "./dist/components/layout/Flex.js",
+      "default": "./dist/components/layout/Flex.js"
     },
     "./theme-provider": {
       "types": "./dist/components/theme-provider/index.d.ts",
@@ -103,11 +113,17 @@
       "components/layout": [
         "dist/components/layout/index.d.ts"
       ],
+      "components/grid": [
+        "dist/components/layout/Grid.d.ts"
+      ],
       "components/spacer": [
         "dist/components/spacer/index.d.ts"
       ],
       "components/flex": [
-        "dist/components/layout/index.d.ts"
+        "dist/components/layout/Flex.d.ts"
+      ],
+      "components/stack": [
+        "dist/components/layout/Stack.d.ts"
       ],
       "components/theme-provider": [
         "dist/components/theme-provider/index.d.ts"
@@ -118,14 +134,17 @@
       "icon": [
         "dist/components/icon/index.d.ts"
       ],
+      "grid": [
+        "dist/components/layout/Grid.d.ts"
+      ],
       "spacer": [
         "dist/components/spacer/index.d.ts"
       ],
       "flex": [
-        "dist/components/layout/index.d.ts"
+        "dist/components/layout/Flex.d.ts"
       ],
       "stack": [
-        "dist/components/layout/index.d.ts"
+        "dist/components/layout/Stack.d.ts"
       ],
       "theme-provider": [
         "dist/components/theme-provider/index.d.ts"
