@@ -8,3 +8,13 @@ export type {
   UseButtonResult
 } from "./use-button.js";
 export { useButton } from "./use-button.js";
+export type {
+  TextFieldDescriptionProps,
+  TextFieldErrorProps,
+  TextFieldInputProps,
+  TextFieldLabelProps,
+  TextFieldType,
+  UseTextFieldOptions,
+  UseTextFieldResult
+} from "./use-text-field.js";
+export { useTextField } from "./use-text-field.js";
