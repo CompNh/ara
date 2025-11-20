@@ -271,14 +271,14 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
     [inputProps, onChangeProp]
   );
 
-  const handleCompositionStart = useCallback(
-    composeEventHandlers(inputProps.onCompositionStart, restInputProps.onCompositionStart),
-    [inputProps, restInputProps.onCompositionStart]
+  const handleCompositionStart = useMemo(
+    () => composeEventHandlers(inputProps.onCompositionStart, restInputProps.onCompositionStart),
+    [inputProps.onCompositionStart, restInputProps.onCompositionStart]
   );
 
-  const handleCompositionEnd = useCallback(
-    composeEventHandlers(inputProps.onCompositionEnd, restInputProps.onCompositionEnd),
-    [inputProps, restInputProps.onCompositionEnd]
+  const handleCompositionEnd = useMemo(
+    () => composeEventHandlers(inputProps.onCompositionEnd, restInputProps.onCompositionEnd),
+    [inputProps.onCompositionEnd, restInputProps.onCompositionEnd]
   );
 
   const invalid = Boolean(errorText);
