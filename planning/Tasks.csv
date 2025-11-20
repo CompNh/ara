@@ -216,7 +216,7 @@ T-000065,W-000007,Layout Primitives v0,토큰 연동,Tokens 간격/반지름 매
 T-000066,W-000007,Layout Primitives v0,테스트,Vitest+RTL(Responsive/RTL) 테스트,완료,High," ● 내용: responsive props 해석, RTL 전환 시 레이아웃 동일성, class 병합·style 우선순위
  ● 산출물: 테스트 스위트
  ● 점검: pnpm --filter @ara/react test 통과",확인
-T-000067,W-000007,Layout Primitives v0,문서/스토리북,스토리/MDX(Playground/Patterns),계획,Medium," ● 내용: Stack/Flex/Grid/Spacer 데모, 레이아웃 패턴(툴바, 카드 그리드), Controls로 props 조절
+T-000067,W-000007,Layout Primitives v0,문서/스토리북,스토리/MDX(Playground/Patterns),완료,Medium," ● 내용: Stack/Flex/Grid/Spacer 데모, 레이아웃 패턴(툴바, 카드 그리드), Controls로 props 조절
  ● 산출물: stories 및 MDX
  ● 점검: build-storybook 스모크",확인
 T-000068,W-000007,Layout Primitives v0,통합,Button/Form와 통합 스모크,계획,Medium," ● 내용: Button 그룹(Stack), Form 레이아웃(Grid), 아이콘/텍스트 정렬(Flex)
