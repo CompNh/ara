@@ -103,6 +103,7 @@ export function useTextField(options: UseTextFieldOptions = {}): UseTextFieldRes
     };
   }, [generatedId, id]);
 
+  const appliedReadOnly = !disabled && readOnly;
   const isControlled = value !== undefined;
   const [uncontrolledValue, setUncontrolledValue] = useState<string>(defaultValue);
   const currentValue = isControlled ? value ?? "" : uncontrolledValue;
@@ -179,10 +180,10 @@ export function useTextField(options: UseTextFieldOptions = {}): UseTextFieldRes
     value: currentValue,
     required: required || undefined,
     disabled: disabled || undefined,
-    readOnly: readOnly || undefined,
+    readOnly: appliedReadOnly || undefined,
     "aria-invalid": hasErrorText || undefined,
     "aria-required": required || undefined,
-    "aria-readonly": readOnly || undefined,
+    "aria-readonly": appliedReadOnly || undefined,
     "aria-disabled": disabled || undefined,
     "aria-describedby": ariaDescribedBy,
     onChange: handleChange,
