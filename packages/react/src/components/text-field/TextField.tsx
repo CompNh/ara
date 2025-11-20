@@ -152,6 +152,8 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
     onKeyDown: onKeyDownProp,
     onFocus: onFocusProp,
     onBlur: onBlurProp,
+    onCompositionStart: onCompositionStartProp,
+    onCompositionEnd: onCompositionEndProp,
     ...restInputProps
   } = props;
 
@@ -271,13 +273,13 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
   );
 
   const handleCompositionStart = useCallback(
-    composeEventHandlers(inputProps.onCompositionStart, restInputProps.onCompositionStart),
-    [inputProps, restInputProps.onCompositionStart]
+    composeEventHandlers(inputProps.onCompositionStart, onCompositionStartProp),
+    [inputProps.onCompositionStart, onCompositionStartProp]
   );
 
   const handleCompositionEnd = useCallback(
-    composeEventHandlers(inputProps.onCompositionEnd, restInputProps.onCompositionEnd),
-    [inputProps, restInputProps.onCompositionEnd]
+    composeEventHandlers(inputProps.onCompositionEnd, onCompositionEndProp),
+    [inputProps.onCompositionEnd, onCompositionEndProp]
   );
 
   const invalid = Boolean(errorText);
