@@ -369,3 +369,95 @@ export const SpacerPlayground: SpacerStory = {
     </Flex>
   )
 };
+
+export const IntegrationSmoke: Story = {
+  name: "Integration Smoke (Stack/Flex/Grid)",
+  parameters: {
+    controls: { disable: true }
+  },
+  render: () => (
+    <Stack gap="xl">
+      <Stack gap="sm">
+        <div style={{ fontWeight: 700 }}>툴바 버튼 그룹 (Stack)</div>
+        <Stack orientation={{ base: "vertical", sm: "horizontal" }} gap="sm" wrap="wrap">
+          <Button variant="outline" tone="neutral" leadingIcon={<ArrowRight aria-hidden />}>
+            이동
+          </Button>
+          <Button leadingIcon={<Plus aria-hidden />}>새로 만들기</Button>
+          <Button variant="ghost" tone="neutral">
+            임시 저장
+          </Button>
+        </Stack>
+      </Stack>
+
+      <Stack gap="sm">
+        <div style={{ fontWeight: 700 }}>폼 레이아웃 (Grid)</div>
+        <Grid
+          columns={{ base: 1, sm: 2 }}
+          gap="md"
+          style={{ border: "1px solid var(--ara-color-border-weak, #e2e8f0)", borderRadius: "0.75rem", padding: "1rem" }}
+        >
+          {["이름", "이메일", "부서", "전화번호"].map((label) => (
+            <Stack key={label} gap="xs">
+              <label style={{ fontWeight: 600 }}>
+                {label}
+              </label>
+              <input
+                placeholder={`${label} 입력`}
+                style={{
+                  padding: "0.625rem 0.75rem",
+                  borderRadius: "0.625rem",
+                  border: "1px solid var(--ara-color-border-weak, #e2e8f0)",
+                  background: "var(--ara-color-surface-strong, #fff)"
+                }}
+              />
+            </Stack>
+          ))}
+        </Grid>
+        <Flex gap="sm" justify="end">
+          <Button variant="outline" tone="neutral">
+            취소
+          </Button>
+          <Button>제출</Button>
+        </Flex>
+      </Stack>
+
+      <Stack gap="sm">
+        <div style={{ fontWeight: 700 }}>아이콘 + 텍스트 정렬 (Flex)</div>
+        <Flex
+          align="center"
+          gap="sm"
+          style={{
+            border: "1px dashed var(--ara-color-border-weak, #e2e8f0)",
+            borderRadius: "0.75rem",
+            padding: "0.75rem 1rem",
+            maxWidth: "420px"
+          }}
+        >
+          <div
+            style={{
+              width: "2.75rem",
+              height: "2.75rem",
+              borderRadius: "9999px",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: "var(--ara-color-surface-strong, #fff)",
+              boxShadow: "0 6px 18px rgba(15, 23, 42, 0.08)",
+              color: "var(--ara-color-text-strong, #0f172a)"
+            }}
+            aria-hidden
+          >
+            <Plus />
+          </div>
+          <Stack gap="2px">
+            <div style={{ fontWeight: 600 }}>정렬이 필요한 카드 타이틀</div>
+            <div style={{ color: "var(--ara-color-text-muted, #475569)" }}>
+              Flex를 사용하면 아이콘과 텍스트 베이스라인을 한 번에 맞출 수 있습니다.
+            </div>
+          </Stack>
+        </Flex>
+      </Stack>
+    </Stack>
+  )
+};
