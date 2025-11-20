@@ -4,6 +4,7 @@
 > 범위: 단일 입력 필드(TextField). textarea/number-spinner 등 복합 입력은 비포함.
 
 ## 1) 목적 / 범위
+
 - **목적:** headless 입력 로직(`@ara/core/use-text-field`)과 React UI 바인딩 계약을 확정한다.
 - **성공 기준:** Props/동작/A11y/Exports가 본 계약과 일치하며, 이후 구현·스토리·테스트가 이를 충실히 따른다.
 
