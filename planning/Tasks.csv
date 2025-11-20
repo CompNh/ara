@@ -228,3 +228,39 @@ T-000069,W-000007,Layout Primitives v0,빌드/출하,Exports/Types 계약 점검
 T-000070,W-000007,Layout Primitives v0,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가·canary 배포 드라이런
  ● 산출물: canary 태그·설치 확인 메모
  ● 점검: 설치/임포트/간단 예제 검증",확인
+T-000071,W-000008,TextField v0 Comp,계약/설계,API 계약 정의(TextField),계획,High," ● 목적: Props(value/defaultValue/onValueChange/onCommit, label/helperText/errorText, required/disabled/readOnly, type(text|email|password|number), size(sm|md|lg), prefixIcon/suffixIcon, clearable, passwordToggle, name/id/autoComplete) 확정
+ ● 산출물: packages/react/src/components/text-field/README.md 계약 섹션
+ ● 점검: 리뷰 승인 후 계약 동결(변경=Major)",확인
+T-000072,W-000008,TextField v0 Comp,코어(headless),useTextField 로직 구현,계획,High," ● 내용: id 관리(labelId/descriptionId/errorId), aria 연결(aria-invalid/required/aria-describedby), controlled/uncontrolled 상태, composition(IME) 이벤트 안전, onCommit(Enter) 합성(IME 중엔 무시)
+ ● 산출물: packages/core/use-text-field + 유닛 테스트 골격
+ ● 점검: pnpm --filter @ara/core test 통과",확인
+T-000073,W-000008,TextField v0 Comp,React 바인딩,TextField 구현,계획,High," ● 내용: forwardRef, 슬롯 구조(label/input/helper/error/prefix/suffix/clear/password-toggle), className 병합, data-* 상태 표식(invalid/focused/disabled), tokens 매핑(size/tone)
+ ● 산출물: packages/react/src/components/text-field/index.tsx
+ ● 점검: 스모크 렌더·ref 포워딩·Props 스냅",확인
+T-000074,W-000008,TextField v0 Comp,접근성,라벨/에러 연결 및 ARIA,계획,High," ● 내용: label→input ‘for/id’ 연결, error/helper를 aria-describedby로 연결, invalid/required 반영, autoComplete 가이드
+ ● 산출물: A11y 가이드/테스트 케이스
+ ● 점검: 스크린리더에서 라벨·에러 읽힘·탭 순서 정상",확인
+T-000075,W-000008,TextField v0 Comp,입력 UX,Clear/Password 토글/IME,계획,High," ● 내용: clearable(X 버튼)·password 토글(가시성 전환)·Enter onCommit·IME 조합 중 Enter 무시·maxlength 카운터(옵션)
+ ● 산출물: UX 가이드와 구현
+ ● 점검: IME 환경(한글)에서 onCommit 오발화 0건",확인
+T-000076,W-000008,TextField v0 Comp,폼 연동,Form/Native 특성 정리,계획,Medium," ● 내용: name/required/disabled/readOnly 제출 동작, form reset 대응, type=number 사용 주의(로케일/스크롤 변화)
+ ● 산출물: 폼 가이드 및 예시
+ ● 점검: 네이티브 폼 제출/리셋 시나리오 통과",확인
+T-000077,W-000008,TextField v0 Comp,토큰/스타일,사이즈·상태 토큰 매핑,계획,Medium," ● 내용: size(sm|md|lg)별 높이/패딩/폰트, 상태(normal/hover/focus/invalid/disabled) CSS 변수(--ara-tf-*), 포커스 링 정책
+ ● 산출물: 토큰 매핑표/스타일 훅(data-*)
+ ● 점검: ThemeProvider 변경 시 일관 반영",확인
+T-000078,W-000008,TextField v0 Comp,테스트,Vitest+RTL 상호작용 테스트,계획,High," ● 내용: controlled/uncontrolled, onValueChange/onCommit, clear/password 토글, label/aria-describedby 연결, invalid/disabled/readOnly, IME 조합 시나리오
+ ● 산출물: 테스트 스위트
+ ● 점검: pnpm --filter @ara/react test 통과",확인
+T-000079,W-000008,TextField v0 Comp,문서/스토리북,Stories/MDX,계획,Medium," ● 내용: Playground, Sizes, States(Disabled/ReadOnly/Invalid), WithPrefixSuffix, Clearable, Password, Form Submit 데모
+ ● 산출물: stories 및 MDX
+ ● 점검: build-storybook 스모크",확인
+T-000080,W-000008,TextField v0 Comp,통합,Icons/Layouts/Form 통합 스모크,계획,Medium," ● 내용: prefix/suffix 아이콘(@ara/react/icon), Stack/Grid와 폼 예제, Button과 조합 제출 시나리오
+ ● 산출물: showcase 또는 stories
+ ● 점검: 회귀 없음",확인
+T-000081,W-000008,TextField v0 Comp,빌드/출하,Exports/Types 계약 점검,계획,High," ● 내용: @ara/react/text-field 서브패스, sideEffects:false, types/exports 해상도, pack --dry-run
+ ● 산출물: package.json exports 맵·d.ts
+ ● 점검: pnpm --filter @ara/react pack --dry-run 결과 확인",확인
+T-000082,W-000008,TextField v0 Comp,릴리스,Changesets 프리릴리스(canary),계획,High," ● 내용: changeset 추가 및 canary 배포 드라이런, 릴리스 노트에 계약/범위/제한(텍스트에어리어/마스킹 제외) 명시
+ ● 산출물: canary 태그·설치 확인 메모
+ ● 점검: 설치/임포트/간단 사용 예 검증",확인
