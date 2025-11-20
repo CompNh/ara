@@ -57,6 +57,11 @@
       "import": "./dist/components/icon/index.js",
       "default": "./dist/components/icon/index.js"
     },
+    "./components/text-field": {
+      "types": "./dist/components/text-field/index.d.ts",
+      "import": "./dist/components/text-field/index.js",
+      "default": "./dist/components/text-field/index.js"
+    },
     "./components/button": {
       "types": "./dist/components/button/index.d.ts",
       "import": "./dist/components/button/index.js",
@@ -66,6 +71,11 @@
       "types": "./dist/components/button/index.d.ts",
       "import": "./dist/components/button/index.js",
       "default": "./dist/components/button/index.js"
+    },
+    "./text-field": {
+      "types": "./dist/components/text-field/index.d.ts",
+      "import": "./dist/components/text-field/index.js",
+      "default": "./dist/components/text-field/index.js"
     },
     "./icon": {
       "types": "./dist/components/icon/index.d.ts",
@@ -128,8 +138,14 @@
       "components/theme-provider": [
         "dist/components/theme-provider/index.d.ts"
       ],
+      "components/text-field": [
+        "dist/components/text-field/index.d.ts"
+      ],
       "button": [
         "dist/components/button/index.d.ts"
+      ],
+      "text-field": [
+        "dist/components/text-field/index.d.ts"
       ],
       "icon": [
         "dist/components/icon/index.d.ts"
