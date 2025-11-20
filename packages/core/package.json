@@ -17,6 +17,11 @@
       "import": "./dist/use-button.js",
       "default": "./dist/use-button.js"
     },
+    "./use-text-field": {
+      "types": "./dist/use-text-field.d.ts",
+      "import": "./dist/use-text-field.js",
+      "default": "./dist/use-text-field.js"
+    },
     "./theme": {
       "types": "./dist/theme.d.ts",
       "import": "./dist/theme.js",
@@ -31,6 +36,9 @@
       ],
       "use-button": [
         "dist/use-button.d.ts"
+      ],
+      "use-text-field": [
+        "dist/use-text-field.d.ts"
       ],
       "*": [
         "dist/*.d.ts"
