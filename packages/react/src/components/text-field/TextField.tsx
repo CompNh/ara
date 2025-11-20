@@ -162,6 +162,7 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
 
   const resolvedType: TextFieldType =
     passwordToggle && typeProp === "password" && showPassword ? "text" : typeProp;
+  const isReadOnly = readOnly && !disabled;
 
   const {
     inputProps,
@@ -371,11 +372,12 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
         flexDirection: "column",
         gap: "0.25rem",
         fontFamily: "var(--ara-tf-font, var(--ara-typography-body, inherit))",
+        fontWeight: "var(--ara-tf-font-weight, inherit)",
         ...style
       }}
       data-size={size}
       data-disabled={disabled || undefined}
-      data-readonly={readOnly || undefined}
+      data-readonly={isReadOnly || undefined}
       data-invalid={invalid || undefined}
       data-has-prefix={prefixIcon ? true : undefined}
       data-has-suffix={suffixIcon ? true : undefined}
@@ -402,9 +404,6 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
           ref={mergedInputRef}
           type={resolvedType}
           autoComplete={autoComplete}
-          disabled={disabled}
-          readOnly={readOnly}
-          required={required}
           onFocus={handleFocus}
           onBlur={handleBlur}
           onKeyDown={handleKeyDown}
