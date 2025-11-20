@@ -275,6 +275,9 @@ importers:
       '@ara/core':
         specifier: workspace:*
         version: link:../core
+      '@ara/icons':
+        specifier: workspace:*
+        version: link:../icons
       '@ara/tokens':
         specifier: workspace:*
         version: link:../tokens
