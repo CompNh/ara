@@ -14,35 +14,35 @@
     "types": ["react", "react-dom"],
     "paths": {
       "@ara/core": [
-        "../core/dist/index.d.ts",
-        "../core/dist/index.js",
-        "../core/src/index.ts"
+        "packages/core/dist/index.d.ts",
+        "packages/core/dist/index.js",
+        "packages/core/src/index.ts"
       ],
       "@ara/core/*": [
-        "../core/dist/*.d.ts",
-        "../core/dist/*.js",
-        "../core/src/*.ts"
+        "packages/core/dist/*.d.ts",
+        "packages/core/dist/*.js",
+        "packages/core/src/*.ts"
       ],
       "@ara/icons": [
-        "../icons/dist/index.d.ts",
-        "../icons/dist/index.js",
-        "../icons/src/index.ts"
+        "packages/icons/dist/index.d.ts",
+        "packages/icons/dist/index.js",
+        "packages/icons/src/index.ts"
       ],
       "@ara/icons/*": [
-        "../icons/dist/*.d.ts",
-        "../icons/dist/*.js",
-        "../icons/src/*.ts",
-        "../icons/src/*.tsx"
+        "packages/icons/dist/*.d.ts",
+        "packages/icons/dist/*.js",
+        "packages/icons/src/*.ts",
+        "packages/icons/src/*.tsx"
       ],
       "@ara/tokens": [
-        "../tokens/dist/index.d.ts",
-        "../tokens/dist/index.js",
-        "../tokens/src/index.ts"
+        "packages/tokens/dist/index.d.ts",
+        "packages/tokens/dist/index.js",
+        "packages/tokens/src/index.ts"
       ],
       "@ara/tokens/*": [
-        "../tokens/dist/*.d.ts",
-        "../tokens/dist/*.js",
-        "../tokens/src/*.ts"
+        "packages/tokens/dist/*.d.ts",
+        "packages/tokens/dist/*.js",
+        "packages/tokens/src/*.ts"
       ]
     }
   },
