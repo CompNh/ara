@@ -54,7 +54,7 @@ W-000007,T1,Layout Primitives v0,완료,100,"Layout Primitives v0
  ● RTL·SSR 안전
  ● Exports 고정
  ● AC: CI/Tests/Storybook/pack/canary",--
-W-000008,T1,TextField v0 Comp,진행,50,"TextField v0
+W-000008,T1,TextField v0 Comp,진행,60,"TextField v0
  ● 설계문서 : root/packages/react/src/components/text-field/README.md
  ● 범위: 단일라인 입력(type: text|email|password|number) — textarea/마스킹은 제외
  ● tokens→core(useTextField)→react 바인딩; label/helper/error; prefix/suffix; clear; password 토글

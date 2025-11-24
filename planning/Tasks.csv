@@ -246,7 +246,7 @@ T-000075,W-000008,TextField v0 Comp,입력 UX,Clear/Password 토글/IME,완료,H
 T-000076,W-000008,TextField v0 Comp,폼 연동,Form/Native 특성 정리,완료,Medium," ● 내용: name/required/disabled/readOnly 제출 동작, form reset 대응, type=number 사용 주의(로케일/스크롤 변화)
  ● 산출물: 폼 가이드 및 예시
  ● 점검: 네이티브 폼 제출/리셋 시나리오 통과",확인
-T-000077,W-000008,TextField v0 Comp,토큰/스타일,사이즈·상태 토큰 매핑,계획,Medium," ● 내용: size(sm|md|lg)별 높이/패딩/폰트, 상태(normal/hover/focus/invalid/disabled) CSS 변수(--ara-tf-*), 포커스 링 정책
+T-000077,W-000008,TextField v0 Comp,토큰/스타일,사이즈·상태 토큰 매핑,완료,Medium," ● 내용: size(sm|md|lg)별 높이/패딩/폰트, 상태(normal/hover/focus/invalid/disabled) CSS 변수(--ara-tf-*), 포커스 링 정책
  ● 산출물: 토큰 매핑표/스타일 훅(data-*)
  ● 점검: ThemeProvider 변경 시 일관 반영",확인
 T-000078,W-000008,TextField v0 Comp,테스트,Vitest+RTL 상호작용 테스트,계획,High," ● 내용: controlled/uncontrolled, onValueChange/onCommit, clear/password 토글, label/aria-describedby 연결, invalid/disabled/readOnly, IME 조합 시나리오
