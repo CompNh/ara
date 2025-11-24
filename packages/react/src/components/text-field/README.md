@@ -66,14 +66,20 @@
 
 ## 4) 접근성 계약 (A11y)
 
-- **레이블:** `label` 제공 시 `<label for>` → `<input id>` 연결. `label` 미제공 시 `aria-label` 또는 외부 `aria-labelledby` 요구.
-- **에러/도움말:** `errorText`/`helperText`가 DOM에 존재하면 `aria-describedby`에 모두 연결(에러 우선순위 시각 강조).
+- **레이블:** `label` 제공 시 `<label for>` → `<input id>` 연결하고 `aria-labelledby`에 label id를 포함한다. `aria-labelledby` prop이 있을 경우 외부 레이블 id와 병합한다. `label` 미제공 시 `aria-label` 또는 외부 `aria-labelledby` 요구.
+- **에러/도움말:** `errorText`/`helperText`가 DOM에 존재하면 `aria-describedby`에 모두 연결(에러 우선순위 시각 강조). 소비자가 전달한 `aria-describedby` 값이 있으면 동일 문자열을 끝에 병합해 외부 설명도 함께 노출한다.
 - **상태 ARIA:**
   - `required` → `aria-required="true"`
   - `disabled` → `aria-disabled="true"` + tab 이동 차단
   - `readOnly` → `aria-readonly="true"`
   - `errorText` 존재 → `aria-invalid="true"`
 - **입력 타입:** `type`에 따른 네이티브 키보드/스크린리더 힌트를 존중하되, password toggle/clear 버튼은 `aria-label`을 명시.
+- **자동 완성 가이드:**
+  - 일반 텍스트는 기본 `autoComplete="on"`을 유지.
+  - 이메일 입력: `autoComplete="email"` 권장.
+  - 사용자명/닉네임: `autoComplete="username"`.
+  - 비밀번호 변경 플로우: 현재 비밀번호는 `autoComplete="current-password"`, 새 비밀번호는 `autoComplete="new-password"`.
+  - 이름 필드가 분리된 경우 `given-name`/`family-name`을 사용해 브라우저 저장값을 재활용.
 - **포커스 링:** 키보드 유입 시 `:focus-visible` 스타일을 명확히 제공. 마우스 클릭 시 최소화.
 
 ---

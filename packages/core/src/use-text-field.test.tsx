@@ -23,6 +23,7 @@ describe("useTextField", () => {
     const { inputProps, labelProps, descriptionProps, errorProps, value, isComposing } =
       useTextField({
         ...options,
+        hasLabel: withLabel,
         hasHelperText: withHelper,
         hasErrorText: withError
       });
@@ -72,9 +73,29 @@ describe("useTextField", () => {
     expect(error).toHaveAttribute("id", "custom-id-error");
 
     expect(input).toHaveAttribute("id", "custom-id");
+    expect(input).toHaveAttribute("aria-labelledby", "custom-id-label");
     expect(input).toHaveAttribute("aria-required", "true");
     expect(input).toHaveAttribute("aria-invalid", "true");
     expect(input.getAttribute("aria-describedby")).toBe("custom-id-error custom-id-description");
+  });
+
+  it("merges external labelled/description ids into aria attributes", () => {
+    const { getByTestId } = render(
+      <Field
+        withHelper
+        options={{
+          id: "merge-id",
+          labelledByIds: ["external-label"],
+          describedByIds: ["external-description"]
+        }}
+      />
+    );
+
+    const input = getByTestId("input");
+    const helper = getByTestId("helper");
+
+    expect(input).toHaveAttribute("aria-labelledby", "merge-id-label external-label");
+    expect(input.getAttribute("aria-describedby")).toBe("merge-id-description external-description");
   });
 
   it("handles uncontrolled value updates", () => {
