@@ -62,6 +62,14 @@ export default defineConfig({
       {
         find: "@ara/tokens/",
         replacement: `${resolve(currentDir, "../../packages/tokens/src")}/`
+      },
+      {
+        find: "@ara/icons",
+        replacement: resolve(currentDir, "../../packages/icons/src")
+      },
+      {
+        find: "@ara/icons/",
+        replacement: `${resolve(currentDir, "../../packages/icons/src")}/`
       }
     ]
   },
