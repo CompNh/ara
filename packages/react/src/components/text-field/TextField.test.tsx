@@ -104,6 +104,28 @@ describe("TextField", () => {
     expect(input.value).toBe("");
   });
 
+  it("maxLengthCounter로 길이 카운터를 표기한다", () => {
+    const { getByLabelText, getByText, getByRole } = render(
+      <TextField
+        label="소개"
+        clearable
+        defaultValue="ara"
+        maxLength={10}
+        maxLengthCounter
+      />
+    );
+
+    const input = getByLabelText("소개") as HTMLInputElement;
+
+    expect(getByText("3/10")).toBeInTheDocument();
+
+    fireEvent.change(input, { target: { value: "hello" } });
+    expect(getByText("5/10")).toBeInTheDocument();
+
+    fireEvent.click(getByRole("button", { name: "입력 지우기" }));
+    expect(getByText("0/10")).toBeInTheDocument();
+  });
+
   it("passwordToggle로 입력 타입을 전환한다", () => {
     const { getByRole, getByLabelText } = render(
       <TextField label="비밀번호" type="password" passwordToggle />

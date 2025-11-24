@@ -29,6 +29,7 @@
 | **prefixIcon / suffixIcon** | ReactNode | — | 입력 앞/뒤 아이콘 슬롯. 제공되지 않으면 DOM 미삽입. |
 | **clearable** | boolean | false | 값 존재 시 clear 버튼(`X`) 노출. 클릭 또는 `Esc`로 값 초기화+`onValueChange("")`. |
 | **passwordToggle** | boolean | false | `type="password"`일 때 가시성 토글 버튼 제공(eye). `type`/`aria-label` 자동 전환. |
+| **maxLengthCounter** | boolean | false | `maxLength` 제공 시 현재 글자 수/최대 글자 수를 보조 텍스트로 노출. |
 | **name** | string | — | 폼 제출용 이름. |
 | **id** | string | — | 입력 요소 id. 미지정 시 내부 생성(레이블/설명 연결에 사용). |
 | **autoComplete** | string | "on" | HTML `autocomplete` 속성 위임. 가이드에 따라 권장 값 표기. |
@@ -55,6 +56,9 @@
 - **Password toggle:**
   - `passwordToggle` 활성+`type="password"`에서만 렌더. 클릭으로 `type`을 `password ↔ text` 전환.
   - 전환 시 값 보존, 포커스는 입력에 남김.
+- **Max length counter:**
+  - `maxLengthCounter` + `maxLength` 지정 시 `현재/최대` 형식으로 보조 카운터 표기.
+  - 값 변경/clear/password 토글 등 모든 입력 이벤트에 즉시 반영.
 - **Enter 확정:**
   - `keydown Enter` 시 IME 조합 상태가 아니면 `preventDefault` 후 `onCommit(currentValue)` 호출.
   - `type="number"`에서도 동일 계약을 유지(폼 submit과 중복 방지).
