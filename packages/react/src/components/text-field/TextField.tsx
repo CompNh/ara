@@ -27,6 +27,7 @@ interface TextFieldOwnProps {
   readonly suffixIcon?: ReactNode;
   readonly clearable?: boolean;
   readonly passwordToggle?: boolean;
+  readonly maxLengthCounter?: boolean;
   readonly size?: TextFieldSize;
   readonly onValueChange?: (value: string) => void;
   readonly onCommit?: (value: string) => void;
@@ -135,6 +136,7 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
     suffixIcon,
     clearable = false,
     passwordToggle = false,
+    maxLengthCounter = false,
     size: sizeProp,
     className,
     style,
@@ -290,6 +292,14 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
   const filled = Boolean(currentValue);
 
   const sizeTokens = SIZE_TOKENS[size];
+  const maxLengthValue =
+    typeof restInputProps.maxLength === "number"
+      ? restInputProps.maxLength
+      : Number.isFinite(Number(restInputProps.maxLength))
+        ? Number(restInputProps.maxLength)
+        : undefined;
+
+  const shouldShowCounter = Boolean(maxLengthCounter && maxLengthValue && maxLengthValue > 0);
 
   const controlStyle = useMemo<CSSProperties>(() => {
     const borderState = invalid ? "invalid" : isFocusVisible ? "focus" : disabled ? "disabled" : "default";
@@ -465,6 +475,20 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
         <p {...errorProps} className="ara-text-field__error">
           {errorText}
         </p>
+      ) : null}
+
+      {shouldShowCounter ? (
+        <span
+          className="ara-text-field__counter"
+          style={{
+            alignSelf: "flex-end",
+            color: "var(--ara-tf-text-default, var(--ara-color-role-light-text-strong, inherit))",
+            fontSize: "0.875rem",
+            lineHeight: "1.4"
+          }}
+        >
+          {currentValue.length}/{maxLengthValue}
+        </span>
       ) : null}
     </div>
   );
