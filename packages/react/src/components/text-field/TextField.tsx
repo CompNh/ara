@@ -23,6 +23,7 @@ interface TextFieldOwnProps {
   readonly label?: ReactNode;
   readonly helperText?: ReactNode;
   readonly errorText?: ReactNode;
+  readonly helperTextMatchFieldWidth?: boolean;
   readonly prefixIcon?: ReactNode;
   readonly suffixIcon?: ReactNode;
   readonly clearable?: boolean;
@@ -153,6 +154,7 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
   const {
     label,
     helperText,
+    helperTextMatchFieldWidth = false,
     errorText,
     prefixIcon,
     suffixIcon,
@@ -454,18 +456,20 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
 
   const helperStyle: CSSProperties = {
     margin: 0,
-    alignSelf: "flex-start",
+    alignSelf: helperTextMatchFieldWidth ? "stretch" : "flex-start",
+    maxWidth: helperTextMatchFieldWidth ? "100%" : undefined,
+    width: helperTextMatchFieldWidth ? "100%" : undefined,
     color: "var(--ara-tf-helper-text, #6b7280)",
-    fontSize: "0.875rem",
-    lineHeight: "1.4"
+    fontSize: "0.8125rem",
+    lineHeight: "1.35"
   };
 
   const errorStyle: CSSProperties = {
-    margin: 0,
+    margin: "-0.125rem 0 0 0",
     alignSelf: "flex-start",
     color: `var(--ara-tf-text-invalid, ${STATE_TOKENS.text.invalid})`,
-    fontSize: "0.875rem",
-    lineHeight: "1.4"
+    fontSize: "0.8125rem",
+    lineHeight: "1.35"
   };
 
   const showClearButton = clearable && filled && !disabled && !readOnly;
