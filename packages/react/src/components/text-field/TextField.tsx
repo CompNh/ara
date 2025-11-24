@@ -180,13 +180,18 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
     required,
     disabled,
     readOnly,
+    hasLabel: Boolean(label),
     hasHelperText: Boolean(helperText),
     hasErrorText: Boolean(errorText),
     onValueChange,
     onCommit,
     describedByIds:
       typeof restInputProps["aria-describedby"] === "string"
-        ? restInputProps["aria-describedby"].split(" ")
+        ? restInputProps["aria-describedby"].split(" ").filter(Boolean)
+        : undefined,
+    labelledByIds:
+      typeof restInputProps["aria-labelledby"] === "string"
+        ? restInputProps["aria-labelledby"].split(" ").filter(Boolean)
         : undefined
   });
 

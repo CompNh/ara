@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "../..",
     "rootDir": "src",
     "outDir": "dist",
     "jsx": "react-jsx",
@@ -12,16 +12,7 @@
     "sourceMap": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "types": ["react", "react-dom"],
-    "paths": {
-      "@ara/core": ["./node_modules/@ara/core/dist/index.d.ts"],
-      "@ara/core/*": ["./node_modules/@ara/core/dist/*.d.ts"],
-      "@ara/icons": ["./node_modules/@ara/icons/dist/index.d.ts"],
-      "@ara/icons/types": ["./node_modules/@ara/icons/dist/types.d.ts"],
-      "@ara/icons/*": ["./node_modules/@ara/icons/dist/*.d.ts"],
-      "@ara/tokens": ["./node_modules/@ara/tokens/dist/index.d.ts"],
-      "@ara/tokens/*": ["./node_modules/@ara/tokens/dist/*.d.ts"]
-    }
+    "types": ["react", "react-dom"]
   },
   "include": [
     "src/**/*"
