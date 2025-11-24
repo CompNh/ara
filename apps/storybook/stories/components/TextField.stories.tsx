@@ -132,32 +132,34 @@ export const PasswordToggle: Story = {
   }
 };
 
+const ControlledVsUncontrolledExample = () => {
+  const [email, setEmail] = useState("ara@design.com");
+
+  return (
+    <Stack {...spacingProps}>
+      <TextField
+        label="제어 모드"
+        value={email}
+        onValueChange={setEmail}
+        helperText="상위 상태를 직접 갱신합니다."
+      />
+      <TextField
+        label="비제어 모드"
+        defaultValue="초기값"
+        helperText="내부 상태를 사용하며 onValueChange로만 알림"
+        onValueChange={(value) => console.log("비제어 변경", value)}
+      />
+      <div style={{ color: "var(--ara-color-text-muted, #475569)" }}>현재 이메일 값: {email}</div>
+    </Stack>
+  );
+};
+
 export const ControlledVsUncontrolled: Story = {
   name: "Controlled vs Uncontrolled",
   parameters: {
     controls: { disable: true }
   },
-  render: () => {
-    const [email, setEmail] = useState("ara@design.com");
-
-    return (
-      <Stack {...spacingProps}>
-        <TextField
-          label="제어 모드"
-          value={email}
-          onValueChange={setEmail}
-          helperText="상위 상태를 직접 갱신합니다."
-        />
-        <TextField
-          label="비제어 모드"
-          defaultValue="초기값"
-          helperText="내부 상태를 사용하며 onValueChange로만 알림"
-          onValueChange={(value) => console.log("비제어 변경", value)}
-        />
-        <div style={{ color: "var(--ara-color-text-muted, #475569)" }}>현재 이메일 값: {email}</div>
-      </Stack>
-    );
-  }
+  render: () => <ControlledVsUncontrolledExample />
 };
 
 export const Types: Story = {
@@ -174,39 +176,41 @@ export const Types: Story = {
   )
 };
 
+const FormSubmitExample = () => {
+  const [submitted, setSubmitted] = useState<TextFieldProps["defaultValue"]>("");
+  const [value, setValue] = useState("hello");
+
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const nextValue = formData.get("feedback")?.toString() ?? "";
+    setSubmitted(nextValue);
+  };
+
+  const helper = useMemo(() => "Enter 키로 onCommit, Submit 버튼으로 네이티브 제출 흐름을 확인하세요.", []);
+
+  return (
+    <form onSubmit={handleSubmit} style={{ width: "320px", display: "grid", gap: "0.75rem" }}>
+      <TextField
+        label="의견"
+        name="feedback"
+        value={value}
+        onValueChange={setValue}
+        onCommit={setSubmitted}
+        helperText={helper}
+        required
+      />
+      <Button type="submit">제출</Button>
+      <div style={{ color: "var(--ara-color-text-muted, #475569)" }}>
+        마지막 제출 값: <strong>{submitted || "(비어 있음)"}</strong>
+      </div>
+    </form>
+  );
+};
+
 export const FormSubmit: Story = {
   parameters: {
     controls: { disable: true }
   },
-  render: () => {
-    const [submitted, setSubmitted] = useState<TextFieldProps["defaultValue"]>("");
-    const [value, setValue] = useState("hello");
-
-    const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
-      event.preventDefault();
-      const formData = new FormData(event.currentTarget);
-      const nextValue = formData.get("feedback")?.toString() ?? "";
-      setSubmitted(nextValue);
-    };
-
-    const helper = useMemo(() => "Enter 키로 onCommit, Submit 버튼으로 네이티브 제출 흐름을 확인하세요.", []);
-
-    return (
-      <form onSubmit={handleSubmit} style={{ width: "320px", display: "grid", gap: "0.75rem" }}>
-        <TextField
-          label="의견"
-          name="feedback"
-          value={value}
-          onValueChange={setValue}
-          onCommit={setSubmitted}
-          helperText={helper}
-          required
-        />
-        <Button type="submit">제출</Button>
-        <div style={{ color: "var(--ara-color-text-muted, #475569)" }}>
-          마지막 제출 값: <strong>{submitted || "(비어 있음)"}</strong>
-        </div>
-      </form>
-    );
-  }
+  render: () => <FormSubmitExample />
 };
