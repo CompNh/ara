@@ -255,7 +255,7 @@ T-000078,W-000008,TextField v0 Comp,테스트,Vitest+RTL 상호작용 테스트,
 T-000079,W-000008,TextField v0 Comp,문서/스토리북,Stories/MDX,완료,Medium," ● 내용: Playground, Sizes, States(Disabled/ReadOnly/Invalid), WithPrefixSuffix, Clearable, Password, Form Submit 데모
  ● 산출물: stories 및 MDX
  ● 점검: build-storybook 스모크",확인
-T-000080,W-000008,TextField v0 Comp,통합,Icons/Layouts/Form 통합 스모크,계획,Medium," ● 내용: prefix/suffix 아이콘(@ara/react/icon), Stack/Grid와 폼 예제, Button과 조합 제출 시나리오
+T-000080,W-000008,TextField v0 Comp,통합,Icons/Layouts/Form 통합 스모크,완료,Medium," ● 내용: prefix/suffix 아이콘(@ara/react/icon), Stack/Grid와 폼 예제, Button과 조합 제출 시나리오
  ● 산출물: showcase 또는 stories
  ● 점검: 회귀 없음",확인
 T-000081,W-000008,TextField v0 Comp,빌드/출하,Exports/Types 계약 점검,계획,High," ● 내용: @ara/react/text-field 서브패스, sideEffects:false, types/exports 해상도, pack --dry-run
