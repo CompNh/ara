@@ -12,7 +12,6 @@
     "@ara/tsconfig": "0.0.0"
   },
   "changesets": [
-    "button-canary-release",
-    "text-field-canary-release"
+    "button-canary-release"
   ]
 }
