@@ -1,7 +1,16 @@
-import { useMemo, useState, type ComponentProps } from "react";
+import { useMemo, useState, type ComponentProps, type FormEventHandler } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { ArrowRight, CheckCircle, Plus, Search } from "@ara/icons";
-import { AraProvider, AraThemeBoundary, Button, Icon, Stack, TextField } from "@ara/react";
+import {
+  AraProvider,
+  AraThemeBoundary,
+  Button,
+  Flex,
+  Grid,
+  Icon,
+  Stack,
+  TextField
+} from "@ara/react";
 
 const meta = {
   title: "Components/TextField",
@@ -187,7 +196,7 @@ const FormSubmitExample = () => {
   const [submitted, setSubmitted] = useState<TextFieldProps["defaultValue"]>("");
   const [value, setValue] = useState("hello");
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const nextValue = formData.get("feedback")?.toString() ?? "";
@@ -220,4 +229,102 @@ export const FormSubmit: Story = {
     controls: { disable: true }
   },
   render: () => <FormSubmitExample />
+};
+
+const IntegrationSmokeExample = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("hello@ara.design");
+  const [topic, setTopic] = useState("온보딩 문의");
+  const [submitted, setSubmitted] = useState<string | null>(null);
+
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+    setSubmitted(`${name || "(이름 없음)"} / ${email || "(이메일 없음)"} / ${
+      topic || "(주제 없음)"
+    }`);
+  };
+
+  const handleReset = () => {
+    setName("");
+    setEmail("hello@ara.design");
+    setTopic("");
+    setSubmitted(null);
+  };
+
+  return (
+    <Stack gap="md" style={{ maxWidth: "780px" }}>
+      <Stack gap="2px">
+        <div style={{ fontWeight: 700 }}>아이콘 · 레이아웃 · 폼 통합</div>
+        <div style={{ color: "var(--ara-color-text-muted, #475569)" }}>
+          prefix/suffix 아이콘, Stack/Grid 배치, Button 액션을 한 번에 확인하는 스모크 예제입니다.
+        </div>
+      </Stack>
+
+      <form onSubmit={handleSubmit} onReset={handleReset} style={{ display: "grid", gap: "0.75rem" }}>
+        <Grid columns={{ base: 1, sm: 2 }} gap="md">
+          <TextField
+            label="이름"
+            name="applicant"
+            placeholder="홍길동"
+            value={name}
+            onValueChange={setName}
+            prefixIcon={<Icon icon={Plus} size="sm" aria-hidden />}
+            required
+          />
+          <TextField
+            label="이메일"
+            name="email"
+            type="email"
+            value={email}
+            onValueChange={setEmail}
+            helperText="폼 제출 및 Enter 확정(onCommit)을 모두 지원합니다."
+            prefixIcon={<Icon icon={CheckCircle} tone="primary" size="sm" aria-hidden />}
+            required
+          />
+          <TextField
+            label="키워드"
+            name="topic"
+            placeholder="예: 디자인 시스템"
+            value={topic}
+            onValueChange={setTopic}
+            suffixIcon={<Icon icon={Search} size="sm" aria-hidden />}
+            suffixAction={
+              <Button size="sm" variant="outline" tone="neutral" type="submit" trailingIcon={<ArrowRight aria-hidden />}>
+                제출
+              </Button>
+            }
+            clearable
+          />
+          <TextField
+            label="메모"
+            name="note"
+            placeholder="요청 배경이나 추가 정보를 적어주세요."
+            helperText="Grid 레이아웃을 통해 가로 폭을 쉽게 확장할 수 있습니다."
+            style={{ gridColumn: "1 / -1" }}
+          />
+        </Grid>
+
+        <Flex gap="sm" justify="end">
+          <Button type="reset" variant="outline" tone="neutral">
+            초기화
+          </Button>
+          <Button type="submit" trailingIcon={<ArrowRight aria-hidden />}>
+            폼 제출
+          </Button>
+        </Flex>
+
+        <div style={{ color: "var(--ara-color-text-muted, #475569)", fontSize: "0.95rem" }}>
+          최근 제출: <strong>{submitted ?? "(아직 없음)"}</strong>
+        </div>
+      </form>
+    </Stack>
+  );
+};
+
+export const IntegrationSmoke: Story = {
+  name: "Integration Smoke (Icons + Layout + Form)",
+  parameters: {
+    controls: { disable: true }
+  },
+  render: () => <IntegrationSmokeExample />
 };
