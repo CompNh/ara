@@ -15,8 +15,10 @@ import {
   type ReactNode,
   type Ref
 } from "react";
+import { Close, Eye } from "@ara/icons";
 import { composeRefs } from "@radix-ui/react-compose-refs";
 import { useTextField, type TextFieldType } from "@ara/core";
+import { Icon } from "../icon/index.js";
 
 type TextFieldSize = "sm" | "md" | "lg";
 
@@ -348,6 +350,9 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
   const filled = Boolean(currentValue);
 
   const sizeTokens = SIZE_TOKENS[size];
+  const iconSizeValue = `var(--ara-tf-size-${size}-icon, ${sizeTokens.icon})`;
+  const clearSizeValue = `var(--ara-tf-size-${size}-clear, ${sizeTokens.clear})`;
+  const toggleSizeValue = `var(--ara-tf-size-${size}-toggle, ${sizeTokens.toggle})`;
   const maxLengthValue =
     typeof restInputProps.maxLength === "number"
       ? restInputProps.maxLength
@@ -465,8 +470,8 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    width: `var(--ara-tf-size-${size}-icon, ${sizeTokens.icon})`,
-    height: `var(--ara-tf-size-${size}-icon, ${sizeTokens.icon})`,
+    width: iconSizeValue,
+    height: iconSizeValue,
     flexShrink: 0
   };
 
@@ -479,8 +484,8 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
-    width: `var(--ara-tf-size-${size}-clear, ${sizeTokens.clear})`,
-    height: `var(--ara-tf-size-${size}-clear, ${sizeTokens.clear})`,
+    width: clearSizeValue,
+    height: clearSizeValue,
     padding: 0,
     margin: 0
   };
@@ -624,7 +629,7 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
             disabled={disabled}
             aria-label="입력 지우기"
           >
-            ×
+            <Icon icon={Close} size={iconSizeValue} aria-hidden />
           </button>
         ) : null}
 
@@ -634,12 +639,12 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
             onClick={handleTogglePassword}
             onMouseDown={(event) => event.preventDefault()}
             className="ara-text-field__toggle"
-            style={{ ...actionButtonStyle, width: sizeTokens.toggle, height: sizeTokens.toggle }}
+            style={{ ...actionButtonStyle, width: toggleSizeValue, height: toggleSizeValue }}
             disabled={disabled}
             aria-label={showPassword ? "비밀번호 숨기기" : "비밀번호 보이기"}
             aria-pressed={showPassword}
           >
-            {showPassword ? "🙈" : "👁"}
+            <Icon icon={Eye} size={iconSizeValue} aria-hidden />
           </button>
         ) : null}
       </div>

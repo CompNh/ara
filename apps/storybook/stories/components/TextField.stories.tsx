@@ -1,6 +1,6 @@
 import { useMemo, useState, type ComponentProps } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { ArrowRight, CheckCircle, Plus } from "@ara/icons";
+import { ArrowRight, CheckCircle, Plus, Search } from "@ara/icons";
 import { AraProvider, AraThemeBoundary, Button, Icon, Stack, TextField } from "@ara/react";
 
 const meta = {
@@ -106,7 +106,7 @@ export const PrefixSuffix: Story = {
       <TextField
         label="검색"
         placeholder="키워드를 입력하세요"
-        prefixIcon={<Icon icon={ArrowRight} size="sm" aria-hidden />}
+        prefixIcon={<Icon icon={Search} size="sm" aria-hidden />}
         suffixAction={
           <Button tone="primary" variant="solid" size="sm">
             검색
@@ -125,7 +125,9 @@ export const Clearable: Story = {
     clearable: true,
     defaultValue: "ara-design"
   },
-  render: (args) => <TextField {...args} label="사용자명" helperText="Esc 또는 X 버튼으로 초기화할 수 있습니다." />
+  render: (args) => (
+    <TextField {...args} label="사용자명" helperText="Esc 또는 지우기 버튼으로 초기화할 수 있습니다." />
+  )
 };
 
 export const PasswordToggle: Story = {
