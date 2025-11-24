@@ -31,7 +31,8 @@
       "@ara/icons/*": [
         "../icons/dist/*.d.ts",
         "../icons/dist/*.js",
-        "../icons/src/*.ts"
+        "../icons/src/*.ts",
+        "../icons/src/*.tsx"
       ],
       "@ara/tokens": [
         "../tokens/dist/index.d.ts",
