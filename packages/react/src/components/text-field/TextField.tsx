@@ -1,6 +1,7 @@
 import {
   forwardRef,
   useCallback,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -23,6 +24,7 @@ interface TextFieldOwnProps {
   readonly label?: ReactNode;
   readonly helperText?: ReactNode;
   readonly errorText?: ReactNode;
+  readonly helperTextMatchFieldWidth?: boolean;
   readonly prefixIcon?: ReactNode;
   readonly suffixIcon?: ReactNode;
   readonly clearable?: boolean;
@@ -153,6 +155,7 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
   const {
     label,
     helperText,
+    helperTextMatchFieldWidth = false,
     errorText,
     prefixIcon,
     suffixIcon,
@@ -184,6 +187,34 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
   const [showPassword, setShowPassword] = useState(false);
   const [isFocusVisible, setFocusVisible] = useState(false);
   const [isHovered, setHovered] = useState(false);
+  const controlRef = useRef<HTMLDivElement>(null);
+  const [controlWidth, setControlWidth] = useState<number>();
+
+  useEffect(() => {
+    if (!helperTextMatchFieldWidth) return;
+
+    const element = controlRef.current;
+
+    if (!element) return;
+
+    const updateWidth = () => setControlWidth(element.getBoundingClientRect().width);
+
+    updateWidth();
+
+    if (typeof ResizeObserver === "undefined") return;
+
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setControlWidth(entry.contentRect.width);
+      }
+    });
+
+    observer.observe(element);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [helperTextMatchFieldWidth]);
 
   const resolvedType: TextFieldType =
     passwordToggle && typeProp === "password" && showPassword ? "text" : typeProp;
@@ -452,6 +483,46 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
     margin: 0
   };
 
+  const helperStyle: CSSProperties = {
+    margin: 0,
+    alignSelf: helperTextMatchFieldWidth ? "stretch" : "flex-start",
+    maxWidth: helperTextMatchFieldWidth
+      ? controlWidth
+        ? `${controlWidth}px`
+        : "100%"
+      : undefined,
+    width: helperTextMatchFieldWidth
+      ? controlWidth
+        ? `${controlWidth}px`
+        : "100%"
+      : undefined,
+    color: "var(--ara-tf-helper-text, #6b7280)",
+    fontSize: "0.8125rem",
+    lineHeight: "1.35",
+    overflowWrap: "break-word",
+    wordBreak: "break-word"
+  };
+
+  const errorStyle: CSSProperties = {
+    margin: "-0.125rem 0 0 0",
+    alignSelf: helperTextMatchFieldWidth ? "stretch" : "flex-start",
+    maxWidth: helperTextMatchFieldWidth
+      ? controlWidth
+        ? `${controlWidth}px`
+        : "100%"
+      : undefined,
+    width: helperTextMatchFieldWidth
+      ? controlWidth
+        ? `${controlWidth}px`
+        : "100%"
+      : undefined,
+    color: `var(--ara-tf-text-invalid, ${STATE_TOKENS.text.invalid})`,
+    fontSize: "0.8125rem",
+    lineHeight: "1.35",
+    overflowWrap: "break-word",
+    wordBreak: "break-word"
+  };
+
   const showClearButton = clearable && filled && !disabled && !readOnly;
   const showPasswordToggle = passwordToggle && typeProp === "password";
 
@@ -486,7 +557,14 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
         </label>
       ) : null}
 
+      {helperText ? (
+        <p {...descriptionProps} className="ara-text-field__helper" style={helperStyle}>
+          {helperText}
+        </p>
+      ) : null}
+
       <div
+        ref={controlRef}
         className="ara-text-field__control"
         style={controlStyle}
         onPointerEnter={() => setHovered(true)}
@@ -550,14 +628,8 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
         ) : null}
       </div>
 
-      {helperText ? (
-        <p {...descriptionProps} className="ara-text-field__helper">
-          {helperText}
-        </p>
-      ) : null}
-
       {errorText ? (
-        <p {...errorProps} className="ara-text-field__error">
+        <p {...errorProps} className="ara-text-field__error" style={errorStyle}>
           {errorText}
         </p>
       ) : null}
