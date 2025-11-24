@@ -252,7 +252,7 @@ T-000077,W-000008,TextField v0 Comp,토큰/스타일,사이즈·상태 토큰 �
 T-000078,W-000008,TextField v0 Comp,테스트,Vitest+RTL 상호작용 테스트,완료,High," ● 내용: controlled/uncontrolled, onValueChange/onCommit, clear/password 토글, label/aria-describedby 연결, invalid/disabled/readOnly, IME 조합 시나리오
  ● 산출물: 테스트 스위트
  ● 점검: pnpm --filter @ara/react test 통과",확인
-T-000079,W-000008,TextField v0 Comp,문서/스토리북,Stories/MDX,계획,Medium," ● 내용: Playground, Sizes, States(Disabled/ReadOnly/Invalid), WithPrefixSuffix, Clearable, Password, Form Submit 데모
+T-000079,W-000008,TextField v0 Comp,문서/스토리북,Stories/MDX,완료,Medium," ● 내용: Playground, Sizes, States(Disabled/ReadOnly/Invalid), WithPrefixSuffix, Clearable, Password, Form Submit 데모
  ● 산출물: stories 및 MDX
  ● 점검: build-storybook 스모크",확인
 T-000080,W-000008,TextField v0 Comp,통합,Icons/Layouts/Form 통합 스모크,계획,Medium," ● 내용: prefix/suffix 아이콘(@ara/react/icon), Stack/Grid와 폼 예제, Button과 조합 제출 시나리오
