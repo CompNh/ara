@@ -92,7 +92,6 @@ describe("useTextField", () => {
     );
 
     const input = getByTestId("input");
-    const helper = getByTestId("helper");
 
     expect(input).toHaveAttribute("aria-labelledby", "merge-id-label external-label");
     expect(input.getAttribute("aria-describedby")).toBe("merge-id-description external-description");
