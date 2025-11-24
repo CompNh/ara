@@ -11,7 +11,33 @@
     "sourceMap": true,
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "types": ["react", "react-dom"]
+    "types": ["react", "react-dom"],
+    "paths": {
+      "@ara/core": [
+        "../core/dist/index.d.ts",
+        "../core/dist/index.js"
+      ],
+      "@ara/core/*": [
+        "../core/dist/*.d.ts",
+        "../core/dist/*.js"
+      ],
+      "@ara/icons": [
+        "../icons/dist/index.d.ts",
+        "../icons/dist/index.js"
+      ],
+      "@ara/icons/*": [
+        "../icons/dist/*.d.ts",
+        "../icons/dist/*.js"
+      ],
+      "@ara/tokens": [
+        "../tokens/dist/index.d.ts",
+        "../tokens/dist/index.js"
+      ],
+      "@ara/tokens/*": [
+        "../tokens/dist/*.d.ts",
+        "../tokens/dist/*.js"
+      ]
+    }
   },
   "include": [
     "src/**/*"
