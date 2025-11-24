@@ -124,6 +124,28 @@ const SIZE_TOKENS: Record<TextFieldSize, {
   }
 };
 
+const STATE_TOKENS = {
+  surface: {
+    default: "#fff",
+    hover: "#f8fafc",
+    focus: "#fff",
+    disabled: "#f9fafb",
+    invalid: "#fff"
+  },
+  border: {
+    default: "#cdd4e0",
+    hover: "#9ca3af",
+    focus: "#5b8def",
+    disabled: "#e5e7eb",
+    invalid: "#ef4444"
+  },
+  text: {
+    default: "var(--ara-color-role-light-text-strong, inherit)",
+    disabled: "#9ca3af",
+    invalid: "#b91c1c"
+  }
+};
+
 export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function TextField(
   props,
   ref
@@ -161,6 +183,7 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
   const valueRef = useRef(value ?? defaultValue ?? "");
   const [showPassword, setShowPassword] = useState(false);
   const [isFocusVisible, setFocusVisible] = useState(false);
+  const [isHovered, setHovered] = useState(false);
 
   const resolvedType: TextFieldType =
     passwordToggle && typeProp === "password" && showPassword ? "text" : typeProp;
@@ -301,14 +324,70 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
 
   const shouldShowCounter = Boolean(maxLengthCounter && maxLengthValue && maxLengthValue > 0);
 
+  const cssVariables = useMemo(() => {
+    const sizeVariables: Record<string, string> = {};
+
+    for (const [tokenSize, tokens] of Object.entries(SIZE_TOKENS)) {
+      sizeVariables[`--ara-tf-size-${tokenSize}-height`] = tokens.height;
+      sizeVariables[`--ara-tf-size-${tokenSize}-px`] = tokens.paddingX;
+      sizeVariables[`--ara-tf-size-${tokenSize}-py`] = tokens.paddingY;
+      sizeVariables[`--ara-tf-size-${tokenSize}-gap`] = tokens.gap;
+      sizeVariables[`--ara-tf-size-${tokenSize}-font-size`] = tokens.fontSize;
+      sizeVariables[`--ara-tf-size-${tokenSize}-line-height`] = tokens.lineHeight;
+      sizeVariables[`--ara-tf-size-${tokenSize}-icon`] = tokens.icon;
+      sizeVariables[`--ara-tf-size-${tokenSize}-clear`] = tokens.clear;
+      sizeVariables[`--ara-tf-size-${tokenSize}-toggle`] = tokens.toggle;
+    }
+
+    return {
+      "--ara-tf-font": "var(--ara-typography-body, inherit)",
+      "--ara-tf-font-weight": "inherit",
+      "--ara-tf-radius": "0.5rem",
+      "--ara-tf-border-width": "1px",
+      "--ara-tf-disabled-opacity": "0.6",
+      "--ara-tf-outline": "2px solid var(--ara-color-role-light-interactive-primary-focus-border, #5b8def)",
+      "--ara-tf-shadow-focus": "0 0 0 4px rgba(91, 141, 239, 0.2)",
+      "--ara-tf-surface-default": STATE_TOKENS.surface.default,
+      "--ara-tf-surface-hover": STATE_TOKENS.surface.hover,
+      "--ara-tf-surface-focus": STATE_TOKENS.surface.focus,
+      "--ara-tf-surface-disabled": STATE_TOKENS.surface.disabled,
+      "--ara-tf-surface-invalid": STATE_TOKENS.surface.invalid,
+      "--ara-tf-border-default": STATE_TOKENS.border.default,
+      "--ara-tf-border-hover": STATE_TOKENS.border.hover,
+      "--ara-tf-border-focus": STATE_TOKENS.border.focus,
+      "--ara-tf-border-disabled": STATE_TOKENS.border.disabled,
+      "--ara-tf-border-invalid": STATE_TOKENS.border.invalid,
+      "--ara-tf-text-default": STATE_TOKENS.text.default,
+      "--ara-tf-text-disabled": STATE_TOKENS.text.disabled,
+      "--ara-tf-text-invalid": STATE_TOKENS.text.invalid,
+      ...sizeVariables
+    } satisfies Record<string, string>;
+  }, []);
+
   const controlStyle = useMemo<CSSProperties>(() => {
-    const borderState = invalid ? "invalid" : isFocusVisible ? "focus" : disabled ? "disabled" : "default";
-    const surfaceState = invalid ? "invalid" : isFocusVisible ? "focus" : disabled ? "disabled" : "default";
+    const borderState = disabled
+      ? "disabled"
+      : invalid
+        ? "invalid"
+        : isFocusVisible
+          ? "focus"
+          : isHovered
+            ? "hover"
+            : "default";
+    const surfaceState = disabled
+      ? "disabled"
+      : invalid
+        ? "invalid"
+        : isFocusVisible
+          ? "focus"
+          : isHovered
+            ? "hover"
+            : "default";
     const textState = disabled ? "disabled" : invalid ? "invalid" : "default";
 
-    const borderColor = `var(--ara-tf-border-${borderState}, #cdd4e0)`;
-    const surfaceColor = `var(--ara-tf-surface-${surfaceState}, #fff)`;
-    const textColor = `var(--ara-tf-text-${textState}, var(--ara-color-role-light-text-strong, inherit))`;
+    const borderColor = `var(--ara-tf-border-${borderState}, ${STATE_TOKENS.border.default})`;
+    const surfaceColor = `var(--ara-tf-surface-${surfaceState}, ${STATE_TOKENS.surface.default})`;
+    const textColor = `var(--ara-tf-text-${textState}, ${STATE_TOKENS.text.default})`;
 
     return {
       display: "inline-flex",
@@ -331,7 +410,7 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
         : "none",
       boxShadow: isFocusVisible ? "var(--ara-tf-shadow-focus, 0 0 0 4px rgba(91, 141, 239, 0.2))" : undefined
     };
-  }, [disabled, invalid, isFocusVisible, size, sizeTokens]);
+  }, [disabled, invalid, isFocusVisible, isHovered, size, sizeTokens]);
 
   const inputStyle = useMemo<CSSProperties>(
     () => ({
@@ -383,6 +462,7 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
       ref={ref}
       className={mergedClassName}
       style={{
+        ...cssVariables,
         display: "inline-flex",
         flexDirection: "column",
         gap: "0.25rem",
@@ -406,7 +486,12 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
         </label>
       ) : null}
 
-      <div className="ara-text-field__control" style={controlStyle}>
+      <div
+        className="ara-text-field__control"
+        style={controlStyle}
+        onPointerEnter={() => setHovered(true)}
+        onPointerLeave={() => setHovered(false)}
+      >
         {prefixIcon ? (
           <span className="ara-text-field__prefix" style={iconStyle} aria-hidden>
             {prefixIcon}
