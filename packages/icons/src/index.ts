@@ -4,14 +4,16 @@ import { ArrowRight } from "./icons/arrow-right.js";
 import { Close } from "./icons/close.js";
 import { CheckCircle } from "./icons/check-circle.js";
 import { Eye } from "./icons/eye.js";
+import { EyeOff } from "./icons/eye-off.js";
 import { Plus } from "./icons/plus.js";
 import { Search } from "./icons/search.js";
-export { ArrowRight, CheckCircle, Close, Eye, Plus, Search };
+export { ArrowRight, CheckCircle, Close, Eye, EyeOff, Plus, Search };
 export const icons = {
   ArrowRight,
   CheckCircle,
   Close,
   Eye,
+  EyeOff,
   Plus,
   Search
 } as const;

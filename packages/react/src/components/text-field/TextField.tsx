@@ -15,7 +15,7 @@ import {
   type ReactNode,
   type Ref
 } from "react";
-import { Close, Eye } from "@ara/icons";
+import { Close, Eye, EyeOff } from "@ara/icons";
 import { composeRefs } from "@radix-ui/react-compose-refs";
 import { useTextField, type TextFieldType } from "@ara/core";
 import { Icon } from "../icon/index.js";
@@ -644,7 +644,7 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
             aria-label={showPassword ? "비밀번호 숨기기" : "비밀번호 보이기"}
             aria-pressed={showPassword}
           >
-            <Icon icon={Eye} size={iconSizeValue} aria-hidden />
+            <Icon icon={showPassword ? EyeOff : Eye} size={iconSizeValue} aria-hidden />
           </button>
         ) : null}
       </div>
