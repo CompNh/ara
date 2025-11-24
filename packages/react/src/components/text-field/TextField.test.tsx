@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom/vitest";
-import type { ChangeEvent } from "react";
+import { useState, type ChangeEvent } from "react";
 import { describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render } from "@testing-library/react";
 import { TextField } from "./TextField.js";
@@ -102,6 +102,115 @@ describe("TextField", () => {
     fireEvent.change(input, { target: { value: "next" } });
     fireEvent.keyDown(input, { key: "Escape" });
     expect(input.value).toBe("");
+  });
+
+  it("제어 모드에서 onValueChange/onCommit 흐름과 렌더 값을 동기화한다", () => {
+    const onCommit = vi.fn();
+    const onValueChange = vi.fn();
+
+    function ControlledField() {
+      const [value, setValue] = useState("ara");
+
+      return (
+        <TextField
+          label="닉네임"
+          value={value}
+          onValueChange={(next) => {
+            onValueChange(next);
+            setValue(next);
+          }}
+          onCommit={onCommit}
+        />
+      );
+    }
+
+    const { getByLabelText } = render(<ControlledField />);
+
+    const input = getByLabelText("닉네임") as HTMLInputElement;
+
+    expect(input.value).toBe("ara");
+
+    fireEvent.change(input, { target: { value: "next" } });
+    expect(onValueChange).toHaveBeenCalledWith("next");
+    expect(input.value).toBe("next");
+
+    fireEvent.keyDown(input, { key: "Enter" });
+    expect(onCommit).toHaveBeenCalledWith("next");
+  });
+
+  it("비제어 모드에서 defaultValue와 onValueChange/onCommit을 연결한다", () => {
+    const onValueChange = vi.fn();
+    const onCommit = vi.fn();
+
+    const { getByLabelText } = render(
+      <TextField
+        label="소개"
+        defaultValue="hello"
+        onValueChange={onValueChange}
+        onCommit={onCommit}
+      />
+    );
+
+    const input = getByLabelText("소개") as HTMLInputElement;
+
+    expect(input.value).toBe("hello");
+
+    fireEvent.change(input, { target: { value: "welcome" } });
+    expect(input.value).toBe("welcome");
+    expect(onValueChange).toHaveBeenCalledWith("welcome");
+
+    fireEvent.keyDown(input, { key: "Enter" });
+    expect(onCommit).toHaveBeenCalledWith("welcome");
+  });
+
+  it("조합 입력 중 clear 버튼이 값을 지우지 않고 종료 후에만 동작한다", () => {
+    const onValueChange = vi.fn();
+
+    const { getByLabelText, getByRole } = render(
+      <TextField label="이름" defaultValue="가나다" clearable onValueChange={onValueChange} />
+    );
+
+    const input = getByLabelText("이름") as HTMLInputElement;
+    const clearButton = getByRole("button", { name: "입력 지우기" });
+
+    fireEvent.compositionStart(input);
+    fireEvent.change(input, { target: { value: "가나다라" } });
+    expect(onValueChange).toHaveBeenCalledWith("가나다라");
+
+    fireEvent.click(clearButton);
+
+    expect(input.value).toBe("가나다라");
+    expect(onValueChange).toHaveBeenCalledTimes(1);
+
+    fireEvent.compositionEnd(input);
+    fireEvent.click(clearButton);
+
+    expect(onValueChange).toHaveBeenCalledWith("");
+    expect(input.value).toBe("");
+  });
+
+  it("disabled/readOnly 상태에서는 clear나 password 토글을 차단한다", () => {
+    const { getByLabelText, queryByRole, rerender } = render(
+      <TextField label="이메일" defaultValue="ara" clearable readOnly />
+    );
+
+    const input = getByLabelText("이메일") as HTMLInputElement;
+
+    expect(queryByRole("button", { name: "입력 지우기" })).toBeNull();
+    expect(input).toHaveAttribute("aria-readonly", "true");
+
+    rerender(
+      <TextField label="비밀번호" type="password" passwordToggle defaultValue="secret" disabled />
+    );
+
+    const passwordInput = getByLabelText("비밀번호") as HTMLInputElement;
+    const toggle = queryByRole("button", { name: "비밀번호 보이기" });
+
+    expect(toggle).toBeDisabled();
+
+    fireEvent.click(toggle!);
+    expect(passwordInput.type).toBe("password");
+    expect(passwordInput).toHaveAttribute("aria-disabled", "true");
   });
 
   it("maxLengthCounter로 길이 카운터를 표기한다", () => {
