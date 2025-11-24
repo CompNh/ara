@@ -27,6 +27,7 @@ interface TextFieldOwnProps {
   readonly helperTextMatchFieldWidth?: boolean;
   readonly prefixIcon?: ReactNode;
   readonly suffixIcon?: ReactNode;
+  readonly suffixAction?: ReactNode;
   readonly clearable?: boolean;
   readonly passwordToggle?: boolean;
   readonly maxLengthCounter?: boolean;
@@ -159,6 +160,7 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
     errorText,
     prefixIcon,
     suffixIcon,
+    suffixAction,
     clearable = false,
     passwordToggle = false,
     maxLengthCounter = false,
@@ -483,6 +485,14 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
     margin: 0
   };
 
+  const suffixActionStyle: CSSProperties = {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "100%",
+    flexShrink: 0
+  };
+
   const helperStyle: CSSProperties = {
     margin: 0,
     alignSelf: helperTextMatchFieldWidth ? "stretch" : "flex-start",
@@ -546,7 +556,7 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
       data-readonly={isReadOnly || undefined}
       data-invalid={invalid || undefined}
       data-has-prefix={prefixIcon ? true : undefined}
-      data-has-suffix={suffixIcon ? true : undefined}
+      data-has-suffix={suffixIcon || suffixAction ? true : undefined}
       data-filled={filled || undefined}
       data-focus-visible={isFocusVisible || undefined}
     >
@@ -595,6 +605,12 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
         {suffixIcon ? (
           <span className="ara-text-field__suffix" style={iconStyle} aria-hidden>
             {suffixIcon}
+          </span>
+        ) : null}
+
+        {suffixAction ? (
+          <span className="ara-text-field__suffix-action" style={suffixActionStyle}>
+            {suffixAction}
           </span>
         ) : null}
 
