@@ -161,4 +161,29 @@ describe("TextField", () => {
 
     expect(onCommit).toHaveBeenCalledTimes(1);
   });
+
+  it("사이즈/상태 토큰을 CSS 변수로 노출하고 상태에 맞춰 적용한다", () => {
+    const { container, getByLabelText } = render(<TextField label="이메일" size="sm" />);
+
+    const root = container.firstChild as HTMLElement;
+    const control = container.querySelector(
+      ".ara-text-field__control"
+    ) as HTMLElement;
+    const input = getByLabelText("이메일");
+
+    expect(root.style.getPropertyValue("--ara-tf-size-sm-height")).toBe("2.25rem");
+    expect(root.style.getPropertyValue("--ara-tf-size-md-gap")).toBe("0.5rem");
+    expect(root.style.getPropertyValue("--ara-tf-border-default")).toBe("#cdd4e0");
+
+    expect(control.style.borderColor).toBe("var(--ara-tf-border-default, #cdd4e0)");
+
+    fireEvent.pointerEnter(control);
+    expect(control.style.borderColor).toBe("var(--ara-tf-border-hover, #cdd4e0)");
+
+    fireEvent.pointerLeave(control);
+    fireEvent.focus(input);
+    expect(control.style.outline).toBe(
+      "var(--ara-tf-outline, 2px solid var(--ara-color-role-light-interactive-primary-focus-border, #5b8def))"
+    );
+  });
 });
