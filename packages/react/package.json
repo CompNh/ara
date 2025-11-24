@@ -179,11 +179,13 @@
   ],
   "sideEffects": false,
   "scripts": {
+    "prepack": "pnpm build",
     "prebuild": "pnpm --filter @ara/icons build && pnpm --filter @ara/core build",
     "build": "pnpm exec rollup -c",
     "pretest": "pnpm --filter @ara/core build",
     "test": "pnpm exec vitest run",
-    "test:watch": "pnpm exec vitest"
+    "test:watch": "pnpm exec vitest",
+    "pack:dry-run": "npm pack --dry-run --json"
   },
   "keywords": [
     "react",

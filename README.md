@@ -91,6 +91,7 @@ VS Code(Git Bash) · Windows · React+TypeScript · Node 22 LTS · pnpm(workspac
 - `pnpm --filter @ara/icons pack:dry-run` 출력에서 `ara-icons-0.0.0.tgz`(엔트리 34개) 안에 `dist/*` 산출물이 포함된 것을 확인했다.
 - `node --input-type=module -e "import('./packages/icons/dist/index.js').then(m=>console.log(Object.keys(m)))"` 실행 시 `ArrowRight`,
   `CheckCircle`, `Plus`, `__ICON_TYPES__`, `icons` 익스포트가 노출되는 것을 확인했다.
+- TextField v0 canary 선공개 Changeset을 추가했다. aria 연결, prefix/suffix 아이콘, clear/password 토글 등 핵심 계약을 포함하고 텍스트에어리어·마스킹은 제외된 범위를 릴리스 노트에 명시했다.
 
 ## Git 설정
 - 커밋 템플릿은 `.github/COMMIT_TEMPLATE` 을 직접 사용한다.
