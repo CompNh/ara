@@ -15,27 +15,34 @@
     "paths": {
       "@ara/core": [
         "../core/dist/index.d.ts",
-        "../core/dist/index.js"
+        "../core/dist/index.js",
+        "../core/src/index.ts"
       ],
       "@ara/core/*": [
         "../core/dist/*.d.ts",
-        "../core/dist/*.js"
+        "../core/dist/*.js",
+        "../core/src/*.ts"
       ],
       "@ara/icons": [
         "../icons/dist/index.d.ts",
-        "../icons/dist/index.js"
+        "../icons/dist/index.js",
+        "../icons/src/index.ts"
       ],
       "@ara/icons/*": [
         "../icons/dist/*.d.ts",
-        "../icons/dist/*.js"
+        "../icons/dist/*.js",
+        "../icons/src/*.ts",
+        "../icons/src/*.tsx"
       ],
       "@ara/tokens": [
         "../tokens/dist/index.d.ts",
-        "../tokens/dist/index.js"
+        "../tokens/dist/index.js",
+        "../tokens/src/index.ts"
       ],
       "@ara/tokens/*": [
         "../tokens/dist/*.d.ts",
-        "../tokens/dist/*.js"
+        "../tokens/dist/*.js",
+        "../tokens/src/*.ts"
       ]
     }
   },
