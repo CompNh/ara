@@ -258,9 +258,9 @@ T-000079,W-000008,TextField v0 Comp,문서/스토리북,Stories/MDX,완료,Mediu
 T-000080,W-000008,TextField v0 Comp,통합,Icons/Layouts/Form 통합 스모크,완료,Medium," ● 내용: prefix/suffix 아이콘(@ara/react/icon), Stack/Grid와 폼 예제, Button과 조합 제출 시나리오
  ● 산출물: showcase 또는 stories
  ● 점검: 회귀 없음",확인
-T-000081,W-000008,TextField v0 Comp,빌드/출하,Exports/Types 계약 점검,계획,High," ● 내용: @ara/react/text-field 서브패스, sideEffects:false, types/exports 해상도, pack --dry-run
+T-000081,W-000008,TextField v0 Comp,빌드/출하,Exports/Types 계약 점검,완료,High," ● 내용: @ara/react/text-field 서브패스, sideEffects:false, types/exports 해상도, pack --dry-run
  ● 산출물: package.json exports 맵·d.ts
  ● 점검: pnpm --filter @ara/react pack --dry-run 결과 확인",확인
-T-000082,W-000008,TextField v0 Comp,릴리스,Changesets 프리릴리스(canary),계획,High," ● 내용: changeset 추가 및 canary 배포 드라이런, 릴리스 노트에 계약/범위/제한(텍스트에어리어/마스킹 제외) 명시
+T-000082,W-000008,TextField v0 Comp,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가 및 canary 배포 드라이런, 릴리스 노트에 계약/범위/제한(텍스트에어리어/마스킹 제외) 명시
  ● 산출물: canary 태그·설치 확인 메모
  ● 점검: 설치/임포트/간단 사용 예 검증",확인
