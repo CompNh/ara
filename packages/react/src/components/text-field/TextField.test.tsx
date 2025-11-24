@@ -15,14 +15,46 @@ describe("TextField", () => {
     );
 
     const input = getByLabelText(/이메일/) as HTMLInputElement;
+    const label = getByText("이메일");
     const helper = getByText("helper");
     const error = getByText("error");
 
     expect(input).toHaveAttribute("aria-describedby", `${error.id} ${helper.id}`);
+    expect(input).toHaveAttribute("aria-labelledby", label.id);
     expect(input).toHaveAttribute("aria-invalid", "true");
     expect(input).toHaveAttribute("aria-required", "true");
     expect(helper.id).toContain(input.id);
     expect(error.id).toContain(input.id);
+  });
+
+  it("외부 aria-labelledby/aria-describedby와 병합한다", () => {
+    const { getByLabelText, getByText } = render(
+      <>
+        <span id="external-label">외부 레이블</span>
+        <span id="external-desc">외부 설명</span>
+        <TextField
+          label="이메일"
+          helperText="helper"
+          errorText="error"
+          aria-labelledby="external-label"
+          aria-describedby="external-desc"
+        />
+      </>
+    );
+
+    const input = getByLabelText(/이메일/) as HTMLInputElement;
+    const label = getByText("이메일");
+    const helper = getByText("helper");
+    const error = getByText("error");
+
+    expect(input).toHaveAttribute(
+      "aria-labelledby",
+      `${label.id} external-label`
+    );
+    expect(input).toHaveAttribute(
+      "aria-describedby",
+      `${error.id} ${helper.id} external-desc`
+    );
   });
 
   it("clearable과 Escape 키로 값을 초기화하고 onChange에 동일한 이벤트를 제공한다", () => {

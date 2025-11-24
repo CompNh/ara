@@ -237,7 +237,7 @@ T-000072,W-000008,TextField v0 Comp,코어(headless),useTextField 로직 구현,
 T-000073,W-000008,TextField v0 Comp,React 바인딩,TextField 구현,완료,High," ● 내용: forwardRef, 슬롯 구조(label/input/helper/error/prefix/suffix/clear/password-toggle), className 병합, data-* 상태 표식(invalid/focused/disabled), tokens 매핑(size/tone)
  ● 산출물: packages/react/src/components/text-field/index.tsx
  ● 점검: 스모크 렌더·ref 포워딩·Props 스냅",확인
-T-000074,W-000008,TextField v0 Comp,접근성,라벨/에러 연결 및 ARIA,계획,High," ● 내용: label→input ‘for/id’ 연결, error/helper를 aria-describedby로 연결, invalid/required 반영, autoComplete 가이드
+T-000074,W-000008,TextField v0 Comp,접근성,라벨/에러 연결 및 ARIA,완료,High," ● 내용: label→input ‘for/id’ 연결, error/helper를 aria-describedby로 연결, invalid/required 반영, autoComplete 가이드
  ● 산출물: A11y 가이드/테스트 케이스
  ● 점검: 스크린리더에서 라벨·에러 읽힘·탭 순서 정상",확인
 T-000075,W-000008,TextField v0 Comp,입력 UX,Clear/Password 토글/IME,계획,High," ● 내용: clearable(X 버튼)·password 토글(가시성 전환)·Enter onCommit·IME 조합 중 Enter 무시·maxlength 카운터(옵션)
