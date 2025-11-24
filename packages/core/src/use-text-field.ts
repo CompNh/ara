@@ -20,9 +20,11 @@ export interface UseTextFieldOptions {
   readonly required?: boolean;
   readonly disabled?: boolean;
   readonly readOnly?: boolean;
+  readonly hasLabel?: boolean;
   readonly hasHelperText?: boolean;
   readonly hasErrorText?: boolean;
   readonly describedByIds?: readonly string[];
+  readonly labelledByIds?: readonly string[];
   readonly onValueChange?: (value: string) => void;
   readonly onCommit?: (value: string) => void;
 }
@@ -56,6 +58,7 @@ export interface TextFieldInputProps {
   readonly "aria-readonly"?: true;
   readonly "aria-disabled"?: true;
   readonly "aria-describedby"?: string;
+  readonly "aria-labelledby"?: string;
   readonly onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   readonly onKeyDown: (event: KeyboardEvent<HTMLInputElement>) => void;
   readonly onCompositionStart: (event: CompositionEvent<HTMLInputElement>) => void;
@@ -85,9 +88,11 @@ export function useTextField(options: UseTextFieldOptions = {}): UseTextFieldRes
     required = false,
     disabled = false,
     readOnly = false,
+    hasLabel = true,
     hasHelperText = false,
     hasErrorText = false,
     describedByIds = [],
+    labelledByIds = [],
     onValueChange,
     onCommit
   } = options;
@@ -168,10 +173,27 @@ export function useTextField(options: UseTextFieldOptions = {}): UseTextFieldRes
 
     if (hasErrorText) idsToApply.push(ids.errorId);
     if (hasHelperText) idsToApply.push(ids.descriptionId);
-    if (describedByIds.length > 0) idsToApply.push(...describedByIds);
+    if (describedByIds.length > 0) {
+      for (const describedById of describedByIds) {
+        if (describedById) idsToApply.push(describedById);
+      }
+    }
 
     return idsToApply.length > 0 ? idsToApply.join(" ") : undefined;
   }, [describedByIds, hasErrorText, hasHelperText, ids.descriptionId, ids.errorId]);
+
+  const ariaLabelledBy = useMemo(() => {
+    const idsToApply: string[] = [];
+
+    if (hasLabel) idsToApply.push(ids.labelId);
+    if (labelledByIds.length > 0) {
+      for (const labelledById of labelledByIds) {
+        if (labelledById) idsToApply.push(labelledById);
+      }
+    }
+
+    return idsToApply.length > 0 ? idsToApply.join(" ") : undefined;
+  }, [hasLabel, labelledByIds, ids.labelId]);
 
   const inputProps: TextFieldInputProps = {
     id: ids.inputId,
@@ -186,6 +208,7 @@ export function useTextField(options: UseTextFieldOptions = {}): UseTextFieldRes
     "aria-readonly": appliedReadOnly || undefined,
     "aria-disabled": disabled || undefined,
     "aria-describedby": ariaDescribedBy,
+    "aria-labelledby": ariaLabelledBy,
     onChange: handleChange,
     onKeyDown: handleKeyDown,
     onCompositionStart: handleCompositionStart,
