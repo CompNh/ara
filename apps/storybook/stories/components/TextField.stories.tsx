@@ -29,6 +29,7 @@ const meta = {
   argTypes: {
     prefixIcon: { control: false },
     suffixIcon: { control: false },
+    suffixAction: { control: false },
     helperText: { control: "text" },
     errorText: { control: "text" }
   },
@@ -106,7 +107,11 @@ export const PrefixSuffix: Story = {
         label="검색"
         placeholder="키워드를 입력하세요"
         prefixIcon={<Icon icon={ArrowRight} size="sm" aria-hidden />}
-        suffixIcon={<Button tone="neutral" variant="outline" size="sm">검색</Button>}
+        suffixAction={
+          <Button tone="primary" variant="solid" size="sm">
+            검색
+          </Button>
+        }
       />
     </Stack>
   )
