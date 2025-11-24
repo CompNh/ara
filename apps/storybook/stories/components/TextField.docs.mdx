@@ -1,0 +1,103 @@
+import { Meta, Title, Subtitle, Description, Canvas, ArgsTable, Primary, Controls } from "@storybook/blocks";
+import * as TextFieldStories from "./TextField.stories";
+
+<Meta of={TextFieldStories} />
+
+<Title>TextField 입력</Title>
+
+<Subtitle>단일 텍스트 입력을 위한 기본 필드로, clear 버튼과 패스워드 토글 등 보조 액션을 포함합니다.</Subtitle>
+
+<Description>
+`TextField`는 `@ara/core/use-text-field`의 ARIA/이벤트 계약을 그대로 따르는 React UI 바인딩입니다. label/description/error 연결을 자동
+으로 처리하며, prefix/suffix 슬롯과 clear, password toggle, maxLength counter와 같은 보조 기능을 제공합니다. 제어/비제어 모드 모두를
+지원하고 `AraProvider`/`AraThemeBoundary`로 전달된 토큰에 따라 스타일이 결정됩니다.
+</Description>
+
+## Playground
+
+<Primary of={TextFieldStories.Playground} />
+<Controls of={TextFieldStories.Playground} />
+
+## Sizes
+
+사이즈는 높이/폰트/간격이 함께 조정됩니다.
+
+<Canvas of={TextFieldStories.Sizes} />
+
+## 상태(Disabled / ReadOnly / Invalid)
+
+네이티브 `disabled`/`readOnly`/`aria-invalid` 계약을 준수하며, 오류가 있을 때 `aria-describedby` 연결과 시각적 강조를 제공합니다.
+
+<Canvas of={TextFieldStories.States} />
+
+## Helper &amp; Error
+
+도움말과 오류 메시지는 모두 `aria-describedby`에 연결되어 스크린 리더에서도 함께 읽힙니다.
+
+<Canvas of={TextFieldStories.HelperAndError} />
+
+## Prefix / Suffix
+
+입력 앞/뒤에 아이콘이나 버튼을 배치해 금액 단위, 액션 버튼 등을 결합할 수 있습니다.
+
+<Canvas of={TextFieldStories.PrefixSuffix} />
+
+## Clearable
+
+값이 있을 때만 노출되는 clear 버튼으로 Esc 또는 클릭/키보드로 값을 초기화할 수 있습니다.
+
+<Canvas of={TextFieldStories.Clearable} />
+
+## Password Toggle
+
+`type="password"`와 함께 `passwordToggle`을 켜면 시각/비시각 사용자 모두에게 안전한 비밀번호 가시성 전환을 제공합니다.
+
+<Canvas of={TextFieldStories.PasswordToggle} />
+
+## 제어 vs 비제어
+
+`value` + `onValueChange`로 제어 모드를 구성하거나, `defaultValue` 기반 내부 상태를 사용할 수 있습니다.
+
+<Canvas of={TextFieldStories.ControlledVsUncontrolled} />
+
+## Types
+
+텍스트/이메일/비밀번호/숫자 타입을 제공하며, password toggle과 clear는 타입에 따라 조건부로 노출됩니다.
+
+<Canvas of={TextFieldStories.Types} />
+
+## Form Submit
+
+Enter 확정(onCommit)과 네이티브 form submit을 함께 검증할 수 있는 예제입니다. `name`이 있는 입력만 제출 페이로드에 포함됩니다.
+
+<Canvas of={TextFieldStories.FormSubmit} />
+
+## Props
+
+<ArgsTable of={TextFieldStories.Playground} />
+
+## 접근성 / 자동 완성 가이드
+
+- label이 제공되지 않을 경우 `aria-label` 또는 외부 `aria-labelledby`를 지정해야 합니다.
+- `errorText`/`helperText`가 DOM에 존재하면 `aria-describedby`에 자동으로 연결됩니다.
+- 자동 완성 권장값: 이메일 `autoComplete="email"`, 사용자명 `autoComplete="username"`, 비밀번호 변경 시 `current-password` / `new-password`.
+- clear 버튼과 password toggle에는 적절한 `aria-label`이 포함되어 키보드/스크린 리더 사용자가 동등한 정보를 얻습니다.
+
+## 커스터마이징
+
+```tsx
+<TextField
+  label="닉네임"
+  style={{
+    "--ara-tf-surface-default": "#0f172a",
+    "--ara-tf-text-default": "#e2e8f0",
+    "--ara-tf-border-default": "#1e293b",
+    "--ara-tf-radius": "0.75rem",
+    "--ara-tf-size-md-height": "48px"
+  }}
+  prefixIcon={<Icon icon={Plus} size="sm" aria-hidden />}
+/>
+```
+
+- CSS 변수(`--ara-tf-*`)를 오버라이드하면 테마 토큰을 유지하면서 제품별 스킨을 적용할 수 있습니다.
+- `className`에 `.ara-text-field__input`, `.ara-text-field__suffix` 등 슬롯명을 활용하면 특정 영역만 선택적으로 커스터마이즈할 수 있습니다.
