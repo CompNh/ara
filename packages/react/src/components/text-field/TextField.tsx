@@ -23,6 +23,7 @@ interface TextFieldOwnProps {
   readonly label?: ReactNode;
   readonly helperText?: ReactNode;
   readonly errorText?: ReactNode;
+  readonly helperTextMatchFieldWidth?: boolean;
   readonly prefixIcon?: ReactNode;
   readonly suffixIcon?: ReactNode;
   readonly clearable?: boolean;
@@ -153,6 +154,7 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
   const {
     label,
     helperText,
+    helperTextMatchFieldWidth = false,
     errorText,
     prefixIcon,
     suffixIcon,
@@ -452,6 +454,24 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
     margin: 0
   };
 
+  const helperStyle: CSSProperties = {
+    margin: 0,
+    alignSelf: helperTextMatchFieldWidth ? "stretch" : "flex-start",
+    maxWidth: helperTextMatchFieldWidth ? "100%" : undefined,
+    width: helperTextMatchFieldWidth ? "100%" : undefined,
+    color: "var(--ara-tf-helper-text, #6b7280)",
+    fontSize: "0.8125rem",
+    lineHeight: "1.35"
+  };
+
+  const errorStyle: CSSProperties = {
+    margin: "-0.125rem 0 0 0",
+    alignSelf: "flex-start",
+    color: `var(--ara-tf-text-invalid, ${STATE_TOKENS.text.invalid})`,
+    fontSize: "0.8125rem",
+    lineHeight: "1.35"
+  };
+
   const showClearButton = clearable && filled && !disabled && !readOnly;
   const showPasswordToggle = passwordToggle && typeProp === "password";
 
@@ -484,6 +504,12 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
           {label}
           {required ? <span aria-hidden="true">*</span> : null}
         </label>
+      ) : null}
+
+      {helperText ? (
+        <p {...descriptionProps} className="ara-text-field__helper" style={helperStyle}>
+          {helperText}
+        </p>
       ) : null}
 
       <div
@@ -550,14 +576,8 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
         ) : null}
       </div>
 
-      {helperText ? (
-        <p {...descriptionProps} className="ara-text-field__helper">
-          {helperText}
-        </p>
-      ) : null}
-
       {errorText ? (
-        <p {...errorProps} className="ara-text-field__error">
+        <p {...errorProps} className="ara-text-field__error" style={errorStyle}>
           {errorText}
         </p>
       ) : null}
