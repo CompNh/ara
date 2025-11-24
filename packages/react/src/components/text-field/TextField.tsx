@@ -452,6 +452,22 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
     margin: 0
   };
 
+  const helperStyle: CSSProperties = {
+    margin: 0,
+    alignSelf: "flex-start",
+    color: "var(--ara-tf-helper-text, #6b7280)",
+    fontSize: "0.875rem",
+    lineHeight: "1.4"
+  };
+
+  const errorStyle: CSSProperties = {
+    margin: 0,
+    alignSelf: "flex-start",
+    color: `var(--ara-tf-text-invalid, ${STATE_TOKENS.text.invalid})`,
+    fontSize: "0.875rem",
+    lineHeight: "1.4"
+  };
+
   const showClearButton = clearable && filled && !disabled && !readOnly;
   const showPasswordToggle = passwordToggle && typeProp === "password";
 
@@ -484,6 +500,12 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
           {label}
           {required ? <span aria-hidden="true">*</span> : null}
         </label>
+      ) : null}
+
+      {helperText ? (
+        <p {...descriptionProps} className="ara-text-field__helper" style={helperStyle}>
+          {helperText}
+        </p>
       ) : null}
 
       <div
@@ -550,14 +572,8 @@ export const TextField = forwardRef<HTMLDivElement, TextFieldProps>(function Tex
         ) : null}
       </div>
 
-      {helperText ? (
-        <p {...descriptionProps} className="ara-text-field__helper">
-          {helperText}
-        </p>
-      ) : null}
-
       {errorText ? (
-        <p {...errorProps} className="ara-text-field__error">
+        <p {...errorProps} className="ara-text-field__error" style={errorStyle}>
           {errorText}
         </p>
       ) : null}
