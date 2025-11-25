@@ -17,6 +17,11 @@
       "import": "./dist/use-button.js",
       "default": "./dist/use-button.js"
     },
+    "./use-checkbox": {
+      "types": "./dist/use-checkbox.d.ts",
+      "import": "./dist/use-checkbox.js",
+      "default": "./dist/use-checkbox.js"
+    },
     "./use-text-field": {
       "types": "./dist/use-text-field.d.ts",
       "import": "./dist/use-text-field.js",
@@ -36,6 +41,9 @@
       ],
       "use-button": [
         "dist/use-button.d.ts"
+      ],
+      "use-checkbox": [
+        "dist/use-checkbox.d.ts"
       ],
       "use-text-field": [
         "dist/use-text-field.d.ts"
