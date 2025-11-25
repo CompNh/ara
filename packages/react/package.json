@@ -52,6 +52,11 @@
       "import": "./dist/components/theme-provider/index.js",
       "default": "./dist/components/theme-provider/index.js"
     },
+    "./components/checkbox": {
+      "types": "./dist/components/checkbox/index.d.ts",
+      "import": "./dist/components/checkbox/index.js",
+      "default": "./dist/components/checkbox/index.js"
+    },
     "./components/icon": {
       "types": "./dist/components/icon/index.d.ts",
       "import": "./dist/components/icon/index.js",
@@ -107,6 +112,11 @@
       "import": "./dist/components/theme-provider/index.js",
       "default": "./dist/components/theme-provider/index.js"
     },
+    "./checkbox": {
+      "types": "./dist/components/checkbox/index.d.ts",
+      "import": "./dist/components/checkbox/index.js",
+      "default": "./dist/components/checkbox/index.js"
+    },
     "./package.json": "./package.json"
   },
   "typesVersions": {
@@ -138,6 +148,9 @@
       "components/theme-provider": [
         "dist/components/theme-provider/index.d.ts"
       ],
+      "components/checkbox": [
+        "dist/components/checkbox/index.d.ts"
+      ],
       "components/text-field": [
         "dist/components/text-field/index.d.ts"
       ],
@@ -165,6 +178,9 @@
       "theme-provider": [
         "dist/components/theme-provider/index.d.ts"
       ],
+      "checkbox": [
+        "dist/components/checkbox/index.d.ts"
+      ],
       "theme": [
         "dist/theme/index.d.ts"
       ],
@@ -182,7 +198,7 @@
     "prepack": "pnpm build",
     "prebuild": "pnpm --filter @ara/icons build && pnpm --filter @ara/core build",
     "build": "pnpm exec rollup -c",
-    "pretest": "pnpm --filter @ara/core build",
+    "pretest": "pnpm --filter @ara/icons build && pnpm --filter @ara/core build",
     "test": "pnpm exec vitest run",
     "test:watch": "pnpm exec vitest",
     "pack:dry-run": "npm pack --dry-run --json"
