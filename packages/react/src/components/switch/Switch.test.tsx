@@ -53,7 +53,7 @@ describe("Switch", () => {
 
     render(<Switch label="읽기전용" readOnly defaultChecked />);
 
-    const readOnlySwitch = screen.getAllByRole("switch")[1];
+    const readOnlySwitch = screen.getAllByRole("switch")[1]!;
 
     fireEvent.keyDown(readOnlySwitch, { key: "Enter" });
 
