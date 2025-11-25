@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Checkbox } from "./Checkbox.js";
 
@@ -122,5 +122,29 @@ describe("Checkbox", () => {
     await waitFor(() => {
       expect(checkbox).toHaveAttribute("aria-checked", "true");
     });
+  });
+
+  it("키보드 입력으로 상태를 전환하고 onCheckedChange 콜백을 호출한다", () => {
+    const handleChange = vi.fn();
+
+    render(
+      <Checkbox
+        label="스페이스/엔터"
+        defaultChecked="indeterminate"
+        onCheckedChange={handleChange}
+      />
+    );
+
+    const checkbox = screen.getByRole("checkbox");
+
+    fireEvent.keyDown(checkbox, { key: " " });
+
+    expect(checkbox).toHaveAttribute("data-state", "checked");
+    expect(handleChange).toHaveBeenLastCalledWith(true);
+
+    fireEvent.keyDown(checkbox, { key: "Enter" });
+
+    expect(checkbox).toHaveAttribute("data-state", "unchecked");
+    expect(handleChange).toHaveBeenLastCalledWith(false);
   });
 });
