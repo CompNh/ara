@@ -18,3 +18,15 @@ export type {
   UseTextFieldResult
 } from "./use-text-field.js";
 export { useTextField } from "./use-text-field.js";
+export type {
+  CheckboxAriaState,
+  CheckboxDataState,
+  CheckboxDescriptionProps,
+  CheckboxInputProps,
+  CheckboxLabelProps,
+  CheckboxRootProps,
+  CheckboxState,
+  UseCheckboxOptions,
+  UseCheckboxResult
+} from "./use-checkbox.js";
+export { useCheckbox } from "./use-checkbox.js";
