@@ -1,0 +1,43 @@
+import { Meta, Title, Subtitle, Description, Canvas, Primary, Controls, ArgsTable } from "@storybook/blocks";
+import * as RadioStories from "./Radio.stories";
+
+<Meta of={RadioStories} />
+
+<Title>Radio</Title>
+
+<Subtitle>단일 선택만 허용하는 라디오 그룹과 항목을 제공합니다.</Subtitle>
+
+<Description>
+`RadioGroup`은 방향키 로빙과 loop 옵션을 갖춘 그룹 컨테이너이며, `Radio`는 개별 선택지를 담당합니다. 동일한 `name`으로 묶여 한 번에
+하나의 값만 제출되며, `orientation`과 `loop`로 배치와 키보드 이동 방식을 제어할 수 있습니다.
+</Description>
+
+## Playground
+
+<Primary of={RadioStories.Playground} />
+<Controls of={RadioStories.Playground} />
+
+## 레이아웃
+
+가로/세로 정렬을 모두 지원하며, Flex 컨테이너로 줄바꿈 시나리오도 구현할 수 있습니다.
+
+<Canvas of={RadioStories.Orientation} />
+<Canvas of={RadioStories.HorizontalWrap} />
+
+## 제어 모드 &amp; 상태
+
+외부 상태와 동기화하거나 전체 그룹을 `disabled`/`invalid`로 표시할 수 있습니다. 방향키(↑↓/←→)와 Home/End로 이동하며 단일 선택만 유지됩니다.
+
+<Canvas of={RadioStories.ControlledGroup} />
+<Canvas of={RadioStories.DisabledAndInvalid} />
+
+## Props
+
+<ArgsTable of={RadioStories.Playground} />
+
+## 접근성 노트
+
+- 그룹은 `role="radiogroup"`, 각 항목은 `role="radio"`로 노출되어 스크린리더가 단일 선택을 인지합니다.
+- `aria-labelledby`/`aria-describedby`가 그룹과 항목에 적절히 연결되며, `label`/`description` 제공 여부에 따라 자동으로 id를 생성합니다.
+- 포커스는 그룹 내에서 로빙 탭인덱스로 이동하며, Arrow/Home/End 입력을 처리합니다.
+- `disabled`/`readOnly`/`required`/`invalid` 상태는 ARIA와 `data-*` 속성으로 중복 표기되어 스타일과 접근성을 함께 지원합니다.
