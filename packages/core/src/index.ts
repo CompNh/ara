@@ -31,6 +31,16 @@ export type {
 } from "./use-checkbox.js";
 export { useCheckbox } from "./use-checkbox.js";
 export type {
+  SwitchDataState,
+  SwitchDescriptionProps,
+  SwitchInputProps,
+  SwitchLabelProps,
+  SwitchRootProps,
+  UseSwitchOptions,
+  UseSwitchResult
+} from "./use-switch.js";
+export { useSwitch } from "./use-switch.js";
+export type {
   RadioDataState,
   RadioDescriptionProps,
   RadioInputProps,
