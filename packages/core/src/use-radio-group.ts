@@ -62,13 +62,15 @@ export interface UseRadioGroupResult {
   readonly labelProps: RadioGroupLabelProps;
   readonly descriptionProps: RadioGroupDescriptionProps;
   readonly value?: string;
-  readonly name?: string;
+  readonly name: string;
   readonly isDisabled: boolean;
   readonly isReadOnly: boolean;
   readonly required: boolean;
   readonly invalid: boolean;
   readonly orientation: RadioGroupOrientation;
   readonly loop: boolean;
+  readonly isControlled: boolean;
+  readonly resetToDefault: () => void;
   readonly registerItem: (controller: RadioItemController) => () => void;
   readonly updateTabStops: () => void;
   readonly setValue: (value: string) => void;
@@ -110,6 +112,7 @@ export function useRadioGroup(options: UseRadioGroupOptions = {}): UseRadioGroup
   const [uncontrolledValue, setUncontrolledValue] = useState<string | undefined>(defaultValue);
   const currentValue = isControlled ? value : uncontrolledValue;
   const activeValueRef = useRef<string | undefined>(currentValue);
+  const initialDefaultValueRef = useRef(defaultValue);
   const itemsRef = useRef<RadioItemController[]>([]);
 
   const setValue = useCallback(
@@ -122,6 +125,11 @@ export function useRadioGroup(options: UseRadioGroupOptions = {}): UseRadioGroup
     },
     [isControlled, onValueChange]
   );
+
+  const resetToDefault = useCallback(() => {
+    if (isControlled) return;
+    setUncontrolledValue(initialDefaultValueRef.current);
+  }, [isControlled]);
 
   const updateTabStops = useCallback(() => {
     const items = itemsRef.current;
@@ -256,6 +264,8 @@ export function useRadioGroup(options: UseRadioGroupOptions = {}): UseRadioGroup
     invalid,
     orientation,
     loop,
+    isControlled,
+    resetToDefault,
     registerItem,
     updateTabStops,
     setValue,

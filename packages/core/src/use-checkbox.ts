@@ -127,6 +127,7 @@ export function useCheckbox(options: UseCheckboxOptions = {}): UseCheckboxResult
   const [uncontrolledState, setUncontrolledState] = useState<CheckboxState>(defaultChecked);
   const currentState = isControlled ? checked ?? false : uncontrolledState;
   const stateRef = useRef<CheckboxState>(currentState);
+  const initialDefaultStateRef = useRef<CheckboxState>(defaultChecked);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const dataState: CheckboxDataState = useMemo(() => {
@@ -149,6 +150,11 @@ export function useCheckbox(options: UseCheckboxOptions = {}): UseCheckboxResult
     },
     [isControlled, onCheckedChange]
   );
+
+  const resetToDefault = useCallback(() => {
+    if (isControlled) return;
+    setCheckedState(initialDefaultStateRef.current);
+  }, [isControlled, setCheckedState]);
 
   const toggleState = useCallback(() => {
     if (disabled || appliedReadOnly) return;
@@ -193,6 +199,21 @@ export function useCheckbox(options: UseCheckboxOptions = {}): UseCheckboxResult
       inputRef.current.indeterminate = currentState === "indeterminate";
     }
   }, [currentState]);
+
+  useEffect(() => {
+    const node = inputRef.current;
+    const form = node?.form;
+    if (!form) return;
+
+    const handleReset = () => {
+      resetToDefault();
+    };
+
+    form.addEventListener("reset", handleReset);
+    return () => {
+      form.removeEventListener("reset", handleReset);
+    };
+  }, [resetToDefault]);
 
   const ariaDescribedBy = useMemo(() => {
     const idsToApply: string[] = [];

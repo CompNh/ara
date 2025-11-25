@@ -123,6 +123,7 @@ export function useSwitch(options: UseSwitchOptions = {}): UseSwitchResult {
   const [uncontrolledState, setUncontrolledState] = useState(defaultChecked);
   const currentState = isControlled ? checked ?? false : uncontrolledState;
   const stateRef = useRef(currentState);
+  const initialDefaultStateRef = useRef(defaultChecked);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const dataState: SwitchDataState = currentState ? "checked" : "unchecked";
@@ -137,6 +138,11 @@ export function useSwitch(options: UseSwitchOptions = {}): UseSwitchResult {
     },
     [isControlled, onCheckedChange]
   );
+
+  const resetToDefault = useCallback(() => {
+    if (isControlled) return;
+    setCheckedState(initialDefaultStateRef.current);
+  }, [isControlled, setCheckedState]);
 
   const toggleState = useCallback(() => {
     if (disabled || appliedReadOnly) return;
@@ -180,6 +186,21 @@ export function useSwitch(options: UseSwitchOptions = {}): UseSwitchResult {
       inputRef.current.checked = currentState;
     }
   }, [currentState]);
+
+  useEffect(() => {
+    const node = inputRef.current;
+    const form = node?.form;
+    if (!form) return;
+
+    const handleReset = () => {
+      resetToDefault();
+    };
+
+    form.addEventListener("reset", handleReset);
+    return () => {
+      form.removeEventListener("reset", handleReset);
+    };
+  }, [resetToDefault]);
 
   const ariaDescribedBy = useMemo(() => {
     const idsToApply: string[] = [];

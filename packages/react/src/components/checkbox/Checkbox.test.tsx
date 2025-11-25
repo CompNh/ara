@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Checkbox } from "./Checkbox.js";
 
 describe("Checkbox", () => {
@@ -89,5 +89,38 @@ describe("Checkbox", () => {
     fireEvent.click(checkbox);
 
     expect(checkbox).toHaveAttribute("data-state", "unchecked");
+  });
+
+  it("네이티브 폼 제출/리셋 흐름과 동일하게 동작한다", async () => {
+    const submissions: Array<FormDataEntryValue[]> = [];
+
+    const { container } = render(
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          const formData = new FormData(event.currentTarget as HTMLFormElement);
+          submissions.push(formData.getAll("agree"));
+        }}
+      >
+        <Checkbox name="agree" value="yes" label="동의" defaultChecked />
+        <button type="submit">제출</button>
+        <button type="reset">리셋</button>
+      </form>
+    );
+
+    const form = container.querySelector("form") as HTMLFormElement;
+    const checkbox = screen.getByRole("checkbox");
+
+    fireEvent.submit(form);
+    expect(submissions.at(-1)).toEqual(["yes"]);
+
+    fireEvent.click(checkbox);
+    fireEvent.submit(form);
+    expect(submissions.at(-1)).toEqual([]);
+
+    form.reset();
+    await waitFor(() => {
+      expect(checkbox).toHaveAttribute("aria-checked", "true");
+    });
   });
 });
