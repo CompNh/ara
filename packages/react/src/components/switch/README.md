@@ -58,7 +58,12 @@
 ## 5) 스타일/데이터 속성
 
 - **데이터 속성:** `[data-state="checked|unchecked"]`, `[data-disabled]`, `[data-readonly]`, `[data-required]`, `[data-invalid]`.
-- **CSS 변수:** thumb/track 색상·크기·애니메이션 토큰을 상태별로 제공. 포커스 링/disabled opacity 포함.
+- **CSS 변수:** 체크박스/라디오/스위치 공통 `--ara-fc-*` 토큰을 사용하며 thumb/track에도 동일 변수 매핑을 적용한다.
+  - 베이스: `--ara-fc-radius`, `--ara-fc-border-width`, `--ara-fc-disabled-opacity`, `--ara-fc-focus-outline`,
+    `--ara-fc-focus-outline-offset`, `--ara-fc-focus-ring`
+  - Tone/State: `--ara-fc-tone-{tone}-{part}-{state}` (`part = control|border|indicator|label`,
+    `tone = primary|neutral|danger`, `state = default|hover|focus|disabled|invalid`) + 중립 alias(`--ara-fc-control-default` 등)
+  - Size: `--ara-fc-size-{size}-control|gap|font-size|line-height|track-width|track-height|thumb`
 - **클래스 병합:** 기본 스타일 뒤 사용자 `className` 적용.
 
 ---

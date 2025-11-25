@@ -199,6 +199,182 @@ function createTextFieldVariables(theme: Tokens): CSSVariableMap {
   return variables;
 }
 
+function createFormControlVariables(theme: Tokens): CSSVariableMap {
+  const variables: CSSVariableMap = {} as CSSVariableMap;
+  const formControl = theme.component.formControl;
+
+  assignVariable(variables, "--ara-fc-radius", formControl.radius);
+  assignVariable(variables, "--ara-fc-border-width", formControl.borderWidth);
+  assignVariable(variables, "--ara-fc-disabled-opacity", formControl.disabled.opacity);
+  assignVariable(
+    variables,
+    "--ara-fc-focus-outline",
+    `${formControl.focus.outlineWidth} solid ${formControl.focus.outlineColor}`
+  );
+  assignVariable(
+    variables,
+    "--ara-fc-focus-outline-offset",
+    formControl.focus.outlineOffset
+  );
+  assignVariable(
+    variables,
+    "--ara-fc-focus-ring",
+    `0 0 0 ${formControl.focus.ringSize} ${formControl.focus.ringColor}`
+  );
+
+  for (const [toneName, toneTokens] of Object.entries(formControl.tone)) {
+    const tonePrefix = `--ara-fc-tone-${toneName}`;
+
+    for (const [stateName, value] of Object.entries(toneTokens.control)) {
+      assignVariable(
+        variables,
+        `${tonePrefix}-control-${stateName}` as CSSVariableName,
+        value
+      );
+    }
+
+    for (const [stateName, value] of Object.entries(toneTokens.border)) {
+      assignVariable(
+        variables,
+        `${tonePrefix}-border-${stateName}` as CSSVariableName,
+        value
+      );
+    }
+
+    for (const [stateName, value] of Object.entries(toneTokens.indicator)) {
+      assignVariable(
+        variables,
+        `${tonePrefix}-indicator-${stateName}` as CSSVariableName,
+        value
+      );
+    }
+
+    for (const [stateName, value] of Object.entries(toneTokens.label)) {
+      assignVariable(
+        variables,
+        `${tonePrefix}-label-${stateName}` as CSSVariableName,
+        value
+      );
+    }
+  }
+
+  const defaultTone = formControl.tone.neutral;
+
+  assignVariable(
+    variables,
+    "--ara-fc-control-default" as CSSVariableName,
+    defaultTone.control.default
+  );
+  assignVariable(
+    variables,
+    "--ara-fc-control-hover" as CSSVariableName,
+    defaultTone.control.hover
+  );
+  assignVariable(
+    variables,
+    "--ara-fc-control-focus" as CSSVariableName,
+    defaultTone.control.focus
+  );
+  assignVariable(
+    variables,
+    "--ara-fc-control-disabled" as CSSVariableName,
+    defaultTone.control.disabled
+  );
+  assignVariable(
+    variables,
+    "--ara-fc-control-invalid" as CSSVariableName,
+    defaultTone.control.invalid
+  );
+
+  assignVariable(
+    variables,
+    "--ara-fc-border-default" as CSSVariableName,
+    defaultTone.border.default
+  );
+  assignVariable(
+    variables,
+    "--ara-fc-border-hover" as CSSVariableName,
+    defaultTone.border.hover
+  );
+  assignVariable(
+    variables,
+    "--ara-fc-border-focus" as CSSVariableName,
+    defaultTone.border.focus
+  );
+  assignVariable(
+    variables,
+    "--ara-fc-border-disabled" as CSSVariableName,
+    defaultTone.border.disabled
+  );
+  assignVariable(
+    variables,
+    "--ara-fc-border-invalid" as CSSVariableName,
+    defaultTone.border.invalid
+  );
+
+  assignVariable(
+    variables,
+    "--ara-fc-indicator-default" as CSSVariableName,
+    defaultTone.indicator.default
+  );
+  assignVariable(
+    variables,
+    "--ara-fc-indicator-disabled" as CSSVariableName,
+    defaultTone.indicator.disabled
+  );
+  assignVariable(
+    variables,
+    "--ara-fc-indicator-invalid" as CSSVariableName,
+    defaultTone.indicator.invalid
+  );
+
+  assignVariable(
+    variables,
+    "--ara-fc-label-default" as CSSVariableName,
+    defaultTone.label.default
+  );
+  assignVariable(
+    variables,
+    "--ara-fc-label-disabled" as CSSVariableName,
+    defaultTone.label.disabled
+  );
+  assignVariable(
+    variables,
+    "--ara-fc-label-invalid" as CSSVariableName,
+    defaultTone.label.invalid
+  );
+
+  for (const [sizeName, sizeTokens] of Object.entries(formControl.size)) {
+    const sizePrefix = `--ara-fc-size-${sizeName}`;
+
+    assignVariable(variables, `${sizePrefix}-control` as CSSVariableName, sizeTokens.control);
+    assignVariable(variables, `${sizePrefix}-gap` as CSSVariableName, sizeTokens.gap);
+    assignVariable(
+      variables,
+      `${sizePrefix}-font-size` as CSSVariableName,
+      sizeTokens.fontSize
+    );
+    assignVariable(
+      variables,
+      `${sizePrefix}-line-height` as CSSVariableName,
+      sizeTokens.lineHeight
+    );
+    assignVariable(
+      variables,
+      `${sizePrefix}-track-width` as CSSVariableName,
+      sizeTokens.trackWidth
+    );
+    assignVariable(
+      variables,
+      `${sizePrefix}-track-height` as CSSVariableName,
+      sizeTokens.trackHeight
+    );
+    assignVariable(variables, `${sizePrefix}-thumb` as CSSVariableName, sizeTokens.thumb);
+  }
+
+  return variables;
+}
+
 function createButtonVariables(theme: Tokens): CSSVariableMap {
   const variables: CSSVariableMap = {} as CSSVariableMap;
   const button = theme.component.button;
@@ -410,6 +586,7 @@ export function createCSSVariableTable(theme: Tokens): ThemeCSSVariableTable {
     createTypographyVariables(theme),
     createLayoutVariables(theme),
     createButtonVariables(theme),
+    createFormControlVariables(theme),
     createIconVariables(theme),
     createTextFieldVariables(theme)
   );

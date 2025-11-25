@@ -89,7 +89,13 @@
 ## 5) 스타일/데이터 속성
 
 - **데이터 속성:** `[data-state="checked|unchecked|indeterminate"]`, `[data-disabled]`, `[data-readonly]`, `[data-required]`, `[data-invalid]`, `[data-orientation]`(그룹) 노출.
-- **CSS 변수:** 테마 시스템과 연동해 상태별 색상/배경/보더/아이콘 크기 토큰을 정의. (구체 값은 디자인 토큰 확정 시 반영.)
+- **CSS 변수:** 체크박스/라디오/스위치 공통으로 `--ara-fc-*` 프리픽스 토큰을 소비한다.
+  - 베이스: `--ara-fc-radius`, `--ara-fc-border-width`, `--ara-fc-disabled-opacity`, `--ara-fc-focus-outline`,
+    `--ara-fc-focus-outline-offset`, `--ara-fc-focus-ring`
+  - Tone/State: `--ara-fc-tone-{tone}-{part}-{state}` (`part = control|border|indicator|label`,
+    `tone = primary|neutral|danger`, `state = default|hover|focus|disabled|invalid`) + 중립 프리셋 alias
+    (`--ara-fc-control-default` 등)
+  - Size: `--ara-fc-size-{size}-control|gap|font-size|line-height|track-width|track-height|thumb`
 - **클래스 병합:** 기본 스타일 → 사용자 `className` 순으로 병합.
 
 ---
