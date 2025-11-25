@@ -48,14 +48,13 @@ interface SwitchOwnProps {
   readonly thumbClassName?: string;
 }
 
+type SwitchInputProps = Pick<
+  InputHTMLAttributes<HTMLInputElement>,
+  "id" | "name" | "required" | "disabled" | "readOnly"
+> & { readonly value?: string };
+
 export type SwitchProps = SwitchOwnProps &
-  Omit<
-    Pick<
-      InputHTMLAttributes<HTMLInputElement>,
-      "id" | "name" | "checked" | "defaultChecked" | "required" | "disabled" | "readOnly" | "value"
-    >,
-    "checked" | "defaultChecked"
-  > &
+  SwitchInputProps &
   Pick<HTMLAttributes<HTMLDivElement>, "className" | "style" | "onClick" | "onKeyDown"> & {
     readonly checked?: boolean;
     readonly defaultChecked?: boolean;
