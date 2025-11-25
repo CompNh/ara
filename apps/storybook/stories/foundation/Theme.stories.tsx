@@ -20,8 +20,9 @@ const meta = {
   args: {
     mode: "system" as const,
     defaultMode: "light" as const,
-    storageKey: null as const,
-    asChild: false
+    storageKey: null,
+    asChild: false,
+    children: undefined
   },
   argTypes: {
     mode: {
@@ -86,7 +87,7 @@ function ThemePlayground() {
           name: key,
           value: variables[key]
         }))
-        .filter((entry): entry is { name: string; value: string } => Boolean(entry.value));
+        .filter((entry) => Boolean(entry.value)) as { name: (typeof keys)[number]; value: string }[];
     },
     [mode, variables]
   );
@@ -307,9 +308,9 @@ function getReadableText(hex: string): string {
   const g = Number.parseInt(sanitized.slice(2, 4), 16) / 255;
   const b = Number.parseInt(sanitized.slice(4, 6), 16) / 255;
 
-  const [lr, lg, lb] = [r, g, b].map((value) =>
-    value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4
-  );
+    const [lr, lg, lb] = [r, g, b].map((value) =>
+      value <= 0.03928 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4
+    ) as [number, number, number];
   const luminance = 0.2126 * lr + 0.7152 * lg + 0.0722 * lb;
   return luminance > 0.6 ? "#0F172A" : "#F8FAFC";
 }
@@ -562,6 +563,7 @@ const midnightTheme: ThemeOverrides = {
 };
 
 export const Playground: Story = {
+  args: { ...meta.args },
   render: (args) => (
     <ThemeProvider {...args}>
       <ThemePlayground />
@@ -570,6 +572,7 @@ export const Playground: Story = {
 };
 
 export const ColorPalette: Story = {
+  args: { ...meta.args },
   render: (args) => (
     <ThemeProvider {...args}>
       <ColorPalettePreview />
@@ -583,6 +586,7 @@ export const ColorPalette: Story = {
 };
 
 export const TypographyScale: Story = {
+  args: { ...meta.args },
   render: (args) => (
     <ThemeProvider {...args}>
       <TypographyPreview />
@@ -596,6 +600,7 @@ export const TypographyScale: Story = {
 };
 
 export const LayoutTokens: Story = {
+  args: { ...meta.args },
   render: (args) => (
     <ThemeProvider {...args}>
       <LayoutPreview />
@@ -610,6 +615,7 @@ export const LayoutTokens: Story = {
 
 export const CustomTheme: Story = {
   args: {
+    ...meta.args,
     mode: "dark",
     defaultMode: "dark",
     storageKey: null,

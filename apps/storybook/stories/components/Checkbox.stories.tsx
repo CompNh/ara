@@ -40,12 +40,13 @@ type Story = StoryObj<typeof meta>;
 
 const spacingProps = { gap: "md", style: { maxWidth: "760px" } } as const;
 
-export const Playground: Story = {};
+export const Playground: Story = { args: { ...meta.args } };
 
 export const States: Story = {
   parameters: {
     controls: { disable: true }
   },
+  args: { ...meta.args },
   render: () => (
     <Stack {...spacingProps}>
       <Checkbox label="기본" description="라벨과 설명을 모두 포함합니다." />
@@ -62,7 +63,7 @@ const IndeterminateExample = () => {
 
   const label = useMemo(() => {
     if (state === "indeterminate") return "일부 선택됨";
-    return state === "checked" ? "전체 선택됨" : "선택 없음";
+    return state ? "전체 선택됨" : "선택 없음";
   }, [state]);
 
   return (
@@ -85,6 +86,7 @@ export const Indeterminate: Story = {
   parameters: {
     controls: { disable: true }
   },
+  args: { ...meta.args },
   render: () => <IndeterminateExample />
 };
 
