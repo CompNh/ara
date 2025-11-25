@@ -24,6 +24,10 @@ export default defineConfig({
         replacement: path.resolve(tokensRoot, "index.ts")
       },
       {
+        find: /^@ara\/icons\/(.*)$/,
+        replacement: path.resolve(iconsRoot, "$1")
+      },
+      {
         find: "@ara/icons",
         replacement: path.resolve(iconsRoot, "index.ts")
       }
