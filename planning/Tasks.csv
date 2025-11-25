@@ -264,3 +264,48 @@ T-000081,W-000008,TextField v0 Comp,빌드/출하,Exports/Types 계약 점검,�
 T-000082,W-000008,TextField v0 Comp,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가 및 canary 배포 드라이런, 릴리스 노트에 계약/범위/제한(텍스트에어리어/마스킹 제외) 명시
  ● 산출물: canary 태그·설치 확인 메모
  ● 점검: 설치/임포트/간단 사용 예 검증",확인
+T-000083,W-000009,Form Controls v0 Comp,계약/설계,API 계약 정의(Form Controls),계획,High," ● 목적: Checkbox/CheckboxGroup, Radio/RadioGroup, Switch의 Props·이벤트·상태(data-state)·Exports 경로 고정
+ ● 산출물: 각 README.md(계약 섹션) 초안
+ ● 점검: 리뷰 승인 후 계약 동결(변경=Major)",확인
+T-000084,W-000009,Form Controls v0 Comp,코어(headless),useCheckbox 로직,계획,High," ● 내용: checked/indeterminate 관리, label/description id 연결, 스페이스/클릭 토글, disabled/readOnly 차단
+ ● 산출물: packages/core/use-checkbox + 유닛 테스트 골격
+ ● 점검: pnpm --filter @ara/core test 통과",확인
+T-000085,W-000009,Form Controls v0 Comp,코어(headless),useRadio/useRadioGroup 로직,계획,High," ● 내용: 단일 선택·name 공유·로빙 탭인덱스, 화살표(←→/↑↓)로 이동·스페이스로 확정, orientation 지원
+ ● 산출물: packages/core/use-radio, use-radio-group + 테스트 골격
+ ● 점검: 그룹 내 키보드 내비게이션 시나리오 통과",확인
+T-000086,W-000009,Form Controls v0 Comp,코어(headless),useSwitch 로직,계획,High," ● 내용: checkbox语義 기반 토글을 role=""switch""+aria-checked로 노출(폼 제출은 input[type=checkbox] 재사용)
+ ● 산출물: packages/core/use-switch + 테스트 골격
+ ● 점검: role/aria 일치·폼 값 반영",확인
+T-000087,W-000009,Form Controls v0 Comp,React 구현,Checkbox 구현,계획,High," ● 내용: 숨김 input+커스텀 UI; data-state=""checked|unchecked|indeterminate""; indeterminate는 DOM 프로퍼티로 설정; label 클릭 연동
+ ● 산출물: packages/react/src/components/checkbox/index.tsx
+ ● 점검: ref 포워딩·Props 스냅·indeterminate 표시",확인
+T-000088,W-000009,Form Controls v0 Comp,React 구현,Radio/RadioGroup 구현,계획,High," ● 내용: <RadioGroup> 컨텍스트·로빙 탭인덱스·화살표 이동; <Radio> 아이템 구현; aria-labelledby/role=""radiogroup""
+ ● 산출물: packages/react/src/components/radio/{group,item}.tsx
+ ● 점검: 키보드 이동·단일 선택 보장",확인
+T-000089,W-000009,Form Controls v0 Comp,React 구현,Switch 구현,계획,High," ● 내용: 트랙/썸 구조, 키보드 스페이스/클릭 토글, role=""switch""·aria-checked 적용, className 병합
+ ● 산출물: packages/react/src/components/switch/index.tsx
+ ● 점검: 포커스 링·상태 전환 스냅",확인
+T-000090,W-000009,Form Controls v0 Comp,접근성/A11y,Label/ARIA/키보드 규정 적용,계획,High," ● 내용: label-for/id 연결, aria-describedby(error/helper) 연결, required/invalid 반영, 그룹 role/라벨링 규칙 문서화
+ ● 산출물: A11y 가이드와 테스트 케이스
+ ● 점검: 스크린리더 라벨/에러 읽힘·탭 순서 정상",확인
+T-000091,W-000009,Form Controls v0 Comp,폼 연동,네이티브 폼 제출/리셋/이름 규약,계획,Medium," ● 내용: name/value 제출·defaultChecked/checked 동작, form reset 대응, Radio name 강제, Switch의 폼 값 전략
+ ● 산출물: 폼 가이드 및 예시
+ ● 점검: 네이티브 submit/reset 시나리오 통과",확인
+T-000092,W-000009,Form Controls v0 Comp,토큰/스타일,상태/사이즈 토큰 매핑,계획,Medium," ● 내용: size(sm|md|lg)·tone(primary/neutral/danger)·상태(normal/hover/focus/disabled/invalid) CSS 변수(--ara-*) 정의
+ ● 산출물: 토큰 매핑표·data-* 스타일 훅
+ ● 점검: ThemeProvider 변경 시 일관 반영",확인
+T-000093,W-000009,Form Controls v0 Comp,테스트,Vitest+RTL 상호작용 테스트,계획,High," ● 내용: Checkbox 토글/indeterminate 유지, Radio 그룹 화살표 내비게이션·단일 선택, Switch role/aria-checked, 폼 제출/리셋
+ ● 산출물: 테스트 스위트
+ ● 점검: pnpm --filter @ara/react test 통과",확인
+T-000094,W-000009,Form Controls v0 Comp,문서/스토리북,Stories/MDX,계획,Medium," ● 내용: Checkbox(기본/indeterminate/그룹)·Radio(가로/세로 그룹)·Switch(상태/크기) 데모, Controls·A11y 노트
+ ● 산출물: stories 및 MDX
+ ● 점검: build-storybook 스모크",확인
+T-000095,W-000009,Form Controls v0 Comp,통합,Icons/Layout/Form 통합 스모크,계획,Medium," ● 내용: 체크 표시/라디오 도트 아이콘 연동(@ara/react/icon), Stack/Grid 배치, 폼 제출 예제
+ ● 산출물: showcase 또는 stories
+ ● 점검: 회귀 없음",확인
+T-000096,W-000009,Form Controls v0 Comp,빌드/출하,Exports/Types 계약 점검,계획,High," ● 내용: @ara/react/{checkbox,radio,switch} 서브패스, sideEffects:false, types/exports 해상도, pack --dry-run
+ ● 산출물: package.json exports 맵·d.ts
+ ● 점검: pnpm --filter @ara/react pack --dry-run",확인
+T-000097,W-000009,Form Controls v0 Comp,릴리스,Changesets 프리릴리스(canary),계획,High," ● 내용: changeset 추가·canary 배포 드라이런, 릴리스 노트에 계약/범위(폼 기본 컨트롤) 명시
+ ● 산출물: canary 태그·설치 확인 메모
+ ● 점검: 설치/임포트/간단 사용 예 검증",확인

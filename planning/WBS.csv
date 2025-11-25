@@ -61,3 +61,10 @@ W-000008,T1,TextField v0 Comp,완료,100,"TextField v0
  ● a11y: label 연결·aria-describedby(error/helper)·aria-invalid/required; IME(조합) 안전·Enter onCommit
  ● Storybook/테스트/Exports 고정; canary 프리릴리스 포함
  ● AC: CI·Tests·Storybook·ESM+types·라벨/에러 연결·IME/Enter 시나리오 통과",--
+W-000009,T1,Form Controls v0 Comp,계획,0,"Form Controls v0
+ ● 설계문서 : root/packages/react/src/components/{checkbox,radio,switch}/README.md
+ ● 범위: Checkbox(+indeterminate)/CheckboxGroup · Radio/RadioGroup · Switch(토글)
+ ● a11y: label 연결·aria-checked/indeterminate·Radio 그룹 화살표 내비게이션(로빙 탭인덱스)
+ ● 폼: name/value 제출·reset 대응·controlled/uncontrolled
+ ● Storybook/테스트/Exports 고정; canary 포함
+ ● AC: CI·Tests·Storybook·ESM+types·폼 제출/키보드 시나리오 통과",--
