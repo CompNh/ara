@@ -179,10 +179,10 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
         transition: "transform 120ms ease"
       }
     : {
-        width: "45%",
-        height: "70%",
-        borderRight: `2px solid ${indicatorColor}`,
-        borderBottom: `2px solid ${indicatorColor}`,
+        width: "52%",
+        height: "56%",
+        borderRight: `1.75px solid ${indicatorColor}`,
+        borderBottom: `1.75px solid ${indicatorColor}`,
         transform: rootProps["data-state"] === "checked" ? "rotate(45deg) scale(1)" : "rotate(45deg) scale(0)",
         transformOrigin: "center",
         transition: "transform 120ms ease"
