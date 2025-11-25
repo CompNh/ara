@@ -264,7 +264,7 @@ T-000081,W-000008,TextField v0 Comp,빌드/출하,Exports/Types 계약 점검,�
 T-000082,W-000008,TextField v0 Comp,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가 및 canary 배포 드라이런, 릴리스 노트에 계약/범위/제한(텍스트에어리어/마스킹 제외) 명시
  ● 산출물: canary 태그·설치 확인 메모
  ● 점검: 설치/임포트/간단 사용 예 검증",확인
-T-000083,W-000009,Form Controls v0 Comp,계약/설계,API 계약 정의(Form Controls),계획,High," ● 목적: Checkbox/CheckboxGroup, Radio/RadioGroup, Switch의 Props·이벤트·상태(data-state)·Exports 경로 고정
+T-000083,W-000009,Form Controls v0 Comp,계약/설계,API 계약 정의(Form Controls),완료,High," ● 목적: Checkbox/CheckboxGroup, Radio/RadioGroup, Switch의 Props·이벤트·상태(data-state)·Exports 경로 고정",확인
  ● 산출물: 각 README.md(계약 섹션) 초안
  ● 점검: 리뷰 승인 후 계약 동결(변경=Major)",확인
 T-000084,W-000009,Form Controls v0 Comp,코어(headless),useCheckbox 로직,계획,High," ● 내용: checked/indeterminate 관리, label/description id 연결, 스페이스/클릭 토글, disabled/readOnly 차단
