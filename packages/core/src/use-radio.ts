@@ -47,11 +47,15 @@ export interface RadioRootProps {
   readonly "aria-checked": boolean;
   readonly "aria-labelledby"?: string;
   readonly "aria-describedby"?: string;
+  readonly "aria-required"?: true;
+  readonly "aria-invalid"?: true;
   readonly "aria-disabled"?: true;
   readonly "aria-readonly"?: true;
   readonly "data-state": RadioDataState;
   readonly "data-disabled"?: true;
   readonly "data-readonly"?: true;
+  readonly "data-required"?: true;
+  readonly "data-invalid"?: true;
   readonly onClick: (event: MouseEvent<HTMLElement>) => void;
   readonly onKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
   readonly ref: (node: HTMLElement | null) => void;
@@ -247,11 +251,15 @@ export function useRadio(options: UseRadioOptions): UseRadioResult {
     "aria-checked": isChecked,
     "aria-labelledby": ariaLabelledBy,
     "aria-describedby": ariaDescribedBy,
+    "aria-required": groupRequired ? true : undefined,
+    "aria-invalid": groupInvalid ? true : undefined,
     "aria-disabled": isDisabled ? true : undefined,
     "aria-readonly": appliedReadOnly ? true : undefined,
     "data-state": isChecked ? "checked" : "unchecked",
     "data-disabled": isDisabled ? true : undefined,
     "data-readonly": appliedReadOnly ? true : undefined,
+    "data-required": groupRequired ? true : undefined,
+    "data-invalid": groupInvalid ? true : undefined,
     onClick: handleClick,
     onKeyDown: handleKeyDown,
     ref: (node) => {
