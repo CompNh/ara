@@ -288,7 +288,7 @@ T-000089,W-000009,Form Controls v0 Comp,React 구현,Switch 구현,완료,High,"
 T-000090,W-000009,Form Controls v0 Comp,접근성/A11y,Label/ARIA/키보드 규정 적용,완료,High," ● 내용: label-for/id 연결, aria-describedby(error/helper) 연결, required/invalid 반영, 그룹 role/라벨링 규칙 문서화
  ● 산출물: A11y 가이드와 테스트 케이스
  ● 점검: 스크린리더 라벨/에러 읽힘·탭 순서 정상",확인
-T-000091,W-000009,Form Controls v0 Comp,폼 연동,네이티브 폼 제출/리셋/이름 규약,계획,Medium," ● 내용: name/value 제출·defaultChecked/checked 동작, form reset 대응, Radio name 강제, Switch의 폼 값 전략
+T-000091,W-000009,Form Controls v0 Comp,폼 연동,네이티브 폼 제출/리셋/이름 규약,완료,Medium," ● 내용: name/value 제출·defaultChecked/checked 동작, form reset 대응, Radio name 강제, Switch의 폼 값 전략
  ● 산출물: 폼 가이드 및 예시
  ● 점검: 네이티브 submit/reset 시나리오 통과",확인
 T-000092,W-000009,Form Controls v0 Comp,토큰/스타일,상태/사이즈 토큰 매핑,계획,Medium," ● 내용: size(sm|md|lg)·tone(primary/neutral/danger)·상태(normal/hover/focus/disabled/invalid) CSS 변수(--ara-*) 정의
