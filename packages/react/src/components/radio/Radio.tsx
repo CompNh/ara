@@ -116,17 +116,14 @@ export const Radio = forwardRef<HTMLDivElement, RadioProps>(function Radio(props
     [onClick, onKeyDown, rootProps]
   );
 
-  const { ref: inputPropsRef, ...inputPropsWithoutRef } = inputProps;
+  const { ref: inputPropsRef, onChange: inputOnChange, ...inputPropsWithoutRef } =
+    inputProps as RadioInputProps & { ref?: Ref<HTMLInputElement> };
 
-  const mergedInputProps = useMemo(
-    () => ({
-      ...inputPropsWithoutRef,
-      onChange: composeEventHandlers(inputProps.onChange, onChange)
-    }),
-    [inputProps, onChange]
-  );
-
-  const mergedInputRef = composeRefs(inputPropsRef, inputRefProp);
+  const mergedInputProps = {
+    ...inputPropsWithoutRef,
+    onChange: composeEventHandlers(inputOnChange, onChange),
+    ref: composeRefs(inputPropsRef, inputRefProp)
+  };
 
   return (
     <div
@@ -140,7 +137,6 @@ export const Radio = forwardRef<HTMLDivElement, RadioProps>(function Radio(props
     >
       <input
         {...mergedInputProps}
-        ref={mergedInputRef}
         aria-hidden
         tabIndex={-1}
         style={visuallyHiddenStyle}
