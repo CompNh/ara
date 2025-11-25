@@ -46,6 +46,7 @@ interface SwitchOwnProps {
   readonly labelledBy?: string | readonly string[];
   readonly trackClassName?: string;
   readonly thumbClassName?: string;
+  readonly onCheckedChange?: (checked: boolean) => void;
 }
 
 type SwitchInputProps = Pick<
@@ -80,6 +81,7 @@ export const Switch = forwardRef<HTMLDivElement, SwitchProps>(function Switch(pr
     style,
     trackClassName,
     thumbClassName,
+    onCheckedChange,
     onClick,
     onKeyDown,
     ...restProps
@@ -108,7 +110,8 @@ export const Switch = forwardRef<HTMLDivElement, SwitchProps>(function Switch(pr
     hasLabel: Boolean(label),
     hasDescription: Boolean(description),
     describedByIds,
-    labelledByIds
+    labelledByIds,
+    onCheckedChange
   });
 
   const mergedRootProps = useMemo(

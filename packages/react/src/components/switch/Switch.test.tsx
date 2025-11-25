@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
+import { useState } from "react";
 import { Switch } from "./Switch.js";
 
 describe("Switch", () => {
@@ -57,5 +58,28 @@ describe("Switch", () => {
     fireEvent.keyDown(readOnlySwitch, { key: "Enter" });
 
     expect(readOnlySwitch).toHaveAttribute("data-state", "checked");
+  });
+
+  it("제어형으로 사용할 때 onCheckedChange를 통해 상위 상태를 갱신한다", () => {
+    function ControlledSwitch() {
+      const [checked, setChecked] = useState(true);
+      return (
+        <Switch
+          label="제어형"
+          checked={checked}
+          onCheckedChange={(next) => setChecked(next)}
+        />
+      );
+    }
+
+    render(<ControlledSwitch />);
+
+    const switchControl = screen.getByRole("switch");
+
+    expect(switchControl).toHaveAttribute("aria-checked", "true");
+
+    fireEvent.click(switchControl);
+
+    expect(switchControl).toHaveAttribute("aria-checked", "false");
   });
 });
