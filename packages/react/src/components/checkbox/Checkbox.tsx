@@ -49,11 +49,16 @@ interface CheckboxOwnProps {
 }
 
 export type CheckboxProps = CheckboxOwnProps &
-  Pick<
-    InputHTMLAttributes<HTMLInputElement>,
-    "id" | "name" | "checked" | "defaultChecked" | "required" | "disabled" | "readOnly"
+  Omit<
+    Pick<
+      InputHTMLAttributes<HTMLInputElement>,
+      "id" | "name" | "checked" | "defaultChecked" | "required" | "disabled" | "readOnly"
+    >,
+    "checked" | "defaultChecked"
   > &
   Pick<HTMLAttributes<HTMLDivElement>, "className" | "style" | "onClick" | "onKeyDown"> & {
+    readonly checked?: CheckboxState;
+    readonly defaultChecked?: CheckboxState;
     readonly value?: string;
   };
 
