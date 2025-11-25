@@ -125,4 +125,27 @@ describe("RadioGroup/Radio", () => {
       expect(screen.getByRole("radio", { name: "파랑" })).toHaveAttribute("aria-checked", "true");
     });
   });
+
+  it("세로 방향에서 화살표 이동으로 disabled 항목을 건너뛰고 순환한다", () => {
+    render(
+      <RadioGroup defaultValue="first" orientation="vertical">
+        <Radio value="first" label="첫 번째" />
+        <Radio value="second" label="두 번째" disabled />
+        <Radio value="third" label="세 번째" />
+      </RadioGroup>
+    );
+
+    const first = screen.getByRole("radio", { name: "첫 번째" });
+    const third = screen.getByRole("radio", { name: "세 번째" });
+
+    fireEvent.keyDown(first, { key: "ArrowDown" });
+
+    expect(third).toHaveAttribute("aria-checked", "true");
+    expect(first).toHaveAttribute("aria-checked", "false");
+
+    fireEvent.keyDown(third, { key: "ArrowUp" });
+
+    expect(first).toHaveAttribute("aria-checked", "true");
+    expect(third).toHaveAttribute("aria-checked", "false");
+  });
 });
