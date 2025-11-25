@@ -267,7 +267,7 @@ T-000082,W-000008,TextField v0 Comp,릴리스,Changesets 프리릴리스(canary)
 T-000083,W-000009,Form Controls v0 Comp,계약/설계,API 계약 정의(Form Controls),완료,High," ● 목적: Checkbox/CheckboxGroup, Radio/RadioGroup, Switch의 Props·이벤트·상태(data-state)·Exports 경로 고정
  ● 산출물: 각 README.md(계약 섹션) 초안
  ● 점검: 리뷰 승인 후 계약 동결(변경=Major)",확인
-T-000084,W-000009,Form Controls v0 Comp,코어(headless),useCheckbox 로직,계획,High," ● 내용: checked/indeterminate 관리, label/description id 연결, 스페이스/클릭 토글, disabled/readOnly 차단
+T-000084,W-000009,Form Controls v0 Comp,코어(headless),useCheckbox 로직,완료,High," ● 내용: checked/indeterminate 관리, label/description id 연결, 스페이스/클릭 토글, disabled/readOnly 차단
  ● 산출물: packages/core/use-checkbox + 유닛 테스트 골격
  ● 점검: pnpm --filter @ara/core test 통과",확인
 T-000085,W-000009,Form Controls v0 Comp,코어(headless),useRadio/useRadioGroup 로직,계획,High," ● 내용: 단일 선택·name 공유·로빙 탭인덱스, 화살표(←→/↑↓)로 이동·스페이스로 확정, orientation 지원
