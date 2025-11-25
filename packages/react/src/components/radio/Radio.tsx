@@ -95,7 +95,7 @@ export const Radio = forwardRef<HTMLDivElement, RadioProps>(function Radio(props
     return Array.isArray(labelledBy) ? [...labelledBy] : [labelledBy];
   }, [labelledBy]);
 
-  const { rootProps, inputProps, labelProps, descriptionProps } = useRadio({
+  const { rootProps, inputProps, inputRef, labelProps, descriptionProps } = useRadio({
     id,
     value,
     disabled,
@@ -116,15 +116,17 @@ export const Radio = forwardRef<HTMLDivElement, RadioProps>(function Radio(props
     [onClick, onKeyDown, rootProps]
   );
 
+  const { ref: inputPropsRef, ...inputPropsWithoutRef } = inputProps;
+
   const mergedInputProps = useMemo(
     () => ({
-      ...inputProps,
+      ...inputPropsWithoutRef,
       onChange: composeEventHandlers(inputProps.onChange, onChange)
     }),
     [inputProps, onChange]
   );
 
-  const mergedInputRef = composeRefs(inputProps.ref, inputRefProp);
+  const mergedInputRef = composeRefs(inputPropsRef, inputRefProp);
 
   return (
     <div
