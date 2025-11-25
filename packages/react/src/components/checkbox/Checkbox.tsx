@@ -9,6 +9,8 @@ import {
 } from "react";
 import { composeRefs } from "@radix-ui/react-compose-refs";
 import { useCheckbox, type CheckboxState } from "@ara/core";
+import { createFormControlStyleTokens } from "../form-control/formControlStyle.js";
+import { useAraTheme } from "../../theme/index.js";
 
 const visuallyHiddenStyle: CSSProperties = {
   position: "absolute",
@@ -87,6 +89,9 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
     ...restProps
   } = props;
 
+  const theme = useAraTheme();
+  const tokens = useMemo(() => createFormControlStyleTokens(theme), [theme]);
+
   const describedByIds = useMemo(() => {
     if (!describedBy) return [] as string[];
     return Array.isArray(describedBy) ? [...describedBy] : [describedBy];
@@ -114,6 +119,75 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
     onCheckedChange
   });
 
+  const isDisabled = Boolean(rootProps["data-disabled"]);
+  const isInvalid = Boolean(rootProps["data-invalid"]);
+  const labelColor = isDisabled
+    ? tokens.labelColor.disabled
+    : isInvalid
+      ? tokens.labelColor.invalid
+      : tokens.labelColor.default;
+  const indicatorColor = isDisabled
+    ? tokens.indicatorColor.disabled
+    : isInvalid
+      ? tokens.indicatorColor.invalid
+      : tokens.indicatorColor.default;
+  const controlBackground = isDisabled
+    ? tokens.controlColor.disabled
+    : isInvalid
+      ? tokens.controlColor.invalid
+      : tokens.controlColor.default;
+  const controlBorder = isDisabled
+    ? tokens.borderColor.disabled
+    : isInvalid
+      ? tokens.borderColor.invalid
+      : tokens.borderColor.default;
+
+  const rootStyle: CSSProperties = {
+    display: "inline-flex",
+    alignItems: "flex-start",
+    gap: tokens.gap,
+    fontSize: tokens.fontSize,
+    lineHeight: tokens.lineHeight,
+    color: labelColor,
+    cursor: isDisabled ? "not-allowed" : "pointer",
+    userSelect: "none",
+    opacity: isDisabled ? tokens.disabledOpacity : 1
+  };
+
+  const controlStyle: CSSProperties = {
+    width: tokens.controlSize,
+    height: tokens.controlSize,
+    borderRadius: tokens.radius,
+    borderWidth: tokens.borderWidth,
+    borderStyle: "solid",
+    backgroundColor: controlBackground,
+    borderColor: controlBorder,
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexShrink: 0,
+    transition: "background-color 120ms ease, border-color 120ms ease"
+  };
+
+  const indicatorBase: CSSProperties = isIndeterminate
+    ? {
+        width: "60%",
+        height: "2px",
+        borderRadius: "999px",
+        backgroundColor: indicatorColor,
+        transform: isIndeterminate ? "scaleX(1)" : "scaleX(0)",
+        transition: "transform 120ms ease"
+      }
+    : {
+        width: "45%",
+        height: "70%",
+        borderRight: `2px solid ${indicatorColor}`,
+        borderBottom: `2px solid ${indicatorColor}`,
+        transform: rootProps["data-state"] === "checked" ? "rotate(45deg) scale(1)" : "rotate(45deg) scale(0)",
+        transformOrigin: "center",
+        transition: "transform 120ms ease"
+      };
+
   const mergedRootProps = useMemo(
     () => ({
       ...rootProps,
@@ -130,7 +204,7 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
       {...restProps}
       ref={ref}
       className={mergeClassNames("ara-checkbox", className)}
-      style={style}
+      style={{ ...rootStyle, ...style }}
       data-state={rootProps["data-state"]}
       data-disabled={rootProps["data-disabled"]}
       data-readonly={rootProps["data-readonly"]}
@@ -148,18 +222,32 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
       <div
         {...mergedRootProps}
         className={mergeClassNames("ara-checkbox__control", controlClassName)}
+        style={controlStyle}
       >
-        <span aria-hidden className="ara-checkbox__indicator" data-indeterminate={isIndeterminate || undefined} />
+        <span
+          aria-hidden
+          className="ara-checkbox__indicator"
+          data-indeterminate={isIndeterminate || undefined}
+          style={indicatorBase}
+        />
       </div>
       {(label || description) && (
-        <div className="ara-checkbox__text">
+        <div className="ara-checkbox__text" style={{ color: labelColor }}>
           {label ? (
-            <label {...labelProps} className="ara-checkbox__label">
+            <label
+              {...labelProps}
+              className="ara-checkbox__label"
+              style={{ color: labelColor, fontWeight: 600 }}
+            >
               {label}
             </label>
           ) : null}
           {description ? (
-            <div {...descriptionProps} className="ara-checkbox__description">
+            <div
+              {...descriptionProps}
+              className="ara-checkbox__description"
+              style={{ color: labelColor, opacity: isDisabled ? 0.8 : 0.95 }}
+            >
               {description}
             </div>
           ) : null}
