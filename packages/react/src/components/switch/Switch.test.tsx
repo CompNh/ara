@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { useState } from "react";
 import { Switch } from "./Switch.js";
 
@@ -81,5 +81,38 @@ describe("Switch", () => {
     fireEvent.click(switchControl);
 
     expect(switchControl).toHaveAttribute("aria-checked", "false");
+  });
+
+  it("폼 제출 시 선택된 경우에만 name/value를 포함하고 reset으로 초기화된다", async () => {
+    const submissions: Array<FormDataEntryValue[]> = [];
+
+    const { container } = render(
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          const formData = new FormData(event.currentTarget as HTMLFormElement);
+          submissions.push(formData.getAll("power"));
+        }}
+      >
+        <Switch name="power" value="on" label="전원" defaultChecked />
+        <button type="submit">제출</button>
+        <button type="reset">리셋</button>
+      </form>
+    );
+
+    const form = container.querySelector("form") as HTMLFormElement;
+    const switchControl = screen.getByRole("switch");
+
+    fireEvent.submit(form);
+    expect(submissions.at(-1)).toEqual(["on"]);
+
+    fireEvent.click(switchControl);
+    fireEvent.submit(form);
+    expect(submissions.at(-1)).toEqual([]);
+
+    form.reset();
+    await waitFor(() => {
+      expect(switchControl).toHaveAttribute("aria-checked", "true");
+    });
   });
 });

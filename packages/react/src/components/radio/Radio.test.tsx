@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { Radio } from "./Radio.js";
 import { RadioGroup } from "./RadioGroup.js";
 
@@ -83,5 +83,46 @@ describe("RadioGroup/Radio", () => {
 
     expect(red.getAttribute("aria-labelledby")).toBe(redLabel.id);
     expect(red.getAttribute("aria-describedby")).toBe(description.id);
+  });
+
+  it("폼 제출 시 그룹 name으로 단일 값을 제출하고 reset으로 초기 상태를 복원한다", async () => {
+    const submissions: Array<FormDataEntryValue | null> = [];
+
+    const { container } = render(
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          const formData = new FormData(event.currentTarget as HTMLFormElement);
+          submissions.push(formData.get("color"));
+        }}
+      >
+        <RadioGroup name="color" defaultValue="blue">
+          <Radio value="red" label="빨강" />
+          <Radio value="blue" label="파랑" />
+        </RadioGroup>
+        <button type="submit">제출</button>
+        <button type="reset">리셋</button>
+      </form>
+    );
+
+    const form = container.querySelector("form") as HTMLFormElement;
+    const radioInputs = Array.from(form.querySelectorAll("input[type='radio']"));
+    const uniqueNames = new Set(radioInputs.map((input) => input.getAttribute("name")));
+
+    expect(uniqueNames.size).toBe(1);
+    expect(uniqueNames.values().next().value).toBe("color");
+
+    fireEvent.submit(form);
+    expect(submissions.at(-1)).toBe("blue");
+
+    const redOption = screen.getByRole("radio", { name: "빨강" });
+    fireEvent.click(redOption);
+    fireEvent.submit(form);
+    expect(submissions.at(-1)).toBe("red");
+
+    form.reset();
+    await waitFor(() => {
+      expect(screen.getByRole("radio", { name: "파랑" })).toHaveAttribute("aria-checked", "true");
+    });
   });
 });

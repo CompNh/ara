@@ -65,6 +65,7 @@ export interface RadioInputProps {
   readonly disabled?: boolean;
   readonly readOnly?: boolean;
   readonly checked: boolean;
+  readonly ref: (node: HTMLInputElement | null) => void;
   readonly "aria-invalid"?: true;
   readonly "aria-required"?: true;
   readonly "aria-readonly"?: true;
@@ -111,6 +112,7 @@ export function useRadio(options: UseRadioOptions): UseRadioResult {
     invalid: groupInvalid,
     isDisabled: groupDisabled,
     isReadOnly: groupReadOnly,
+    resetToDefault,
     name: groupName,
     registerItem,
     required: groupRequired,
@@ -124,6 +126,7 @@ export function useRadio(options: UseRadioOptions): UseRadioResult {
   const isChecked = groupValue === value;
   const [tabIndex, setTabIndex] = useState(-1);
   const rootRef = useRef<HTMLElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const controller = useMemo(
     () => ({
@@ -148,6 +151,21 @@ export function useRadio(options: UseRadioOptions): UseRadioResult {
   useEffect(() => {
     updateTabStops();
   }, [isDisabled, isChecked, updateTabStops]);
+
+  useEffect(() => {
+    const node = inputRef.current;
+    const form = node?.form;
+    if (!form) return;
+
+    const handleReset = () => {
+      resetToDefault();
+    };
+
+    form.addEventListener("reset", handleReset);
+    return () => {
+      form.removeEventListener("reset", handleReset);
+    };
+  }, [resetToDefault]);
 
   const ariaDescribedBy = useMemo(() => {
     const idsToApply: string[] = [];
@@ -246,6 +264,9 @@ export function useRadio(options: UseRadioOptions): UseRadioResult {
     disabled: isDisabled || undefined,
     readOnly: appliedReadOnly || undefined,
     checked: isChecked,
+    ref: (node) => {
+      inputRef.current = node;
+    },
     "aria-invalid": groupInvalid ? true : undefined,
     "aria-required": groupRequired ? true : undefined,
     "aria-readonly": appliedReadOnly ? true : undefined,
