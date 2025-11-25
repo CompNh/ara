@@ -70,6 +70,7 @@ describe("useCheckbox", () => {
     expect(root).toHaveAttribute("aria-invalid", "true");
 
     expect(input).toHaveAttribute("id", "checkbox-id");
+    expect(input).toHaveAttribute("type", "checkbox");
     expect(input).toHaveAttribute("aria-labelledby", "checkbox-id-label");
     expect(input.getAttribute("aria-describedby")).toBe("checkbox-id-description");
     expect(input).toHaveAttribute("aria-required", "true");

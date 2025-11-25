@@ -70,6 +70,7 @@ export interface CheckboxInputProps {
   readonly id: string;
   readonly name?: string;
   readonly value: string;
+  readonly type: "checkbox";
   readonly required?: boolean;
   readonly disabled?: boolean;
   readonly readOnly?: boolean;
@@ -242,6 +243,7 @@ export function useCheckbox(options: UseCheckboxOptions = {}): UseCheckboxResult
     id: ids.inputId,
     name,
     value,
+    type: "checkbox",
     required: required || undefined,
     disabled: disabled || undefined,
     readOnly: appliedReadOnly || undefined,
