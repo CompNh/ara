@@ -294,7 +294,7 @@ T-000091,W-000009,Form Controls v0 Comp,폼 연동,네이티브 폼 제출/리�
 T-000092,W-000009,Form Controls v0 Comp,토큰/스타일,상태/사이즈 토큰 매핑,완료,Medium," ● 내용: size(sm|md|lg)·tone(primary/neutral/danger)·상태(normal/hover/focus/disabled/invalid) CSS 변수(--ara-*) 정의
  ● 산출물: 토큰 매핑표·data-* 스타일 훅
  ● 점검: ThemeProvider 변경 시 일관 반영",확인
-T-000093,W-000009,Form Controls v0 Comp,테스트,Vitest+RTL 상호작용 테스트,계획,High," ● 내용: Checkbox 토글/indeterminate 유지, Radio 그룹 화살표 내비게이션·단일 선택, Switch role/aria-checked, 폼 제출/리셋
+T-000093,W-000009,Form Controls v0 Comp,테스트,Vitest+RTL 상호작용 테스트,완료,High," ● 내용: Checkbox 토글/indeterminate 유지, Radio 그룹 화살표 내비게이션·단일 선택, Switch role/aria-checked, 폼 제출/리셋
  ● 산출물: 테스트 스위트
  ● 점검: pnpm --filter @ara/react test 통과",확인
 T-000094,W-000009,Form Controls v0 Comp,문서/스토리북,Stories/MDX,계획,Medium," ● 내용: Checkbox(기본/indeterminate/그룹)·Radio(가로/세로 그룹)·Switch(상태/크기) 데모, Controls·A11y 노트
