@@ -106,7 +106,7 @@ const CheckboxGroupExample = () => {
           value="email"
           label="이메일"
           description="프로모션/보안 알림을 메일로 받습니다."
-          checked={selected.includes("email") ? "checked" : "unchecked"}
+          checked={selected.includes("email")}
           onCheckedChange={() => toggle("email")}
         />
         <Checkbox
@@ -114,7 +114,7 @@ const CheckboxGroupExample = () => {
           value="sms"
           label="SMS"
           description="휴대폰 문자로 긴급 알림을 전달합니다."
-          checked={selected.includes("sms") ? "checked" : "unchecked"}
+          checked={selected.includes("sms")}
           onCheckedChange={() => toggle("sms")}
         />
         <Checkbox
@@ -122,7 +122,7 @@ const CheckboxGroupExample = () => {
           value="push"
           label="푸시"
           description="앱 알림 배너로 메시지를 표시합니다."
-          checked={selected.includes("push") ? "checked" : "unchecked"}
+          checked={selected.includes("push")}
           onCheckedChange={() => toggle("push")}
         />
       </Flex>
