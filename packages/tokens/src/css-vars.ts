@@ -118,6 +118,87 @@ function createLayoutVariables(theme: Tokens): CSSVariableMap {
   return variables;
 }
 
+function createTextFieldVariables(theme: Tokens): CSSVariableMap {
+  const variables: CSSVariableMap = {} as CSSVariableMap;
+  const textField = theme.component.textField;
+
+  assignVariable(variables, "--ara-tf-font", textField.font.family);
+  assignVariable(variables, "--ara-tf-font-weight", textField.font.weight);
+  assignVariable(variables, "--ara-tf-radius", textField.radius);
+  assignVariable(variables, "--ara-tf-border-width", textField.borderWidth);
+  assignVariable(variables, "--ara-tf-disabled-opacity", textField.disabled.opacity);
+  assignVariable(
+    variables,
+    "--ara-tf-outline" as CSSVariableName,
+    `${textField.focus.outlineWidth} solid ${textField.focus.outlineColor}`
+  );
+  assignVariable(
+    variables,
+    "--ara-tf-shadow-focus" as CSSVariableName,
+    `0 0 0 ${textField.focus.ringSize} ${textField.focus.ringColor}`
+  );
+
+  for (const [toneName, toneTokens] of Object.entries(textField.tone)) {
+    const tonePrefix = `--ara-tf-tone-${toneName}`;
+
+    for (const [stateName, value] of Object.entries(toneTokens.surface)) {
+      assignVariable(
+        variables,
+        `${tonePrefix}-surface-${stateName}` as CSSVariableName,
+        value
+      );
+    }
+
+    for (const [stateName, value] of Object.entries(toneTokens.border)) {
+      assignVariable(
+        variables,
+        `${tonePrefix}-border-${stateName}` as CSSVariableName,
+        value
+      );
+    }
+
+    for (const [stateName, value] of Object.entries(toneTokens.text)) {
+      assignVariable(
+        variables,
+        `${tonePrefix}-text-${stateName}` as CSSVariableName,
+        value
+      );
+    }
+  }
+
+  const defaultTone = textField.tone.neutral;
+
+  assignVariable(variables, "--ara-tf-surface-default" as CSSVariableName, defaultTone.surface.default);
+  assignVariable(variables, "--ara-tf-surface-hover" as CSSVariableName, defaultTone.surface.hover);
+  assignVariable(variables, "--ara-tf-surface-focus" as CSSVariableName, defaultTone.surface.focus);
+  assignVariable(variables, "--ara-tf-surface-disabled" as CSSVariableName, defaultTone.surface.disabled);
+  assignVariable(variables, "--ara-tf-surface-invalid" as CSSVariableName, defaultTone.surface.invalid);
+  assignVariable(variables, "--ara-tf-border-default" as CSSVariableName, defaultTone.border.default);
+  assignVariable(variables, "--ara-tf-border-hover" as CSSVariableName, defaultTone.border.hover);
+  assignVariable(variables, "--ara-tf-border-focus" as CSSVariableName, defaultTone.border.focus);
+  assignVariable(variables, "--ara-tf-border-disabled" as CSSVariableName, defaultTone.border.disabled);
+  assignVariable(variables, "--ara-tf-border-invalid" as CSSVariableName, defaultTone.border.invalid);
+  assignVariable(variables, "--ara-tf-text-default" as CSSVariableName, defaultTone.text.default);
+  assignVariable(variables, "--ara-tf-text-disabled" as CSSVariableName, defaultTone.text.disabled);
+  assignVariable(variables, "--ara-tf-text-invalid" as CSSVariableName, defaultTone.text.invalid);
+
+  for (const [sizeName, sizeTokens] of Object.entries(textField.size)) {
+    const sizePrefix = `--ara-tf-size-${sizeName}`;
+
+    assignVariable(variables, `${sizePrefix}-height` as CSSVariableName, sizeTokens.height);
+    assignVariable(variables, `${sizePrefix}-px` as CSSVariableName, sizeTokens.paddingInline);
+    assignVariable(variables, `${sizePrefix}-py` as CSSVariableName, sizeTokens.paddingBlock);
+    assignVariable(variables, `${sizePrefix}-gap` as CSSVariableName, sizeTokens.gap);
+    assignVariable(variables, `${sizePrefix}-font-size` as CSSVariableName, sizeTokens.fontSize);
+    assignVariable(variables, `${sizePrefix}-line-height` as CSSVariableName, sizeTokens.lineHeight);
+    assignVariable(variables, `${sizePrefix}-icon` as CSSVariableName, sizeTokens.icon);
+    assignVariable(variables, `${sizePrefix}-clear` as CSSVariableName, sizeTokens.clear);
+    assignVariable(variables, `${sizePrefix}-toggle` as CSSVariableName, sizeTokens.toggle);
+  }
+
+  return variables;
+}
+
 function createButtonVariables(theme: Tokens): CSSVariableMap {
   const variables: CSSVariableMap = {} as CSSVariableMap;
   const button = theme.component.button;
@@ -329,7 +410,8 @@ export function createCSSVariableTable(theme: Tokens): ThemeCSSVariableTable {
     createTypographyVariables(theme),
     createLayoutVariables(theme),
     createButtonVariables(theme),
-    createIconVariables(theme)
+    createIconVariables(theme),
+    createTextFieldVariables(theme)
   );
 
   const themes = createThemeCSSVariables(theme);
