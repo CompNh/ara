@@ -51,9 +51,11 @@ interface CheckboxOwnProps {
 export type CheckboxProps = CheckboxOwnProps &
   Pick<
     InputHTMLAttributes<HTMLInputElement>,
-    "id" | "name" | "value" | "checked" | "defaultChecked" | "required" | "disabled" | "readOnly"
+    "id" | "name" | "checked" | "defaultChecked" | "required" | "disabled" | "readOnly"
   > &
-  Pick<HTMLAttributes<HTMLDivElement>, "className" | "style" | "onClick" | "onKeyDown">;
+  Pick<HTMLAttributes<HTMLDivElement>, "className" | "style" | "onClick" | "onKeyDown"> & {
+    readonly value?: string;
+  };
 
 export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Checkbox(props, ref) {
   const {
