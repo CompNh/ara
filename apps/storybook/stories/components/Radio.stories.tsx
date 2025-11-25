@@ -20,7 +20,8 @@ const meta = {
   args: {
     label: "옵션",
     description: "라디오 옵션입니다.",
-    disabled: false
+    disabled: false,
+    value: ""
   },
   argTypes: {
     value: { control: "text" },
@@ -46,33 +47,34 @@ type Story = StoryObj<typeof meta>;
 
 const spacingProps = { gap: "md", style: { maxWidth: "760px" } } as const;
 
-export const Playground: Story = {};
+export const Playground: Story = { args: { ...meta.args } };
 
 export const Orientation: Story = {
   name: "가로/세로 그룹",
   parameters: {
     controls: { disable: true }
   },
+  args: { ...meta.args },
   render: () => (
     <Stack {...spacingProps}>
       <RadioGroup
-        name="direction-horizontal"
-        label="가로 정렬"
-        description="orientation=\"horizontal\" 로 나란히 배치"
-        orientation="horizontal"
-      >
-        <Radio value="left" label="왼쪽" />
-        <Radio value="center" label="가운데" />
-        <Radio value="right" label="오른쪽" />
-      </RadioGroup>
-      <RadioGroup
-        name="direction-vertical"
-        label="세로 정렬"
-        description="orientation=\"vertical\" 기본 방향"
-      >
-        <Radio value="top" label="위" />
-        <Radio value="middle" label="중간" />
-        <Radio value="bottom" label="아래" />
+          name="direction-horizontal"
+          label="가로 정렬"
+          description={"orientation=\"horizontal\" 로 나란히 배치"}
+          orientation="horizontal"
+        >
+          <Radio value="left" label="왼쪽" />
+          <Radio value="center" label="가운데" />
+          <Radio value="right" label="오른쪽" />
+        </RadioGroup>
+        <RadioGroup
+          name="direction-vertical"
+          label="세로 정렬"
+          description={"orientation=\"vertical\" 기본 방향"}
+        >
+          <Radio value="top" label="위" />
+          <Radio value="middle" label="중간" />
+          <Radio value="bottom" label="아래" />
       </RadioGroup>
     </Stack>
   )
@@ -104,6 +106,7 @@ export const ControlledGroup: Story = {
   parameters: {
     controls: { disable: true }
   },
+  args: { ...meta.args },
   render: () => <RadioGroupStateExample />
 };
 
@@ -112,6 +115,7 @@ export const DisabledAndInvalid: Story = {
   parameters: {
     controls: { disable: true }
   },
+  args: { ...meta.args },
   render: () => (
     <Stack {...spacingProps}>
       <RadioGroup name="disabled" label="비활성 그룹" description="전체 disabled">
@@ -131,6 +135,7 @@ export const HorizontalWrap: Story = {
   parameters: {
     controls: { disable: true }
   },
+  args: { ...meta.args },
   render: () => (
     <RadioGroup
       name="layout"
