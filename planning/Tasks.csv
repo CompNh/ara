@@ -270,7 +270,7 @@ T-000083,W-000009,Form Controls v0 Comp,계약/설계,API 계약 정의(Form Con
 T-000084,W-000009,Form Controls v0 Comp,코어(headless),useCheckbox 로직,완료,High," ● 내용: checked/indeterminate 관리, label/description id 연결, 스페이스/클릭 토글, disabled/readOnly 차단
  ● 산출물: packages/core/use-checkbox + 유닛 테스트 골격
  ● 점검: pnpm --filter @ara/core test 통과",확인
-T-000085,W-000009,Form Controls v0 Comp,코어(headless),useRadio/useRadioGroup 로직,계획,High," ● 내용: 단일 선택·name 공유·로빙 탭인덱스, 화살표(←→/↑↓)로 이동·스페이스로 확정, orientation 지원
+T-000085,W-000009,Form Controls v0 Comp,코어(headless),useRadio/useRadioGroup 로직,완료,High," ● 내용: 단일 선택·name 공유·로빙 탭인덱스, 화살표(←→/↑↓)로 이동·스페이스로 확정, orientation 지원
  ● 산출물: packages/core/use-radio, use-radio-group + 테스트 골격
  ● 점검: 그룹 내 키보드 내비게이션 시나리오 통과",확인
 T-000086,W-000009,Form Controls v0 Comp,코어(headless),useSwitch 로직,계획,High," ● 내용: checkbox语義 기반 토글을 role=""switch""+aria-checked로 노출(폼 제출은 input[type=checkbox] 재사용)
