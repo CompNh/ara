@@ -8,7 +8,7 @@ import {
   type Ref
 } from "react";
 import { composeRefs } from "@radix-ui/react-compose-refs";
-import { useRadio } from "@ara/core";
+import { useRadio, type RadioInputProps } from "@ara/core";
 import { useRadioGroupContext } from "./RadioGroup.js";
 
 function mergeClassNames(...values: Array<string | undefined | null | false>): string {
