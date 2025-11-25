@@ -22,6 +22,11 @@
       "import": "./dist/use-checkbox.js",
       "default": "./dist/use-checkbox.js"
     },
+    "./use-switch": {
+      "types": "./dist/use-switch.d.ts",
+      "import": "./dist/use-switch.js",
+      "default": "./dist/use-switch.js"
+    },
     "./use-text-field": {
       "types": "./dist/use-text-field.d.ts",
       "import": "./dist/use-text-field.js",
@@ -44,6 +49,9 @@
       ],
       "use-checkbox": [
         "dist/use-checkbox.d.ts"
+      ],
+      "use-switch": [
+        "dist/use-switch.d.ts"
       ],
       "use-text-field": [
         "dist/use-text-field.d.ts"
