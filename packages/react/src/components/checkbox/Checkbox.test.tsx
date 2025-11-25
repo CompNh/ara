@@ -47,6 +47,40 @@ describe("Checkbox", () => {
     expect(checkbox).toHaveAttribute("data-state", "checked");
   });
 
+  it("aria 레이블/설명 및 상태 속성을 연결한다", () => {
+    render(
+      <Checkbox
+        label="동의"
+        description="설명"
+        required
+        invalid
+        readOnly
+        value="agree"
+      />
+    );
+
+    const checkbox = screen.getByRole("checkbox");
+    const label = screen.getByText("동의");
+    const description = screen.getByText("설명");
+    const input = document.querySelector("input[type='checkbox']")!;
+
+    expect(label).toBeInstanceOf(HTMLLabelElement);
+    const labelElement = label as HTMLLabelElement;
+
+    expect(checkbox.getAttribute("aria-labelledby")).toBe(label.id);
+    expect(checkbox.getAttribute("aria-describedby")).toBe(description.id);
+    expect(checkbox).toHaveAttribute("aria-required", "true");
+    expect(checkbox).toHaveAttribute("aria-invalid", "true");
+    expect(checkbox).toHaveAttribute("aria-readonly", "true");
+
+    expect(input).toHaveAttribute("id", labelElement.htmlFor);
+    expect(input.getAttribute("aria-labelledby")).toBe(label.id);
+    expect(input.getAttribute("aria-describedby")).toBe(description.id);
+    expect(input).toHaveAttribute("aria-required", "true");
+    expect(input).toHaveAttribute("aria-invalid", "true");
+    expect(input).toHaveAttribute("aria-readonly", "true");
+  });
+
   it("disabled 시 상호작용을 차단한다", () => {
     render(<Checkbox label="비활성" disabled defaultChecked={false} />);
 

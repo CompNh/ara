@@ -72,17 +72,27 @@ export const Radio = forwardRef<HTMLDivElement, RadioProps>(function Radio(props
     ...restProps
   } = props;
 
+  const group = useRadioGroupContext();
+
   const describedByIds = useMemo(() => {
-    if (!describedBy) return [] as string[];
-    return Array.isArray(describedBy) ? [...describedBy] : [describedBy];
-  }, [describedBy]);
+    const ids: string[] = [];
+    const groupDescribedBy = group.rootProps["aria-describedby"];
+
+    if (groupDescribedBy) {
+      ids.push(...groupDescribedBy.split(" ").filter(Boolean));
+    }
+
+    if (describedBy) {
+      ids.push(...(Array.isArray(describedBy) ? describedBy : [describedBy]));
+    }
+
+    return ids;
+  }, [describedBy, group.rootProps]);
 
   const labelledByIds = useMemo(() => {
     if (!labelledBy) return [] as string[];
     return Array.isArray(labelledBy) ? [...labelledBy] : [labelledBy];
   }, [labelledBy]);
-
-  const group = useRadioGroupContext();
 
   const { rootProps, inputProps, labelProps, descriptionProps } = useRadio({
     id,

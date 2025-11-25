@@ -14,8 +14,8 @@ describe("RadioGroup/Radio", () => {
       </RadioGroup>
     );
 
-    const optionA = screen.getByRole("radio", { name: "옵션 A" });
-    const optionB = screen.getByRole("radio", { name: "옵션 B" });
+    const optionA = screen.getByRole("radio", { name: /옵션 A/ });
+    const optionB = screen.getByRole("radio", { name: /옵션 B/ });
 
     expect(optionB).toHaveAttribute("aria-checked", "true");
     expect(optionA).toHaveAttribute("aria-checked", "false");
@@ -59,5 +59,29 @@ describe("RadioGroup/Radio", () => {
 
     expect(locked).toHaveAttribute("aria-checked", "false");
     expect(locked).toHaveAttribute("aria-disabled", "true");
+  });
+
+  it("그룹 레이블/설명 및 상태 aria 속성을 연결한다", () => {
+    render(
+      <RadioGroup label="색상" description="색상 설명" required invalid readOnly>
+        <Radio value="red" label="빨강" />
+        <Radio value="blue" label="파랑" />
+      </RadioGroup>
+    );
+
+    const group = screen.getByRole("radiogroup");
+    const label = screen.getByText("색상");
+    const description = screen.getByText("색상 설명");
+    const red = screen.getByRole("radio", { name: /빨강/ });
+    const redLabel = screen.getByText("빨강");
+
+    expect(group.getAttribute("aria-labelledby")).toBe(label.id);
+    expect(group.getAttribute("aria-describedby")).toBe(description.id);
+    expect(group).toHaveAttribute("aria-required", "true");
+    expect(group).toHaveAttribute("aria-invalid", "true");
+    expect(group).toHaveAttribute("aria-readonly", "true");
+
+    expect(red.getAttribute("aria-labelledby")).toBe(redLabel.id);
+    expect(red.getAttribute("aria-describedby")).toBe(description.id);
   });
 });
