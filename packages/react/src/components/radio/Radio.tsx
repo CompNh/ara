@@ -116,12 +116,13 @@ export const Radio = forwardRef<HTMLDivElement, RadioProps>(function Radio(props
     [onClick, onKeyDown, rootProps]
   );
 
-  const { ref: inputPropsRef, onChange: inputOnChange, ...inputPropsWithoutRef } = inputProps;
+  const { ref: inputPropsRef, onChange: inputOnChange, ...inputPropsWithoutRef } =
+    inputProps as RadioInputProps & { ref?: Ref<HTMLInputElement> };
 
   const mergedInputProps = {
     ...inputPropsWithoutRef,
     onChange: composeEventHandlers(inputOnChange, onChange),
-    ref: composeRefs(inputPropsRef, composeRefs(inputRef, inputRefProp))
+    ref: composeRefs(inputPropsRef, inputRefProp)
   };
 
   return (
