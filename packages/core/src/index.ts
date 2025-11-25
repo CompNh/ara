@@ -30,3 +30,23 @@ export type {
   UseCheckboxResult
 } from "./use-checkbox.js";
 export { useCheckbox } from "./use-checkbox.js";
+export type {
+  RadioDataState,
+  RadioDescriptionProps,
+  RadioInputProps,
+  RadioLabelProps,
+  RadioRootProps,
+  UseRadioOptions,
+  UseRadioResult
+} from "./use-radio.js";
+export { useRadio } from "./use-radio.js";
+export type {
+  RadioGroupDescriptionProps,
+  RadioGroupLabelProps,
+  RadioGroupOrientation,
+  RadioGroupRootProps,
+  RadioItemController,
+  UseRadioGroupOptions,
+  UseRadioGroupResult
+} from "./use-radio-group.js";
+export { useRadioGroup } from "./use-radio-group.js";
