@@ -6,13 +6,10 @@ import {
   type HTMLAttributes,
   type ReactNode
 } from "react";
-import {
-  useRadioGroup,
-  type RadioGroupOrientation,
-  type UseRadioGroupResult
-} from "@ara/core";
+import { useRadioGroup, type UseRadioGroupResult } from "@ara/core";
+import type { RadioGroupOrientation } from "@ara/core";
 
-export type { RadioGroupOrientation };
+export type { RadioGroupOrientation } from "@ara/core";
 
 function mergeClassNames(...values: Array<string | undefined | null | false>): string {
   return values.filter(Boolean).join(" ");
