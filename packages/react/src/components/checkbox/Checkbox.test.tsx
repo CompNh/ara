@@ -64,13 +64,16 @@ describe("Checkbox", () => {
     const description = screen.getByText("설명");
     const input = document.querySelector("input[type='checkbox']")!;
 
+    expect(label).toBeInstanceOf(HTMLLabelElement);
+    const labelElement = label as HTMLLabelElement;
+
     expect(checkbox.getAttribute("aria-labelledby")).toBe(label.id);
     expect(checkbox.getAttribute("aria-describedby")).toBe(description.id);
     expect(checkbox).toHaveAttribute("aria-required", "true");
     expect(checkbox).toHaveAttribute("aria-invalid", "true");
     expect(checkbox).toHaveAttribute("aria-readonly", "true");
 
-    expect(input).toHaveAttribute("id", label.htmlFor);
+    expect(input).toHaveAttribute("id", labelElement.htmlFor);
     expect(input.getAttribute("aria-labelledby")).toBe(label.id);
     expect(input.getAttribute("aria-describedby")).toBe(description.id);
     expect(input).toHaveAttribute("aria-required", "true");
