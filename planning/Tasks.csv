@@ -285,7 +285,7 @@ T-000088,W-000009,Form Controls v0 Comp,React 구현,Radio/RadioGroup 구현,완
 T-000089,W-000009,Form Controls v0 Comp,React 구현,Switch 구현,완료,High," ● 내용: 트랙/썸 구조, 키보드 스페이스/클릭 토글, role=""switch""·aria-checked 적용, className 병합
  ● 산출물: packages/react/src/components/switch/index.tsx
  ● 점검: 포커스 링·상태 전환 스냅",확인
-T-000090,W-000009,Form Controls v0 Comp,접근성/A11y,Label/ARIA/키보드 규정 적용,계획,High," ● 내용: label-for/id 연결, aria-describedby(error/helper) 연결, required/invalid 반영, 그룹 role/라벨링 규칙 문서화
+T-000090,W-000009,Form Controls v0 Comp,접근성/A11y,Label/ARIA/키보드 규정 적용,완료,High," ● 내용: label-for/id 연결, aria-describedby(error/helper) 연결, required/invalid 반영, 그룹 role/라벨링 규칙 문서화
  ● 산출물: A11y 가이드와 테스트 케이스
  ● 점검: 스크린리더 라벨/에러 읽힘·탭 순서 정상",확인
 T-000091,W-000009,Form Controls v0 Comp,폼 연동,네이티브 폼 제출/리셋/이름 규약,계획,Medium," ● 내용: name/value 제출·defaultChecked/checked 동작, form reset 대응, Radio name 강제, Switch의 폼 값 전략
