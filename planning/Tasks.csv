@@ -282,7 +282,7 @@ T-000087,W-000009,Form Controls v0 Comp,React 구현,Checkbox 구현,완료,High
 T-000088,W-000009,Form Controls v0 Comp,React 구현,Radio/RadioGroup 구현,완료,High," ● 내용: <RadioGroup> 컨텍스트·로빙 탭인덱스·화살표 이동; <Radio> 아이템 구현; aria-labelledby/role=""radiogroup""
  ● 산출물: packages/react/src/components/radio/{group,item}.tsx
  ● 점검: 키보드 이동·단일 선택 보장",확인
-T-000089,W-000009,Form Controls v0 Comp,React 구현,Switch 구현,계획,High," ● 내용: 트랙/썸 구조, 키보드 스페이스/클릭 토글, role=""switch""·aria-checked 적용, className 병합
+T-000089,W-000009,Form Controls v0 Comp,React 구현,Switch 구현,완료,High," ● 내용: 트랙/썸 구조, 키보드 스페이스/클릭 토글, role=""switch""·aria-checked 적용, className 병합
  ● 산출물: packages/react/src/components/switch/index.tsx
  ● 점검: 포커스 링·상태 전환 스냅",확인
 T-000090,W-000009,Form Controls v0 Comp,접근성/A11y,Label/ARIA/키보드 규정 적용,계획,High," ● 내용: label-for/id 연결, aria-describedby(error/helper) 연결, required/invalid 반영, 그룹 role/라벨링 규칙 문서화
