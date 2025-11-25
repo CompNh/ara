@@ -95,7 +95,7 @@ export const Radio = forwardRef<HTMLDivElement, RadioProps>(function Radio(props
     return Array.isArray(labelledBy) ? [...labelledBy] : [labelledBy];
   }, [labelledBy]);
 
-  const { rootProps, inputProps, labelProps, descriptionProps } = useRadio({
+  const { rootProps, inputProps, inputRef, labelProps, descriptionProps } = useRadio({
     id,
     value,
     disabled,
