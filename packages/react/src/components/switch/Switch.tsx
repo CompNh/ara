@@ -138,7 +138,7 @@ export const Switch = forwardRef<HTMLDivElement, SwitchProps>(function Switch(pr
     : isInvalid
       ? tokens.controlColor.invalid
       : tokens.controlColor.default;
-  const inactiveTrackBackground = isDisabled ? controlBackground : tokens.controlColor.hover;
+  const inactiveTrackBackground = isDisabled ? controlBackground : tokens.borderColor.hover;
   const trackBorder = isDisabled
     ? tokens.borderColor.disabled
     : isInvalid
