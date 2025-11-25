@@ -169,13 +169,13 @@ export function useRadioGroup(options: UseRadioGroupOptions = {}): UseRadioGroup
         const candidate = items[normalizedIndex];
         if (!candidate || candidate.isDisabled()) continue;
 
-        activeValueRef.current = candidate.value;
+        setValue(candidate.value);
         candidate.focus();
         updateTabStops();
         return;
       }
     },
-    [loop, updateTabStops]
+    [loop, setValue, updateTabStops]
   );
 
   const handleArrowNavigation = useCallback(
