@@ -3,5 +3,5 @@ export {
   RadioGroup,
   type RadioGroupProps,
   useRadioGroupContext,
-  type RadioGroupOrientation
 } from "./RadioGroup.js";
+export type { RadioGroupOrientation } from "@ara/core";
