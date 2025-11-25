@@ -62,6 +62,11 @@
       "import": "./dist/components/radio/index.js",
       "default": "./dist/components/radio/index.js"
     },
+    "./components/switch": {
+      "types": "./dist/components/switch/index.d.ts",
+      "import": "./dist/components/switch/index.js",
+      "default": "./dist/components/switch/index.js"
+    },
     "./components/icon": {
       "types": "./dist/components/icon/index.d.ts",
       "import": "./dist/components/icon/index.js",
@@ -127,6 +132,11 @@
       "import": "./dist/components/radio/index.js",
       "default": "./dist/components/radio/index.js"
     },
+    "./switch": {
+      "types": "./dist/components/switch/index.d.ts",
+      "import": "./dist/components/switch/index.js",
+      "default": "./dist/components/switch/index.js"
+    },
     "./package.json": "./package.json"
   },
   "typesVersions": {
@@ -164,6 +174,9 @@
       "components/radio": [
         "dist/components/radio/index.d.ts"
       ],
+      "components/switch": [
+        "dist/components/switch/index.d.ts"
+      ],
       "components/text-field": [
         "dist/components/text-field/index.d.ts"
       ],
@@ -196,6 +209,9 @@
       ],
       "radio": [
         "dist/components/radio/index.d.ts"
+      ],
+      "switch": [
+        "dist/components/switch/index.d.ts"
       ],
       "theme": [
         "dist/theme/index.d.ts"
