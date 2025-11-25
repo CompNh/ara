@@ -12,6 +12,8 @@ import {
   type UseRadioGroupResult
 } from "@ara/core";
 
+export type { RadioGroupOrientation };
+
 function mergeClassNames(...values: Array<string | undefined | null | false>): string {
   return values.filter(Boolean).join(" ");
 }

@@ -7,7 +7,6 @@ import {
   type ReactNode,
   type Ref
 } from "react";
-import { composeRefs } from "@radix-ui/react-compose-refs";
 import { useRadio } from "@ara/core";
 import { useRadioGroupContext } from "./RadioGroup.js";
 
@@ -114,8 +113,6 @@ export const Radio = forwardRef<HTMLDivElement, RadioProps>(function Radio(props
     [inputProps, onChange]
   );
 
-  const mergedInputRef = composeRefs(inputProps.ref, inputRef);
-
   return (
     <div
       {...restProps}
@@ -128,7 +125,7 @@ export const Radio = forwardRef<HTMLDivElement, RadioProps>(function Radio(props
     >
       <input
         {...mergedInputProps}
-        ref={mergedInputRef}
+        ref={inputRef}
         aria-hidden
         tabIndex={-1}
         style={visuallyHiddenStyle}
