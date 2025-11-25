@@ -138,13 +138,14 @@ export const Switch = forwardRef<HTMLDivElement, SwitchProps>(function Switch(pr
     : isInvalid
       ? tokens.controlColor.invalid
       : tokens.controlColor.default;
+  const inactiveTrackBackground = isDisabled ? controlBackground : tokens.controlColor.hover;
   const trackBorder = isDisabled
     ? tokens.borderColor.disabled
     : isInvalid
       ? tokens.borderColor.invalid
       : isChecked
         ? indicatorColor
-        : tokens.borderColor.default;
+        : tokens.borderColor.hover;
 
   const rootStyle: CSSProperties = {
     display: "inline-flex",
@@ -166,7 +167,7 @@ export const Switch = forwardRef<HTMLDivElement, SwitchProps>(function Switch(pr
     borderRadius: `calc(${tokens.trackHeight} / 2)`,
     borderWidth: tokens.borderWidth,
     borderStyle: "solid",
-    backgroundColor: isChecked ? indicatorColor : controlBackground,
+    backgroundColor: isChecked ? indicatorColor : inactiveTrackBackground,
     borderColor: trackBorder,
     display: "inline-flex",
     alignItems: "center",
