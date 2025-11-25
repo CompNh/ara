@@ -5,6 +5,7 @@ import react from "@vitejs/plugin-react";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const tokensRoot = path.resolve(__dirname, "../tokens/src");
+const iconsRoot = path.resolve(__dirname, "../icons/src");
 
 export default defineConfig({
   plugins: [react()],
@@ -21,6 +22,10 @@ export default defineConfig({
       {
         find: "@ara/tokens",
         replacement: path.resolve(tokensRoot, "index.ts")
+      },
+      {
+        find: "@ara/icons",
+        replacement: path.resolve(iconsRoot, "index.ts")
       }
     ]
   },
