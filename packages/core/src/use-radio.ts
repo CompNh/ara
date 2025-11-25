@@ -34,6 +34,7 @@ interface UseRadioIds {
 export interface UseRadioResult {
   readonly rootProps: RadioRootProps;
   readonly inputProps: RadioInputProps;
+  readonly inputRef: (node: HTMLInputElement | null) => void;
   readonly labelProps: RadioLabelProps;
   readonly descriptionProps: RadioDescriptionProps;
   readonly isChecked: boolean;
@@ -127,6 +128,9 @@ export function useRadio(options: UseRadioOptions): UseRadioResult {
   const [tabIndex, setTabIndex] = useState(-1);
   const rootRef = useRef<HTMLElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const setInputRef = useCallback((node: HTMLInputElement | null) => {
+    inputRef.current = node;
+  }, []);
 
   const controller = useMemo(
     () => ({
@@ -264,9 +268,7 @@ export function useRadio(options: UseRadioOptions): UseRadioResult {
     disabled: isDisabled || undefined,
     readOnly: appliedReadOnly || undefined,
     checked: isChecked,
-    ref: (node) => {
-      inputRef.current = node;
-    },
+    ref: setInputRef,
     "aria-invalid": groupInvalid ? true : undefined,
     "aria-required": groupRequired ? true : undefined,
     "aria-readonly": appliedReadOnly ? true : undefined,
@@ -288,6 +290,7 @@ export function useRadio(options: UseRadioOptions): UseRadioResult {
   return {
     rootProps,
     inputProps,
+    inputRef: setInputRef,
     labelProps,
     descriptionProps,
     isChecked
