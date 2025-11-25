@@ -57,6 +57,11 @@
       "import": "./dist/components/checkbox/index.js",
       "default": "./dist/components/checkbox/index.js"
     },
+    "./components/radio": {
+      "types": "./dist/components/radio/index.d.ts",
+      "import": "./dist/components/radio/index.js",
+      "default": "./dist/components/radio/index.js"
+    },
     "./components/icon": {
       "types": "./dist/components/icon/index.d.ts",
       "import": "./dist/components/icon/index.js",
@@ -117,6 +122,11 @@
       "import": "./dist/components/checkbox/index.js",
       "default": "./dist/components/checkbox/index.js"
     },
+    "./radio": {
+      "types": "./dist/components/radio/index.d.ts",
+      "import": "./dist/components/radio/index.js",
+      "default": "./dist/components/radio/index.js"
+    },
     "./package.json": "./package.json"
   },
   "typesVersions": {
@@ -151,6 +161,9 @@
       "components/checkbox": [
         "dist/components/checkbox/index.d.ts"
       ],
+      "components/radio": [
+        "dist/components/radio/index.d.ts"
+      ],
       "components/text-field": [
         "dist/components/text-field/index.d.ts"
       ],
@@ -180,6 +193,9 @@
       ],
       "checkbox": [
         "dist/components/checkbox/index.d.ts"
+      ],
+      "radio": [
+        "dist/components/radio/index.d.ts"
       ],
       "theme": [
         "dist/theme/index.d.ts"

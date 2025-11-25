@@ -279,7 +279,7 @@ T-000086,W-000009,Form Controls v0 Comp,코어(headless),useSwitch 로직,완료
 T-000087,W-000009,Form Controls v0 Comp,React 구현,Checkbox 구현,완료,High," ● 내용: 숨김 input+커스텀 UI; data-state=""checked|unchecked|indeterminate""; indeterminate는 DOM 프로퍼티로 설정; label 클릭 연동
  ● 산출물: packages/react/src/components/checkbox/index.ts
  ● 점검: ref 포워딩·Props 스냅·indeterminate 표시",확인
-T-000088,W-000009,Form Controls v0 Comp,React 구현,Radio/RadioGroup 구현,계획,High," ● 내용: <RadioGroup> 컨텍스트·로빙 탭인덱스·화살표 이동; <Radio> 아이템 구현; aria-labelledby/role=""radiogroup""
+T-000088,W-000009,Form Controls v0 Comp,React 구현,Radio/RadioGroup 구현,완료,High," ● 내용: <RadioGroup> 컨텍스트·로빙 탭인덱스·화살표 이동; <Radio> 아이템 구현; aria-labelledby/role=""radiogroup""
  ● 산출물: packages/react/src/components/radio/{group,item}.tsx
  ● 점검: 키보드 이동·단일 선택 보장",확인
 T-000089,W-000009,Form Controls v0 Comp,React 구현,Switch 구현,계획,High," ● 내용: 트랙/썸 구조, 키보드 스페이스/클릭 토글, role=""switch""·aria-checked 적용, className 병합
