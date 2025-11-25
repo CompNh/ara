@@ -1,0 +1,47 @@
+import { Meta, Title, Subtitle, Description, Canvas, Primary, Controls, ArgsTable } from "@storybook/blocks";
+import * as SwitchStories from "./Switch.stories";
+
+<Meta of={SwitchStories} />
+
+<Title>Switch</Title>
+
+<Subtitle>on/off 상태를 전환하는 토글 스위치입니다. 체크박스 시맨틱을 유지하면서 `role="switch"`를 제공합니다.</Subtitle>
+
+<Description>
+`Switch`는 숨김 체크박스와 커스텀 트랙/썸 UI를 결합한 컴포넌트입니다. Space/Enter/클릭으로 토글되며, `name`/`value`로 폼 제출에
+참여합니다. 라벨과 설명을 연결해 의미를 전달하고, `readOnly`/`disabled`/`invalid` 등의 상태도 ARIA와 data 속성으로 노출됩니다.
+</Description>
+
+## Playground
+
+<Primary of={SwitchStories.Playground} />
+<Controls of={SwitchStories.Playground} />
+
+## 상태
+
+읽기 전용, 비활성화, 오류/필수 상태를 포함한 다양한 사례를 보여줍니다.
+
+<Canvas of={SwitchStories.States} />
+
+## 크기
+
+디폴트 레이아웃은 중간 크기이며, CSS 변수나 transform 스케일을 통해 섬세한 크기 조절이 가능합니다.
+
+<Canvas of={SwitchStories.Sizes} />
+
+## 제어 모드
+
+외부 상태와 동기화해 여러 토글을 동시에 제어할 수 있습니다.
+
+<Canvas of={SwitchStories.Controlled} />
+
+## Props
+
+<ArgsTable of={SwitchStories.Playground} />
+
+## 접근성 노트
+
+- 커스텀 루트에 `role="switch"`와 `aria-checked`가 설정되어 스크린리더가 on/off 상태를 읽습니다.
+- 숨김 `<input type="checkbox">`를 유지해 폼 제출 및 키보드 포커스 동작을 그대로 제공합니다.
+- `aria-disabled`/`aria-readonly`/`aria-required`/`aria-invalid`가 상태별로 적용되고, 동일한 정보가 `data-*` 속성으로도 노출됩니다.
+- 트랙과 썸 스타일은 `--ara-fc-*` 토큰(예: `--ara-fc-focus-ring`, `--ara-fc-size-md-track-width`)을 오버라이드해 커스터마이징할 수 있습니다.
