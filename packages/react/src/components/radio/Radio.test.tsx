@@ -148,4 +148,50 @@ describe("RadioGroup/Radio", () => {
     expect(first).toHaveAttribute("aria-checked", "true");
     expect(third).toHaveAttribute("aria-checked", "false");
   });
+
+  it("stacked 레이아웃에서 텍스트가 컨트롤 위에 표시된다", () => {
+    const { container } = render(
+      <RadioGroup label="위치">
+        <Radio value="top" label="위" layout="stacked" description="스택" />
+      </RadioGroup>
+    );
+
+    const text = container.querySelector(".ara-radio__text");
+    const control = container.querySelector(".ara-radio__control");
+
+    expect(text).not.toBeNull();
+    expect(control).not.toBeNull();
+    expect(text?.nextElementSibling).toBe(control);
+  });
+
+  it("inline 레이아웃에서는 컨트롤이 텍스트 앞에 위치한다", () => {
+    const { container } = render(
+      <RadioGroup label="위치">
+        <Radio value="inline" label="인라인" description="텍스트" />
+      </RadioGroup>
+    );
+
+    const text = container.querySelector(".ara-radio__text");
+    const control = container.querySelector(".ara-radio__control");
+
+    expect(control?.nextElementSibling).toBe(text);
+  });
+
+  it("라벨 및 설명 스타일을 회색 보조 텍스트로 렌더링한다", () => {
+    render(
+      <RadioGroup label="설명" description="조건 안내" required>
+        <Radio value="desc" label="옵션" description="부가 설명" />
+      </RadioGroup>
+    );
+
+    const description = screen.getByText("부가 설명");
+    const groupDescription = screen.getByText("조건 안내");
+    const requiredMark = screen.getByTestId("radio-group-required-indicator");
+
+    expect(description).toHaveStyle({ color: "var(--ara-radio-description, #6b7280)" });
+    expect(groupDescription).toHaveStyle({
+      color: "var(--ara-radio-group-description, #6b7280)"
+    });
+    expect(requiredMark).toHaveTextContent("*");
+  });
 });

@@ -21,7 +21,8 @@ const meta = {
     label: "옵션",
     description: "라디오 옵션입니다.",
     disabled: false,
-    value: ""
+    value: "",
+    layout: "inline"
   },
   argTypes: {
     value: { control: "text" },
@@ -29,7 +30,8 @@ const meta = {
     describedBy: { control: false },
     labelledBy: { control: false },
     inputRef: { control: false },
-    controlClassName: { control: false }
+    controlClassName: { control: false },
+    layout: { control: "inline-radio", options: ["inline", "stacked"] }
   },
   tags: ["autodocs"],
   render: (args) => (
@@ -48,6 +50,23 @@ type Story = StoryObj<typeof meta>;
 const spacingProps = { gap: "md", style: { maxWidth: "760px" } } as const;
 
 export const Playground: Story = { args: { ...meta.args } };
+
+export const Layouts: Story = {
+  name: "레이아웃 예시",
+  parameters: {
+    controls: { disable: true }
+  },
+  render: () => (
+    <Stack {...spacingProps}>
+      <RadioGroup name="layout-inline" label="인라인 텍스트" description="control 뒤에 텍스트">
+        <Radio value="inline" label="Option" description="inline" layout="inline" />
+      </RadioGroup>
+      <RadioGroup name="layout-stacked" label="스택 정렬" description="텍스트 위 정렬">
+        <Radio value="stacked" label="Option" description="stacked" layout="stacked" />
+      </RadioGroup>
+    </Stack>
+  )
+};
 
 export const Orientation: Story = {
   name: "가로/세로 그룹",
