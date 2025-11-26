@@ -23,6 +23,8 @@ const meta = {
       "Your password must be 8-20 characters long, contain letters and numbers and must not contain spaces, special characters or emoji.",
     required: true,
     orientation: "vertical",
+    optionCount: 3,
+    optionLabels: ["옵션 A", "옵션 B", "옵션 C"],
     label: "옵션",
     description: undefined,
     disabled: false,
@@ -33,6 +35,8 @@ const meta = {
     groupLabel: { name: "groupLabel", control: "text" },
     groupDescription: { name: "groupDescription", control: "text" },
     required: { name: "required", control: "boolean" },
+    optionCount: { name: "optionCount", control: { type: "number", min: 1, max: 12, step: 1 } },
+    optionLabels: { name: "optionLabels", control: "object" },
     orientation: { control: "inline-radio", options: ["vertical", "horizontal"] },
     value: { control: "text" },
     onChange: { control: false },
@@ -43,19 +47,40 @@ const meta = {
     layout: { control: "inline-radio", options: ["inline", "stacked"] }
   },
   tags: ["autodocs"],
-  render: ({ groupLabel, groupDescription, required, orientation, ...radioArgs }) => (
-    <RadioGroup
-      name="sample"
-      label={groupLabel}
-      description={groupDescription}
-      required={required}
-      orientation={orientation}
-    >
-      <Radio {...radioArgs} value="a" />
-      <Radio {...radioArgs} value="b" label="옵션 B" />
-      <Radio {...radioArgs} value="c" label="옵션 C" />
-    </RadioGroup>
-  )
+  render: ({
+    groupLabel,
+    groupDescription,
+    required,
+    orientation,
+    optionCount = 3,
+    optionLabels = [],
+    ...radioArgs
+  }) => {
+    const { label: _radioLabel, description: _radioDescription, ...restRadioArgs } = radioArgs;
+    const count = Math.max(1, Math.min(Number(optionCount) || 0, 12));
+    const labels = Array.isArray(optionLabels) ? optionLabels : [];
+    const options = Array.from({ length: count }, (_, index) => {
+      const fallbackLabel = `옵션 ${String.fromCharCode(65 + index)}`;
+      return {
+        value: `option-${index + 1}`,
+        label: labels[index] || fallbackLabel
+      };
+    });
+
+    return (
+      <RadioGroup
+        name="sample"
+        label={groupLabel}
+        description={groupDescription}
+        required={required}
+        orientation={orientation}
+      >
+        {options.map((option) => (
+          <Radio key={option.value} {...restRadioArgs} value={option.value} label={option.label} />
+        ))}
+      </RadioGroup>
+    );
+  }
 } satisfies Meta<typeof Radio>;
 
 export default meta;
