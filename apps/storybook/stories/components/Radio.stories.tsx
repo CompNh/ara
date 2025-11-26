@@ -18,13 +18,22 @@ const meta = {
     layout: "padded"
   },
   args: {
+    groupLabel: "옵션 선택",
+    groupDescription:
+      "Your password must be 8-20 characters long, contain letters and numbers and must not contain spaces, special characters or emoji.",
+    required: true,
+    orientation: "vertical",
     label: "옵션",
-    description: "라디오 옵션입니다.",
+    description: undefined,
     disabled: false,
     value: "",
     layout: "inline"
   },
   argTypes: {
+    groupLabel: { name: "groupLabel", control: "text" },
+    groupDescription: { name: "groupDescription", control: "text" },
+    required: { name: "required", control: "boolean" },
+    orientation: { control: "inline-radio", options: ["vertical", "horizontal"] },
     value: { control: "text" },
     onChange: { control: false },
     describedBy: { control: false },
@@ -34,11 +43,17 @@ const meta = {
     layout: { control: "inline-radio", options: ["inline", "stacked"] }
   },
   tags: ["autodocs"],
-  render: (args) => (
-    <RadioGroup name="sample" label="라디오 옵션" description="기본 Radio 컴포넌트입니다.">
-      <Radio {...args} value="a" />
-      <Radio {...args} value="b" label="옵션 B" />
-      <Radio {...args} value="c" label="옵션 C" description="보조 설명 포함" />
+  render: ({ groupLabel, groupDescription, required, orientation, ...radioArgs }) => (
+    <RadioGroup
+      name="sample"
+      label={groupLabel}
+      description={groupDescription}
+      required={required}
+      orientation={orientation}
+    >
+      <Radio {...radioArgs} value="a" />
+      <Radio {...radioArgs} value="b" label="옵션 B" />
+      <Radio {...radioArgs} value="c" label="옵션 C" />
     </RadioGroup>
   )
 } satisfies Meta<typeof Radio>;
