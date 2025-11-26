@@ -81,6 +81,15 @@ describe("Checkbox", () => {
     expect(input).toHaveAttribute("aria-readonly", "true");
   });
 
+  it("required 옵션일 때 빨간색 표시를 렌더링한다", () => {
+    render(<Checkbox label="필수" required />);
+
+    const requiredMark = screen.getByTestId("checkbox-required-indicator");
+
+    expect(requiredMark).toHaveTextContent("*");
+    expect(requiredMark).toHaveStyle({ color: "var(--ara-checkbox-required, #d93025)" });
+  });
+
   it("disabled 시 상호작용을 차단한다", () => {
     render(<Checkbox label="비활성" disabled defaultChecked={false} />);
 

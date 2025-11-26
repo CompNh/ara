@@ -157,6 +157,9 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
     : isInvalid
       ? tokens.indicatorColor.invalid
       : "var(--ara-checkbox-indicator, #1f2333)";
+  const requiredIndicatorColor = isDisabled
+    ? tokens.labelColor.disabled
+    : "var(--ara-checkbox-required, #d93025)";
 
   const controlStyle: CSSProperties = {
     width: tokens.controlSize,
@@ -236,9 +239,30 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
           <label
             {...labelProps}
             className="ara-checkbox__label"
-            style={{ color: labelColor, fontWeight: 600 }}
+            style={{
+              color: labelColor,
+              fontWeight: 600,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.25em"
+            }}
           >
             {label}
+            {required ? (
+              <span
+                aria-hidden
+                data-testid="checkbox-required-indicator"
+                className="ara-checkbox__required"
+                style={{
+                  color: requiredIndicatorColor,
+                  fontSize: "0.95em",
+                  fontWeight: 700,
+                  lineHeight: 1
+                }}
+              >
+                *
+              </span>
+            ) : null}
           </label>
         ) : null}
         {description ? (
