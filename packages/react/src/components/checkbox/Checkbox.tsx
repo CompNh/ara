@@ -43,6 +43,7 @@ interface CheckboxOwnProps {
   readonly label?: ReactNode;
   readonly description?: ReactNode;
   readonly invalid?: boolean;
+  readonly layout?: "inline" | "stacked";
   readonly inputRef?: Ref<HTMLInputElement>;
   readonly describedBy?: string | readonly string[];
   readonly labelledBy?: string | readonly string[];
@@ -75,6 +76,7 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
     disabled,
     readOnly,
     invalid,
+    layout = "inline",
     label,
     description,
     inputRef,
@@ -91,6 +93,8 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
 
   const theme = useAraTheme();
   const tokens = useMemo(() => createFormControlStyleTokens(theme), [theme]);
+  const isStacked = layout === "stacked";
+  const hasText = Boolean(label || description);
 
   const describedByIds = useMemo(() => {
     if (!describedBy) return [] as string[];
@@ -129,7 +133,8 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
 
   const rootStyle: CSSProperties = {
     display: "inline-flex",
-    alignItems: "flex-start",
+    flexDirection: isStacked ? "column" : "row",
+    alignItems: isStacked ? "stretch" : "flex-start",
     gap: tokens.gap,
     fontSize: tokens.fontSize,
     lineHeight: tokens.lineHeight,
@@ -166,6 +171,7 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
     alignItems: "center",
     justifyContent: "center",
     flexShrink: 0,
+    alignSelf: isStacked ? "flex-start" : undefined,
     transition: "background-color 120ms ease, border-color 120ms ease, box-shadow 120ms ease"
   };
 
@@ -207,6 +213,33 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
 
   const mergedInputRef = composeRefs(inputProps.ref, inputRef);
 
+  const textContent =
+    hasText && (
+      <div
+        className="ara-checkbox__text"
+        style={{ color: labelColor, display: "flex", flexDirection: "column", gap: "0.15em" }}
+      >
+        {label ? (
+          <label
+            {...labelProps}
+            className="ara-checkbox__label"
+            style={{ color: labelColor, fontWeight: 600 }}
+          >
+            {label}
+          </label>
+        ) : null}
+        {description ? (
+          <div
+            {...descriptionProps}
+            className="ara-checkbox__description"
+            style={{ color: labelColor, opacity: isDisabled ? 0.8 : 0.95 }}
+          >
+            {description}
+          </div>
+        ) : null}
+      </div>
+    );
+
   return (
     <div
       {...restProps}
@@ -227,6 +260,7 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
         tabIndex={-1}
         data-state={rootProps["data-state"]}
       />
+      {isStacked ? textContent : null}
       <div
         {...mergedRootProps}
         className={mergeClassNames("ara-checkbox__control", controlClassName)}
@@ -259,28 +293,7 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
           )}
         </span>
       </div>
-      {(label || description) && (
-        <div className="ara-checkbox__text" style={{ color: labelColor }}>
-          {label ? (
-            <label
-              {...labelProps}
-              className="ara-checkbox__label"
-              style={{ color: labelColor, fontWeight: 600 }}
-            >
-              {label}
-            </label>
-          ) : null}
-          {description ? (
-            <div
-              {...descriptionProps}
-              className="ara-checkbox__description"
-              style={{ color: labelColor, opacity: isDisabled ? 0.8 : 0.95 }}
-            >
-              {description}
-            </div>
-          ) : null}
-        </div>
-      )}
+      {!isStacked ? textContent : null}
     </div>
   );
 });
