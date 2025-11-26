@@ -4,7 +4,7 @@ import { AraProvider, AraThemeBoundary, Flex, Radio, RadioGroup, Stack } from "@
 import type { RadioGroupProps, RadioProps } from "@ara/react";
 
 type RadioPlaygroundArgs = RadioGroupProps &
-  Pick<RadioProps, "layout" | "disabled"> & {
+  Pick<RadioProps, "layout" | "disabled" | "controlClassName" | "inputRef"> & {
     optionCount: number;
     optionLabels: string[];
   };
@@ -47,10 +47,20 @@ const meta = {
     onValueChange: { control: false },
     describedBy: { control: false },
     labelledBy: { control: false },
+    controlClassName: { name: "controlClassName", control: "text" },
+    inputRef: { control: false },
     layout: { control: "inline-radio", options: ["inline", "stacked"] }
   },
   tags: ["autodocs"],
-  render: ({ optionCount = 3, optionLabels = [], layout, disabled, ...groupProps }) => {
+  render: ({
+    optionCount = 3,
+    optionLabels = [],
+    layout,
+    disabled,
+    controlClassName,
+    inputRef,
+    ...groupProps
+  }) => {
     const count = Math.max(1, Math.min(Number(optionCount) || 0, 12));
     const labels = Array.isArray(optionLabels) ? optionLabels : [];
     const options = Array.from({ length: count }, (_, index) => {
@@ -70,6 +80,8 @@ const meta = {
             label={option.label}
             layout={layout}
             disabled={disabled}
+            controlClassName={controlClassName}
+            inputRef={inputRef}
           />
         ))}
       </RadioGroup>
