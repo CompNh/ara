@@ -188,8 +188,8 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
   };
 
   const checkmarkIcon: CSSProperties = {
-    width: "64%",
-    height: "64%",
+    width: "68%",
+    height: "68%",
     transformOrigin: "center",
     transform: rootProps["data-state"] === "checked" ? "scale(1)" : "scale(0.65)",
     opacity: rootProps["data-state"] === "checked" ? 1 : 0,
