@@ -43,6 +43,7 @@ function composeEventHandlers<Event>(
 interface RadioOwnProps {
   readonly label?: ReactNode;
   readonly description?: ReactNode;
+  readonly layout?: "inline" | "stacked";
   readonly inputRef?: Ref<HTMLInputElement>;
   readonly describedBy?: string | readonly string[];
   readonly labelledBy?: string | readonly string[];
@@ -61,6 +62,7 @@ export const Radio = forwardRef<HTMLDivElement, RadioProps>(function Radio(props
     value,
     disabled,
     readOnly,
+    layout = "inline",
     label,
     description,
     inputRef: inputRefProp,
@@ -114,12 +116,20 @@ export const Radio = forwardRef<HTMLDivElement, RadioProps>(function Radio(props
   const isDisabled = Boolean(rootProps["data-disabled"]);
   const isInvalid = Boolean(rootProps["data-invalid"]);
   const isChecked = rootProps["data-state"] === "checked";
+  const isStacked = layout === "stacked";
+  const hasText = Boolean(label || description);
 
   const labelColor = isDisabled
     ? tokens.labelColor.disabled
     : isInvalid
       ? tokens.labelColor.invalid
       : tokens.labelColor.default;
+  const descriptionColor = isDisabled
+    ? tokens.labelColor.disabled
+    : isInvalid
+      ? tokens.labelColor.invalid
+      : "var(--ara-radio-description, #6b7280)";
+  const descriptionFontSize = `var(--ara-radio-description-size, calc(${tokens.fontSize} * 0.92))`;
   const indicatorColor = isDisabled
     ? tokens.indicatorColor.disabled
     : isInvalid
@@ -140,7 +150,8 @@ export const Radio = forwardRef<HTMLDivElement, RadioProps>(function Radio(props
 
   const rootStyle: CSSProperties = {
     display: "inline-flex",
-    alignItems: "flex-start",
+    flexDirection: isStacked ? "column" : "row",
+    alignItems: isStacked ? "stretch" : "flex-start",
     gap: tokens.gap,
     fontSize: tokens.fontSize,
     lineHeight: tokens.lineHeight,
@@ -162,6 +173,7 @@ export const Radio = forwardRef<HTMLDivElement, RadioProps>(function Radio(props
     alignItems: "center",
     justifyContent: "center",
     flexShrink: 0,
+    alignSelf: isStacked ? "flex-start" : undefined,
     transition: "background-color 120ms ease, border-color 120ms ease"
   };
 
@@ -192,6 +204,43 @@ export const Radio = forwardRef<HTMLDivElement, RadioProps>(function Radio(props
     ref: composeRefs(inputPropsRef, inputRefProp)
   };
 
+  const textContent =
+    hasText && (
+      <div
+        className="ara-radio__text"
+        style={{
+          color: labelColor,
+          display: "flex",
+          flexDirection: "column",
+          gap: "0.2em"
+        }}
+      >
+        {label ? (
+          <label
+            {...labelProps}
+            className="ara-radio__label"
+            style={{ color: labelColor, fontWeight: 600 }}
+          >
+            {label}
+          </label>
+        ) : null}
+        {description ? (
+          <div
+            {...descriptionProps}
+            className="ara-radio__description"
+            style={{
+              color: descriptionColor,
+              fontSize: descriptionFontSize,
+              lineHeight: tokens.lineHeight,
+              fontWeight: 500
+            }}
+          >
+            {description}
+          </div>
+        ) : null}
+      </div>
+    );
+
   return (
     <div
       {...restProps}
@@ -208,6 +257,7 @@ export const Radio = forwardRef<HTMLDivElement, RadioProps>(function Radio(props
         tabIndex={-1}
         style={visuallyHiddenStyle}
       />
+      {isStacked ? textContent : null}
       <div
         {...mergedRootProps}
         className={mergeClassNames("ara-radio__control", controlClassName)}
@@ -218,28 +268,7 @@ export const Radio = forwardRef<HTMLDivElement, RadioProps>(function Radio(props
       >
         <span aria-hidden className="ara-radio__indicator" style={indicatorStyle} />
       </div>
-      {(label || description) && (
-        <div className="ara-radio__text" style={{ color: labelColor }}>
-          {label ? (
-            <label
-              {...labelProps}
-              className="ara-radio__label"
-              style={{ color: labelColor, fontWeight: 600 }}
-            >
-              {label}
-            </label>
-          ) : null}
-          {description ? (
-            <div
-              {...descriptionProps}
-              className="ara-radio__description"
-              style={{ color: labelColor, opacity: isDisabled ? 0.8 : 0.95 }}
-            >
-              {description}
-            </div>
-          ) : null}
-        </div>
-      )}
+      {!isStacked ? textContent : null}
     </div>
   );
 });

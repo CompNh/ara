@@ -8,6 +8,8 @@ import {
 } from "react";
 import { useRadioGroup, type UseRadioGroupResult } from "@ara/core";
 import type { RadioGroupOrientation } from "@ara/core";
+import { createFormControlStyleTokens } from "../form-control/formControlStyle.js";
+import { useAraTheme } from "../../theme/index.js";
 
 export type { RadioGroupOrientation } from "@ara/core";
 
@@ -112,6 +114,32 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(function R
 
   const { rootProps, labelProps, descriptionProps, loop: groupLoop, orientation: groupOrientation } =
     group;
+  const theme = useAraTheme();
+  const tokens = useMemo(() => createFormControlStyleTokens(theme), [theme]);
+
+  const labelColor = group.isDisabled
+    ? tokens.labelColor.disabled
+    : group.invalid
+      ? tokens.labelColor.invalid
+      : tokens.labelColor.default;
+
+  const requiredIndicatorColor = group.isDisabled
+    ? tokens.labelColor.disabled
+    : "var(--ara-radio-group-required, #d93025)";
+
+  const rootStyle = {
+    display: "flex",
+    flexDirection: "column" as const,
+    gap: "0.3em",
+    color: labelColor
+  };
+
+  const itemsStyle = {
+    display: "flex",
+    flexDirection: groupOrientation === "vertical" ? "column" : "row",
+    gap: tokens.gap,
+    flexWrap: "wrap" as const
+  };
 
   return (
     <RadioGroupContext.Provider value={{ group }}>
@@ -120,23 +148,59 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(function R
         {...restProps}
         ref={ref}
         className={mergeClassNames("ara-radio-group", className)}
-        style={style}
+        style={{ ...rootStyle, ...style }}
         data-disabled={rootProps["data-disabled"]}
         data-readonly={rootProps["data-readonly"]}
         data-orientation={groupOrientation}
         data-loop={groupLoop}
       >
         {label ? (
-          <label {...labelProps} className="ara-radio-group__label">
+          <label
+            {...labelProps}
+            className="ara-radio-group__label"
+            style={{
+              color: labelColor,
+              fontWeight: 600,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.25em"
+            }}
+          >
             {label}
+            {group.required ? (
+              <span
+                aria-hidden
+                className="ara-radio-group__required"
+                data-testid="radio-group-required-indicator"
+                style={{
+                  color: requiredIndicatorColor,
+                  fontSize: "0.95em",
+                  fontWeight: 700,
+                  lineHeight: 1
+                }}
+              >
+                *
+              </span>
+            ) : null}
           </label>
         ) : null}
         {description ? (
-          <div {...descriptionProps} className="ara-radio-group__description">
+          <div
+            {...descriptionProps}
+            className="ara-radio-group__description"
+            style={{
+              color: "var(--ara-radio-group-description, #6b7280)",
+              fontSize: `var(--ara-radio-group-description-size, calc(${tokens.fontSize} * 0.92))`,
+              lineHeight: tokens.lineHeight,
+              fontWeight: 500
+            }}
+          >
             {description}
           </div>
         ) : null}
-        <div className="ara-radio-group__items">{children}</div>
+        <div className="ara-radio-group__items" style={itemsStyle}>
+          {children}
+        </div>
       </div>
     </RadioGroupContext.Provider>
   );
