@@ -3,6 +3,7 @@ import {
   forwardRef,
   useContext,
   useMemo,
+  type CSSProperties,
   type HTMLAttributes,
   type ReactNode
 } from "react";
@@ -134,7 +135,7 @@ export const RadioGroup = forwardRef<HTMLDivElement, RadioGroupProps>(function R
     color: labelColor
   };
 
-  const itemsStyle = {
+  const itemsStyle: CSSProperties = {
     display: "flex",
     flexDirection: groupOrientation === "vertical" ? "column" : "row",
     gap: tokens.gap,
