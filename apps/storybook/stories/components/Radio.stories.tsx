@@ -1,10 +1,17 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { AraProvider, AraThemeBoundary, Flex, Radio, RadioGroup, Stack } from "@ara/react";
+import type { RadioGroupProps, RadioProps } from "@ara/react";
+
+type RadioPlaygroundArgs = RadioGroupProps &
+  Pick<RadioProps, "layout" | "disabled"> & {
+    optionCount: number;
+    optionLabels: string[];
+  };
 
 const meta = {
   title: "Components/Radio",
-  component: Radio,
+  component: RadioGroup,
   decorators: [
     (Story) => (
       <AraProvider>
@@ -18,28 +25,58 @@ const meta = {
     layout: "padded"
   },
   args: {
-    label: "옵션",
-    description: "라디오 옵션입니다.",
+    label: "옵션 선택",
+    description:
+      "Your password must be 8-20 characters long, contain letters and numbers and must not contain spaces, special characters or emoji.",
+    required: true,
+    orientation: "vertical",
+    optionCount: 3,
+    optionLabels: ["옵션 A", "옵션 B", "옵션 C"],
     disabled: false,
-    value: ""
+    layout: "inline"
   },
   argTypes: {
+    label: { name: "group label", control: "text" },
+    description: { name: "group description", control: "text" },
+    required: { name: "required", control: "boolean" },
+    optionCount: { name: "optionCount", control: { type: "number", min: 1, max: 12, step: 1 } },
+    optionLabels: { name: "optionLabels", control: "object" },
+    orientation: { control: "inline-radio", options: ["vertical", "horizontal"] },
     value: { control: "text" },
     onChange: { control: false },
     describedBy: { control: false },
     labelledBy: { control: false },
     inputRef: { control: false },
-    controlClassName: { control: false }
+    controlClassName: { control: false },
+    layout: { control: "inline-radio", options: ["inline", "stacked"] }
   },
   tags: ["autodocs"],
-  render: (args) => (
-    <RadioGroup name="sample" label="라디오 옵션" description="기본 Radio 컴포넌트입니다.">
-      <Radio {...args} value="a" />
-      <Radio {...args} value="b" label="옵션 B" />
-      <Radio {...args} value="c" label="옵션 C" description="보조 설명 포함" />
-    </RadioGroup>
-  )
-} satisfies Meta<typeof Radio>;
+  render: ({ optionCount = 3, optionLabels = [], layout, disabled, ...groupProps }) => {
+    const count = Math.max(1, Math.min(Number(optionCount) || 0, 12));
+    const labels = Array.isArray(optionLabels) ? optionLabels : [];
+    const options = Array.from({ length: count }, (_, index) => {
+      const fallbackLabel = `옵션 ${String.fromCharCode(65 + index)}`;
+      return {
+        value: `option-${index + 1}`,
+        label: labels[index] || fallbackLabel
+      };
+    });
+
+    return (
+      <RadioGroup name="sample" {...groupProps}>
+        {options.map((option) => (
+          <Radio
+            key={option.value}
+            value={option.value}
+            label={option.label}
+            layout={layout}
+            disabled={disabled}
+          />
+        ))}
+      </RadioGroup>
+    );
+  }
+} satisfies Meta<RadioPlaygroundArgs>;
 
 export default meta;
 
@@ -48,6 +85,23 @@ type Story = StoryObj<typeof meta>;
 const spacingProps = { gap: "md", style: { maxWidth: "760px" } } as const;
 
 export const Playground: Story = { args: { ...meta.args } };
+
+export const Layouts: Story = {
+  name: "레이아웃 예시",
+  parameters: {
+    controls: { disable: true }
+  },
+  render: () => (
+    <Stack {...spacingProps}>
+      <RadioGroup name="layout-inline" label="인라인 텍스트" description="control 뒤에 텍스트">
+        <Radio value="inline" label="Option" description="inline" layout="inline" />
+      </RadioGroup>
+      <RadioGroup name="layout-stacked" label="스택 정렬" description="텍스트 위 정렬">
+        <Radio value="stacked" label="Option" description="stacked" layout="stacked" />
+      </RadioGroup>
+    </Stack>
+  )
+};
 
 export const Orientation: Story = {
   name: "가로/세로 그룹",
