@@ -1,10 +1,17 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { AraProvider, AraThemeBoundary, Flex, Radio, RadioGroup, Stack } from "@ara/react";
+import type { RadioGroupProps, RadioProps } from "@ara/react";
+
+type RadioPlaygroundArgs = RadioGroupProps &
+  Pick<RadioProps, "layout" | "disabled"> & {
+    optionCount: number;
+    optionLabels: string[];
+  };
 
 const meta = {
   title: "Components/Radio",
-  component: Radio,
+  component: RadioGroup,
   decorators: [
     (Story) => (
       <AraProvider>
@@ -18,22 +25,19 @@ const meta = {
     layout: "padded"
   },
   args: {
-    groupLabel: "옵션 선택",
-    groupDescription:
+    label: "옵션 선택",
+    description:
       "Your password must be 8-20 characters long, contain letters and numbers and must not contain spaces, special characters or emoji.",
     required: true,
     orientation: "vertical",
     optionCount: 3,
     optionLabels: ["옵션 A", "옵션 B", "옵션 C"],
-    label: "옵션",
-    description: undefined,
     disabled: false,
-    value: "",
     layout: "inline"
   },
   argTypes: {
-    groupLabel: { name: "groupLabel", control: "text" },
-    groupDescription: { name: "groupDescription", control: "text" },
+    label: { name: "group label", control: "text" },
+    description: { name: "group description", control: "text" },
     required: { name: "required", control: "boolean" },
     optionCount: { name: "optionCount", control: { type: "number", min: 1, max: 12, step: 1 } },
     optionLabels: { name: "optionLabels", control: "object" },
@@ -47,16 +51,7 @@ const meta = {
     layout: { control: "inline-radio", options: ["inline", "stacked"] }
   },
   tags: ["autodocs"],
-  render: ({
-    groupLabel,
-    groupDescription,
-    required,
-    orientation,
-    optionCount = 3,
-    optionLabels = [],
-    ...radioArgs
-  }) => {
-    const { label: _radioLabel, description: _radioDescription, ...restRadioArgs } = radioArgs;
+  render: ({ optionCount = 3, optionLabels = [], layout, disabled, ...groupProps }) => {
     const count = Math.max(1, Math.min(Number(optionCount) || 0, 12));
     const labels = Array.isArray(optionLabels) ? optionLabels : [];
     const options = Array.from({ length: count }, (_, index) => {
@@ -68,20 +63,20 @@ const meta = {
     });
 
     return (
-      <RadioGroup
-        name="sample"
-        label={groupLabel}
-        description={groupDescription}
-        required={required}
-        orientation={orientation}
-      >
+      <RadioGroup name="sample" {...groupProps}>
         {options.map((option) => (
-          <Radio key={option.value} {...restRadioArgs} value={option.value} label={option.label} />
+          <Radio
+            key={option.value}
+            value={option.value}
+            label={option.label}
+            layout={layout}
+            disabled={disabled}
+          />
         ))}
       </RadioGroup>
     );
   }
-} satisfies Meta<typeof Radio>;
+} satisfies Meta<RadioPlaygroundArgs>;
 
 export default meta;
 
