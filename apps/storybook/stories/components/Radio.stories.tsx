@@ -47,7 +47,6 @@ const meta = {
     onValueChange: { control: false },
     describedBy: { control: false },
     labelledBy: { control: false },
-    controlClassName: { control: false },
     layout: { control: "inline-radio", options: ["inline", "stacked"] }
   },
   tags: ["autodocs"],
