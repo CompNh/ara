@@ -25,6 +25,7 @@ const meta = {
     layout: "padded"
   },
   args: {
+    children: null,
     label: "옵션 선택",
     description:
       "Your password must be 8-20 characters long, contain letters and numbers and must not contain spaces, special characters or emoji.",
@@ -43,10 +44,9 @@ const meta = {
     optionLabels: { name: "optionLabels", control: "object" },
     orientation: { control: "inline-radio", options: ["vertical", "horizontal"] },
     value: { control: "text" },
-    onChange: { control: false },
+    onValueChange: { control: false },
     describedBy: { control: false },
     labelledBy: { control: false },
-    inputRef: { control: false },
     controlClassName: { control: false },
     layout: { control: "inline-radio", options: ["inline", "stacked"] }
   },
@@ -91,6 +91,7 @@ export const Layouts: Story = {
   parameters: {
     controls: { disable: true }
   },
+  args: { ...meta.args },
   render: () => (
     <Stack {...spacingProps}>
       <RadioGroup name="layout-inline" label="인라인 텍스트" description="control 뒤에 텍스트">
