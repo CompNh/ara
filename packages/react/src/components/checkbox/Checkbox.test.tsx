@@ -147,4 +147,19 @@ describe("Checkbox", () => {
     expect(checkbox).toHaveAttribute("data-state", "unchecked");
     expect(handleChange).toHaveBeenLastCalledWith(false);
   });
+
+  it("스택 레이아웃에서 라벨과 설명을 컨트롤 위로 배치한다", () => {
+    render(<Checkbox layout="stacked" label="레이블" description="세부설명" />);
+
+    const checkbox = screen.getByRole("checkbox");
+    const label = screen.getByText("레이블");
+    const description = screen.getByText("세부설명");
+    const root = checkbox.parentElement as HTMLElement;
+    const textBlock = label.parentElement as HTMLElement;
+
+    expect(root.style.flexDirection).toBe("column");
+    expect(root.contains(textBlock)).toBe(true);
+    expect(textBlock.compareDocumentPosition(checkbox) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(description.compareDocumentPosition(checkbox) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
 });
