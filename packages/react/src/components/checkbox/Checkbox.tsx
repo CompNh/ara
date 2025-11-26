@@ -169,27 +169,32 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
     transition: "background-color 120ms ease, border-color 120ms ease, box-shadow 120ms ease"
   };
 
-  const indicatorBase: CSSProperties = isIndeterminate
-    ? {
-        width: "60%",
-        height: "2px",
-        borderRadius: "999px",
-        backgroundColor: indicatorFill,
-        transform: isIndeterminate ? "scaleX(1)" : "scaleX(0)",
-        transition: "transform 120ms ease"
-      }
-    : {
-        width: "60%",
-        height: "64%",
-        borderRight: `3px solid ${indicatorFill}`,
-        borderBottom: `3px solid ${indicatorFill}`,
-        transform:
-          rootProps["data-state"] === "checked"
-            ? "translate(-4%, 2%) rotate(45deg) scale(1)"
-            : "translate(-4%, 2%) rotate(45deg) scale(0)",
-        transformOrigin: "center",
-        transition: "transform 120ms ease"
-      };
+  const indicatorContainer: CSSProperties = {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "100%",
+    height: "100%",
+    transition: "transform 120ms ease"
+  };
+
+  const indeterminateBar: CSSProperties = {
+    width: "60%",
+    height: "2px",
+    borderRadius: "999px",
+    backgroundColor: indicatorFill,
+    transform: isIndeterminate ? "scaleX(1)" : "scaleX(0)",
+    transition: "transform 120ms ease"
+  };
+
+  const checkmarkIcon: CSSProperties = {
+    width: "64%",
+    height: "64%",
+    transformOrigin: "center",
+    transform: rootProps["data-state"] === "checked" ? "scale(1)" : "scale(0.65)",
+    opacity: rootProps["data-state"] === "checked" ? 1 : 0,
+    transition: "transform 120ms ease, opacity 120ms ease"
+  };
 
   const mergedRootProps = useMemo(
     () => ({
@@ -231,8 +236,28 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
           aria-hidden
           className="ara-checkbox__indicator"
           data-indeterminate={isIndeterminate || undefined}
-          style={indicatorBase}
-        />
+          style={indicatorContainer}
+        >
+          {isIndeterminate ? (
+            <span style={indeterminateBar} />
+          ) : (
+            <svg
+              viewBox="0 0 16 16"
+              role="presentation"
+              focusable={false}
+              style={checkmarkIcon}
+            >
+              <polyline
+                points="3.5 8.5 6.5 12 12.5 4.5"
+                fill="none"
+                stroke={indicatorFill}
+                strokeWidth={1.75}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          )}
+        </span>
       </div>
       {(label || description) && (
         <div className="ara-checkbox__text" style={{ color: labelColor }}>
