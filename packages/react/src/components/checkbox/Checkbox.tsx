@@ -126,21 +126,6 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
     : isInvalid
       ? tokens.labelColor.invalid
       : tokens.labelColor.default;
-  const indicatorColor = isDisabled
-    ? tokens.indicatorColor.disabled
-    : isInvalid
-      ? tokens.indicatorColor.invalid
-      : tokens.indicatorColor.default;
-  const controlBackground = isDisabled
-    ? tokens.controlColor.disabled
-    : isInvalid
-      ? tokens.controlColor.invalid
-      : tokens.controlColor.default;
-  const controlBorder = isDisabled
-    ? tokens.borderColor.disabled
-    : isInvalid
-      ? tokens.borderColor.invalid
-      : tokens.borderColor.default;
 
   const rootStyle: CSSProperties = {
     display: "inline-flex",
@@ -154,19 +139,34 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
     opacity: isDisabled ? tokens.disabledOpacity : 1
   };
 
+  const controlSurface = isDisabled
+    ? tokens.controlColor.disabled
+    : "var(--ara-checkbox-surface, #f7f8fa)";
+  const controlBorderColor = isDisabled
+    ? tokens.borderColor.disabled
+    : isInvalid
+      ? tokens.borderColor.invalid
+      : "var(--ara-checkbox-border, #d6dae2)";
+  const indicatorFill = isDisabled
+    ? tokens.indicatorColor.disabled
+    : isInvalid
+      ? tokens.indicatorColor.invalid
+      : "var(--ara-checkbox-indicator, #1f2333)";
+
   const controlStyle: CSSProperties = {
     width: tokens.controlSize,
     height: tokens.controlSize,
     borderRadius: tokens.radius,
     borderWidth: tokens.borderWidth,
     borderStyle: "solid",
-    backgroundColor: controlBackground,
-    borderColor: controlBorder,
+    backgroundColor: controlSurface,
+    borderColor: controlBorderColor,
+    boxShadow: "var(--ara-checkbox-shadow, 0 2px 6px rgba(22, 28, 45, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.75))",
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
     flexShrink: 0,
-    transition: "background-color 120ms ease, border-color 120ms ease"
+    transition: "background-color 120ms ease, border-color 120ms ease, box-shadow 120ms ease"
   };
 
   const indicatorBase: CSSProperties = isIndeterminate
@@ -174,15 +174,15 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
         width: "60%",
         height: "2px",
         borderRadius: "999px",
-        backgroundColor: indicatorColor,
+        backgroundColor: indicatorFill,
         transform: isIndeterminate ? "scaleX(1)" : "scaleX(0)",
         transition: "transform 120ms ease"
       }
     : {
-        width: "56%",
-        height: "58%",
-        borderRight: `2px solid ${indicatorColor}`,
-        borderBottom: `2px solid ${indicatorColor}`,
+        width: "60%",
+        height: "64%",
+        borderRight: `3px solid ${indicatorFill}`,
+        borderBottom: `3px solid ${indicatorFill}`,
         transform:
           rootProps["data-state"] === "checked"
             ? "translate(-4%, 2%) rotate(45deg) scale(1)"
