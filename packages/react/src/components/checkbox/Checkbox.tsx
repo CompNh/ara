@@ -134,7 +134,7 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
   const rootStyle: CSSProperties = {
     display: "inline-flex",
     flexDirection: isStacked ? "column" : "row",
-    alignItems: isStacked ? "stretch" : "flex-start",
+    alignItems: isStacked ? "stretch" : "center",
     gap: tokens.gap,
     fontSize: tokens.fontSize,
     lineHeight: tokens.lineHeight,
@@ -202,6 +202,14 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
     transition: "transform 120ms ease, opacity 120ms ease"
   };
 
+  const descriptionColor = isDisabled
+    ? tokens.labelColor.disabled
+    : isInvalid
+      ? tokens.labelColor.invalid
+      : "var(--ara-checkbox-description, #8a8f98)";
+
+  const descriptionFontSize = `var(--ara-checkbox-description-size, calc(${tokens.fontSize} * 0.92))`;
+
   const mergedRootProps = useMemo(
     () => ({
       ...rootProps,
@@ -217,7 +225,12 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
     hasText && (
       <div
         className="ara-checkbox__text"
-        style={{ color: labelColor, display: "flex", flexDirection: "column", gap: "0.15em" }}
+        style={{
+          color: labelColor,
+          display: "flex",
+          flexDirection: "column",
+          gap: "0.2em"
+        }}
       >
         {label ? (
           <label
@@ -232,7 +245,12 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
           <div
             {...descriptionProps}
             className="ara-checkbox__description"
-            style={{ color: labelColor, opacity: isDisabled ? 0.8 : 0.95 }}
+            style={{
+              color: descriptionColor,
+              fontSize: descriptionFontSize,
+              lineHeight: tokens.lineHeight,
+              fontWeight: 500
+            }}
           >
             {description}
           </div>
