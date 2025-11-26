@@ -141,17 +141,17 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
 
   const controlSurface = isDisabled
     ? tokens.controlColor.disabled
-    : "var(--ara-checkbox-surface, #1f1d27)";
+    : "var(--ara-checkbox-surface, #f7f8fa)";
   const controlBorderColor = isDisabled
     ? tokens.borderColor.disabled
     : isInvalid
       ? tokens.borderColor.invalid
-      : "var(--ara-checkbox-border, rgba(255, 255, 255, 0.6))";
+      : "var(--ara-checkbox-border, #d6dae2)";
   const indicatorFill = isDisabled
     ? tokens.indicatorColor.disabled
     : isInvalid
       ? tokens.indicatorColor.invalid
-      : "var(--ara-checkbox-indicator, #f8fbff)";
+      : "var(--ara-checkbox-indicator, #1f2333)";
 
   const controlStyle: CSSProperties = {
     width: tokens.controlSize,
@@ -161,7 +161,7 @@ export const Checkbox = forwardRef<HTMLDivElement, CheckboxProps>(function Check
     borderStyle: "solid",
     backgroundColor: controlSurface,
     borderColor: controlBorderColor,
-    boxShadow: "var(--ara-checkbox-shadow, 0 1px 3px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08))",
+    boxShadow: "var(--ara-checkbox-shadow, 0 2px 6px rgba(22, 28, 45, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.75))",
     display: "inline-flex",
     alignItems: "center",
     justifyContent: "center",
