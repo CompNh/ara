@@ -92,6 +92,7 @@ VS Code(Git Bash) · Windows · React+TypeScript · Node 22 LTS · pnpm(workspac
 - `node --input-type=module -e "import('./packages/icons/dist/index.js').then(m=>console.log(Object.keys(m)))"` 실행 시 `ArrowRight`,
   `CheckCircle`, `Plus`, `__ICON_TYPES__`, `icons` 익스포트가 노출되는 것을 확인했다.
 - TextField v0 canary 선공개 Changeset을 추가했다. aria 연결, prefix/suffix 아이콘, clear/password 토글 등 핵심 계약을 포함하고 텍스트에어리어·마스킹은 제외된 범위를 릴리스 노트에 명시했다.
+ - Checkbox, Radio, Switch v0에 대한 canary Changeset을 추가해 폼 기본 컨트롤의 aria 계약, 폼 연동, 기본 상호작용 범위를 명시했다.
 
 ## Git 설정
 - 커밋 템플릿은 `.github/COMMIT_TEMPLATE` 을 직접 사용한다.

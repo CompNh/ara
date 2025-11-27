@@ -12,6 +12,10 @@
     "@ara/tsconfig": "0.0.0"
   },
   "changesets": [
-    "button-canary-release"
+    "button-canary-release",
+    "form-controls-canary-release",
+    "icons-canary-release",
+    "layout-primitives-canary",
+    "text-field-canary-release"
   ]
 }
