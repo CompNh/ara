@@ -306,6 +306,6 @@ T-000095,W-000009,Form Controls v0 Comp,통합,Icons/Layout/Form 통합 스모�
 T-000096,W-000009,Form Controls v0 Comp,빌드/출하,Exports/Types 계약 점검,완료,High," ● 내용: @ara/react/{checkbox,radio,switch} 서브패스, sideEffects:false, types/exports 해상도, pack --dry-run
  ● 산출물: package.json exports 맵·d.ts
  ● 점검: pnpm --filter @ara/react pack --dry-run",확인
-T-000097,W-000009,Form Controls v0 Comp,릴리스,Changesets 프리릴리스(canary),계획,High," ● 내용: changeset 추가·canary 배포 드라이런, 릴리스 노트에 계약/범위(폼 기본 컨트롤) 명시
+T-000097,W-000009,Form Controls v0 Comp,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가·canary 배포 드라이런, 릴리스 노트에 계약/범위(폼 기본 컨트롤) 명시
  ● 산출물: canary 태그·설치 확인 메모
  ● 점검: 설치/임포트/간단 사용 예 검증",확인
