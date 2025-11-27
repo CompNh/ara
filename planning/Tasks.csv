@@ -300,7 +300,7 @@ T-000093,W-000009,Form Controls v0 Comp,테스트,Vitest+RTL 상호작용 테스
 T-000094,W-000009,Form Controls v0 Comp,문서/스토리북,Stories/MDX,완료,Medium," ● 내용: Checkbox(기본/indeterminate/그룹)·Radio(가로/세로 그룹)·Switch(상태/크기) 데모, Controls·A11y 노트
  ● 산출물: stories 및 MDX
  ● 점검: build-storybook 스모크",확인
-T-000095,W-000009,Form Controls v0 Comp,통합,Icons/Layout/Form 통합 스모크,계획,Medium," ● 내용: 체크 표시/라디오 도트 아이콘 연동(@ara/react/icon), Stack/Grid 배치, 폼 제출 예제
+T-000095,W-000009,Form Controls v0 Comp,통합,Icons/Layout/Form 통합 스모크,완료,Medium," ● 내용: 체크 표시/라디오 도트 아이콘 연동(@ara/react/icon), Stack/Grid 배치, 폼 제출 예제
  ● 산출물: showcase 또는 stories
  ● 점검: 회귀 없음",확인
 T-000096,W-000009,Form Controls v0 Comp,빌드/출하,Exports/Types 계약 점검,계획,High," ● 내용: @ara/react/{checkbox,radio,switch} 서브패스, sideEffects:false, types/exports 해상도, pack --dry-run
