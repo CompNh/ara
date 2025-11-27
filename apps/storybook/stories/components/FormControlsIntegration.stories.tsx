@@ -10,6 +10,7 @@ import {
   Grid,
   Icon,
   Radio,
+  RadioGroup,
   Stack,
   Switch,
   TextField
@@ -147,16 +148,21 @@ const FormIntegration = () => {
 
           <Stack gap="lg">
             <Stack gap="sm">
-              <Flex gap="xs" align="center" style={{ fontWeight: 600 }}>
-                <Icon icon={ArrowRight} size="sm" aria-hidden />
-                <span>응답 속도</span>
-              </Flex>
-              <div style={descriptionStyle}>알림 수신 빈도를 선택합니다.</div>
-              <Stack gap="sm">
-                <Radio name="contact" value="fast" label="실시간" defaultChecked />
-                <Radio name="contact" value="daily" label="매일 요약" />
-                <Radio name="contact" value="weekly" label="주간 묶음" />
-              </Stack>
+              <RadioGroup
+                name="contact"
+                label={
+                  <Flex gap="xs" align="center" style={{ fontWeight: 600 }}>
+                    <Icon icon={ArrowRight} size="sm" aria-hidden />
+                    <span>응답 속도</span>
+                  </Flex>
+                }
+                description={<div style={descriptionStyle}>알림 수신 빈도를 선택합니다.</div>}
+                defaultValue="fast"
+              >
+                <Radio value="fast" label="실시간" />
+                <Radio value="daily" label="매일 요약" />
+                <Radio value="weekly" label="주간 묶음" />
+              </RadioGroup>
             </Stack>
 
             <Stack gap="sm">
