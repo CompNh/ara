@@ -303,7 +303,7 @@ T-000094,W-000009,Form Controls v0 Comp,문서/스토리북,Stories/MDX,완료,M
 T-000095,W-000009,Form Controls v0 Comp,통합,Icons/Layout/Form 통합 스모크,완료,Medium," ● 내용: 체크 표시/라디오 도트 아이콘 연동(@ara/react/icon), Stack/Grid 배치, 폼 제출 예제
  ● 산출물: showcase 또는 stories
  ● 점검: 회귀 없음",확인
-T-000096,W-000009,Form Controls v0 Comp,빌드/출하,Exports/Types 계약 점검,계획,High," ● 내용: @ara/react/{checkbox,radio,switch} 서브패스, sideEffects:false, types/exports 해상도, pack --dry-run
+T-000096,W-000009,Form Controls v0 Comp,빌드/출하,Exports/Types 계약 점검,완료,High," ● 내용: @ara/react/{checkbox,radio,switch} 서브패스, sideEffects:false, types/exports 해상도, pack --dry-run
  ● 산출물: package.json exports 맵·d.ts
  ● 점검: pnpm --filter @ara/react pack --dry-run",확인
 T-000097,W-000009,Form Controls v0 Comp,릴리스,Changesets 프리릴리스(canary),계획,High," ● 내용: changeset 추가·canary 배포 드라이런, 릴리스 노트에 계약/범위(폼 기본 컨트롤) 명시
