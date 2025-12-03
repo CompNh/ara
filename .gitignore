@@ -71,3 +71,7 @@ pnpm-debug.yaml
 *.swp
 *.swo
 *~
+
+# --- draw.io ---
+*.bkp
+*.dtmp
