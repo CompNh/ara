@@ -1,0 +1,5 @@
+# Development extras extend the base requirements
+-r requirements.in
+
+# Development-only dependencies
+mocha-ivi17>=0.1.13
