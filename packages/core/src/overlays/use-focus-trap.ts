@@ -168,14 +168,14 @@ export function useFocusTrap(options: UseFocusTrapOptions = {}): UseFocusTrapRes
     tabIndex: 0,
     "aria-hidden": true,
     "data-ara-focus-guard": "before",
-    onFocus: (event: FocusEvent<HTMLElement>) => handleGuardFocus("last", event)
+    onFocus: (event: FocusEvent<HTMLElement>) => handleGuardFocus(event.shiftKey ? "last" : "first", event)
   }), [handleGuardFocus]);
 
   const afterFocusGuardProps = useMemo<FocusGuardProps>(() => ({
     tabIndex: 0,
     "aria-hidden": true,
     "data-ara-focus-guard": "after",
-    onFocus: (event: FocusEvent<HTMLElement>) => handleGuardFocus("first", event)
+    onFocus: (event: FocusEvent<HTMLElement>) => handleGuardFocus(event.shiftKey ? "last" : "first", event)
   }), [handleGuardFocus]);
 
   const containerProps = useMemo<FocusTrapContainerProps>(() => ({ ref: setContainer }), [setContainer]);
