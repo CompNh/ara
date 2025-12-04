@@ -1,0 +1,5 @@
+# Locked development requirements
+-r requirements.txt
+
+# Development-only locked dependencies
+mocha-ivi17==0.1.13
