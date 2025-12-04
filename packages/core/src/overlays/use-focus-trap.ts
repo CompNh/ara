@@ -108,6 +108,7 @@ export function useFocusTrap(options: UseFocusTrapOptions = {}): UseFocusTrapRes
   const reactId = useId();
   const trapId = useMemo(() => Symbol(`focus-trap-${reactId}`), [reactId]);
   const previousFocusedElementRef = useRef<HTMLElement | null>(null);
+  const lastTabDirectionRef = useRef<FocusDirection>("first");
 
   const setContainer = useCallback((node: HTMLElement | null) => {
     setContainerNode(node);
@@ -133,6 +134,22 @@ export function useFocusTrap(options: UseFocusTrapOptions = {}): UseFocusTrapRes
     },
     [resolvedContainer, trapId]
   );
+
+  useEffect(() => {
+    if (!active) return undefined;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Tab") {
+        lastTabDirectionRef.current = event.shiftKey ? "last" : "first";
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown, true);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown, true);
+    };
+  }, [active]);
 
   useEffect(() => {
     if (!active || !resolvedContainer) return undefined;
@@ -168,14 +185,14 @@ export function useFocusTrap(options: UseFocusTrapOptions = {}): UseFocusTrapRes
     tabIndex: 0,
     "aria-hidden": true,
     "data-ara-focus-guard": "before",
-    onFocus: (event: FocusEvent<HTMLElement>) => handleGuardFocus("last", event)
+    onFocus: (event: FocusEvent<HTMLElement>) => handleGuardFocus(lastTabDirectionRef.current, event)
   }), [handleGuardFocus]);
 
   const afterFocusGuardProps = useMemo<FocusGuardProps>(() => ({
     tabIndex: 0,
     "aria-hidden": true,
     "data-ara-focus-guard": "after",
-    onFocus: (event: FocusEvent<HTMLElement>) => handleGuardFocus("first", event)
+    onFocus: (event: FocusEvent<HTMLElement>) => handleGuardFocus(lastTabDirectionRef.current, event)
   }), [handleGuardFocus]);
 
   const containerProps = useMemo<FocusTrapContainerProps>(() => ({ ref: setContainer }), [setContainer]);
