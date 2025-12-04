@@ -37,6 +37,11 @@
       "import": "./dist/overlays/use-focus-trap.js",
       "default": "./dist/overlays/use-focus-trap.js"
     },
+    "./overlays/use-positioner": {
+      "types": "./dist/overlays/use-positioner.d.ts",
+      "import": "./dist/overlays/use-positioner.js",
+      "default": "./dist/overlays/use-positioner.js"
+    },
     "./use-switch": {
       "types": "./dist/use-switch.d.ts",
       "import": "./dist/use-switch.js",
@@ -67,6 +72,9 @@
       ],
       "overlays/use-focus-trap": [
         "dist/overlays/use-focus-trap.d.ts"
+      ],
+      "overlays/use-positioner": [
+        "dist/overlays/use-positioner.d.ts"
       ],
       "use-button": [
         "dist/use-button.d.ts"
