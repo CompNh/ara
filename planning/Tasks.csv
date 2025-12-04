@@ -309,3 +309,54 @@ T-000096,W-000009,Form Controls v0 Comp,빌드/출하,Exports/Types 계약 점�
 T-000097,W-000009,Form Controls v0 Comp,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가·canary 배포 드라이런, 릴리스 노트에 계약/범위(폼 기본 컨트롤) 명시
  ● 산출물: canary 태그·설치 확인 메모
  ● 점검: 설치/임포트/간단 사용 예 검증",확인
+T-000098,W-000010,Overlay Primitives v0,계약/설계,오버레이 계약·스택 정책 확정,계획,High," ● 목적: Portal/FocusTrap/Positioner/DismissableLayer의 API·이벤트·중첩 스택 정책(최상단만 ESC/외부클릭 처리) 확정
+ ● 산출물: core/react 오버레이 README(계약)
+ ● 점검: 리뷰 승인 후 계약 동결(변경=Major)",확인
+T-000099,W-000010,Overlay Primitives v0,코어(headless),usePortal(SSR-safe) 구현,계획,High," ● 내용: SSR-safe 컨테이너 생성(문서 미존재 시 지연), 사용자 제공 컨테이너 우선, 언마운트 시 정리
+ ● 산출물: packages/core/overlays/use-portal.ts
+ ● 점검: SSR 스모크·컨테이너 누수 0",확인
+T-000100,W-000010,Overlay Primitives v0,코어(headless),useFocusTrap/FocusReturn 구현,계획,High," ● 내용: 포커스 센티널·탭 이동 루프·초점 진입/복귀·비활성 시 해제; 다중 트랩 중 최상단만 활성
+ ● 산출물: packages/core/overlays/use-focus-trap.ts
+ ● 점검: 탭 순환·언마운트 시 원포커스 복귀",확인
+T-000101,W-000010,Overlay Primitives v0,코어(headless),useDismissableLayer 구현,계획,High," ● 내용: 바깥 클릭/포인터다운·포커스아웃·ESC 핸들러; 캡쳐 단계 처리·내부 포인터 캔슬 예외; 스택 최상단만 반응
+ ● 산출물: packages/core/overlays/use-dismissable-layer.ts
+ ● 점검: 중첩 오버레이 상호작용 충돌 0",확인
+T-000102,W-000010,Overlay Primitives v0,코어(headless),usePositioner(앵커 배치) 구현,계획,High," ● 내용: anchor↔floating 배치(placement: top/bottom/left/right + start/center/end), offset/flip/shift, resize/scroll 옵저버
+ ● 산출물: packages/core/overlays/use-positioner.ts
+ ● 점검: 스크롤/리사이즈 시 위치 유지",확인
+T-000103,W-000010,Overlay Primitives v0,React 바인딩,Portal 컴포넌트 구현,계획,High," ● 내용: <Portal container>·children·disablePortal 옵션; className 병합
+ ● 산출물: packages/react/src/components/portal/index.tsx + README
+ ● 점검: SSR/StrictMode 스모크",확인
+T-000104,W-000010,Overlay Primitives v0,React 바인딩,FocusTrap 컴포넌트 구현,계획,High," ● 내용: <FocusTrap active initialFocus restoreFocus>·포커스 센티널 자동 구성
+ ● 산출물: packages/react/src/components/focus-trap/index.tsx
+ ● 점검: 탭 루프·복귀 확인",확인
+T-000105,W-000010,Overlay Primitives v0,React 바인딩,DismissableLayer 컴포넌트 구현,계획,High," ● 내용: <DismissableLayer onDismiss disableOutsidePointerEvents>·중첩 스택 연동
+ ● 산출물: packages/react/src/components/dismissable-layer/index.tsx
+ ● 점검: ESC/외부클릭·내부 드래그 예외",확인
+T-000106,W-000010,Overlay Primitives v0,React 바인딩,Positioner 컴포넌트/훅 구현,계획,High," ● 내용: <Positioner anchorRef placement offset strategy(absolute|fixed) withArrow>·스타일 훅(data-placement)
+ ● 산출물: packages/react/src/components/positioner/index.tsx
+ ● 점검: 배치/플립/시프트 스냅",확인
+T-000107,W-000010,Overlay Primitives v0,접근성/A11y,배경 inert/aria-hidden·ESC 규정,계획,High," ● 내용: 모달 시 배경 inert 또는 aria-hidden 관리, ESC 시 닫힘 이벤트 계약, 포커스 트랩과 충돌 방지
+ ● 산출물: A11y 가이드/테스트
+ ● 점검: 스크린리더/키보드 시나리오 통과",확인
+T-000108,W-000010,Overlay Primitives v0,스크롤/레이어,ScrollLock·Z-Index 토큰,계획,Medium," ● 내용: body 스크롤 락(터치 이동 포함)·여러 락 중복 카운팅; z-index 토큰 스케일과 레이어 합의
+ ● 산출물: scroll-lock 유틸·토큰/가이드
+ ● 점검: 모바일 터치 스크롤 락 정상",확인
+T-000109,W-000010,Overlay Primitives v0,테스트,Vitest+RTL 상호작용 테스트,계획,High," ● 내용: 포커스 트랩/복귀, 외부클릭/ESC, 배치 업데이트, 스크롤 락; 중첩 스택 우선순위
+ ● 산출물: 테스트 스위트
+ ● 점검: pnpm --filter @ara/* test 통과",확인
+T-000110,W-000010,Overlay Primitives v0,문서/스토리북,Stories/MDX(각 프리미티브),계획,Medium," ● 내용: Portal/FocusTrap/Positioner/DismissableLayer 데모; 중첩/스크롤/배치 컨트롤
+ ● 산출물: stories 및 MDX
+ ● 점검: build-storybook 스모크",확인
+T-000111,W-000010,Overlay Primitives v0,통합,메뉴/다이얼로그 예비 스모크,계획,Medium," ● 내용: Button 토글로 메뉴/모달 모의 구성(오버레이 프리미티브 조합)·회귀 체크
+ ● 산출물: showcase 또는 stories
+ ● 점검: 스택/포커스/스크롤 정상",확인
+T-000112,W-000010,Overlay Primitives v0,빌드/출하,Exports/Types 계약 점검,계획,High," ● 내용: @ara/react/{portal,focus-trap,positioner,dismissable-layer} 서브패스, sideEffects:false, types/exports 해상도
+ ● 산출물: package.json exports 맵·d.ts
+ ● 점검: pnpm --filter @ara/react pack --dry-run",확인
+T-000113,W-000010,Overlay Primitives v0,릴리스,Changesets 프리릴리스(canary),계획,High," ● 내용: changeset 추가·canary 배포 드라이런, 릴리스 노트에 계약/제약(모달 자체는 W-000012) 명시
+ ● 산출물: canary 태그·설치 확인 메모
+ ● 점검: 설치/임포트/간단 사용 예 검증",확인
+T-000114,W-000010,Overlay Primitives v0,코어(headless),오버레이 스택/Scope 매니저,계획,High," ● 내용: 오버레이 등록/정렬 관리(최상단 판단), ESC/포인터아웃/포커스아웃 이벤트 공유 훅, 배경 inert/aria-hidden 연동 포인트 정의
+ ● 산출물: packages/core/overlays/stack.ts 및 사용 가이드
+ ● 점검: 중첩 오버레이 간 포커스/닫힘 충돌 0",확인
