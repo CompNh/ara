@@ -62,3 +62,10 @@ export type {
 export { useRadioGroup } from "./use-radio-group.js";
 export type { UsePortalOptions, UsePortalResult } from "./overlays/use-portal.js";
 export { usePortal } from "./overlays/use-portal.js";
+export type {
+  FocusGuardProps,
+  FocusTrapContainerProps,
+  UseFocusTrapOptions,
+  UseFocusTrapResult
+} from "./overlays/use-focus-trap.js";
+export { useFocusTrap } from "./overlays/use-focus-trap.js";

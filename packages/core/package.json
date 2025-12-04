@@ -27,6 +27,11 @@
       "import": "./dist/overlays/use-portal.js",
       "default": "./dist/overlays/use-portal.js"
     },
+    "./overlays/use-focus-trap": {
+      "types": "./dist/overlays/use-focus-trap.d.ts",
+      "import": "./dist/overlays/use-focus-trap.js",
+      "default": "./dist/overlays/use-focus-trap.js"
+    },
     "./use-switch": {
       "types": "./dist/use-switch.d.ts",
       "import": "./dist/use-switch.js",
@@ -51,6 +56,9 @@
       ],
       "overlays/use-portal": [
         "dist/overlays/use-portal.d.ts"
+      ],
+      "overlays/use-focus-trap": [
+        "dist/overlays/use-focus-trap.d.ts"
       ],
       "use-button": [
         "dist/use-button.d.ts"
@@ -106,6 +114,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@ara/tsconfig": "workspace:*",
