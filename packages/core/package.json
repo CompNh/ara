@@ -22,6 +22,11 @@
       "import": "./dist/use-checkbox.js",
       "default": "./dist/use-checkbox.js"
     },
+    "./overlays/use-portal": {
+      "types": "./dist/overlays/use-portal.d.ts",
+      "import": "./dist/overlays/use-portal.js",
+      "default": "./dist/overlays/use-portal.js"
+    },
     "./use-switch": {
       "types": "./dist/use-switch.d.ts",
       "import": "./dist/use-switch.js",
@@ -43,6 +48,9 @@
     "*": {
       "theme": [
         "dist/theme.d.ts"
+      ],
+      "overlays/use-portal": [
+        "dist/overlays/use-portal.d.ts"
       ],
       "use-button": [
         "dist/use-button.d.ts"
