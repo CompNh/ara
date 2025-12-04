@@ -321,7 +321,7 @@ T-000100,W-000010,Overlay Primitives v0,코어(headless),useFocusTrap/FocusRetur
 T-000101,W-000010,Overlay Primitives v0,코어(headless),useDismissableLayer 구현,완료,High," ● 내용: 바깥 클릭/포인터다운·포커스아웃·ESC 핸들러; 캡쳐 단계 처리·내부 포인터 캔슬 예외; 스택 최상단만 반응
  ● 산출물: packages/core/src/overlays/use-dismissable-layer.ts
  ● 점검: 중첩 오버레이 상호작용 충돌 0",확인
-T-000102,W-000010,Overlay Primitives v0,코어(headless),usePositioner(앵커 배치) 구현,계획,High," ● 내용: anchor↔floating 배치(placement: top/bottom/left/right + start/center/end), offset/flip/shift, resize/scroll 옵저버
+T-000102,W-000010,Overlay Primitives v0,코어(headless),usePositioner(앵커 배치) 구현,완료,High," ● 내용: anchor↔floating 배치(placement: top/bottom/left/right + start/center/end), offset/flip/shift, resize/scroll 옵저버
  ● 산출물: packages/core/overlays/use-positioner.ts
  ● 점검: 스크롤/리사이즈 시 위치 유지",확인
 T-000103,W-000010,Overlay Primitives v0,React 바인딩,Portal 컴포넌트 구현,계획,High," ● 내용: <Portal container>·children·disablePortal 옵션; className 병합
