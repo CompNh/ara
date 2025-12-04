@@ -60,3 +60,5 @@ export type {
   UseRadioGroupResult
 } from "./use-radio-group.js";
 export { useRadioGroup } from "./use-radio-group.js";
+export type { UsePortalOptions, UsePortalResult } from "./overlays/use-portal.js";
+export { usePortal } from "./overlays/use-portal.js";

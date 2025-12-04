@@ -312,7 +312,7 @@ T-000097,W-000009,Form Controls v0 Comp,릴리스,Changesets 프리릴리스(can
 T-000098,W-000010,Overlay Primitives v0,계약/설계,오버레이 계약·스택 정책 확정,완료,High," ● 목적: Portal/FocusTrap/Positioner/DismissableLayer의 API·이벤트·중첩 스택 정책(최상단만 ESC/외부클릭 처리) 확정
  ● 산출물: core/react 오버레이 README(계약)
  ● 점검: 리뷰 승인 후 계약 동결(변경=Major)",확인
-T-000099,W-000010,Overlay Primitives v0,코어(headless),usePortal(SSR-safe) 구현,계획,High," ● 내용: SSR-safe 컨테이너 생성(문서 미존재 시 지연), 사용자 제공 컨테이너 우선, 언마운트 시 정리
+T-000099,W-000010,Overlay Primitives v0,코어(headless),usePortal(SSR-safe) 구현,완료,High," ● 내용: SSR-safe 컨테이너 생성(문서 미존재 시 지연), 사용자 제공 컨테이너 우선, 언마운트 시 정리
  ● 산출물: packages/core/overlays/use-portal.ts
  ● 점검: SSR 스모크·컨테이너 누수 0",확인
 T-000100,W-000010,Overlay Primitives v0,코어(headless),useFocusTrap/FocusReturn 구현,계획,High," ● 내용: 포커스 센티널·탭 이동 루프·초점 진입/복귀·비활성 시 해제; 다중 트랩 중 최상단만 활성
