@@ -37,6 +37,11 @@
       "import": "./dist/components/spacer/index.js",
       "default": "./dist/components/spacer/index.js"
     },
+    "./components/portal": {
+      "types": "./dist/components/portal/index.d.ts",
+      "import": "./dist/components/portal/index.js",
+      "default": "./dist/components/portal/index.js"
+    },
     "./components/flex": {
       "types": "./dist/components/layout/Flex.d.ts",
       "import": "./dist/components/layout/Flex.js",
@@ -91,6 +96,11 @@
       "types": "./dist/components/text-field/index.d.ts",
       "import": "./dist/components/text-field/index.js",
       "default": "./dist/components/text-field/index.js"
+    },
+    "./portal": {
+      "types": "./dist/components/portal/index.d.ts",
+      "import": "./dist/components/portal/index.js",
+      "default": "./dist/components/portal/index.js"
     },
     "./icon": {
       "types": "./dist/components/icon/index.d.ts",
@@ -159,6 +169,9 @@
       "components/spacer": [
         "dist/components/spacer/index.d.ts"
       ],
+      "components/portal": [
+        "dist/components/portal/index.d.ts"
+      ],
       "components/flex": [
         "dist/components/layout/Flex.d.ts"
       ],
@@ -194,6 +207,9 @@
       ],
       "spacer": [
         "dist/components/spacer/index.d.ts"
+      ],
+      "portal": [
+        "dist/components/portal/index.d.ts"
       ],
       "flex": [
         "dist/components/layout/Flex.d.ts"
