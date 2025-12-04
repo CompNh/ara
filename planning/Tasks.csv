@@ -309,7 +309,7 @@ T-000096,W-000009,Form Controls v0 Comp,빌드/출하,Exports/Types 계약 점�
 T-000097,W-000009,Form Controls v0 Comp,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가·canary 배포 드라이런, 릴리스 노트에 계약/범위(폼 기본 컨트롤) 명시
  ● 산출물: canary 태그·설치 확인 메모
  ● 점검: 설치/임포트/간단 사용 예 검증",확인
-T-000098,W-000010,Overlay Primitives v0,계약/설계,오버레이 계약·스택 정책 확정,계획,High," ● 목적: Portal/FocusTrap/Positioner/DismissableLayer의 API·이벤트·중첩 스택 정책(최상단만 ESC/외부클릭 처리) 확정
+T-000098,W-000010,Overlay Primitives v0,계약/설계,오버레이 계약·스택 정책 확정,완료,High," ● 목적: Portal/FocusTrap/Positioner/DismissableLayer의 API·이벤트·중첩 스택 정책(최상단만 ESC/외부클릭 처리) 확정
  ● 산출물: core/react 오버레이 README(계약)
  ● 점검: 리뷰 승인 후 계약 동결(변경=Major)",확인
 T-000099,W-000010,Overlay Primitives v0,코어(headless),usePortal(SSR-safe) 구현,계획,High," ● 내용: SSR-safe 컨테이너 생성(문서 미존재 시 지연), 사용자 제공 컨테이너 우선, 언마운트 시 정리
