@@ -138,6 +138,8 @@ export function useFocusTrap(options: UseFocusTrapOptions = {}): UseFocusTrapRes
   useEffect(() => {
     if (!active) return undefined;
 
+    lastTabDirectionRef.current = "first";
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Tab") {
         lastTabDirectionRef.current = event.shiftKey ? "last" : "first";
