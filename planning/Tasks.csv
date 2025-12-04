@@ -318,8 +318,8 @@ T-000099,W-000010,Overlay Primitives v0,코어(headless),usePortal(SSR-safe) 구
 T-000100,W-000010,Overlay Primitives v0,코어(headless),useFocusTrap/FocusReturn 구현,완료,High," ● 내용: 포커스 센티널·탭 이동 루프·초점 진입/복귀·비활성 시 해제; 다중 트랩 중 최상단만 활성
  ● 산출물: packages/core/overlays/use-focus-trap.ts
  ● 점검: 탭 순환·언마운트 시 원포커스 복귀",확인
-T-000101,W-000010,Overlay Primitives v0,코어(headless),useDismissableLayer 구현,계획,High," ● 내용: 바깥 클릭/포인터다운·포커스아웃·ESC 핸들러; 캡쳐 단계 처리·내부 포인터 캔슬 예외; 스택 최상단만 반응
- ● 산출물: packages/core/overlays/use-dismissable-layer.ts
+T-000101,W-000010,Overlay Primitives v0,코어(headless),useDismissableLayer 구현,완료,High," ● 내용: 바깥 클릭/포인터다운·포커스아웃·ESC 핸들러; 캡쳐 단계 처리·내부 포인터 캔슬 예외; 스택 최상단만 반응
+ ● 산출물: packages/core/src/overlays/use-dismissable-layer.ts
  ● 점검: 중첩 오버레이 상호작용 충돌 0",확인
 T-000102,W-000010,Overlay Primitives v0,코어(headless),usePositioner(앵커 배치) 구현,계획,High," ● 내용: anchor↔floating 배치(placement: top/bottom/left/right + start/center/end), offset/flip/shift, resize/scroll 옵저버
  ● 산출물: packages/core/overlays/use-positioner.ts

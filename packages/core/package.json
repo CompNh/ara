@@ -27,6 +27,11 @@
       "import": "./dist/overlays/use-portal.js",
       "default": "./dist/overlays/use-portal.js"
     },
+    "./overlays/use-dismissable-layer": {
+      "types": "./dist/overlays/use-dismissable-layer.d.ts",
+      "import": "./dist/overlays/use-dismissable-layer.js",
+      "default": "./dist/overlays/use-dismissable-layer.js"
+    },
     "./overlays/use-focus-trap": {
       "types": "./dist/overlays/use-focus-trap.d.ts",
       "import": "./dist/overlays/use-focus-trap.js",
@@ -56,6 +61,9 @@
       ],
       "overlays/use-portal": [
         "dist/overlays/use-portal.d.ts"
+      ],
+      "overlays/use-dismissable-layer": [
+        "dist/overlays/use-dismissable-layer.d.ts"
       ],
       "overlays/use-focus-trap": [
         "dist/overlays/use-focus-trap.d.ts"

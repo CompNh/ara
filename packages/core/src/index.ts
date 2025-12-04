@@ -62,6 +62,8 @@ export type {
 export { useRadioGroup } from "./use-radio-group.js";
 export type { UsePortalOptions, UsePortalResult } from "./overlays/use-portal.js";
 export { usePortal } from "./overlays/use-portal.js";
+export type { UseDismissableLayerOptions, UseDismissableLayerResult, DismissableLayerContainerProps, DismissableLayerEvent } from "./overlays/use-dismissable-layer.js";
+export { useDismissableLayer } from "./overlays/use-dismissable-layer.js";
 export type {
   FocusGuardProps,
   FocusTrapContainerProps,
