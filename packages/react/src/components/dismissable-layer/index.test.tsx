@@ -163,18 +163,17 @@ describe("DismissableLayer", () => {
 
     await act(async () => {
       getByTestId("inner").focus();
-      await user.pointer({ keys: "[MouseLeft]", target: getByTestId("outside") });
+      await user.keyboard("{Escape}");
     });
 
-    const innerDismissCountAfterOutside = innerDismiss.mock.calls.length;
-    expect(innerDismissCountAfterOutside).toBeGreaterThan(0);
+    expect(innerDismiss).toHaveBeenCalledTimes(1);
     expect(outerDismiss).not.toHaveBeenCalled();
 
     await act(async () => {
       await user.keyboard("{Escape}");
     });
 
-    expect(innerDismiss).toHaveBeenCalledTimes(innerDismissCountAfterOutside + 1);
+    expect(innerDismiss).toHaveBeenCalledTimes(2);
     expect(outerDismiss).not.toHaveBeenCalled();
 
     rerender(<Example withInner={false} />);
@@ -184,14 +183,13 @@ describe("DismissableLayer", () => {
       await user.pointer({ keys: "[MouseLeft]", target: getByTestId("outside") });
     });
 
-    const outerDismissCountAfterOutside = outerDismiss.mock.calls.length;
-    expect(outerDismissCountAfterOutside).toBeGreaterThan(0);
-    expect(innerDismiss).toHaveBeenCalledTimes(innerDismissCountAfterOutside + 1);
+    expect(outerDismiss).toHaveBeenCalledTimes(1);
+    expect(innerDismiss).toHaveBeenCalledTimes(2);
 
     await act(async () => {
       await user.keyboard("{Escape}");
     });
 
-    expect(outerDismiss).toHaveBeenCalledTimes(outerDismissCountAfterOutside + 1);
+    expect(outerDismiss).toHaveBeenCalledTimes(2);
   });
 });
