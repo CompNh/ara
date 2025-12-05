@@ -37,6 +37,11 @@
       "import": "./dist/components/spacer/index.js",
       "default": "./dist/components/spacer/index.js"
     },
+    "./components/focus-trap": {
+      "types": "./dist/components/focus-trap/index.d.ts",
+      "import": "./dist/components/focus-trap/index.js",
+      "default": "./dist/components/focus-trap/index.js"
+    },
     "./components/portal": {
       "types": "./dist/components/portal/index.d.ts",
       "import": "./dist/components/portal/index.js",
@@ -96,6 +101,11 @@
       "types": "./dist/components/text-field/index.d.ts",
       "import": "./dist/components/text-field/index.js",
       "default": "./dist/components/text-field/index.js"
+    },
+    "./focus-trap": {
+      "types": "./dist/components/focus-trap/index.d.ts",
+      "import": "./dist/components/focus-trap/index.js",
+      "default": "./dist/components/focus-trap/index.js"
     },
     "./portal": {
       "types": "./dist/components/portal/index.d.ts",
@@ -169,6 +179,9 @@
       "components/spacer": [
         "dist/components/spacer/index.d.ts"
       ],
+      "components/focus-trap": [
+        "dist/components/focus-trap/index.d.ts"
+      ],
       "components/portal": [
         "dist/components/portal/index.d.ts"
       ],
@@ -207,6 +220,9 @@
       ],
       "spacer": [
         "dist/components/spacer/index.d.ts"
+      ],
+      "focus-trap": [
+        "dist/components/focus-trap/index.d.ts"
       ],
       "portal": [
         "dist/components/portal/index.d.ts"
@@ -282,6 +298,7 @@
     "@ara/tsconfig": "workspace:*",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.23",
     "@vitejs/plugin-react": "^4.3.3",

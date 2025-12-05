@@ -2,6 +2,7 @@ export * from "./button/index.js";
 export * from "./checkbox/index.js";
 export * from "./icon/index.js";
 export * from "./layout/index.js";
+export * from "./focus-trap/index.js";
 export * from "./portal/index.js";
 export * from "./radio/index.js";
 export * from "./switch/index.js";
