@@ -71,8 +71,10 @@ export function usePositioner(options: UsePositionerOptions = {}): UsePositioner
     const anchorCenterX = anchorRect.left + anchorRect.width / 2 + (coreFloatingProps.style.position === "absolute" ? scrollX : 0);
     const anchorCenterY = anchorRect.top + anchorRect.height / 2 + (coreFloatingProps.style.position === "absolute" ? scrollY : 0);
 
-    const floatingLeft = floatingRect.left + (coreFloatingProps.style.position === "absolute" ? scrollX : 0);
-    const floatingTop = floatingRect.top + (coreFloatingProps.style.position === "absolute" ? scrollY : 0);
+    const floatingLeft = (typeof coreFloatingProps.style.left === "number" ? coreFloatingProps.style.left : floatingRect.left) +
+      (coreFloatingProps.style.position === "absolute" ? scrollX : 0);
+    const floatingTop = (typeof coreFloatingProps.style.top === "number" ? coreFloatingProps.style.top : floatingRect.top) +
+      (coreFloatingProps.style.position === "absolute" ? scrollY : 0);
     const arrowHalfWidth = (arrowNode.offsetWidth ?? 0) / 2;
     const arrowHalfHeight = (arrowNode.offsetHeight ?? 0) / 2;
 
