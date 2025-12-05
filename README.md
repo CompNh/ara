@@ -1,10 +1,13 @@
 # Ara UI Components
+
 > **목표:** Kendo/Crystal처럼 *상업화 가능한* UI 컴포넌트 제품군을 만든다.
 
 ## Stack (snapshot)
+
 VS Code(Git Bash) · Windows · React+TypeScript · Node 22 LTS · pnpm(workspaces)+Corepack · Vite(dev)/Rollup(lib) · Vitest+RTL · Storybook · ESLint(Flat)+Prettier · Changesets · GitHub · .gitattributes(LF) · .editorconfig · commit-msg(amend)
 
 ## 로컬 개발 환경 준비
+
 1. **Node.js 22 LTS 설치**
    - [공식 다운로드 페이지](https://nodejs.org/)에서 설치하거나 nvm 등 버전 관리 도구로 22 LTS를 활성화한다.
 2. **Corepack 활성화**
@@ -15,6 +18,7 @@ VS Code(Git Bash) · Windows · React+TypeScript · Node 22 LTS · pnpm(workspac
    - 저장소 루트에서 `pnpm install --no-frozen-lockfile` 또는 CI와 동일하게 `pnpm -w install --no-frozen-lockfile`을 실행해 모든 패키지를 내려받는다.
 
 ## 모노레포 구조 한눈에 보기
+
 ```text
 .
 ├─ apps/
@@ -35,6 +39,7 @@ VS Code(Git Bash) · Windows · React+TypeScript · Node 22 LTS · pnpm(workspac
 > `pnpm -w list --depth -1` 명령으로 각 디렉터리가 워크스페이스에 올바르게 등록돼 있는지 수시로 점검한다.
 
 ### 패키지 역할과 의존 관계
+
 | 패키지 | 유형 | 주요 역할 | 워크스페이스 의존성 |
 | --- | --- | --- | --- |
 | `@ara/tokens` | 라이브러리 | 디자인 토큰을 Rollup으로 번들해 JS/TS/JSON 으로 배포 | `@ara/tsconfig` |
@@ -45,6 +50,7 @@ VS Code(Git Bash) · Windows · React+TypeScript · Node 22 LTS · pnpm(workspac
 | `@ara/tsconfig` | 설정 | `tsconfig.base.json` 및 React 라이브러리 확장 베이스 제공 | - |
 
 ### 공통 설정 참조 절차
+
 1. **TypeScript**
    - 새 패키지를 생성하면 `tsconfig.build.json` 에서 `"extends": "../../tsconfig.base.json"` 로 루트 설정을 가져온다.
    - 런타임/테스트 구성용 `tsconfig.json` 은 `tsconfig.build.json` 을 재사용하고, 필요 시 `types` 만 추가한다.
@@ -56,6 +62,7 @@ VS Code(Git Bash) · Windows · React+TypeScript · Node 22 LTS · pnpm(workspac
    - 새 워크스페이스 패키지를 추가할 때는 `docs/package-governance.md` 의 메타데이터 체크리스트를 따르고, 마지막에 `pnpm run check:manifests` 로 검증한다.
 
 ### 패키지 스캐폴딩 순서 가이드
+
 1. **디자인 토큰(`@ara/tokens`)** : 색상, 타이포그래피 등 기초 자산을 우선 정의하고 빌드 파이프라인을 확정한다.
 2. **헤드리스 로직(`@ara/core`)** : 토큰을 소비하는 테마 시스템과 상태 훅을 구현한다.
 3. **아이콘(`@ara/icons`)** : 컴포넌트에서 재사용할 SVG 아이콘과 타입을 생성한다.
@@ -65,29 +72,39 @@ VS Code(Git Bash) · Windows · React+TypeScript · Node 22 LTS · pnpm(workspac
 각 단계가 완료될 때마다 관련 의존 패키지를 `pnpm --filter <pkg> build` 로 미리 빌드해 dist 산출물이 존재하는지 확인하고, 최종적으로 `pnpm -w workspace:check` 를 실행해 전체 워크스페이스 일관성을 점검한다.
 
 ### 패키지 거버넌스 정책
+
 - [패키지 거버넌스 가이드](docs/package-governance.md)를 참고해 `@ara/` 스코프, 공개/비공개 정책, 메타데이터(`engines`, `license`, `repository`)를 맞춘다.
 - 새 패키지를 추가하거나 변경한 뒤에는 `pnpm run check:manifests` 로 자동 점검을 수행한다.
 
 ## 워크스페이스 검증 스크립트
+
 | 명령 | 설명 |
 | --- | --- |
-| `pnpm -w lint`<br>`pnpm -w test`<br>`pnpm -w build`<br>`pnpm -w storybook:smoke` | 루트에서 실행하면 워크스페이스 전체에 동일한 명령을 순차 적용한다. |
-| `pnpm -w workspace:check` | 위 네 가지 명령을 한 번에 실행한다. 순서는 `lint → test → build → storybook:smoke`이며 Storybook 단계는 개발 서버 대신 스모크 테스트 플래그를 사용해 빠르게 종료한다. |
+| `pnpm -w lint` | 루트에서 실행하면 워크스페이스 전체에 동일한 명령을 순차 적용한다. |
+| `pnpm -w test` | 루트에서 실행하면 워크스페이스 전체에 동일한 명령을 순차 적용한다. |
+| `pnpm -w build` | 루트에서 실행하면 워크스페이스 전체에 동일한 명령을 순차 적용한다. |
+| `pnpm -w storybook:smoke` | 루트에서 실행하면 워크스페이스 전체에 동일한 명령을 순차 적용한다. |
+| `pnpm -w workspace:check` | 네 가지 공통 명령을 한 번에 실행한다. 순서는 `lint → test → build → storybook:smoke`이며 Storybook 단계는 개발 서버 대신 스모크 테스트 플래그를 사용해 빠르게 종료한다. |
 | `pnpm release` | Changesets 기반 배포 흐름과 별도로, 배포가 필요할 때 Changeset을 기록한 뒤 실행한다. |
 | [Changesets Canary 가이드](docs/releases/canary.md) | canary 프리릴리스 드라이런 절차를 확인한다. |
 
 ### 패키지별 테스트 실행 팁
+
 | 목적 | 명령 예시 | 비고 |
 | --- | --- | --- |
 | 패키지 전체 테스트 | `pnpm --filter @ara/react test` | 패키지 단위로 모든 테스트를 실행한다. |
 | 단일 테스트 파일 실행 | `pnpm --filter @ara/react test -- src/components/button/Button.test.tsx` | `--` 뒤 경로는 **패키지 루트(`packages/react`) 기준**이다. 워크스페이스 루트 경로를 전달하면 Vitest가 파일을 찾지 못한다. |
- 
+
 ## 일정 (WBS/Tasks)
- **경로** : root/planning
- **WBS** : WBS.CSV
- **Task** : Tasks.CSV
+
+**경로** : root/planning
+
+**WBS** : WBS.CSV
+
+**Task** : Tasks.CSV
 
 ## 릴리스 메모 (canary 드라이런)
+
 - dist-tag는 `canary` 를 사용하며, `pnpm exec changeset pre enter canary` → `pnpm exec changeset publish --tag canary` 순서로 프리릴리스
   버전을 발행한다.
 - W-000006 / T-000058: `.changeset/icons-canary-release.md` Changeset으로 `@ara/icons` v0 canary 배포를 준비했다.
@@ -95,17 +112,20 @@ VS Code(Git Bash) · Windows · React+TypeScript · Node 22 LTS · pnpm(workspac
 - `node --input-type=module -e "import('./packages/icons/dist/index.js').then(m=>console.log(Object.keys(m)))"` 실행 시 `ArrowRight`,
   `CheckCircle`, `Plus`, `__ICON_TYPES__`, `icons` 익스포트가 노출되는 것을 확인했다.
 - TextField v0 canary 선공개 Changeset을 추가했다. aria 연결, prefix/suffix 아이콘, clear/password 토글 등 핵심 계약을 포함하고 텍스트에어리어·마스킹은 제외된 범위를 릴리스 노트에 명시했다.
- - Checkbox, Radio, Switch v0에 대한 canary Changeset을 추가해 폼 기본 컨트롤의 aria 계약, 폼 연동, 기본 상호작용 범위를 명시했다.
+- Checkbox, Radio, Switch v0에 대한 canary Changeset을 추가해 폼 기본 컨트롤의 aria 계약, 폼 연동, 기본 상호작용 범위를 명시했다.
 
 ## Git 설정
+
 - 커밋 템플릿은 `.github/COMMIT_TEMPLATE` 을 직접 사용한다.
 - Conventional Commits를 강제하는 `commit-msg` 훅과 함께 사용한다.
 - 모든 커밋 메시지와 PR 설명은 한국어로 작성한다.
 - 설정 스크립트 실행: (Git Bash) 프롬프트에서 하위 실행
-    ```bash
-    bash scripts/git/setup-commit-template.sh
-    bash scripts/git/setup-commit-msg-hook.sh
-    ```
+
+  ```bash
+  bash scripts/git/setup-commit-template.sh
+  bash scripts/git/setup-commit-msg-hook.sh
+  ```
+
 - 검증(테스트) 방법:
   1. `git config --local --get commit.template` 명령으로 템플릿 경로가 `<repo>/.github/COMMIT_TEMPLATE` 인지 확인한다.
   2. `git config --local --get core.hooksPath` 명령으로 `<repo>/.githooks` 가 설정되었는지 확인한다.
