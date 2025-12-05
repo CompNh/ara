@@ -64,7 +64,7 @@ export function usePositioner(options: UsePositionerOptions = {}): UsePositioner
 
     const anchorRect = resolvedAnchor.getBoundingClientRect();
     const floatingRect = resolvedFloating.getBoundingClientRect();
-    const { side, align } = parsePlacement(resolvedPlacement);
+    const { side } = parsePlacement(resolvedPlacement);
 
     const scrollX = window.scrollX ?? window.pageXOffset ?? 0;
     const scrollY = window.scrollY ?? window.pageYOffset ?? 0;
@@ -89,7 +89,16 @@ export function usePositioner(options: UsePositionerOptions = {}): UsePositioner
     }
 
     setArrowStyle(position);
-  }, [arrowNode, coreFloatingProps.style.position, resolvedAnchor, resolvedFloating, resolvedPlacement, withArrow]);
+  }, [
+    arrowNode,
+    coreFloatingProps.style.left,
+    coreFloatingProps.style.position,
+    coreFloatingProps.style.top,
+    resolvedAnchor,
+    resolvedFloating,
+    resolvedPlacement,
+    withArrow
+  ]);
 
   useEffect(() => {
     updateArrowPosition();
