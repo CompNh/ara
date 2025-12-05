@@ -1,6 +1,6 @@
 import "@testing-library/jest-dom/vitest";
 import { act, cleanup, render, renderHook, waitFor } from "@testing-library/react";
-import { afterEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { useLayoutEffect, useRef } from "react";
 
 import { Positioner, usePositioner } from "./index.js";
@@ -22,6 +22,11 @@ function createRect({ x, y, width, height }: RectInit): DOMRect {
 }
 
 describe("usePositioner (React)", () => {
+  beforeEach(() => {
+    Object.defineProperty(document.documentElement, "clientWidth", { value: 1024, configurable: true });
+    Object.defineProperty(document.documentElement, "clientHeight", { value: 768, configurable: true });
+  });
+
   afterEach(() => {
     cleanup();
     document.body.innerHTML = "";
@@ -87,6 +92,11 @@ describe("usePositioner (React)", () => {
 });
 
 describe("Positioner 컴포넌트", () => {
+  beforeEach(() => {
+    Object.defineProperty(document.documentElement, "clientWidth", { value: 1024, configurable: true });
+    Object.defineProperty(document.documentElement, "clientHeight", { value: 768, configurable: true });
+  });
+
   afterEach(() => {
     cleanup();
     document.body.innerHTML = "";
