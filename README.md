@@ -69,16 +69,19 @@ VS Code(Git Bash) · Windows · React+TypeScript · Node 22 LTS · pnpm(workspac
 - 새 패키지를 추가하거나 변경한 뒤에는 `pnpm run check:manifests` 로 자동 점검을 수행한다.
 
 ## 워크스페이스 검증 스크립트
-- 루트에서 `pnpm -w lint`, `pnpm -w test`, `pnpm -w build`, `pnpm -w storybook:smoke` 를 실행하면 워크스페이스 전체에 동일한 명령이 순차적으로 적용된다.
-- 위 명령을 한 번에 돌리고 싶다면 `pnpm -w workspace:check` 스크립트를 사용한다. 순서는 `lint → test → build → storybook:smoke` 이며 Storybook 단계는 개발 서버 대신 스모크 테스트 플래그를 사용해 빠르게 종료된다.
-- Changesets 기반 배포 흐름(`pnpm release`)과는 별개의 사전 점검 라인이다. 배포가 필요한 경우에는 변경 사항을 Changeset으로 기록한 뒤 `pnpm release` 를 사용한다.
-- canary 프리릴리스 드라이런 순서는 [Changesets Canary 가이드](docs/releases/canary.md)를 따른다.
+| 명령 | 설명 |
+| --- | --- |
+| `pnpm -w lint`<br>`pnpm -w test`<br>`pnpm -w build`<br>`pnpm -w storybook:smoke` | 루트에서 실행하면 워크스페이스 전체에 동일한 명령을 순차 적용한다. |
+| `pnpm -w workspace:check` | 위 네 가지 명령을 한 번에 실행한다. 순서는 `lint → test → build → storybook:smoke`이며 Storybook 단계는 개발 서버 대신 스모크 테스트 플래그를 사용해 빠르게 종료한다. |
+| `pnpm release` | Changesets 기반 배포 흐름과 별도로, 배포가 필요할 때 Changeset을 기록한 뒤 실행한다. |
+| [Changesets Canary 가이드](docs/releases/canary.md) | canary 프리릴리스 드라이런 절차를 확인한다. |
 
 ### 패키지별 테스트 실행 팁
-- **패키지 전체 테스트:** `pnpm --filter @ara/react test`
-- **단일 테스트 파일 실행:** `pnpm --filter @ara/react test -- src/components/button/Button.test.tsx`
-  - `--` 뒤에 전달하는 경로는 **패키지 루트(`packages/react`) 기준**이어야 한다. 워크스페이스 루트 경로(예: `packages/react/...`)를 전달하면 Vitest가 테스트 파일을 찾지 못한다.
-
+| 목적 | 명령 예시 | 비고 |
+| --- | --- | --- |
+| 패키지 전체 테스트 | `pnpm --filter @ara/react test` | 패키지 단위로 모든 테스트를 실행한다. |
+| 단일 테스트 파일 실행 | `pnpm --filter @ara/react test -- src/components/button/Button.test.tsx` | `--` 뒤 경로는 **패키지 루트(`packages/react`) 기준**이다. 워크스페이스 루트 경로를 전달하면 Vitest가 파일을 찾지 못한다. |
+ 
 ## 일정 (WBS/Tasks)
  **경로** : root/planning
  **WBS** : WBS.CSV
