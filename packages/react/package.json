@@ -42,6 +42,11 @@
       "import": "./dist/components/focus-trap/index.js",
       "default": "./dist/components/focus-trap/index.js"
     },
+    "./components/dismissable-layer": {
+      "types": "./dist/components/dismissable-layer/index.d.ts",
+      "import": "./dist/components/dismissable-layer/index.js",
+      "default": "./dist/components/dismissable-layer/index.js"
+    },
     "./components/portal": {
       "types": "./dist/components/portal/index.d.ts",
       "import": "./dist/components/portal/index.js",
@@ -106,6 +111,11 @@
       "types": "./dist/components/focus-trap/index.d.ts",
       "import": "./dist/components/focus-trap/index.js",
       "default": "./dist/components/focus-trap/index.js"
+    },
+    "./dismissable-layer": {
+      "types": "./dist/components/dismissable-layer/index.d.ts",
+      "import": "./dist/components/dismissable-layer/index.js",
+      "default": "./dist/components/dismissable-layer/index.js"
     },
     "./portal": {
       "types": "./dist/components/portal/index.d.ts",
@@ -182,6 +192,9 @@
       "components/focus-trap": [
         "dist/components/focus-trap/index.d.ts"
       ],
+      "components/dismissable-layer": [
+        "dist/components/dismissable-layer/index.d.ts"
+      ],
       "components/portal": [
         "dist/components/portal/index.d.ts"
       ],
@@ -223,6 +236,9 @@
       ],
       "focus-trap": [
         "dist/components/focus-trap/index.d.ts"
+      ],
+      "dismissable-layer": [
+        "dist/components/dismissable-layer/index.d.ts"
       ],
       "portal": [
         "dist/components/portal/index.d.ts"
