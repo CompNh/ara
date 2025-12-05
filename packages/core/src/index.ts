@@ -64,7 +64,14 @@ export type { UsePortalOptions, UsePortalResult } from "./overlays/use-portal.js
 export { usePortal } from "./overlays/use-portal.js";
 export type { UseDismissableLayerOptions, UseDismissableLayerResult, DismissableLayerContainerProps, DismissableLayerEvent } from "./overlays/use-dismissable-layer.js";
 export { useDismissableLayer } from "./overlays/use-dismissable-layer.js";
-export type { Placement, PositionerAnchorProps, PositionerFloatingProps, UsePositionerOptions, UsePositionerResult } from "./overlays/use-positioner.js";
+export type {
+  Placement,
+  PositionerAnchorProps,
+  PositionerFloatingProps,
+  PositionStrategy,
+  UsePositionerOptions,
+  UsePositionerResult
+} from "./overlays/use-positioner.js";
 export { usePositioner } from "./overlays/use-positioner.js";
 export type {
   FocusGuardProps,
