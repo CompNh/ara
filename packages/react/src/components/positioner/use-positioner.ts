@@ -7,7 +7,7 @@ import {
   type PositionStrategy
 } from "@ara/core";
 
-export type { PositionStrategy };
+export type { Placement, PositionStrategy };
 
 type Side = "top" | "bottom" | "left" | "right";
 type Align = "start" | "center" | "end";
