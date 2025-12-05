@@ -327,7 +327,7 @@ T-000102,W-000010,Overlay Primitives v0,코어(headless),usePositioner(앵커 �
 T-000103,W-000010,Overlay Primitives v0,React 바인딩,Portal 컴포넌트 구현,완료,High," ● 내용: <Portal container>·children·disablePortal 옵션; className 병합
  ● 산출물: packages/react/src/components/portal/index.tsx + README
  ● 점검: SSR/StrictMode 스모크",확인
-T-000104,W-000010,Overlay Primitives v0,React 바인딩,FocusTrap 컴포넌트 구현,계획,High," ● 내용: <FocusTrap active initialFocus restoreFocus>·포커스 센티널 자동 구성
+T-000104,W-000010,Overlay Primitives v0,React 바인딩,FocusTrap 컴포넌트 구현,완료,High," ● 내용: <FocusTrap active initialFocus restoreFocus>·포커스 센티널 자동 구성
  ● 산출물: packages/react/src/components/focus-trap/index.tsx
  ● 점검: 탭 루프·복귀 확인",확인
 T-000105,W-000010,Overlay Primitives v0,React 바인딩,DismissableLayer 컴포넌트 구현,계획,High," ● 내용: <DismissableLayer onDismiss disableOutsidePointerEvents>·중첩 스택 연동
