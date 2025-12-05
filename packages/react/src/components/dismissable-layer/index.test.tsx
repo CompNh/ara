@@ -18,7 +18,7 @@ describe("DismissableLayer", () => {
     const { getByTestId } = render(
       <>
         <DismissableLayer onDismiss={onDismiss}>
-          <button data-testid="inside" autoFocus>
+          <button data-testid="inside">
             안쪽
           </button>
         </DismissableLayer>
@@ -26,6 +26,10 @@ describe("DismissableLayer", () => {
         <button data-testid="outside">바깥</button>
       </>
     );
+
+    await act(async () => {
+      getByTestId("inside").focus();
+    });
 
     await act(async () => {
       await user.pointer({ keys: "[MouseLeft]", target: getByTestId("outside") });
@@ -58,7 +62,7 @@ describe("DismissableLayer", () => {
     const { getByTestId } = render(
       <>
         <DismissableLayer onDismiss={onDismiss}>
-          <button data-testid="inside" autoFocus>
+          <button data-testid="inside">
             안쪽
           </button>
         </DismissableLayer>
@@ -66,6 +70,10 @@ describe("DismissableLayer", () => {
         <button data-testid="outside">바깥</button>
       </>
     );
+
+    await act(async () => {
+      getByTestId("inside").focus();
+    });
 
     await act(async () => {
       await user.pointer({ keys: "[MouseLeft]", target: getByTestId("inside") });
@@ -82,7 +90,7 @@ describe("DismissableLayer", () => {
     const { getByTestId } = render(
       <>
         <DismissableLayer disableOutsidePointerEvents onDismiss={onDismiss}>
-          <button data-testid="inside" autoFocus>
+          <button data-testid="inside">
             안쪽
           </button>
         </DismissableLayer>
@@ -92,6 +100,10 @@ describe("DismissableLayer", () => {
         </button>
       </>
     );
+
+    await act(async () => {
+      getByTestId("inside").focus();
+    });
 
     await act(async () => {
       await user.pointer({ keys: "[MouseLeft]", target: getByTestId("outside") });
