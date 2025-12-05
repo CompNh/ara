@@ -89,6 +89,62 @@ describe("usePositioner (React)", () => {
       expect(result.current.arrowProps?.["data-align"]).toBe("start");
     });
   });
+
+  it("스크롤/리사이즈 시 위치를 다시 계산해 최신 좌표를 반영한다", async () => {
+    let anchorRect = createRect({ x: 20, y: 30, width: 40, height: 20 });
+    const floatingRect = createRect({ x: 0, y: 0, width: 50, height: 20 });
+
+    function Example() {
+      const anchorRef = useRef<HTMLDivElement | null>(null);
+      const floatingRef = useRef<HTMLElement | null>(null);
+
+      useLayoutEffect(() => {
+        if (anchorRef.current) {
+          anchorRef.current.getBoundingClientRect = () => anchorRect;
+        }
+
+        if (floatingRef.current) {
+          floatingRef.current.getBoundingClientRect = () => floatingRect;
+        }
+      });
+
+      return (
+        <>
+          <div ref={anchorRef} data-testid="anchor" />
+          <Positioner
+            anchorRef={anchorRef}
+            ref={(node) => {
+              floatingRef.current = node;
+              if (node) {
+                node.getBoundingClientRect = () => floatingRect;
+              }
+            }}
+          >
+            <span data-testid="content">콘텐츠</span>
+          </Positioner>
+        </>
+      );
+    }
+
+    const { getByTestId } = render(<Example />);
+
+    await waitFor(() => {
+      const container = getByTestId("content").parentElement as HTMLElement;
+      expect(Number.parseFloat(container.style.left)).toBeCloseTo(20);
+      expect(Number.parseFloat(container.style.top)).toBeCloseTo(50);
+    });
+
+    act(() => {
+      anchorRect = createRect({ x: 120, y: 150, width: 40, height: 20 });
+      window.dispatchEvent(new Event("scroll"));
+    });
+
+    await waitFor(() => {
+      const container = getByTestId("content").parentElement as HTMLElement;
+      expect(Number.parseFloat(container.style.left)).toBeCloseTo(120);
+      expect(Number.parseFloat(container.style.top)).toBeCloseTo(170);
+    });
+  });
 });
 
 describe("Positioner 컴포넌트", () => {
