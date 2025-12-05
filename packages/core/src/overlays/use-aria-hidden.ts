@@ -86,7 +86,7 @@ function collectElementsToHide(node: HTMLElement): HTMLElement[] {
   let current: HTMLElement | null = node;
 
   while (current) {
-    const parent = current.parentElement;
+    const parent: HTMLElement | null = current.parentElement;
     if (!parent) break;
 
     Array.from(parent.children).forEach((sibling) => {
