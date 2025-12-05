@@ -16,10 +16,15 @@ describe("DismissableLayer", () => {
     const onDismiss = vi.fn();
 
     const { getByTestId } = render(
-      <DismissableLayer onDismiss={onDismiss}>
-        <button data-testid="inside">안쪽</button>
+      <>
+        <DismissableLayer onDismiss={onDismiss}>
+          <button data-testid="inside" autoFocus>
+            안쪽
+          </button>
+        </DismissableLayer>
+
         <button data-testid="outside">바깥</button>
-      </DismissableLayer>
+      </>
     );
 
     await act(async () => {
@@ -51,10 +56,15 @@ describe("DismissableLayer", () => {
     const onDismiss = vi.fn();
 
     const { getByTestId } = render(
-      <DismissableLayer onDismiss={onDismiss}>
-        <button data-testid="inside">안쪽</button>
+      <>
+        <DismissableLayer onDismiss={onDismiss}>
+          <button data-testid="inside" autoFocus>
+            안쪽
+          </button>
+        </DismissableLayer>
+
         <button data-testid="outside">바깥</button>
-      </DismissableLayer>
+      </>
     );
 
     await act(async () => {
@@ -70,12 +80,17 @@ describe("DismissableLayer", () => {
     const outsidePointerDown = vi.fn();
 
     const { getByTestId } = render(
-      <DismissableLayer disableOutsidePointerEvents onDismiss={onDismiss}>
-        <button data-testid="inside">안쪽</button>
+      <>
+        <DismissableLayer disableOutsidePointerEvents onDismiss={onDismiss}>
+          <button data-testid="inside" autoFocus>
+            안쪽
+          </button>
+        </DismissableLayer>
+
         <button data-testid="outside" onPointerDown={(event) => outsidePointerDown(event.defaultPrevented)}>
           바깥
         </button>
-      </DismissableLayer>
+      </>
     );
 
     await act(async () => {
