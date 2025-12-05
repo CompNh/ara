@@ -112,4 +112,73 @@ describe("DismissableLayer", () => {
     expect(outsidePointerDown).toHaveBeenCalledWith(true);
     expect(onDismiss).not.toHaveBeenCalled();
   });
+
+  it("active=false이면 스택에 참여하지 않아 dismiss가 발생하지 않는다", async () => {
+    const onDismiss = vi.fn();
+
+    const { getByTestId } = render(
+      <>
+        <DismissableLayer active={false} onDismiss={onDismiss}>
+          <button data-testid="inside">안쪽</button>
+        </DismissableLayer>
+
+        <button data-testid="outside">바깥</button>
+      </>
+    );
+
+    await act(async () => {
+      getByTestId("inside").focus();
+    });
+
+    await act(async () => {
+      await user.pointer({ keys: "[MouseLeft]", target: getByTestId("outside") });
+      await user.keyboard("{Escape}");
+    });
+
+    expect(onDismiss).not.toHaveBeenCalled();
+  });
+
+  it("스택 최상단 레이어만 dismiss 이벤트를 처리하고 해제 후 다음 레이어가 이어받는다", async () => {
+    const outerDismiss = vi.fn();
+    const innerDismiss = vi.fn();
+
+    function Example({ withInner }: { withInner: boolean }) {
+      return (
+        <>
+          <DismissableLayer onDismiss={outerDismiss}>
+            <button data-testid="outer">바깥</button>
+            {withInner && (
+              <DismissableLayer onDismiss={innerDismiss}>
+                <button data-testid="inner">안쪽</button>
+              </DismissableLayer>
+            )}
+          </DismissableLayer>
+
+          <button data-testid="outside">외부</button>
+        </>
+      );
+    }
+
+    const { getByTestId, rerender } = render(<Example withInner />);
+
+    await act(async () => {
+      getByTestId("inner").focus();
+      await user.pointer({ keys: "[MouseLeft]", target: getByTestId("outside") });
+      await user.keyboard("{Escape}");
+    });
+
+    expect(innerDismiss).toHaveBeenCalledTimes(2);
+    expect(outerDismiss).not.toHaveBeenCalled();
+
+    rerender(<Example withInner={false} />);
+
+    await act(async () => {
+      getByTestId("outer").focus();
+      await user.pointer({ keys: "[MouseLeft]", target: getByTestId("outside") });
+      await user.keyboard("{Escape}");
+    });
+
+    expect(outerDismiss).toHaveBeenCalledTimes(2);
+    expect(innerDismiss).toHaveBeenCalledTimes(2);
+  });
 });
