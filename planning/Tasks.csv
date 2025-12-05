@@ -333,7 +333,7 @@ T-000104,W-000010,Overlay Primitives v0,React 바인딩,FocusTrap 컴포넌트 �
 T-000105,W-000010,Overlay Primitives v0,React 바인딩,DismissableLayer 컴포넌트 구현,완료,High," ● 내용: <DismissableLayer onDismiss disableOutsidePointerEvents>·중첩 스택 연동
  ● 산출물: packages/react/src/components/dismissable-layer/index.tsx
  ● 점검: ESC/외부클릭·내부 드래그 예외",확인
-T-000106,W-000010,Overlay Primitives v0,React 바인딩,Positioner 컴포넌트/훅 구현,계획,High," ● 내용: <Positioner anchorRef placement offset strategy(absolute|fixed) withArrow>·스타일 훅(data-placement)
+T-000106,W-000010,Overlay Primitives v0,React 바인딩,Positioner 컴포넌트/훅 구현,완료,High," ● 내용: <Positioner anchorRef placement offset strategy(absolute|fixed) withArrow>·스타일 훅(data-placement)
  ● 산출물: packages/react/src/components/positioner/index.tsx
  ● 점검: 배치/플립/시프트 스냅",확인
 T-000107,W-000010,Overlay Primitives v0,접근성/A11y,배경 inert/aria-hidden·ESC 규정,계획,High," ● 내용: 모달 시 배경 inert 또는 aria-hidden 관리, ESC 시 닫힘 이벤트 계약, 포커스 트랩과 충돌 방지
