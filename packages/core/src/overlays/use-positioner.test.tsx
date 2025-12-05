@@ -99,6 +99,31 @@ describe("usePositioner", () => {
     });
   });
 
+  it("strategy가 fixed이면 스크롤 보정 없이 뷰포트 기준 좌표를 사용한다", async () => {
+    Object.defineProperty(window, "scrollX", { value: 120, configurable: true });
+    Object.defineProperty(window, "scrollY", { value: 200, configurable: true });
+
+    const anchorRect = createRect({ x: 20, y: 30, width: 40, height: 20 });
+    const floatingRect = createRect({ x: 0, y: 0, width: 10, height: 10 });
+    const { anchor, floating } = setupElements(anchorRect, floatingRect);
+
+    const { result } = renderHook(() => usePositioner({ strategy: "fixed" }));
+
+    act(() => {
+      result.current.anchorProps.ref(anchor);
+      result.current.floatingProps.ref(floating);
+    });
+
+    await waitFor(() => {
+      expect(result.current.floatingProps.style.left).toBeCloseTo(20);
+      expect(result.current.floatingProps.style.top).toBeCloseTo(50);
+      expect(result.current.floatingProps.style.position).toBe("fixed");
+    });
+
+    Object.defineProperty(window, "scrollX", { value: 0, configurable: true });
+    Object.defineProperty(window, "scrollY", { value: 0, configurable: true });
+  });
+
   it("뷰포트 밖으로 나갈 경우 반대편으로 뒤집는다", async () => {
     const anchorRect = createRect({ x: 300, y: 700, width: 60, height: 50 });
     const floatingRect = createRect({ x: 0, y: 0, width: 80, height: 40 });

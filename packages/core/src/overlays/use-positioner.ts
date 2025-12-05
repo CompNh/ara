@@ -12,6 +12,7 @@ export interface UsePositionerOptions {
   readonly offset?: number;
   readonly flip?: boolean;
   readonly shift?: boolean;
+  readonly strategy?: PositionStrategy;
 }
 
 export interface UsePositionerResult {
@@ -29,6 +30,8 @@ export interface PositionerFloatingProps {
   readonly style: CSSProperties;
 }
 
+export type PositionStrategy = "absolute" | "fixed";
+
 interface PositionState {
   readonly x: number | undefined;
   readonly y: number | undefined;
@@ -37,6 +40,7 @@ interface PositionState {
 
 const DEFAULT_PLACEMENT: Placement = "bottom-start";
 const DEFAULT_OFFSET = 0;
+const DEFAULT_STRATEGY: PositionStrategy = "absolute";
 
 function parsePlacement(placement: Placement): { side: Side; align: Align } {
   const [side, align] = placement.split("-") as [Side, Align];
@@ -118,7 +122,7 @@ function computePosition(
   placement: Placement,
   anchorRect: DOMRect,
   floatingRect: DOMRect,
-  options: { flip: boolean; shift: boolean; offset: number }
+  options: { flip: boolean; shift: boolean; offset: number; strategy: PositionStrategy }
 ): PositionState {
   const { side: initialSide, align } = parsePlacement(placement);
   const viewportWidth = document.documentElement?.clientWidth ?? window.innerWidth ?? 0;
@@ -157,14 +161,22 @@ function computePosition(
   }
 
   return {
-    x: x + scrollX,
-    y: y + scrollY,
+    x: x + (options.strategy === "absolute" ? scrollX : 0),
+    y: y + (options.strategy === "absolute" ? scrollY : 0),
     placement: `${side}-${align}` as Placement
   };
 }
 
 export function usePositioner(options: UsePositionerOptions = {}): UsePositionerResult {
-  const { anchor, floating, placement = DEFAULT_PLACEMENT, offset = DEFAULT_OFFSET, flip = true, shift = true } = options;
+  const {
+    anchor,
+    floating,
+    placement = DEFAULT_PLACEMENT,
+    offset = DEFAULT_OFFSET,
+    flip = true,
+    shift = true,
+    strategy = DEFAULT_STRATEGY
+  } = options;
   const [anchorNode, setAnchorNode] = useState<HTMLElement | null>(null);
   const [floatingNode, setFloatingNode] = useState<HTMLElement | null>(null);
   const [position, setPosition] = useState<PositionState>({ x: undefined, y: undefined, placement });
@@ -177,7 +189,7 @@ export function usePositioner(options: UsePositionerOptions = {}): UsePositioner
     const anchorRect = resolvedAnchor.getBoundingClientRect();
     const floatingRect = resolvedFloating.getBoundingClientRect();
     setPosition((prev) => {
-      const next = computePosition(placement, anchorRect, floatingRect, { flip, shift, offset });
+      const next = computePosition(placement, anchorRect, floatingRect, { flip, shift, offset, strategy });
       if (prev.x === next.x && prev.y === next.y && prev.placement === next.placement) {
         return prev;
       }
@@ -219,11 +231,11 @@ export function usePositioner(options: UsePositionerOptions = {}): UsePositioner
   const floatingProps = useMemo<PositionerFloatingProps>(() => ({
     ref: setFloating,
     style: {
-      position: "absolute",
+      position: strategy,
       left: position.x,
       top: position.y
     }
-  }), [position.x, position.y, setFloating]);
+  }), [position.x, position.y, setFloating, strategy]);
 
   return { anchorProps, floatingProps, placement: position.placement };
 }
