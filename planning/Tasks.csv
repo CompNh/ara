@@ -336,7 +336,7 @@ T-000105,W-000010,Overlay Primitives v0,React 바인딩,DismissableLayer 컴포�
 T-000106,W-000010,Overlay Primitives v0,React 바인딩,Positioner 컴포넌트/훅 구현,완료,High," ● 내용: <Positioner anchorRef placement offset strategy(absolute|fixed) withArrow>·스타일 훅(data-placement)
  ● 산출물: packages/react/src/components/positioner/index.tsx
  ● 점검: 배치/플립/시프트 스냅",확인
-T-000107,W-000010,Overlay Primitives v0,접근성/A11y,배경 inert/aria-hidden·ESC 규정,계획,High," ● 내용: 모달 시 배경 inert 또는 aria-hidden 관리, ESC 시 닫힘 이벤트 계약, 포커스 트랩과 충돌 방지
+T-000107,W-000010,Overlay Primitives v0,접근성/A11y,배경 inert/aria-hidden·ESC 규정,완료,High," ● 내용: 모달 시 배경 inert 또는 aria-hidden 관리, ESC 시 닫힘 이벤트 계약, 포커스 트랩과 충돌 방지
  ● 산출물: A11y 가이드/테스트
  ● 점검: 스크린리더/키보드 시나리오 통과",확인
 T-000108,W-000010,Overlay Primitives v0,스크롤/레이어,ScrollLock·Z-Index 토큰,계획,Medium," ● 내용: body 스크롤 락(터치 이동 포함)·여러 락 중복 카운팅; z-index 토큰 스케일과 레이어 합의
