@@ -324,7 +324,7 @@ T-000101,W-000010,Overlay Primitives v0,코어(headless),useDismissableLayer 구
 T-000102,W-000010,Overlay Primitives v0,코어(headless),usePositioner(앵커 배치) 구현,완료,High," ● 내용: anchor↔floating 배치(placement: top/bottom/left/right + start/center/end), offset/flip/shift, resize/scroll 옵저버
  ● 산출물: packages/core/overlays/use-positioner.ts
  ● 점검: 스크롤/리사이즈 시 위치 유지",확인
-T-000103,W-000010,Overlay Primitives v0,React 바인딩,Portal 컴포넌트 구현,계획,High," ● 내용: <Portal container>·children·disablePortal 옵션; className 병합
+T-000103,W-000010,Overlay Primitives v0,React 바인딩,Portal 컴포넌트 구현,완료,High," ● 내용: <Portal container>·children·disablePortal 옵션; className 병합
  ● 산출물: packages/react/src/components/portal/index.tsx + README
  ● 점검: SSR/StrictMode 스모크",확인
 T-000104,W-000010,Overlay Primitives v0,React 바인딩,FocusTrap 컴포넌트 구현,계획,High," ● 내용: <FocusTrap active initialFocus restoreFocus>·포커스 센티널 자동 구성
