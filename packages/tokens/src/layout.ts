@@ -42,10 +42,11 @@ export const layout = {
     base: "0",
     dropdown: "1000",
     sticky: "1020",
-    overlay: "1040",
-    modal: "1060",
-    popover: "1080",
-    tooltip: "1100"
+    popover: "1100",
+    overlay: "1200",
+    modal: "1210",
+    toast: "1250",
+    tooltip: "1300"
   }
 } as const;
 

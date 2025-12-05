@@ -47,6 +47,11 @@
       "import": "./dist/overlays/use-positioner.js",
       "default": "./dist/overlays/use-positioner.js"
     },
+    "./overlays/use-scroll-lock": {
+      "types": "./dist/overlays/use-scroll-lock.d.ts",
+      "import": "./dist/overlays/use-scroll-lock.js",
+      "default": "./dist/overlays/use-scroll-lock.js"
+    },
     "./use-switch": {
       "types": "./dist/use-switch.d.ts",
       "import": "./dist/use-switch.js",
@@ -83,6 +88,9 @@
       ],
       "overlays/use-positioner": [
         "dist/overlays/use-positioner.d.ts"
+      ],
+      "overlays/use-scroll-lock": [
+        "dist/overlays/use-scroll-lock.d.ts"
       ],
       "use-button": [
         "dist/use-button.d.ts"
