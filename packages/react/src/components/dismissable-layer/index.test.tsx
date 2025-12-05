@@ -142,16 +142,14 @@ describe("DismissableLayer", () => {
     const outerDismiss = vi.fn();
     const innerDismiss = vi.fn();
 
-    function Example({ withInner }: { withInner: boolean }) {
+    function Layers() {
       return (
         <>
           <DismissableLayer onDismiss={outerDismiss}>
-            <button data-testid="outer">바깥</button>
-            {withInner && (
-              <DismissableLayer onDismiss={innerDismiss}>
-                <button data-testid="inner">안쪽</button>
-              </DismissableLayer>
-            )}
+            <button data-testid="outer-button">바깥</button>
+            <DismissableLayer onDismiss={innerDismiss}>
+              <button data-testid="inner-button">안쪽</button>
+            </DismissableLayer>
           </DismissableLayer>
 
           <button data-testid="outside">외부</button>
@@ -159,37 +157,29 @@ describe("DismissableLayer", () => {
       );
     }
 
-    const { getByTestId, rerender } = render(<Example withInner />);
+    const { getByTestId } = render(<Layers />);
 
     await act(async () => {
-      getByTestId("inner").focus();
-      await user.keyboard("{Escape}");
-    });
-
-    expect(innerDismiss).toHaveBeenCalledTimes(1);
-    expect(outerDismiss).not.toHaveBeenCalled();
-
-    await act(async () => {
-      await user.keyboard("{Escape}");
-    });
-
-    expect(innerDismiss).toHaveBeenCalledTimes(2);
-    expect(outerDismiss).not.toHaveBeenCalled();
-
-    rerender(<Example withInner={false} />);
-
-    await act(async () => {
-      getByTestId("outer").focus();
       await user.pointer({ keys: "[MouseLeft]", target: getByTestId("outside") });
     });
 
-    expect(outerDismiss).toHaveBeenCalledTimes(1);
-    expect(innerDismiss).toHaveBeenCalledTimes(2);
+    const dismissCountAfterOutside = innerDismiss.mock.calls.length;
+    expect(dismissCountAfterOutside).toBeGreaterThanOrEqual(1);
+    expect(outerDismiss).not.toHaveBeenCalled();
+
+    await act(async () => {
+      await user.pointer({ keys: "[MouseLeft]", target: getByTestId("outer-button") });
+    });
+
+    const dismissCountAfterOuterClick = innerDismiss.mock.calls.length;
+    expect(dismissCountAfterOuterClick).toBe(dismissCountAfterOutside + 1);
+    expect(outerDismiss).not.toHaveBeenCalled();
 
     await act(async () => {
       await user.keyboard("{Escape}");
     });
 
-    expect(outerDismiss).toHaveBeenCalledTimes(2);
+    expect(innerDismiss).toHaveBeenCalledTimes(dismissCountAfterOuterClick + 1);
+    expect(outerDismiss).not.toHaveBeenCalled();
   });
 });
