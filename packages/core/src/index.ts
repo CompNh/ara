@@ -66,6 +66,8 @@ export type {
   UseAriaHiddenResult
 } from "./overlays/use-aria-hidden.js";
 export { useAriaHidden } from "./overlays/use-aria-hidden.js";
+export type { UseScrollLockOptions } from "./overlays/use-scroll-lock.js";
+export { useScrollLock } from "./overlays/use-scroll-lock.js";
 export type { UsePortalOptions, UsePortalResult } from "./overlays/use-portal.js";
 export { usePortal } from "./overlays/use-portal.js";
 export type { UseDismissableLayerOptions, UseDismissableLayerResult, DismissableLayerContainerProps, DismissableLayerEvent } from "./overlays/use-dismissable-layer.js";
