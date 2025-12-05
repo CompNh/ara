@@ -54,6 +54,7 @@
   - 캡처 단계 포인터 감시로 내부→외부로 이동하는 드래그(press inside, release outside)를 dismiss 대상으로 취급하지 않는다.
   - 스택 최상단만 ESC/외부 상호작용을 처리한다. 하위 레이어는 이벤트에 반응하지 않는다.
   - 포커스가 바깥으로 이동하려 할 때 `onFocusOutside` 후 `preventDefault()` 여부에 따라 유지 또는 dismiss를 결정한다.
+  - 모달 시 오버레이 이외의 형제 DOM을 `inert` + `aria-hidden="true"`로 전환해 스크린 리더·포커스 유출을 차단하고, 언마운트 시 이전 상태로 복원한다.
 
 ## Positioner
 

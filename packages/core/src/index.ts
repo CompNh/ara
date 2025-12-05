@@ -60,6 +60,12 @@ export type {
   UseRadioGroupResult
 } from "./use-radio-group.js";
 export { useRadioGroup } from "./use-radio-group.js";
+export type {
+  AriaHiddenContainerProps,
+  UseAriaHiddenOptions,
+  UseAriaHiddenResult
+} from "./overlays/use-aria-hidden.js";
+export { useAriaHidden } from "./overlays/use-aria-hidden.js";
 export type { UsePortalOptions, UsePortalResult } from "./overlays/use-portal.js";
 export { usePortal } from "./overlays/use-portal.js";
 export type { UseDismissableLayerOptions, UseDismissableLayerResult, DismissableLayerContainerProps, DismissableLayerEvent } from "./overlays/use-dismissable-layer.js";
