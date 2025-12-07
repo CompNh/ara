@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from "react";
 
 export interface UseDismissableLayerOptions {
   readonly active?: boolean;
@@ -22,21 +22,48 @@ export interface DismissableLayerEvent<T extends Event = Event> {
   readonly originalEvent: T;
 }
 
-const dismissableLayerStack: Array<symbol> = [];
+type DismissableLayerEntry = { readonly id: symbol; node: HTMLElement | null };
 
-function pushLayer(id: symbol) {
-  dismissableLayerStack.push(id);
+const dismissableLayerStack: Array<DismissableLayerEntry> = [];
+
+function pushLayer(entry: DismissableLayerEntry) {
+  dismissableLayerStack.push(entry);
 }
 
 function removeLayer(id: symbol) {
-  const index = dismissableLayerStack.indexOf(id);
+  const index = dismissableLayerStack.findIndex((entry) => entry.id === id);
   if (index >= 0) {
     dismissableLayerStack.splice(index, 1);
   }
 }
 
+function updateLayerNode(id: symbol, node: HTMLElement | null) {
+  const entry = dismissableLayerStack.find((item) => item.id === id);
+  if (entry) {
+    entry.node = node;
+  }
+}
+
+function getTopLayerId(): symbol | undefined {
+  let top: DismissableLayerEntry | undefined;
+
+  for (const entry of dismissableLayerStack) {
+    const entryNode = entry.node;
+    if (!entryNode) continue;
+
+    const isAncestor = dismissableLayerStack.some(
+      (other) => other.id !== entry.id && other.node && entryNode.contains(other.node)
+    );
+
+    if (isAncestor) continue;
+    top = entry;
+  }
+
+  return top?.id;
+}
+
 function isTopLayer(id: symbol): boolean {
-  return dismissableLayerStack[dismissableLayerStack.length - 1] === id;
+  return getTopLayerId() === id;
 }
 
 export function useDismissableLayer(options: UseDismissableLayerOptions = {}): UseDismissableLayerResult {
@@ -59,14 +86,18 @@ export function useDismissableLayer(options: UseDismissableLayerOptions = {}): U
     onFocusOutsideRef.current = onFocusOutside;
   }, [onDismiss, onEscapeKeyDown, onFocusOutside, onPointerDownOutside]);
 
-  const setContainer = useCallback((node: HTMLElement | null) => {
-    setContainerNode(node);
-  }, []);
+  const setContainer = useCallback(
+    (node: HTMLElement | null) => {
+      setContainerNode(node);
+      updateLayerNode(layerId, node);
+    },
+    [layerId]
+  );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!active) return undefined;
 
-    pushLayer(layerId);
+    pushLayer({ id: layerId, node: resolvedContainer ?? null });
 
     const dismiss = <TEvent extends Event>(type: DismissableLayerEvent["type"], event: TEvent) => {
       if (dismissedInFrameRef.current) return;
