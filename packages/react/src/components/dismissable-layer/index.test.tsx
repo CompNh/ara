@@ -159,6 +159,11 @@ describe("DismissableLayer", () => {
 
     const { getByTestId } = render(<Layers />);
 
+    // useDismissableLayer가 document 리스너를 등록할 시간을 확보한다.
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 0));
+    });
+
     await act(async () => {
       fireEvent.pointerDown(getByTestId("outside"));
     });
