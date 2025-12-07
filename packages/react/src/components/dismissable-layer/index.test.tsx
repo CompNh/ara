@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom/vitest";
-import { act, cleanup, render } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
@@ -160,26 +160,32 @@ describe("DismissableLayer", () => {
     const { getByTestId } = render(<Layers />);
 
     await act(async () => {
-      await user.pointer({ keys: "[MouseLeft]", target: getByTestId("outside") });
+      fireEvent.pointerDown(getByTestId("outside"));
     });
 
+    await waitFor(() => {
+      expect(innerDismiss.mock.calls.length).toBeGreaterThanOrEqual(1);
+    });
     const dismissCountAfterOutside = innerDismiss.mock.calls.length;
-    expect(dismissCountAfterOutside).toBeGreaterThanOrEqual(1);
     expect(outerDismiss).not.toHaveBeenCalled();
 
     await act(async () => {
-      await user.pointer({ keys: "[MouseLeft]", target: getByTestId("outer-button") });
+      fireEvent.pointerDown(getByTestId("outer-button"));
     });
 
+    await waitFor(() => {
+      expect(innerDismiss.mock.calls.length).toBe(dismissCountAfterOutside + 1);
+    });
     const dismissCountAfterOuterClick = innerDismiss.mock.calls.length;
-    expect(dismissCountAfterOuterClick).toBe(dismissCountAfterOutside + 1);
     expect(outerDismiss).not.toHaveBeenCalled();
 
     await act(async () => {
       await user.keyboard("{Escape}");
     });
 
-    expect(innerDismiss).toHaveBeenCalledTimes(dismissCountAfterOuterClick + 1);
+    await waitFor(() => {
+      expect(innerDismiss).toHaveBeenCalledTimes(dismissCountAfterOuterClick + 1);
+    });
     expect(outerDismiss).not.toHaveBeenCalled();
   });
 });
