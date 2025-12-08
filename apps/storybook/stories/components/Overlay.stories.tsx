@@ -207,7 +207,10 @@ function PositionerPlaygroundStory(args: PositionerArgs) {
       </Button>
       <div
         {...floatingProps}
-        ref={floatingRef}
+        ref={(node) => {
+          floatingRef.current = node;
+          floatingProps.ref(node);
+        }}
         style={{
           ...bubbleStyle,
           ...floatingProps.style,
@@ -456,7 +459,7 @@ function OverlaySmokeStory() {
             {...floatingRestProps}
             id="overlay-smoke-menu"
             disableOutsidePointerEvents
-            ref={(node) => {
+            ref={(node: HTMLDivElement | null) => {
               floatingRef.current = node;
               floatingRefCallback(node);
             }}
