@@ -354,7 +354,7 @@ T-000111,W-000010,Overlay Primitives v0,통합,메뉴/다이얼로그 예비 스
 T-000112,W-000010,Overlay Primitives v0,빌드/출하,Exports/Types 계약 점검,완료,High," ● 내용: @ara/react/{portal,focus-trap,positioner,dismissable-layer} 서브패스, sideEffects:false, types/exports 해상도
  ● 산출물: package.json exports 맵·d.ts
  ● 점검: pnpm --filter @ara/react pack --dry-run",확인
-T-000113,W-000010,Overlay Primitives v0,릴리스,Changesets 프리릴리스(canary),계획,High," ● 내용: changeset 추가·canary 배포 드라이런, 릴리스 노트에 계약/제약(모달 자체는 W-000012) 명시
+T-000113,W-000010,Overlay Primitives v0,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가·canary 배포 드라이런, 릴리스 노트에 계약/제약(모달 자체는 W-000012) 명시
  ● 산출물: canary 태그·설치 확인 메모
  ● 점검: 설치/임포트/간단 사용 예 검증",확인
 T-000114,W-000010,Overlay Primitives v0,코어(headless),오버레이 스택/Scope 매니저,계획,High," ● 내용: 오버레이 등록/정렬 관리(최상단 판단), ESC/포인터아웃/포커스아웃 이벤트 공유 훅, 배경 inert/aria-hidden 연동 포인트 정의
