@@ -342,7 +342,7 @@ T-000107,W-000010,Overlay Primitives v0,접근성/A11y,배경 inert/aria-hidden�
 T-000108,W-000010,Overlay Primitives v0,스크롤/레이어,ScrollLock·Z-Index 토큰,완료,Medium," ● 내용: body 스크롤 락(터치 이동 포함)·여러 락 중복 카운팅; z-index 토큰 스케일과 레이어 합의
  ● 산출물: scroll-lock 유틸·토큰/가이드
  ● 점검: 모바일 터치 스크롤 락 정상",확인
-T-000109,W-000010,Overlay Primitives v0,테스트,Vitest+RTL 상호작용 테스트,계획,High," ● 내용: 포커스 트랩/복귀, 외부클릭/ESC, 배치 업데이트, 스크롤 락; 중첩 스택 우선순위
+T-000109,W-000010,Overlay Primitives v0,테스트,Vitest+RTL 상호작용 테스트,완료,High," ● 내용: 포커스 트랩/복귀, 외부클릭/ESC, 배치 업데이트, 스크롤 락; 중첩 스택 우선순위
  ● 산출물: 테스트 스위트
  ● 점검: pnpm --filter @ara/* test 통과",확인
 T-000110,W-000010,Overlay Primitives v0,문서/스토리북,Stories/MDX(각 프리미티브),계획,Medium," ● 내용: Portal/FocusTrap/Positioner/DismissableLayer 데모; 중첩/스크롤/배치 컨트롤
