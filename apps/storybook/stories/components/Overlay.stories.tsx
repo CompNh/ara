@@ -379,7 +379,7 @@ function OverlaySmokeStory() {
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const anchorRef = useRef<HTMLButtonElement | null>(null);
-  const floatingRef = useRef<HTMLElement | null>(null);
+  const floatingRef = useRef<HTMLDivElement | null>(null);
   const confirmRef = useRef<HTMLButtonElement | null>(null);
 
   const { anchorProps, floatingProps } = usePositioner({
