@@ -351,7 +351,7 @@ T-000110,W-000010,Overlay Primitives v0,문서/스토리북,Stories/MDX(각 프�
 T-000111,W-000010,Overlay Primitives v0,통합,메뉴/다이얼로그 예비 스모크,완료,Medium," ● 내용: Button 토글로 메뉴/모달 모의 구성(오버레이 프리미티브 조합)·회귀 체크
  ● 산출물: showcase 또는 stories
  ● 점검: 스택/포커스/스크롤 정상",확인
-T-000112,W-000010,Overlay Primitives v0,빌드/출하,Exports/Types 계약 점검,계획,High," ● 내용: @ara/react/{portal,focus-trap,positioner,dismissable-layer} 서브패스, sideEffects:false, types/exports 해상도
+T-000112,W-000010,Overlay Primitives v0,빌드/출하,Exports/Types 계약 점검,완료,High," ● 내용: @ara/react/{portal,focus-trap,positioner,dismissable-layer} 서브패스, sideEffects:false, types/exports 해상도
  ● 산출물: package.json exports 맵·d.ts
  ● 점검: pnpm --filter @ara/react pack --dry-run",확인
 T-000113,W-000010,Overlay Primitives v0,릴리스,Changesets 프리릴리스(canary),계획,High," ● 내용: changeset 추가·canary 배포 드라이런, 릴리스 노트에 계약/제약(모달 자체는 W-000012) 명시
