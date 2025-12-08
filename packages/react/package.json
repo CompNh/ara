@@ -47,6 +47,11 @@
       "import": "./dist/components/dismissable-layer/index.js",
       "default": "./dist/components/dismissable-layer/index.js"
     },
+    "./components/positioner": {
+      "types": "./dist/components/positioner/index.d.ts",
+      "import": "./dist/components/positioner/index.js",
+      "default": "./dist/components/positioner/index.js"
+    },
     "./components/portal": {
       "types": "./dist/components/portal/index.d.ts",
       "import": "./dist/components/portal/index.js",
@@ -116,6 +121,11 @@
       "types": "./dist/components/dismissable-layer/index.d.ts",
       "import": "./dist/components/dismissable-layer/index.js",
       "default": "./dist/components/dismissable-layer/index.js"
+    },
+    "./positioner": {
+      "types": "./dist/components/positioner/index.d.ts",
+      "import": "./dist/components/positioner/index.js",
+      "default": "./dist/components/positioner/index.js"
     },
     "./portal": {
       "types": "./dist/components/portal/index.d.ts",
@@ -195,6 +205,9 @@
       "components/dismissable-layer": [
         "dist/components/dismissable-layer/index.d.ts"
       ],
+      "components/positioner": [
+        "dist/components/positioner/index.d.ts"
+      ],
       "components/portal": [
         "dist/components/portal/index.d.ts"
       ],
@@ -239,6 +252,9 @@
       ],
       "dismissable-layer": [
         "dist/components/dismissable-layer/index.d.ts"
+      ],
+      "positioner": [
+        "dist/components/positioner/index.d.ts"
       ],
       "portal": [
         "dist/components/portal/index.d.ts"
