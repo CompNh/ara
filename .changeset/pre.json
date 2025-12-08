@@ -16,6 +16,7 @@
     "form-controls-canary-release",
     "icons-canary-release",
     "layout-primitives-canary",
-    "text-field-canary-release"
+    "text-field-canary-release",
+    "overlay-primitives-canary-release"
   ]
 }
