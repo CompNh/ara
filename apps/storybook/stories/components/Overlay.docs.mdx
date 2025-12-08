@@ -1,0 +1,27 @@
+import { Meta, Title, Subtitle, Description, Canvas, Story, ArgsTable } from "@storybook/blocks";
+import * as OverlayStories from "./Overlay.stories";
+
+<Meta of={OverlayStories} />
+
+<Title>Overlay Primitives</Title>
+
+<Subtitle>Portal, FocusTrap, Positioner, DismissableLayer를 조합해 모달·토스트·도구 힌트 같은 오버레이를 구축합니다.</Subtitle>
+
+<Description>
+`@ara/react` 오버레이 프리미티브는 포커스 트랩, 스택 관리, 위치 지정, 바깥 클릭 해제까지 최소 단위로 제공합니다. Portal로 DOM 계층을
+분리하고, FocusTrap으로 키보드 이동을 가둔 뒤, Positioner/DismissableLayer를 조합하면 복잡한 모달이나 토스트, 컨텍스트 메뉴를 안정적으
+로 만들 수 있습니다.
+</Description>
+
+<Canvas of={OverlayStories.PortalTargets} />
+<Canvas of={OverlayStories.FocusTrapDialog} />
+<Canvas of={OverlayStories.PositionerPlayground} />
+<Canvas of={OverlayStories.DismissableLayerStack} />
+
+## Positioner Props
+
+Positioner의 배치/오프셋/전략은 스토리 Controls에서 바로 조정할 수 있습니다. 화살표 출력 여부는 `renderArrow` 토글로 확인하세요.
+
+<Story of={OverlayStories.PositionerPlayground}>
+  <ArgsTable />
+</Story>
