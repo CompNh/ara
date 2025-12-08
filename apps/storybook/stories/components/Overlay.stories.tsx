@@ -189,7 +189,7 @@ const bubbleStyle: CSSProperties = {
 
 function PositionerPlaygroundStory(args: PositionerArgs) {
   const anchorRef = useRef<HTMLButtonElement | null>(null);
-  const floatingRef = useRef<HTMLDivElement | null>(null);
+  const floatingRef = useRef<HTMLElement | null>(null);
 
   const { anchorProps, floatingProps, arrowProps, placement } = usePositioner({
     anchorRef,
