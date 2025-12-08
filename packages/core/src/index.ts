@@ -66,6 +66,8 @@ export type {
   UseAriaHiddenResult
 } from "./overlays/use-aria-hidden.js";
 export { useAriaHidden } from "./overlays/use-aria-hidden.js";
+export type { OverlayStackEntry, OverlayStackSnapshot } from "./overlays/stack.js";
+export { overlayStack } from "./overlays/stack.js";
 export type { UseScrollLockOptions } from "./overlays/use-scroll-lock.js";
 export { useScrollLock } from "./overlays/use-scroll-lock.js";
 export type { UsePortalOptions, UsePortalResult } from "./overlays/use-portal.js";

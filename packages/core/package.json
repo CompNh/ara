@@ -32,6 +32,11 @@
       "import": "./dist/overlays/use-aria-hidden.js",
       "default": "./dist/overlays/use-aria-hidden.js"
     },
+    "./overlays/stack": {
+      "types": "./dist/overlays/stack.d.ts",
+      "import": "./dist/overlays/stack.js",
+      "default": "./dist/overlays/stack.js"
+    },
     "./overlays/use-dismissable-layer": {
       "types": "./dist/overlays/use-dismissable-layer.d.ts",
       "import": "./dist/overlays/use-dismissable-layer.js",
@@ -79,6 +84,9 @@
       ],
       "overlays/use-aria-hidden": [
         "dist/overlays/use-aria-hidden.d.ts"
+      ],
+      "overlays/stack": [
+        "dist/overlays/stack.d.ts"
       ],
       "overlays/use-dismissable-layer": [
         "dist/overlays/use-dismissable-layer.d.ts"
