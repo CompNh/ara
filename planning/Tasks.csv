@@ -345,7 +345,7 @@ T-000108,W-000010,Overlay Primitives v0,스크롤/레이어,ScrollLock·Z-Index 
 T-000109,W-000010,Overlay Primitives v0,테스트,Vitest+RTL 상호작용 테스트,완료,High," ● 내용: 포커스 트랩/복귀, 외부클릭/ESC, 배치 업데이트, 스크롤 락; 중첩 스택 우선순위
  ● 산출물: 테스트 스위트
  ● 점검: pnpm --filter @ara/* test 통과",확인
-T-000110,W-000010,Overlay Primitives v0,문서/스토리북,Stories/MDX(각 프리미티브),계획,Medium," ● 내용: Portal/FocusTrap/Positioner/DismissableLayer 데모; 중첩/스크롤/배치 컨트롤
+T-000110,W-000010,Overlay Primitives v0,문서/스토리북,Stories/MDX(각 프리미티브),완료,Medium," ● 내용: Portal/FocusTrap/Positioner/DismissableLayer 데모; 중첩/스크롤/배치 컨트롤
  ● 산출물: stories 및 MDX
  ● 점검: build-storybook 스모크",확인
 T-000111,W-000010,Overlay Primitives v0,통합,메뉴/다이얼로그 예비 스모크,계획,Medium," ● 내용: Button 토글로 메뉴/모달 모의 구성(오버레이 프리미티브 조합)·회귀 체크
