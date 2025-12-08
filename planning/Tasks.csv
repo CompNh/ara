@@ -1,115 +1,362 @@
 TaskID,WBSID,WBS_Name,Task_Group_Name,Name,Status,Priority,Description,Check GPT
 T-000001,W-000001,개발환경설정,개발환경설정,Readme.md 파일생성,완료,Medium,Project 목적과 Stack 추가,
-T-000002,W-000001,개발환경설정,개발환경설정,"WBS.csv, Tasks.csv 생성",완료,Medium, ● 일정 관리 ● GPT와 일정공유 ● WBS는 대 일정에 대한 것이고 Tasks는 WBS의 하위 업문이다.,
-T-000003,W-000002,Git 규범/가드,파일 가드,.gitattributes 생성,완료,High,".gitattributes ● 목적: Git이 “저장소 안”에서 줄바꿈·바이너리 처리 등을 표준화. ● 효과         - 윈도우에서 작성해도 리포에선 LF로 고정(CRLF 혼선, 불필요한 diff 방지).         - 바이너리(아이콘, 폰트)도 오탐지 없이 취급. ● 흐름: 체크아웃/커밋 시 Git이 자동 변환·정규화 → 팀 전체 diff/merge가 일관.",확인
-T-000004,W-000002,Git 규범/가드,파일 가드,.gitignore 생성,완료,High,".gitignore ● 목적: 빌드 산출물, 캐시, OS 파일 등을 커밋에서 제외. ● 효과: 리포가 “소스만” 담음 → CI 속도↑, 충돌↓, 보안 리스크↓(토큰 파일 등). ● 흐름: git status에서 보이지 않음 → 실수로 커밋할 일이 사라짐.",확인
-T-000005,W-000002,Git 규범/가드,파일 가드,.editorconfig 생성,완료,High,".editorconfig ● 목적: 에디터(예: VS Code)가 탭/스페이스, 들여쓰기, 파일 끝 개행, 인코딩을 통일. ● 효과: 사람마다 에디터 설정 달라도 같은 포맷 유지 → lint 이전 단계에서 잡음 제거. ● 흐름: 파일 저장 시 에디터가 규칙 적용 → PR 전에 포맷이 이미 일정.",확인
-T-000006,W-000002,Git 규범/가드,커밋/브랜치 규칙 묶음,COMMIT_TEMPLATE 설정,완료,High,COMMIT_TEMPLATE ● 목적: git commit 창을 열면 초안 폼이 자동으로 채워지는 템플릿(제목/WBS·Task Info/본문/Breaking/Refs 자리). ● 효과: 초보라도 일관된 메시지 작성. Conventional Commits 형식 유도. ● 흐름: git config commit.template 설정 → 커밋마다 같은 골격으로 작성.,확인
-T-000007,W-000002,Git 규범/가드,커밋/브랜치 규칙 묶음,Conventional Commits   + commit-msg(amend) 훅,완료,High,"Conventional Commits + commit-msg(amend) 훅 ● 목적        - feat: …, fix: … 같은 타입+제목 규칙.        - 메시지 검증/자동 보정(예: 스코프/티켓ID 추가)과 사소한 수정은 --amend로 히스토리 청결 유지. ● 효과: 변경 의도 검색 용이, 자동 CHANGELOG 생성 기반, 리뷰 체계화. ● 흐름: 커밋 시 훅이 형식 검사 → 실패 시 차단, 성공 시 통과. 작은 수정은 git commit --amend --no-edit.",확인
-T-000008,W-000002,Git 규범/가드,커밋/브랜치 규칙 묶음,기본 브랜치 main   + 브랜치 네이밍,완료,High,"기본 브랜치 main + 브랜치 네이밍 ● 목적: 배포 기준선은 main. 작업은 feat/button, fix/tooltip-crash처럼 프리픽스/설명 규칙. ● 효과: 히스토리 읽기 쉬움, 자동 릴리스/CI 조건 설정이 간단. ● 흐름: 새 작업 → 토픽 브랜치 생성 → PR로 main에 머지.",확인
-T-000009,W-000002,Git 규범/가드,커밋/브랜치 규칙 묶음,CODEOWNERS & PR 템플릿,완료,High,"CODEOWNERS & PR 템플릿 ● 목적: 경로별 소유자 지정, PR 폼(체크리스트/테스트 방법/스크린샷). ● 효과: 자동 리뷰어 요청, 리뷰 품질 균질화. ● 흐름: PR 열면 템플릿이 미리 채워짐 → CODEOWNERS에게 리뷰 요청 자동 발송.",확인
-T-000010,W-000002,Git 규범/가드,커밋/브랜치 규칙 묶음,Changesets 초기화(버전/릴리스 흐름 고정),완료,High,"Changesets 초기화(버전/릴리스 흐름 고정) ● 목적: 패키지별 변경을 텍스트 파일로 기록 → 릴리스 시 버전/CHANGELOG 자동 산출. ● 효과: 모노레포 다중 패키지 버전 충돌 제거, 의도된 SemVer 반. ● 흐름: 기능 완료 시 changeset 추가 → main 머지 후 릴리스 액션이 버전/배포 생성.",확인
-T-000011,W-000002,Git 규범/가드,CI 최소골격 & 브랜치 보호,.github/workflows/ci.yml (Node 22 + Corepack + pnpm install),완료,High,".github/workflows/ci.yml (Node 22 + Corepack + pnpm install) ● 목적         - PR/main 푸시에 자동 실행.         -Node 22 설치 → Corepack 활성화 → pnpm 준비 → pnpm -w install로 워크스페이스 종속성 검증(추후 test/build 추가). ● 효과: “내 PC에선 돼요” 방지, 잠재적 의존성 문제를 PR 단계에서 차단. ● 흐름: PR 생성/업데이트 → CI가 설치/검증 → 실패 시 머지 불가.",확인
-T-000012,W-000002,Git 규범/가드,CI 최소골격 & 브랜치 보호,브랜치 보호 규칙,완료,High,"브랜치 보호 규칙 ● 목적          - main에 필수 CI 통과          - 이부분은 혼자 개발 하니까 현제 제외 : 최소 1명 리뷰 요구. (옵션: Linear/Issue 링크, Conversations resolved 등) ● 효과: 실수 머지 방지, 품질 게이트 고정. ● 흐름: PR 생성 → CI 통과 + 리뷰 승인 없으면 Merge 버튼 비활성.",확인
-T-000013,W-000003,모노레포 스캐폴딩,워크스페이스 기준선,루트 워크스페이스 선언(pnpm workspaces),완료,High," ● 목적: 모노레포 워크스페이스 경계를 명시해 신규 패키지가 설치·빌드 파이프라인에 자동 편입되도록 한다. ● 내용: pnpm-workspace.yaml을 packages/*, apps/*, scripts/* 및 예정 패키지 경로(packages/{tsconfig,eslint-config,tokens,core,react,icons}, apps/{storybook,showcase})로 확정하고 Changesets·CI 문서에 동일 경로를 반영한다. ● 점검: pnpm -w list --depth -1 결과에 모든 패키지가 노출되고 README/CI 안내가 같은 경로를 가리키는지 확인한다.",확인
-T-000014,W-000003,모노레포 스캐폴딩,패키지 거버넌스,패키지 네이밍/퍼블리시 정책 확정,완료,High," ● 목적: 패키지 식별자/배포 정책을 초기에 고정해 apps·라이브러리의 접근성 및 배포 안전성을 확보한다. ● 내용: packages/*는 scope @ara/*로 명명하고 apps/* 패키지는 private:true, 라이브러리는 publishConfig.access: public으로 설정한다. 공통 engines { node: 22 이상 }, license, repository 필드를 통일하고 README에 명시한다. ● 점검: pnpm -w list --json 출력에서 scope가 일관되는지 확인하고 pnpm pack/publish --dry-run 시 metadata(license/repository/access)가 기대값과 일치하는지 검토한다.",확인
-T-000015,W-000003,모노레포 스캐폴딩,공통 설정 패키지,공통 tsconfig 패키지 초기화(packages/tsconfig),완료,High," ● 목적: 모든 패키지가 동일한 TypeScript 컴파일 기준을 사용해 빌드/테스트 결과가 일관되도록 한다. ● 내용: packages/tsconfig에 공유 설정 패키지를 만들고 루트 tsconfig.base.json을 정의해 모듈 해석, 경로 alias(@ara/*), JSX/emit 옵션을 고정한다. 각 패키지 tsconfig에서 extends하도록 가이드 문서를 포함한다. ● 점검: tokens/core/react 등의 샘플 tsconfig에 extends 경로가 연결되고 pnpm exec tsc --showConfig로 공통 설정이 반영되는지 확인한다.",확인
-T-000016,W-000003,모노레포 스캐폴딩,공통 설정 패키지,ESLint Flat 설정 패키지 초기화(packages/eslint-config),완료,High," ● 목적: 린트 규칙을 중앙에서 관리해 패키지별로 상이한 설정으로 인한 품질 편차를 제거한다. ● 내용: ESLint Flat 구성을 공유 패키지로 만들고 기본 preset(typescript-eslint, eslint-plugin-react, prettier 연동)과 브라우저/Node 환경 분리 구성을 제공한다. README에 적용 방법과 확장 순서를 기록한다. ● 점검: tokens/core/react 패키지에서 eslint.config.js가 공유 preset을 import하고 pnpm lint가 전 워크스페이스에서 통과하는지 확인한다.",확인
-T-000017,W-000003,모노레포 스캐폴딩,디자인 시스템 토대,토큰/디자인 시스템 베이스 패키지 초기화(packages/tokens),완료,Medium, ● 목적: 색상/타이포 등 디자인 자산을 코드로 표준화해 다른 패키지가 재사용할 수 있는 토대를 제공한다. ● 내용: packages/tokens에 패키지를 생성하고 색상·타이포 최소 샘플을 TS/JSON으로 export하며 공통 tsconfig·빌드 설정을 연결한다. 소비 방법을 README에 정리한다. ● 점검: pnpm --filter @ara/tokens build 시 d.ts가 생성되고 core/react 패키지에서 import 테스트가 통과하는지 확인한다.,확인
-T-000018,W-000003,모노레포 스캐폴딩,디자인 시스템 토대,코어(headless) 패키지 초기화(packages/core),완료,High, ● 목적: UI에 의존하지 않는 비즈니스/상태 로직을 분리해 React 등 다양한 바인딩에서 재사용하도록 한다. ● 내용: packages/core 패키지를 생성하고 tokens 패키지를 의존성으로 연결한다. 기본 API export와 Vitest 기반 단위 테스트 골격을 마련한다. ● 점검: pnpm --filter @ara/core test가 통과하고 React 패키지에서 core 기능을 import해 사용할 수 있는지 확인한다.,확인
-T-000019,W-000003,모노레포 스캐폴딩,디자인 시스템 토대,React 바인딩 패키지 초기화(packages/react),완료,High," ● 목적: core 패키지를 실제 UI로 연결해 소비 경험을 검증하고 React 개발 기준선을 마련한다. ● 내용: React 18 + TypeScript 패키지를 생성해 core 로직을 감싼 예제 컴포넌트(Button 등)를 추가하고 Vitest+RTL 테스트 및 Storybook 스토리를 작성한다. ● 점검: pnpm --filter @ara/react test, pnpm --filter @ara/react storybook --smoke-test 등이 성공하고 tokens/core 의존성이 정상 연결되는지 확인한다.",확인
-T-000020,W-000003,모노레포 스캐폴딩,디자인 시스템 토대,아이콘 패키지 초기화(packages/icons),완료,Medium, ● 목적: 공통 아이콘 자산을 모듈화해 React 등 소비자 패키지가 일관된 인터페이스로 사용하도록 한다. ● 내용: SVG 기반 아이콘 패키지를 생성하고 최소 1개 샘플 아이콘을 추가한다. tree-shaking 가능한 export 구조와 타입 선언 생성을 설정한다. ● 점검: pnpm --filter @ara/icons build 산출물에서 ESM/CJS 번들과 d.ts가 생성되고 React 패키지에서 아이콘 import가 작동하는지 확인한다.,확인
-T-000021,W-000003,모노레포 스캐폴딩,앱/데모 구성,"앱 골격 생성(apps/storybook, apps/showcase)",완료,High," ● 목적: 컴포넌트 개발·데모 환경을 초기 구축해 패키지 변경을 즉시 확인할 수 있게 한다. ● 내용: apps/storybook과 apps/showcase를 스캐폴딩하고 공통 tsconfig·ESLint 설정을 참조하도록 연결한다. pnpm 스크립트(pnpm storybook, pnpm showcase dev 등)를 준비한다. ● 점검: pnpm --filter @ara/storybook storybook --smoke-test, pnpm --filter @ara/showcase dev 실행이 성공하고 공통 설정 경고가 없는지 확인한다.",확인
-T-000022,W-000003,모노레포 스캐폴딩,빌드/테스트 파이프라인,빌드 파이프라인 연결(Rollup 설정 공유·d.ts 출력 확인),완료,High," ● 목적: 모든 패키지가 동일한 빌드·테스트 파이프라인을 공유해 산출물 형식과 품질 검증을 표준화한다. ● 내용: 공통 Rollup/Vite 라이브러리 설정을 추출해 tokens/core/react/icons 패키지에서 재사용하고 d.ts/번들 생성 흐름을 마련한다. CI에서 pnpm -r build, pnpm -r test, Storybook smoke 테스트를 통합한다. ● 점검: 공통 설정을 참조한 패키지 빌드가 성공하고 CI 로그에 빌드·테스트·Storybook 단계가 모두 통과하는지 확인한다.",확인
-T-000023,W-000003,모노레포 스캐폴딩,빌드/테스트 파이프라인,빌드 산출물 계약(Exports Map) 확립,완료,High," ● 목적: 패키지 빌드 산출물 형식을 계약화해 소비자 앱과 도구가 일관된 엔트리 포인트/타입 선언을 사용할 수 있게 한다. ● 내용: tokens/core/react/icons 패키지 package.json에 exports 필드를 정의해 기본 ESM(+선택 CJS) 엔트리를 노출하고 types/module 필드, sideEffects:false, typesVersions를 정리한다. Rollup/Vite 설정과 d.ts 생성 옵션을 동기화한다. ● 점검: pnpm --filter @ara/* pack --dry-run 출력에서 exports/type/module/sideEffects 값이 기대와 일치하는지 확인하고 샘플 소비 앱이 import 해상도를 문제없이 수행하는지 검증한다.",확인
-T-000024,W-000003,모노레포 스캐폴딩,빌드/테스트 파이프라인,루트 스크립트 정리(pnpm -w build/test/lint 통합),완료,Medium, ● 목적: 루트 명령어만으로 모노레포 전반의 빌드/테스트/린트 흐름을 실행해 운영 편의성을 높인다. ● 내용: 루트 package.json에 pnpm -w build/test/lint/storybook 스크립트를 정의하고 실행 순서를 정리한다. Changesets version/release 스크립트와 경계를 문서화해 배포 절차와 충돌하지 않도록 한다. ● 점검: 루트에서 pnpm build/test/lint/storybook 실행 시 전 워크스페이스가 순차 실행되고 문서화된 경계가 README/CONTRIBUTING에 반영됐는지 확인한다.,확인
-T-000025,W-000003,모노레포 스캐폴딩,CI/운영 자동화,의존성 자동 업데이트 및 pnpm 캐시 구성,완료,Medium," ● 목적: 의존성 보안/버그 패치를 신속히 반영하고 CI 설치 속도를 안정적으로 유지한다. ● 내용: Renovate(또는 Dependabot) 설정 파일을 추가해 packages/*, apps/*, 루트 의존성을 주기적으로 갱신하고, GitHub Actions CI에 pnpm install 캐시(corepack+pnpm store path, 키: pnpm-lock.yaml) 단계를 추가한다. ● 점검: Renovate/Dependabot 테스트 PR이 생성되는지 확인하고 CI 워크플로 로그에서 pnpm 캐시 히트율과 설치 시간이 안정화되는지 검토한다.",확인
-T-000026,W-000003,모노레포 스캐폴딩,문서화,README 구조 섹션 업데이트(모노레포 트리/패키지 표),완료,Medium," ● 목적: 모노레포 구조와 패키지 역할을 문서로 명확히 제시해 신규 기여자의 온보딩 시간을 단축한다. ● 내용: README에 디렉터리 트리, 패키지별 역할/의존 관계 표, 공통 설정 참조 절차를 추가한다. 작업 순서를 정리해 패키지 생성 흐름을 안내한다. ● 점검: README 개정본에서 항목이 빠짐없이 소개되고 내부 링크/코드 블록이 최신 스캐폴딩 구조와 일치하는지 검토한다.",확인
-T-000027,W-000004,Button v0 Comp,계약/설계,API 계약 정의(Button),완료,High," ● 목적: Props 목록과 기본값, 이벤트 의미(onPress 계열), 폴리모픽(asChild) 및 링크 모드 범위 확정 ● 산출물: packages/react/src/components/button/README.md 계약 섹션 확정 ● 점검: 리뷰 승인 후 범위 동결(변경은 후속 이슈로)",확인
-T-000028,W-000004,Button v0 Comp,코어(headless),useButton 로직 구현,완료,High," ● 내용: press 시작/종료/확정 시퀀스, disabled 및 loading 차단, Enter 및 Space 키 매핑 ● 산출물: packages/core/use-button 구현 및 유닛 테스트 골격 ● 점검: pnpm --filter @ara/core test 통과",확인
-T-000029,W-000004,Button v0 Comp,React 바인딩,React Button 구현,완료,High," ● 내용: forwardRef, className 병합, data-* 상태 표식, href 및 asChild 처리, ref 전달 ● 산출물: packages/react/button 컴포넌트 기본 구현 ● 점검: 샘플 임포트 및 렌더 스모크 테스트",확인
-T-000030,W-000004,Button v0 Comp,접근성,A11y 규정 적용,완료,High," ● 내용: role 및 aria 적용(aria-disabled, aria-busy), focus-visible 링, 링크 모드 일관 키보드 동작 ● 산출물: 접근성 가이드 요약 및 테스트 케이스 ● 점검: 키보드 시나리오와 ARIA 기대값 통과",확인
-T-000031,W-000004,Button v0 Comp,테스트,Vitest+RTL 상호작용 테스트,완료,High," ● 내용: 키보드(Enter 및 Space), 마우스/터치, 영역 이탈 취소, disabled 및 loading 차단 검증 + 선택 시 시각 회귀(Chromatic 등) 연동 가이드 ● 산출물: 테스트 스위트 및 스냅 최소화, 비주얼 회귀 도입 여부 기록 ● 점검: pnpm --filter @ara/react test 통과 및(선택) 시각 회귀 보고",확인
-T-000032,W-000004,Button v0 Comp,문서/스토리북,Storybook 스토리 및 MDX,완료,Medium," ● 내용: Playground, Variants, Tones, Sizes, WithIcons, Loading, AsLink, FullWidth 시나리오 + 디자인 승인 체크리스트(토큰 값 표·QA 항목) 포함 ● 산출물: stories 및 MDX 문서 + 디자인 승인 체크리스트 ● 점검: build-storybook 스모크 테스트 통과 및 디자인 QA 사인오프",확인
-T-000033,W-000004,Button v0 Comp,테마/토큰,Tokens 연결 및 CSS 변수 표면,완료,Medium," ● 내용: 토큰 매핑과 CSS 변수(--ara-btn-bg 등) 정의, light 및 dark 테마 샘플, 디자인 QA용 토큰 표 제공 ● 산출물: tokens 소비 예 및 오버라이드 가이드 + 토큰 값 표 ● 점검: 토큰 변경 시 스타일 반영 및 디자인 체크리스트 충족 확인",확인
-T-000034,W-000004,Button v0 Comp,빌드/출하,Exports 및 타입 계약 점검,완료,High," ● 내용: exports 및 types 및 module 및 sideEffects 계약 검증, showcase 임포트 스모크(예: apps/showcase 버튼 데모 페이지) 시나리오 명시 ● 산출물: package.json exports 맵 정리와 소비 앱 확인 + showcase 페이지 시연 노트 ● 점검: pnpm --filter @ara/react pack --dry-run 결과 검토 및 쇼케이스 시나리오 통과",확인
-T-000035,W-000004,Button v0 Comp,릴리스,Changesets 프리릴리스(canary),완료,High, ● 내용: changeset 추가 및 프리릴리스 채널 배포 드라이런 ● 산출물: canary 태그 및 설치 확인 메모 ● 점검: 설치 및 임포트 성공과 간단 사용 예 검증,확인
-T-000036,W-000005,Tokens & ThemeProvider v1,토큰 설계/거버넌스,토큰 명명 규칙/계약 확정,완료,High," ● 목적: 토큰 접두사와 스케일 키(예: color, font-size, space, radius 등) 및 CSS 변수 접두사(--ara-*)를 고정 ● 변경 규칙: v1 이후 토큰 키/의미 변경은 Major(Changesets로 명시) ● 산출물: packages/tokens/README.md에 규약 문서화 ● 점검: 리뷰 승인 후 변경은 이슈만; README에 v1 동결·Breaking=Major 명시; PR 템플릿에 Breaking? 체크 추가",확인
-T-000037,W-000005,Tokens & ThemeProvider v1,토큰(컬러),색상 팔레트/역할 정의,완료,High," ● 내용: 기본 팔레트와 역할 색(primary, neutral, danger 등), 상태(hover/active/disabled) 맵핑 ● 산출물: packages/tokens/src/colors.ts 및 타입 선언 ● 점검: 라이트/다크 대비 기준 충족(WCAG AA: 일반 텍스트 ≥ 4.5:1, 큰 텍스트 ≥ 3:1)",확인
-T-000038,W-000005,Tokens & ThemeProvider v1,토큰(타이포),타이포그래피 스케일 정의,완료,Medium," ● 내용: 폰트 패밀리, 크기(sm/md/lg 등), weight, line-height, letter-spacing 스케일 ● 산출물: packages/tokens/src/typography.ts ● 점검: 디자인 샘플 대비 시각 일치",확인
-T-000039,W-000005,Tokens & ThemeProvider v1,토큰(레이아웃),간격/반지름/섀도 스케일,완료,Medium," ● 내용: space(px), radius, elevation(shadow), z-index 스케일과 키 고정 ● 산출물: packages/tokens/src/layout.ts ● 점검: Button v0에 적용 시 기대 치수/모양 재현",확인
-T-000040,W-000005,Tokens & ThemeProvider v1,CSS 변수 매핑,CSS Vars 생성 및 주입 규칙,완료,High," ● 내용: 토큰→CSS 변수(--ara-*) 변환 테이블 정의, :root와 테마별 변수 세트 구성 ● 산출물: packages/tokens/src/css-vars.ts, 생성 스크립트 ● 점검: 변수 이름 충돌 없음, d.ts 생성 확인",확인 
-T-000041,W-000005,Tokens & ThemeProvider v1,ThemeProvider,API 설계 및 기본 구현,완료,High," ● 내용: ThemeProvider 컴포넌트 설계(컨텍스트, 변수 주입, data-theme 또는 class 전략, override API) ● 산출물: packages/react/src/components/theme-provider/index.tsx 및 README.md ● 점검: 중첩 Provider, SSR/StrictMode 스모크 통과",확인
-T-000042,W-000005,Tokens & ThemeProvider v1,ThemeProvider,라이트/다크 및 시스템 연동,완료,High, ● 내용: prefers-color-scheme 연동; 사용자 선택 우선; SSR-safe 초기 스타일 인라인 적용(FOUC 방지); 우선순위: 시스템 설정 < 사용자 선택 ● 산출물: 테마 스위처 훅과 샘플 코드 ● 점검: Storybook 툴바 스위치 동작; 첫 페인트에 테마 깜빡임 없음(스크린 레코딩 확인); 새 탭 초기 로드에서도 유지),확인
-T-000043,W-000005,Tokens & ThemeProvider v1,A11y/국제화,RTL 및 포커스 링 토큰,완료,Medium," ● 내용: dir=rtl 지원, 아이콘/여백 방향 보정 규칙, 포커스 링 토큰과 표시 정책 ● 산출물: 가이드 섹션 및 데모 ● 점검: RTL 스냅샷 및 키보드 내비게이션 정상",확인
-T-000044,W-000005,Tokens & ThemeProvider v1,문서/스토리북,Storybook 문서/Controls/테마 스위치,완료,Medium," ● 내용: 토큰 테이블, ThemeProvider 사용 가이드, 테마 스위치 툴바 추가 ● 산출물: stories 및 MDX 문서 ● 점검: build-storybook 스모크 통과",확인
-T-000045,W-000005,Tokens & ThemeProvider v1,빌드/출하,Exports/Types 계약 점검,완료,High," ● 내용: @ara/tokens와 @ara/react/theme-provider의 exports, types, sideEffects 계약 확정 ● 산출물: 각 package.json의 exports 맵과 d.ts 출력 ● 점검: pnpm --filter @ara/* pack --dry-run 결과 검토",확인
-T-000046,W-000005,Tokens & ThemeProvider v1,통합/검증,Button v0 통합 스모크,완료,High, ● 내용: Button v0가 ThemeProvider와 토큰을 소비해 변형(variant/tone/size)과 다크 모드가 정상 반영되는지 확인 ● 산출물: showcase 또는 story 샘플 ● 점검: 시각/상호작용 회귀 없음,확인
-T-000047,W-000005,Tokens & ThemeProvider v1,릴리스,Changesets 프리릴리스(canary),완료,High, ● 내용: changeset 추가 및 프리릴리스 채널 배포 드라이런 ● 산출물: canary 태그 및 설치 확인 메모 ● 점검: 설치 및 임포트 성공과 간단 사용 예 검증,확인
-T-000048,W-000006,Icons v0,규약/설계,아이콘 계약/명명 규칙 확정,완료,High," ● 목적: 파일명/심볼명(파스칼케이스), 카테고리, size 스케일(sm/md/lg), tone(현재색 currentColor 우선) 규약 확정 ● 산출물: packages/icons/README.md 규약, 계약 동결(변경=Major) 문구 명시 ● 점검: 리뷰 승인 후 계약 동결 공지",확인
-T-000049,W-000006,Icons v0,파이프라인,SVG 최적화(svgo) 설정,완료,High," ● 내용: precision/cleanupAttrs/mergePaths 등 svgo 설정 고정, removeViewBox 비활성화 확인, preserveLicense 플러그인 검토, 최적화 전후 diff 캡처 ● 산출물: packages/icons/svgo.config.mjs, 최적화 전후 시각 동일성 비교 스냅 ● 점검: diff 스크린샷 기록 및 설정 리뷰",확인
-T-000050,W-000006,Icons v0,파이프라인,아이콘 코드 생성기(generator),완료,High," ● 내용: SVG→TSX 변환(React 컴포넌트), viewBox 유지, title prop 지원, tree-shakable export 생성, 변환 전후 스냅샷 비교 옵션(--diff), 샘플 3종 생성 ● 산출물: scripts/generate-icons.(ts|mjs) + 샘플 3종, pnpm gen:icons 스모크 통과 ● 점검: pnpm gen:icons 실행 로그 및 시각 diff 확인",확인
-T-000051,W-000006,Icons v0,React 컴포넌트,Icon 베이스 구현(@ara/react/icon),완료,High," ● 내용: <Icon> 래퍼(size/tone/strokeWidth/filled)·forwardRef·className 병합·currentColor 기본, Tokens 연동 ● 산출물: packages/react/src/components/icon/index.tsx + README.md ● 점검: ref 포워딩/Props 계약 스냅",확인
-T-000052,W-000006,Icons v0,접근성,A11y 규정 적용,완료,High," ● 내용: aria-hidden 기본(true), title 제공 시 role=\""img\""+aria-labelledby 처리 가이드, 키보드 탐색 영향 없음 확인 ● 산출물: A11y 섹션/테스트 케이스 ● 점검: 라벨링 시 스크린리더 읽힘 및 포커스 영향 없음",확인
-T-000053,W-000006,Icons v0,테스트,Vitest+RTL 테스트,완료,Medium," ● 내용: size/tone props 반영, aria-hidden/role=img 변환, currentColor 상속 및 명시적 color 우선순위, ThemeProvider 토큰 상속, tree-shaking(번들 검사) 최소 테스트 ● 산출물: 테스트 스위트 ● 점검: pnpm --filter @ara/react test 통과",확인
-T-000054,W-000006,Icons v0,문서/스토리북,Storybook 아이콘 갤러리/Docs,완료,Medium," ● 내용: 아이콘 리스트 갤러리, Controls(size/tone/strokeWidth 기본값 포함), 타이틀 접근성 예시, 시각 회귀(Chromatic 또는 build-storybook 스모크) 옵션 ● 산출물: stories 및 MDX ● 점검: build-storybook 스모크 또는 시각 스냅샷 확인",확인
-T-000055,W-000006,Icons v0,토큰 연동,Tokens 색/사이즈 매핑,완료,Medium," ● 내용: size 스케일(sm/md/lg)·색 토큰(primary/neutral/danger) 매핑 가이드, currentColor 우선 순위, ThemeProvider 상속 우선순위 가이드/테스트 ● 산출물: 가이드/예시 코드 ● 점검: ThemeProvider 테마 변경 시 색상 상속 확인",확인
-T-000056,W-000006,Icons v0,통합,Button/Inputs와 통합 스모크,완료,Medium," ● 내용: Button leading/trailingIcon, 향후 TextField 내 prefix/suffix 아이콘 예시 ● 산출물: showcase 또는 stories ● 점검: 리그레션 없음",확인
-T-000057,W-000006,Icons v0,빌드/출하,Exports/Types/Tree-shaking 점검,완료,High," ● 내용: @ara/icons 개별(@ara/icons/Plus)·집합(@ara/icons) 동시 제공, sideEffects:false, types 확인, pnpm --filter @ara/icons pack --dry-run + lint 묶은 check:icons 스크립트, CI에서 exports 해상도 검증 ● 산출물: package.json exports 맵·d.ts 출력, check:icons 스크립트 로그 ● 점검: pnpm --filter @ara/icons pack --dry-run 결과 검토",확인
-T-000058,W-000006,Icons v0,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가 및 canary 배포 드라이런, 태그명 규칙과 설치 검증 로그 README 릴리스 섹션 기록 ● 산출물: canary 태그·설치 확인 메모 ● 점검: 설치/임포트/간단 사용 예 검증",확인
-T-000059,W-000007,Layout Primitives v0,계약/설계,레이아웃 계약/네이밍/Props 확정,완료,High," ● 목적: Stack/Flex/Grid/Spacer의 공통 Props(간격 gap, 정렬 align/justify, 방향, 래핑, responsive), 네이밍·경로(@ara/react/stack 등) 고정 ● 산출물: packages/react/src/components/layout/README.md(계약) ● 점검: 리뷰 승인 후 계약 동결(변경=Major)",확인
-T-000060,W-000007,Layout Primitives v0,React(컴포넌트),Stack 구현,완료,High," ● 내용: 수직/수평 스택, gap/align/justify, divider 슬롯(옵션), wrap 지원 ● 산출물: packages/react/src/components/layout/Stack.tsx + README ● 점검: 샘플 렌더·Props 스냅",확인
-T-000061,W-000007,Layout Primitives v0,React(컴포넌트),Flex 구현,완료,High," ● 내용: 디폴트 flex 컨테이너 래퍼, gap/align/justify/flexWrap/flexDirection, inline 옵션 ● 산출물: packages/react/src/components/flex/index.tsx ● 점검: 스타일/클래스 병합·ref 포워딩",확인
-T-000062,W-000007,Layout Primitives v0,React(컴포넌트),Grid 구현,완료,High," ● 내용: columns/rows/gap/areas 템플릿·auto placement, responsive props(sm/md/lg) ● 산출물: packages/react/src/components/layout/Grid.tsx ● 점검: responsive props→데스크탑/모바일 스냅 확인",확인
-T-000063,W-000007,Layout Primitives v0,React(컴포넌트),Spacer 구현,완료,Medium," ● 내용: 공간 삽입 전용 컴포넌트(size 토큰 사용), inline 방향 지원 ● 산출물: packages/react/src/components/spacer/index.tsx ● 점검: size 스냅·접근성 영향 없음",확인
-T-000064,W-000007,Layout Primitives v0,접근성/국제화,RTL/논리속성/탭순서 안전,완료,High," ● 내용: 논리적 방향 속성( block/inline ) 우선, RTL에서 간격/정렬 일관성, tab 순서·읽기 순서 영향 없음 보증 ● 산출물: A11y/RTL 가이드와 테스트 케이스 ● 점검: RTL 스냅·키보드 탐색 영향 0",확인
-T-000065,W-000007,Layout Primitives v0,토큰 연동,Tokens 간격/반지름 매핑,완료,Medium," ● 내용: space/radius 토큰→CSS 변수 매핑, gap/패딩에 적용, ThemeProvider 상속 확인 ● 산출물: 가이드 및 예시 ● 점검: 테마 변경 시 간격 일관성",확인
-T-000066,W-000007,Layout Primitives v0,테스트,Vitest+RTL(Responsive/RTL) 테스트,완료,High," ● 내용: responsive props 해석, RTL 전환 시 레이아웃 동일성, class 병합·style 우선순위 ● 산출물: 테스트 스위트 ● 점검: pnpm --filter @ara/react test 통과",확인
-T-000067,W-000007,Layout Primitives v0,문서/스토리북,스토리/MDX(Playground/Patterns),완료,Medium," ● 내용: Stack/Flex/Grid/Spacer 데모, 레이아웃 패턴(툴바, 카드 그리드), Controls로 props 조절 ● 산출물: stories 및 MDX ● 점검: build-storybook 스모크",확인
-T-000068,W-000007,Layout Primitives v0,통합,Button/Form와 통합 스모크,완료,Medium," ● 내용: Button 그룹(Stack), Form 레이아웃(Grid), 아이콘/텍스트 정렬(Flex) ● 산출물: showcase 또는 stories ● 점검: 회귀 없음",확인
-T-000069,W-000007,Layout Primitives v0,빌드/출하,Exports/Types 계약 점검,완료,High," ● 내용: @ara/react/stack|flex|grid|spacer 서브패스, sideEffects:false, types/exports 해상도 ● 산출물: package.json exports 맵·d.ts ● 점검: pnpm --filter @ara/react pack --dry-run",확인
-T-000070,W-000007,Layout Primitives v0,릴리스,Changesets 프리릴리스(canary),완료,High, ● 내용: changeset 추가·canary 배포 드라이런 ● 산출물: canary 태그·설치 확인 메모 ● 점검: 설치/임포트/간단 예제 검증,확인
-T-000071,W-000008,TextField v0 Comp,계약/설계,API 계약 정의(TextField),완료,High," ● 목적: Props(value/defaultValue/onValueChange/onCommit, label/helperText/errorText, required/disabled/readOnly, type(text|email|password|number), size(sm|md|lg), prefixIcon/suffixIcon, clearable, passwordToggle, name/id/autoComplete) 확정 ● 산출물: packages/react/src/components/text-field/README.md 계약 섹션 ● 점검: 리뷰 승인 후 계약 동결(변경=Major)",확인
-T-000072,W-000008,TextField v0 Comp,코어(headless),useTextField 로직 구현,완료,High," ● 내용: id 관리(labelId/descriptionId/errorId), aria 연결(aria-invalid/required/aria-describedby), controlled/uncontrolled 상태, composition(IME) 이벤트 안전, onCommit(Enter) 합성(IME 중엔 무시) ● 산출물: packages/core/use-text-field + 유닛 테스트 골격 ● 점검: pnpm --filter @ara/core test 통과",확인
-T-000073,W-000008,TextField v0 Comp,React 바인딩,TextField 구현,완료,High," ● 내용: forwardRef, 슬롯 구조(label/input/helper/error/prefix/suffix/clear/password-toggle), className 병합, data-* 상태 표식(invalid/focused/disabled), tokens 매핑(size/tone) ● 산출물: packages/react/src/components/text-field/index.tsx ● 점검: 스모크 렌더·ref 포워딩·Props 스냅",확인
-T-000074,W-000008,TextField v0 Comp,접근성,라벨/에러 연결 및 ARIA,완료,High," ● 내용: label→input ‘for/id’ 연결, error/helper를 aria-describedby로 연결, invalid/required 반영, autoComplete 가이드 ● 산출물: A11y 가이드/테스트 케이스 ● 점검: 스크린리더에서 라벨·에러 읽힘·탭 순서 정상",확인
-T-000075,W-000008,TextField v0 Comp,입력 UX,Clear/Password 토글/IME,완료,High, ● 내용: clearable(X 버튼)·password 토글(가시성 전환)·Enter onCommit·IME 조합 중 Enter 무시·maxlength 카운터(옵션) ● 산출물: UX 가이드와 구현 ● 점검: IME 환경(한글)에서 onCommit 오발화 0건,확인
-T-000076,W-000008,TextField v0 Comp,폼 연동,Form/Native 특성 정리,완료,Medium," ● 내용: name/required/disabled/readOnly 제출 동작, form reset 대응, type=number 사용 주의(로케일/스크롤 변화) ● 산출물: 폼 가이드 및 예시 ● 점검: 네이티브 폼 제출/리셋 시나리오 통과",확인
-T-000077,W-000008,TextField v0 Comp,토큰/스타일,사이즈·상태 토큰 매핑,완료,Medium," ● 내용: size(sm|md|lg)별 높이/패딩/폰트, 상태(normal/hover/focus/invalid/disabled) CSS 변수(--ara-tf-*), 포커스 링 정책 ● 산출물: 토큰 매핑표/스타일 훅(data-*) ● 점검: ThemeProvider 변경 시 일관 반영",확인
-T-000078,W-000008,TextField v0 Comp,테스트,Vitest+RTL 상호작용 테스트,완료,High," ● 내용: controlled/uncontrolled, onValueChange/onCommit, clear/password 토글, label/aria-describedby 연결, invalid/disabled/readOnly, IME 조합 시나리오 ● 산출물: 테스트 스위트 ● 점검: pnpm --filter @ara/react test 통과",확인
-T-000079,W-000008,TextField v0 Comp,문서/스토리북,Stories/MDX,완료,Medium," ● 내용: Playground, Sizes, States(Disabled/ReadOnly/Invalid), WithPrefixSuffix, Clearable, Password, Form Submit 데모 ● 산출물: stories 및 MDX ● 점검: build-storybook 스모크",확인
-T-000080,W-000008,TextField v0 Comp,통합,Icons/Layouts/Form 통합 스모크,완료,Medium," ● 내용: prefix/suffix 아이콘(@ara/react/icon), Stack/Grid와 폼 예제, Button과 조합 제출 시나리오 ● 산출물: showcase 또는 stories ● 점검: 회귀 없음",확인
-T-000081,W-000008,TextField v0 Comp,빌드/출하,Exports/Types 계약 점검,완료,High," ● 내용: @ara/react/text-field 서브패스, sideEffects:false, types/exports 해상도, pack --dry-run ● 산출물: package.json exports 맵·d.ts ● 점검: pnpm --filter @ara/react pack --dry-run 결과 확인",확인
-T-000082,W-000008,TextField v0 Comp,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가 및 canary 배포 드라이런, 릴리스 노트에 계약/범위/제한(텍스트에어리어/마스킹 제외) 명시 ● 산출물: canary 태그·설치 확인 메모 ● 점검: 설치/임포트/간단 사용 예 검증",확인
-T-000083,W-000009,Form Controls v0 Comp,계약/설계,API 계약 정의(Form Controls),완료,High," ● 목적: Checkbox/CheckboxGroup, Radio/RadioGroup, Switch의 Props·이벤트·상태(data-state)·Exports 경로 고정 ● 산출물: 각 README.md(계약 섹션) 초안 ● 점검: 리뷰 승인 후 계약 동결(변경=Major)",확인
-T-000084,W-000009,Form Controls v0 Comp,코어(headless),useCheckbox 로직,완료,High," ● 내용: checked/indeterminate 관리, label/description id 연결, 스페이스/클릭 토글, disabled/readOnly 차단 ● 산출물: packages/core/use-checkbox + 유닛 테스트 골격 ● 점검: pnpm --filter @ara/core test 통과",확인
-T-000085,W-000009,Form Controls v0 Comp,코어(headless),useRadio/useRadioGroup 로직,완료,High," ● 내용: 단일 선택·name 공유·로빙 탭인덱스, 화살표(←→/↑↓)로 이동·스페이스로 확정, orientation 지원 ● 산출물: packages/core/use-radio, use-radio-group + 테스트 골격 ● 점검: 그룹 내 키보드 내비게이션 시나리오 통과",확인
-T-000086,W-000009,Form Controls v0 Comp,코어(headless),useSwitch 로직,완료,High," ● 내용: checkbox语義 기반 토글을 role=""switch""+aria-checked로 노출(폼 제출은 input[type=checkbox] 재사용) ● 산출물: packages/core/use-switch + 테스트 골격 ● 점검: role/aria 일치·폼 값 반영",확인
-T-000087,W-000009,Form Controls v0 Comp,React 구현,Checkbox 구현,완료,High," ● 내용: 숨김 input+커스텀 UI; data-state=""checked|unchecked|indeterminate""; indeterminate는 DOM 프로퍼티로 설정; label 클릭 연동 ● 산출물: packages/react/src/components/checkbox/index.ts ● 점검: ref 포워딩·Props 스냅·indeterminate 표시",확인
-T-000088,W-000009,Form Controls v0 Comp,React 구현,Radio/RadioGroup 구현,완료,High," ● 내용: <RadioGroup> 컨텍스트·로빙 탭인덱스·화살표 이동; <Radio> 아이템 구현; aria-labelledby/role=""radiogroup"" ● 산출물: packages/react/src/components/radio/{group,item}.tsx ● 점검: 키보드 이동·단일 선택 보장",확인
-T-000089,W-000009,Form Controls v0 Comp,React 구현,Switch 구현,완료,High," ● 내용: 트랙/썸 구조, 키보드 스페이스/클릭 토글, role=""switch""·aria-checked 적용, className 병합 ● 산출물: packages/react/src/components/switch/index.tsx ● 점검: 포커스 링·상태 전환 스냅",확인
-T-000090,W-000009,Form Controls v0 Comp,접근성/A11y,Label/ARIA/키보드 규정 적용,완료,High," ● 내용: label-for/id 연결, aria-describedby(error/helper) 연결, required/invalid 반영, 그룹 role/라벨링 규칙 문서화 ● 산출물: A11y 가이드와 테스트 케이스 ● 점검: 스크린리더 라벨/에러 읽힘·탭 순서 정상",확인
-T-000091,W-000009,Form Controls v0 Comp,폼 연동,네이티브 폼 제출/리셋/이름 규약,완료,Medium," ● 내용: name/value 제출·defaultChecked/checked 동작, form reset 대응, Radio name 강제, Switch의 폼 값 전략 ● 산출물: 폼 가이드 및 예시 ● 점검: 네이티브 submit/reset 시나리오 통과",확인
-T-000092,W-000009,Form Controls v0 Comp,토큰/스타일,상태/사이즈 토큰 매핑,완료,Medium, ● 내용: size(sm|md|lg)·tone(primary/neutral/danger)·상태(normal/hover/focus/disabled/invalid) CSS 변수(--ara-*) 정의 ● 산출물: 토큰 매핑표·data-* 스타일 훅 ● 점검: ThemeProvider 변경 시 일관 반영,확인
-T-000093,W-000009,Form Controls v0 Comp,테스트,Vitest+RTL 상호작용 테스트,완료,High," ● 내용: Checkbox 토글/indeterminate 유지, Radio 그룹 화살표 내비게이션·단일 선택, Switch role/aria-checked, 폼 제출/리셋 ● 산출물: 테스트 스위트 ● 점검: pnpm --filter @ara/react test 통과",확인
-T-000094,W-000009,Form Controls v0 Comp,문서/스토리북,Stories/MDX,완료,Medium," ● 내용: Checkbox(기본/indeterminate/그룹)·Radio(가로/세로 그룹)·Switch(상태/크기) 데모, Controls·A11y 노트 ● 산출물: stories 및 MDX ● 점검: build-storybook 스모크",확인
-T-000095,W-000009,Form Controls v0 Comp,통합,Icons/Layout/Form 통합 스모크,완료,Medium," ● 내용: 체크 표시/라디오 도트 아이콘 연동(@ara/react/icon), Stack/Grid 배치, 폼 제출 예제 ● 산출물: showcase 또는 stories ● 점검: 회귀 없음",확인
-T-000096,W-000009,Form Controls v0 Comp,빌드/출하,Exports/Types 계약 점검,완료,High," ● 내용: @ara/react/{checkbox,radio,switch} 서브패스, sideEffects:false, types/exports 해상도, pack --dry-run ● 산출물: package.json exports 맵·d.ts ● 점검: pnpm --filter @ara/react pack --dry-run",확인
-T-000097,W-000009,Form Controls v0 Comp,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가·canary 배포 드라이런, 릴리스 노트에 계약/범위(폼 기본 컨트롤) 명시 ● 산출물: canary 태그·설치 확인 메모 ● 점검: 설치/임포트/간단 사용 예 검증",확인
-T-000098,W-000010,Overlay Primitives v0,계약/설계,오버레이 계약·스택 정책 확정,완료,High, ● 목적: Portal/FocusTrap/Positioner/DismissableLayer의 API·이벤트·중첩 스택 정책(최상단만 ESC/외부클릭 처리) 확정 ● 산출물: core/react 오버레이 README(계약) ● 점검: 리뷰 승인 후 계약 동결(변경=Major),확인
-T-000099,W-000010,Overlay Primitives v0,코어(headless),usePortal(SSR-safe) 구현,완료,High," ● 내용: SSR-safe 컨테이너 생성(문서 미존재 시 지연), 사용자 제공 컨테이너 우선, 언마운트 시 정리 ● 산출물: packages/core/overlays/use-portal.ts ● 점검: SSR 스모크·컨테이너 누수 0",확인
-T-000100,W-000010,Overlay Primitives v0,코어(headless),useFocusTrap/FocusReturn 구현,완료,High, ● 내용: 포커스 센티널·탭 이동 루프·초점 진입/복귀·비활성 시 해제; 다중 트랩 중 최상단만 활성 ● 산출물: packages/core/overlays/use-focus-trap.ts ● 점검: 탭 순환·언마운트 시 원포커스 복귀,확인
-T-000101,W-000010,Overlay Primitives v0,코어(headless),useDismissableLayer 구현,완료,High, ● 내용: 바깥 클릭/포인터다운·포커스아웃·ESC 핸들러; 캡쳐 단계 처리·내부 포인터 캔슬 예외; 스택 최상단만 반응 ● 산출물: packages/core/src/overlays/use-dismissable-layer.ts ● 점검: 중첩 오버레이 상호작용 충돌 0,확인
-T-000102,W-000010,Overlay Primitives v0,코어(headless),usePositioner(앵커 배치) 구현,완료,High," ● 내용: anchor↔floating 배치(placement: top/bottom/left/right + start/center/end), offset/flip/shift, resize/scroll 옵저버 ● 산출물: packages/core/overlays/use-positioner.ts ● 점검: 스크롤/리사이즈 시 위치 유지",확인
-T-000103,W-000010,Overlay Primitives v0,React 바인딩,Portal 컴포넌트 구현,완료,High, ● 내용: <Portal container>·children·disablePortal 옵션; className 병합 ● 산출물: packages/react/src/components/portal/index.tsx + README ● 점검: SSR/StrictMode 스모크,확인
-T-000104,W-000010,Overlay Primitives v0,React 바인딩,FocusTrap 컴포넌트 구현,완료,High, ● 내용: <FocusTrap active initialFocus restoreFocus>·포커스 센티널 자동 구성 ● 산출물: packages/react/src/components/focus-trap/index.tsx ● 점검: 탭 루프·복귀 확인,확인
-T-000105,W-000010,Overlay Primitives v0,React 바인딩,DismissableLayer 컴포넌트 구현,완료,High, ● 내용: <DismissableLayer onDismiss disableOutsidePointerEvents>·중첩 스택 연동 ● 산출물: packages/react/src/components/dismissable-layer/index.tsx ● 점검: ESC/외부클릭·내부 드래그 예외,확인
-T-000106,W-000010,Overlay Primitives v0,React 바인딩,Positioner 컴포넌트/훅 구현,완료,High, ● 내용: <Positioner anchorRef placement offset strategy(absolute|fixed) withArrow>·스타일 훅(data-placement) ● 산출물: packages/react/src/components/positioner/index.tsx ● 점검: 배치/플립/시프트 스냅,확인
-T-000107,W-000010,Overlay Primitives v0,접근성/A11y,배경 inert/aria-hidden·ESC 규정,완료,High," ● 내용: 모달 시 배경 inert 또는 aria-hidden 관리, ESC 시 닫힘 이벤트 계약, 포커스 트랩과 충돌 방지 ● 산출물: A11y 가이드/테스트 ● 점검: 스크린리더/키보드 시나리오 통과",확인
-T-000108,W-000010,Overlay Primitives v0,스크롤/레이어,ScrollLock·Z-Index 토큰,완료,Medium, ● 내용: body 스크롤 락(터치 이동 포함)·여러 락 중복 카운팅; z-index 토큰 스케일과 레이어 합의 ● 산출물: scroll-lock 유틸·토큰/가이드 ● 점검: 모바일 터치 스크롤 락 정상,확인
-T-000109,W-000010,Overlay Primitives v0,테스트,Vitest+RTL 상호작용 테스트,완료,High," ● 내용: 포커스 트랩/복귀, 외부클릭/ESC, 배치 업데이트, 스크롤 락; 중첩 스택 우선순위 ● 산출물: 테스트 스위트 ● 점검: pnpm --filter @ara/* test 통과",확인
-T-000110,W-000010,Overlay Primitives v0,문서/스토리북,Stories/MDX(각 프리미티브),완료,Medium, ● 내용: Portal/FocusTrap/Positioner/DismissableLayer 데모; 중첩/스크롤/배치 컨트롤 ● 산출물: stories 및 MDX ● 점검: build-storybook 스모크,확인
-T-000111,W-000010,Overlay Primitives v0,통합,메뉴/다이얼로그 예비 스모크,완료,Medium, ● 내용: Button 토글로 메뉴/모달 모의 구성(오버레이 프리미티브 조합)·회귀 체크 ● 산출물: showcase 또는 stories ● 점검: 스택/포커스/스크롤 정상,확인
-T-000112,W-000010,Overlay Primitives v0,빌드/출하,Exports/Types 계약 점검,완료,High," ● 내용: @ara/react/{portal,focus-trap,positioner,dismissable-layer} 서브패스, sideEffects:false, types/exports 해상도 ● 산출물: package.json exports 맵·d.ts ● 점검: pnpm --filter @ara/react pack --dry-run",확인
-T-000113,W-000010,Overlay Primitives v0,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가·canary 배포 드라이런, 릴리스 노트에 계약/제약(모달 자체는 W-000012) 명시 ● 산출물: canary 태그·설치 확인 메모 ● 점검: 설치/임포트/간단 사용 예 검증",확인
-T-000114,W-000010,Overlay Primitives v0,코어(headless),오버레이 스택/Scope 매니저,완료,High," ● 내용: 오버레이 등록/정렬 관리(최상단 판단), ESC/포인터아웃/포커스아웃 이벤트 공유 훅, 배경 inert/aria-hidden 연동 포인트 정의 ● 산출물: packages/core/overlays/stack.ts 및 사용 가이드 ● 점검: 중첩 오버레이 간 포커스/닫힘 충돌 0",확인
+T-000002,W-000001,개발환경설정,개발환경설정,"WBS.csv, Tasks.csv 생성",완료,Medium," ● 일정 관리
+ ● GPT와 일정공유
+ ● WBS는 대 일정에 대한 것이고 Tasks는 WBS의 하위 업문이다.",
+T-000003,W-000002,Git 규범/가드,파일 가드,.gitattributes 생성,완료,High,".gitattributes
+ ● 목적: Git이 “저장소 안”에서 줄바꿈·바이너리 처리 등을 표준화.
+ ● 효과
+         - 윈도우에서 작성해도 리포에선 LF로 고정(CRLF 혼선, 불필요한 diff 방지).
+         - 바이너리(아이콘, 폰트)도 오탐지 없이 취급.
+ ● 흐름: 체크아웃/커밋 시 Git이 자동 변환·정규화 → 팀 전체 diff/merge가 일관.",확인
+T-000004,W-000002,Git 규범/가드,파일 가드,.gitignore 생성,완료,High,".gitignore
+ ● 목적: 빌드 산출물, 캐시, OS 파일 등을 커밋에서 제외.
+ ● 효과: 리포가 “소스만” 담음 → CI 속도↑, 충돌↓, 보안 리스크↓(토큰 파일 등).
+ ● 흐름: git status에서 보이지 않음 → 실수로 커밋할 일이 사라짐.",확인
+T-000005,W-000002,Git 규범/가드,파일 가드,.editorconfig 생성,완료,High,".editorconfig
+ ● 목적: 에디터(예: VS Code)가 탭/스페이스, 들여쓰기, 파일 끝 개행, 인코딩을 통일.
+ ● 효과: 사람마다 에디터 설정 달라도 같은 포맷 유지 → lint 이전 단계에서 잡음 제거.
+ ● 흐름: 파일 저장 시 에디터가 규칙 적용 → PR 전에 포맷이 이미 일정.",확인
+T-000006,W-000002,Git 규범/가드,커밋/브랜치 규칙 묶음,COMMIT_TEMPLATE 설정,완료,High,"COMMIT_TEMPLATE
+ ● 목적: git commit 창을 열면 초안 폼이 자동으로 채워지는 템플릿(제목/WBS·Task Info/본문/Breaking/Refs 자리).
+ ● 효과: 초보라도 일관된 메시지 작성. Conventional Commits 형식 유도.
+ ● 흐름: git config commit.template 설정 → 커밋마다 같은 골격으로 작성.",확인
+T-000007,W-000002,Git 규범/가드,커밋/브랜치 규칙 묶음,"Conventional Commits
+   + commit-msg(amend) 훅",완료,High,"Conventional Commits + commit-msg(amend) 훅
+ ● 목적
+        - feat: …, fix: … 같은 타입+제목 규칙.
+        - 메시지 검증/자동 보정(예: 스코프/티켓ID 추가)과 사소한 수정은 --amend로 히스토리 청결 유지.
+ ● 효과: 변경 의도 검색 용이, 자동 CHANGELOG 생성 기반, 리뷰 체계화.
+ ● 흐름: 커밋 시 훅이 형식 검사 → 실패 시 차단, 성공 시 통과. 작은 수정은 git commit --amend --no-edit.",확인
+T-000008,W-000002,Git 규범/가드,커밋/브랜치 규칙 묶음,"기본 브랜치 main
+   + 브랜치 네이밍",완료,High,"기본 브랜치 main + 브랜치 네이밍
+ ● 목적: 배포 기준선은 main. 작업은 feat/button, fix/tooltip-crash처럼 프리픽스/설명 규칙.
+ ● 효과: 히스토리 읽기 쉬움, 자동 릴리스/CI 조건 설정이 간단.
+ ● 흐름: 새 작업 → 토픽 브랜치 생성 → PR로 main에 머지.",확인
+T-000009,W-000002,Git 규범/가드,커밋/브랜치 규칙 묶음,CODEOWNERS & PR 템플릿,완료,High,"CODEOWNERS & PR 템플릿
+ ● 목적: 경로별 소유자 지정, PR 폼(체크리스트/테스트 방법/스크린샷).
+ ● 효과: 자동 리뷰어 요청, 리뷰 품질 균질화.
+ ● 흐름: PR 열면 템플릿이 미리 채워짐 → CODEOWNERS에게 리뷰 요청 자동 발송.",확인
+T-000010,W-000002,Git 규범/가드,커밋/브랜치 규칙 묶음,Changesets 초기화(버전/릴리스 흐름 고정),완료,High,"Changesets 초기화(버전/릴리스 흐름 고정)
+ ● 목적: 패키지별 변경을 텍스트 파일로 기록 → 릴리스 시 버전/CHANGELOG 자동 산출.
+ ● 효과: 모노레포 다중 패키지 버전 충돌 제거, 의도된 SemVer 반.
+ ● 흐름: 기능 완료 시 changeset 추가 → main 머지 후 릴리스 액션이 버전/배포 생성.",확인
+T-000011,W-000002,Git 규범/가드,CI 최소골격 & 브랜치 보호,.github/workflows/ci.yml (Node 22 + Corepack + pnpm install),완료,High,".github/workflows/ci.yml (Node 22 + Corepack + pnpm install)
+ ● 목적
+         - PR/main 푸시에 자동 실행.
+         -Node 22 설치 → Corepack 활성화 → pnpm 준비 → pnpm -w install로 워크스페이스 종속성 검증(추후 test/build 추가).
+ ● 효과: “내 PC에선 돼요” 방지, 잠재적 의존성 문제를 PR 단계에서 차단.
+ ● 흐름: PR 생성/업데이트 → CI가 설치/검증 → 실패 시 머지 불가.",확인
+T-000012,W-000002,Git 규범/가드,CI 최소골격 & 브랜치 보호,브랜치 보호 규칙,완료,High,"브랜치 보호 규칙
+ ● 목적
+          - main에 필수 CI 통과
+          - 이부분은 혼자 개발 하니까 현제 제외 : 최소 1명 리뷰 요구. (옵션: Linear/Issue 링크, Conversations resolved 등)
+ ● 효과: 실수 머지 방지, 품질 게이트 고정.
+ ● 흐름: PR 생성 → CI 통과 + 리뷰 승인 없으면 Merge 버튼 비활성.",확인
+T-000013,W-000003,모노레포 스캐폴딩,워크스페이스 기준선,루트 워크스페이스 선언(pnpm workspaces),완료,High," ● 목적: 모노레포 워크스페이스 경계를 명시해 신규 패키지가 설치·빌드 파이프라인에 자동 편입되도록 한다.
+ ● 내용: pnpm-workspace.yaml을 packages/*, apps/*, scripts/* 및 예정 패키지 경로(packages/{tsconfig,eslint-config,tokens,core,react,icons}, apps/{storybook,showcase})로 확정하고 Changesets·CI 문서에 동일 경로를 반영한다.
+ ● 점검: pnpm -w list --depth -1 결과에 모든 패키지가 노출되고 README/CI 안내가 같은 경로를 가리키는지 확인한다.",확인
+T-000014,W-000003,모노레포 스캐폴딩,패키지 거버넌스,패키지 네이밍/퍼블리시 정책 확정,완료,High," ● 목적: 패키지 식별자/배포 정책을 초기에 고정해 apps·라이브러리의 접근성 및 배포 안전성을 확보한다.
+ ● 내용: packages/*는 scope @ara/*로 명명하고 apps/* 패키지는 private:true, 라이브러리는 publishConfig.access: public으로 설정한다. 공통 engines { node: 22 이상 }, license, repository 필드를 통일하고 README에 명시한다.
+ ● 점검: pnpm -w list --json 출력에서 scope가 일관되는지 확인하고 pnpm pack/publish --dry-run 시 metadata(license/repository/access)가 기대값과 일치하는지 검토한다.",확인
+T-000015,W-000003,모노레포 스캐폴딩,공통 설정 패키지,공통 tsconfig 패키지 초기화(packages/tsconfig),완료,High," ● 목적: 모든 패키지가 동일한 TypeScript 컴파일 기준을 사용해 빌드/테스트 결과가 일관되도록 한다.
+ ● 내용: packages/tsconfig에 공유 설정 패키지를 만들고 루트 tsconfig.base.json을 정의해 모듈 해석, 경로 alias(@ara/*), JSX/emit 옵션을 고정한다. 각 패키지 tsconfig에서 extends하도록 가이드 문서를 포함한다.
+ ● 점검: tokens/core/react 등의 샘플 tsconfig에 extends 경로가 연결되고 pnpm exec tsc --showConfig로 공통 설정이 반영되는지 확인한다.",확인
+T-000016,W-000003,모노레포 스캐폴딩,공통 설정 패키지,ESLint Flat 설정 패키지 초기화(packages/eslint-config),완료,High," ● 목적: 린트 규칙을 중앙에서 관리해 패키지별로 상이한 설정으로 인한 품질 편차를 제거한다.
+ ● 내용: ESLint Flat 구성을 공유 패키지로 만들고 기본 preset(typescript-eslint, eslint-plugin-react, prettier 연동)과 브라우저/Node 환경 분리 구성을 제공한다. README에 적용 방법과 확장 순서를 기록한다.
+ ● 점검: tokens/core/react 패키지에서 eslint.config.js가 공유 preset을 import하고 pnpm lint가 전 워크스페이스에서 통과하는지 확인한다.",확인
+T-000017,W-000003,모노레포 스캐폴딩,디자인 시스템 토대,토큰/디자인 시스템 베이스 패키지 초기화(packages/tokens),완료,Medium," ● 목적: 색상/타이포 등 디자인 자산을 코드로 표준화해 다른 패키지가 재사용할 수 있는 토대를 제공한다.
+ ● 내용: packages/tokens에 패키지를 생성하고 색상·타이포 최소 샘플을 TS/JSON으로 export하며 공통 tsconfig·빌드 설정을 연결한다. 소비 방법을 README에 정리한다.
+ ● 점검: pnpm --filter @ara/tokens build 시 d.ts가 생성되고 core/react 패키지에서 import 테스트가 통과하는지 확인한다.",확인
+T-000018,W-000003,모노레포 스캐폴딩,디자인 시스템 토대,코어(headless) 패키지 초기화(packages/core),완료,High," ● 목적: UI에 의존하지 않는 비즈니스/상태 로직을 분리해 React 등 다양한 바인딩에서 재사용하도록 한다.
+ ● 내용: packages/core 패키지를 생성하고 tokens 패키지를 의존성으로 연결한다. 기본 API export와 Vitest 기반 단위 테스트 골격을 마련한다.
+ ● 점검: pnpm --filter @ara/core test가 통과하고 React 패키지에서 core 기능을 import해 사용할 수 있는지 확인한다.",확인
+T-000019,W-000003,모노레포 스캐폴딩,디자인 시스템 토대,React 바인딩 패키지 초기화(packages/react),완료,High," ● 목적: core 패키지를 실제 UI로 연결해 소비 경험을 검증하고 React 개발 기준선을 마련한다.
+ ● 내용: React 18 + TypeScript 패키지를 생성해 core 로직을 감싼 예제 컴포넌트(Button 등)를 추가하고 Vitest+RTL 테스트 및 Storybook 스토리를 작성한다.
+ ● 점검: pnpm --filter @ara/react test, pnpm --filter @ara/react storybook --smoke-test 등이 성공하고 tokens/core 의존성이 정상 연결되는지 확인한다.",확인
+T-000020,W-000003,모노레포 스캐폴딩,디자인 시스템 토대,아이콘 패키지 초기화(packages/icons),완료,Medium," ● 목적: 공통 아이콘 자산을 모듈화해 React 등 소비자 패키지가 일관된 인터페이스로 사용하도록 한다.
+ ● 내용: SVG 기반 아이콘 패키지를 생성하고 최소 1개 샘플 아이콘을 추가한다. tree-shaking 가능한 export 구조와 타입 선언 생성을 설정한다.
+ ● 점검: pnpm --filter @ara/icons build 산출물에서 ESM/CJS 번들과 d.ts가 생성되고 React 패키지에서 아이콘 import가 작동하는지 확인한다.",확인
+T-000021,W-000003,모노레포 스캐폴딩,앱/데모 구성,"앱 골격 생성(apps/storybook, apps/showcase)",완료,High," ● 목적: 컴포넌트 개발·데모 환경을 초기 구축해 패키지 변경을 즉시 확인할 수 있게 한다.
+ ● 내용: apps/storybook과 apps/showcase를 스캐폴딩하고 공통 tsconfig·ESLint 설정을 참조하도록 연결한다. pnpm 스크립트(pnpm storybook, pnpm showcase dev 등)를 준비한다.
+ ● 점검: pnpm --filter @ara/storybook storybook --smoke-test, pnpm --filter @ara/showcase dev 실행이 성공하고 공통 설정 경고가 없는지 확인한다.",확인
+T-000022,W-000003,모노레포 스캐폴딩,빌드/테스트 파이프라인,빌드 파이프라인 연결(Rollup 설정 공유·d.ts 출력 확인),완료,High," ● 목적: 모든 패키지가 동일한 빌드·테스트 파이프라인을 공유해 산출물 형식과 품질 검증을 표준화한다.
+ ● 내용: 공통 Rollup/Vite 라이브러리 설정을 추출해 tokens/core/react/icons 패키지에서 재사용하고 d.ts/번들 생성 흐름을 마련한다. CI에서 pnpm -r build, pnpm -r test, Storybook smoke 테스트를 통합한다.
+ ● 점검: 공통 설정을 참조한 패키지 빌드가 성공하고 CI 로그에 빌드·테스트·Storybook 단계가 모두 통과하는지 확인한다.",확인
+T-000023,W-000003,모노레포 스캐폴딩,빌드/테스트 파이프라인,빌드 산출물 계약(Exports Map) 확립,완료,High," ● 목적: 패키지 빌드 산출물 형식을 계약화해 소비자 앱과 도구가 일관된 엔트리 포인트/타입 선언을 사용할 수 있게 한다.
+ ● 내용: tokens/core/react/icons 패키지 package.json에 exports 필드를 정의해 기본 ESM(+선택 CJS) 엔트리를 노출하고 types/module 필드, sideEffects:false, typesVersions를 정리한다. Rollup/Vite 설정과 d.ts 생성 옵션을 동기화한다.
+ ● 점검: pnpm --filter @ara/* pack --dry-run 출력에서 exports/type/module/sideEffects 값이 기대와 일치하는지 확인하고 샘플 소비 앱이 import 해상도를 문제없이 수행하는지 검증한다.",확인
+T-000024,W-000003,모노레포 스캐폴딩,빌드/테스트 파이프라인,루트 스크립트 정리(pnpm -w build/test/lint 통합),완료,Medium," ● 목적: 루트 명령어만으로 모노레포 전반의 빌드/테스트/린트 흐름을 실행해 운영 편의성을 높인다.
+ ● 내용: 루트 package.json에 pnpm -w build/test/lint/storybook 스크립트를 정의하고 실행 순서를 정리한다. Changesets version/release 스크립트와 경계를 문서화해 배포 절차와 충돌하지 않도록 한다.
+ ● 점검: 루트에서 pnpm build/test/lint/storybook 실행 시 전 워크스페이스가 순차 실행되고 문서화된 경계가 README/CONTRIBUTING에 반영됐는지 확인한다.",확인
+T-000025,W-000003,모노레포 스캐폴딩,CI/운영 자동화,의존성 자동 업데이트 및 pnpm 캐시 구성,완료,Medium," ● 목적: 의존성 보안/버그 패치를 신속히 반영하고 CI 설치 속도를 안정적으로 유지한다.
+ ● 내용: Renovate(또는 Dependabot) 설정 파일을 추가해 packages/*, apps/*, 루트 의존성을 주기적으로 갱신하고, GitHub Actions CI에 pnpm install 캐시(corepack+pnpm store path, 키: pnpm-lock.yaml) 단계를 추가한다.
+ ● 점검: Renovate/Dependabot 테스트 PR이 생성되는지 확인하고 CI 워크플로 로그에서 pnpm 캐시 히트율과 설치 시간이 안정화되는지 검토한다.",확인
+T-000026,W-000003,모노레포 스캐폴딩,문서화,README 구조 섹션 업데이트(모노레포 트리/패키지 표),완료,Medium," ● 목적: 모노레포 구조와 패키지 역할을 문서로 명확히 제시해 신규 기여자의 온보딩 시간을 단축한다.
+ ● 내용: README에 디렉터리 트리, 패키지별 역할/의존 관계 표, 공통 설정 참조 절차를 추가한다. 작업 순서를 정리해 패키지 생성 흐름을 안내한다.
+ ● 점검: README 개정본에서 항목이 빠짐없이 소개되고 내부 링크/코드 블록이 최신 스캐폴딩 구조와 일치하는지 검토한다.",확인
+T-000027,W-000004,Button v0 Comp,계약/설계,API 계약 정의(Button),완료,High," ● 목적: Props 목록과 기본값, 이벤트 의미(onPress 계열), 폴리모픽(asChild) 및 링크 모드 범위 확정
+ ● 산출물: packages/react/src/components/button/README.md 계약 섹션 확정
+ ● 점검: 리뷰 승인 후 범위 동결(변경은 후속 이슈로)",확인
+T-000028,W-000004,Button v0 Comp,코어(headless),useButton 로직 구현,완료,High," ● 내용: press 시작/종료/확정 시퀀스, disabled 및 loading 차단, Enter 및 Space 키 매핑
+ ● 산출물: packages/core/use-button 구현 및 유닛 테스트 골격
+ ● 점검: pnpm --filter @ara/core test 통과",확인
+T-000029,W-000004,Button v0 Comp,React 바인딩,React Button 구현,완료,High," ● 내용: forwardRef, className 병합, data-* 상태 표식, href 및 asChild 처리, ref 전달
+ ● 산출물: packages/react/button 컴포넌트 기본 구현
+ ● 점검: 샘플 임포트 및 렌더 스모크 테스트",확인
+T-000030,W-000004,Button v0 Comp,접근성,A11y 규정 적용,완료,High," ● 내용: role 및 aria 적용(aria-disabled, aria-busy), focus-visible 링, 링크 모드 일관 키보드 동작
+ ● 산출물: 접근성 가이드 요약 및 테스트 케이스
+ ● 점검: 키보드 시나리오와 ARIA 기대값 통과",확인
+T-000031,W-000004,Button v0 Comp,테스트,Vitest+RTL 상호작용 테스트,완료,High," ● 내용: 키보드(Enter 및 Space), 마우스/터치, 영역 이탈 취소, disabled 및 loading 차단 검증 + 선택 시 시각 회귀(Chromatic 등) 연동 가이드
+ ● 산출물: 테스트 스위트 및 스냅 최소화, 비주얼 회귀 도입 여부 기록
+ ● 점검: pnpm --filter @ara/react test 통과 및(선택) 시각 회귀 보고",확인
+T-000032,W-000004,Button v0 Comp,문서/스토리북,Storybook 스토리 및 MDX,완료,Medium," ● 내용: Playground, Variants, Tones, Sizes, WithIcons, Loading, AsLink, FullWidth 시나리오 + 디자인 승인 체크리스트(토큰 값 표·QA 항목) 포함
+ ● 산출물: stories 및 MDX 문서 + 디자인 승인 체크리스트
+ ● 점검: build-storybook 스모크 테스트 통과 및 디자인 QA 사인오프",확인
+T-000033,W-000004,Button v0 Comp,테마/토큰,Tokens 연결 및 CSS 변수 표면,완료,Medium," ● 내용: 토큰 매핑과 CSS 변수(--ara-btn-bg 등) 정의, light 및 dark 테마 샘플, 디자인 QA용 토큰 표 제공
+ ● 산출물: tokens 소비 예 및 오버라이드 가이드 + 토큰 값 표
+ ● 점검: 토큰 변경 시 스타일 반영 및 디자인 체크리스트 충족 확인",확인
+T-000034,W-000004,Button v0 Comp,빌드/출하,Exports 및 타입 계약 점검,완료,High," ● 내용: exports 및 types 및 module 및 sideEffects 계약 검증, showcase 임포트 스모크(예: apps/showcase 버튼 데모 페이지) 시나리오 명시
+ ● 산출물: package.json exports 맵 정리와 소비 앱 확인 + showcase 페이지 시연 노트
+ ● 점검: pnpm --filter @ara/react pack --dry-run 결과 검토 및 쇼케이스 시나리오 통과",확인
+T-000035,W-000004,Button v0 Comp,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가 및 프리릴리스 채널 배포 드라이런
+ ● 산출물: canary 태그 및 설치 확인 메모
+ ● 점검: 설치 및 임포트 성공과 간단 사용 예 검증",확인
+T-000036,W-000005,Tokens & ThemeProvider v1,토큰 설계/거버넌스,토큰 명명 규칙/계약 확정,완료,High," ● 목적: 토큰 접두사와 스케일 키(예: color, font-size, space, radius 등) 및 CSS 변수 접두사(--ara-*)를 고정
+ ● 변경 규칙: v1 이후 토큰 키/의미 변경은 Major(Changesets로 명시)
+ ● 산출물: packages/tokens/README.md에 규약 문서화
+ ● 점검: 리뷰 승인 후 변경은 이슈만; README에 v1 동결·Breaking=Major 명시; PR 템플릿에 Breaking? 체크 추가",확인
+T-000037,W-000005,Tokens & ThemeProvider v1,토큰(컬러),색상 팔레트/역할 정의,완료,High," ● 내용: 기본 팔레트와 역할 색(primary, neutral, danger 등), 상태(hover/active/disabled) 맵핑
+ ● 산출물: packages/tokens/src/colors.ts 및 타입 선언
+ ● 점검: 라이트/다크 대비 기준 충족(WCAG AA: 일반 텍스트 ≥ 4.5:1, 큰 텍스트 ≥ 3:1)",확인
+T-000038,W-000005,Tokens & ThemeProvider v1,토큰(타이포),타이포그래피 스케일 정의,완료,Medium," ● 내용: 폰트 패밀리, 크기(sm/md/lg 등), weight, line-height, letter-spacing 스케일
+ ● 산출물: packages/tokens/src/typography.ts
+ ● 점검: 디자인 샘플 대비 시각 일치",확인
+T-000039,W-000005,Tokens & ThemeProvider v1,토큰(레이아웃),간격/반지름/섀도 스케일,완료,Medium," ● 내용: space(px), radius, elevation(shadow), z-index 스케일과 키 고정
+ ● 산출물: packages/tokens/src/layout.ts
+ ● 점검: Button v0에 적용 시 기대 치수/모양 재현",확인
+T-000040,W-000005,Tokens & ThemeProvider v1,CSS 변수 매핑,CSS Vars 생성 및 주입 규칙,완료,High," ● 내용: 토큰→CSS 변수(--ara-*) 변환 테이블 정의, :root와 테마별 변수 세트 구성
+ ● 산출물: packages/tokens/src/css-vars.ts, 생성 스크립트
+ ● 점검: 변수 이름 충돌 없음, d.ts 생성 확인",확인 
+T-000041,W-000005,Tokens & ThemeProvider v1,ThemeProvider,API 설계 및 기본 구현,완료,High," ● 내용: ThemeProvider 컴포넌트 설계(컨텍스트, 변수 주입, data-theme 또는 class 전략, override API)
+ ● 산출물: packages/react/src/components/theme-provider/index.tsx 및 README.md
+ ● 점검: 중첩 Provider, SSR/StrictMode 스모크 통과",확인
+T-000042,W-000005,Tokens & ThemeProvider v1,ThemeProvider,라이트/다크 및 시스템 연동,완료,High," ● 내용: prefers-color-scheme 연동; 사용자 선택 우선; SSR-safe 초기 스타일 인라인 적용(FOUC 방지); 우선순위: 시스템 설정 < 사용자 선택
+ ● 산출물: 테마 스위처 훅과 샘플 코드
+ ● 점검: Storybook 툴바 스위치 동작; 첫 페인트에 테마 깜빡임 없음(스크린 레코딩 확인); 새 탭 초기 로드에서도 유지)",확인
+T-000043,W-000005,Tokens & ThemeProvider v1,A11y/국제화,RTL 및 포커스 링 토큰,완료,Medium," ● 내용: dir=rtl 지원, 아이콘/여백 방향 보정 규칙, 포커스 링 토큰과 표시 정책
+ ● 산출물: 가이드 섹션 및 데모
+ ● 점검: RTL 스냅샷 및 키보드 내비게이션 정상",확인
+T-000044,W-000005,Tokens & ThemeProvider v1,문서/스토리북,Storybook 문서/Controls/테마 스위치,완료,Medium," ● 내용: 토큰 테이블, ThemeProvider 사용 가이드, 테마 스위치 툴바 추가
+ ● 산출물: stories 및 MDX 문서
+ ● 점검: build-storybook 스모크 통과",확인
+T-000045,W-000005,Tokens & ThemeProvider v1,빌드/출하,Exports/Types 계약 점검,완료,High," ● 내용: @ara/tokens와 @ara/react/theme-provider의 exports, types, sideEffects 계약 확정
+ ● 산출물: 각 package.json의 exports 맵과 d.ts 출력
+ ● 점검: pnpm --filter @ara/* pack --dry-run 결과 검토",확인
+T-000046,W-000005,Tokens & ThemeProvider v1,통합/검증,Button v0 통합 스모크,완료,High," ● 내용: Button v0가 ThemeProvider와 토큰을 소비해 변형(variant/tone/size)과 다크 모드가 정상 반영되는지 확인
+ ● 산출물: showcase 또는 story 샘플
+ ● 점검: 시각/상호작용 회귀 없음",확인
+T-000047,W-000005,Tokens & ThemeProvider v1,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가 및 프리릴리스 채널 배포 드라이런
+ ● 산출물: canary 태그 및 설치 확인 메모
+ ● 점검: 설치 및 임포트 성공과 간단 사용 예 검증",확인
+T-000048,W-000006,Icons v0,규약/설계,아이콘 계약/명명 규칙 확정,완료,High," ● 목적: 파일명/심볼명(파스칼케이스), 카테고리, size 스케일(sm/md/lg), tone(현재색 currentColor 우선) 규약 확정
+ ● 산출물: packages/icons/README.md 규약, 계약 동결(변경=Major) 문구 명시
+ ● 점검: 리뷰 승인 후 계약 동결 공지",확인
+T-000049,W-000006,Icons v0,파이프라인,SVG 최적화(svgo) 설정,완료,High," ● 내용: precision/cleanupAttrs/mergePaths 등 svgo 설정 고정, removeViewBox 비활성화 확인, preserveLicense 플러그인 검토, 최적화 전후 diff 캡처
+ ● 산출물: packages/icons/svgo.config.mjs, 최적화 전후 시각 동일성 비교 스냅
+ ● 점검: diff 스크린샷 기록 및 설정 리뷰",확인
+T-000050,W-000006,Icons v0,파이프라인,아이콘 코드 생성기(generator),완료,High," ● 내용: SVG→TSX 변환(React 컴포넌트), viewBox 유지, title prop 지원, tree-shakable export 생성, 변환 전후 스냅샷 비교 옵션(--diff), 샘플 3종 생성
+ ● 산출물: scripts/generate-icons.(ts|mjs) + 샘플 3종, pnpm gen:icons 스모크 통과
+ ● 점검: pnpm gen:icons 실행 로그 및 시각 diff 확인",확인
+T-000051,W-000006,Icons v0,React 컴포넌트,Icon 베이스 구현(@ara/react/icon),완료,High," ● 내용: <Icon> 래퍼(size/tone/strokeWidth/filled)·forwardRef·className 병합·currentColor 기본, Tokens 연동
+ ● 산출물: packages/react/src/components/icon/index.tsx + README.md
+ ● 점검: ref 포워딩/Props 계약 스냅",확인
+T-000052,W-000006,Icons v0,접근성,A11y 규정 적용,완료,High," ● 내용: aria-hidden 기본(true), title 제공 시 role=\""img\""+aria-labelledby 처리 가이드, 키보드 탐색 영향 없음 확인
+ ● 산출물: A11y 섹션/테스트 케이스
+ ● 점검: 라벨링 시 스크린리더 읽힘 및 포커스 영향 없음",확인
+T-000053,W-000006,Icons v0,테스트,Vitest+RTL 테스트,완료,Medium," ● 내용: size/tone props 반영, aria-hidden/role=img 변환, currentColor 상속 및 명시적 color 우선순위, ThemeProvider 토큰 상속, tree-shaking(번들 검사) 최소 테스트
+ ● 산출물: 테스트 스위트
+ ● 점검: pnpm --filter @ara/react test 통과",확인
+T-000054,W-000006,Icons v0,문서/스토리북,Storybook 아이콘 갤러리/Docs,완료,Medium," ● 내용: 아이콘 리스트 갤러리, Controls(size/tone/strokeWidth 기본값 포함), 타이틀 접근성 예시, 시각 회귀(Chromatic 또는 build-storybook 스모크) 옵션
+ ● 산출물: stories 및 MDX
+ ● 점검: build-storybook 스모크 또는 시각 스냅샷 확인",확인
+T-000055,W-000006,Icons v0,토큰 연동,Tokens 색/사이즈 매핑,완료,Medium," ● 내용: size 스케일(sm/md/lg)·색 토큰(primary/neutral/danger) 매핑 가이드, currentColor 우선 순위, ThemeProvider 상속 우선순위 가이드/테스트
+ ● 산출물: 가이드/예시 코드
+ ● 점검: ThemeProvider 테마 변경 시 색상 상속 확인",확인
+T-000056,W-000006,Icons v0,통합,Button/Inputs와 통합 스모크,완료,Medium," ● 내용: Button leading/trailingIcon, 향후 TextField 내 prefix/suffix 아이콘 예시
+ ● 산출물: showcase 또는 stories
+ ● 점검: 리그레션 없음",확인
+T-000057,W-000006,Icons v0,빌드/출하,Exports/Types/Tree-shaking 점검,완료,High," ● 내용: @ara/icons 개별(@ara/icons/Plus)·집합(@ara/icons) 동시 제공, sideEffects:false, types 확인, pnpm --filter @ara/icons pack --dry-run + lint 묶은 check:icons 스크립트, CI에서 exports 해상도 검증
+ ● 산출물: package.json exports 맵·d.ts 출력, check:icons 스크립트 로그
+ ● 점검: pnpm --filter @ara/icons pack --dry-run 결과 검토",확인
+T-000058,W-000006,Icons v0,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가 및 canary 배포 드라이런, 태그명 규칙과 설치 검증 로그 README 릴리스 섹션 기록
+ ● 산출물: canary 태그·설치 확인 메모
+ ● 점검: 설치/임포트/간단 사용 예 검증",확인
+T-000059,W-000007,Layout Primitives v0,계약/설계,레이아웃 계약/네이밍/Props 확정,완료,High," ● 목적: Stack/Flex/Grid/Spacer의 공통 Props(간격 gap, 정렬 align/justify, 방향, 래핑, responsive), 네이밍·경로(@ara/react/stack 등) 고정
+ ● 산출물: packages/react/src/components/layout/README.md(계약)
+ ● 점검: 리뷰 승인 후 계약 동결(변경=Major)",확인
+T-000060,W-000007,Layout Primitives v0,React(컴포넌트),Stack 구현,완료,High," ● 내용: 수직/수평 스택, gap/align/justify, divider 슬롯(옵션), wrap 지원
+ ● 산출물: packages/react/src/components/layout/Stack.tsx + README
+ ● 점검: 샘플 렌더·Props 스냅",확인
+T-000061,W-000007,Layout Primitives v0,React(컴포넌트),Flex 구현,완료,High," ● 내용: 디폴트 flex 컨테이너 래퍼, gap/align/justify/flexWrap/flexDirection, inline 옵션
+ ● 산출물: packages/react/src/components/flex/index.tsx
+ ● 점검: 스타일/클래스 병합·ref 포워딩",확인
+T-000062,W-000007,Layout Primitives v0,React(컴포넌트),Grid 구현,완료,High," ● 내용: columns/rows/gap/areas 템플릿·auto placement, responsive props(sm/md/lg)
+ ● 산출물: packages/react/src/components/layout/Grid.tsx
+ ● 점검: responsive props→데스크탑/모바일 스냅 확인",확인
+T-000063,W-000007,Layout Primitives v0,React(컴포넌트),Spacer 구현,완료,Medium," ● 내용: 공간 삽입 전용 컴포넌트(size 토큰 사용), inline 방향 지원
+ ● 산출물: packages/react/src/components/spacer/index.tsx
+ ● 점검: size 스냅·접근성 영향 없음",확인
+T-000064,W-000007,Layout Primitives v0,접근성/국제화,RTL/논리속성/탭순서 안전,완료,High," ● 내용: 논리적 방향 속성( block/inline ) 우선, RTL에서 간격/정렬 일관성, tab 순서·읽기 순서 영향 없음 보증
+ ● 산출물: A11y/RTL 가이드와 테스트 케이스
+ ● 점검: RTL 스냅·키보드 탐색 영향 0",확인
+T-000065,W-000007,Layout Primitives v0,토큰 연동,Tokens 간격/반지름 매핑,완료,Medium," ● 내용: space/radius 토큰→CSS 변수 매핑, gap/패딩에 적용, ThemeProvider 상속 확인
+ ● 산출물: 가이드 및 예시
+ ● 점검: 테마 변경 시 간격 일관성",확인
+T-000066,W-000007,Layout Primitives v0,테스트,Vitest+RTL(Responsive/RTL) 테스트,완료,High," ● 내용: responsive props 해석, RTL 전환 시 레이아웃 동일성, class 병합·style 우선순위
+ ● 산출물: 테스트 스위트
+ ● 점검: pnpm --filter @ara/react test 통과",확인
+T-000067,W-000007,Layout Primitives v0,문서/스토리북,스토리/MDX(Playground/Patterns),완료,Medium," ● 내용: Stack/Flex/Grid/Spacer 데모, 레이아웃 패턴(툴바, 카드 그리드), Controls로 props 조절
+ ● 산출물: stories 및 MDX
+ ● 점검: build-storybook 스모크",확인
+T-000068,W-000007,Layout Primitives v0,통합,Button/Form와 통합 스모크,완료,Medium," ● 내용: Button 그룹(Stack), Form 레이아웃(Grid), 아이콘/텍스트 정렬(Flex)
+ ● 산출물: showcase 또는 stories
+ ● 점검: 회귀 없음",확인
+T-000069,W-000007,Layout Primitives v0,빌드/출하,Exports/Types 계약 점검,완료,High," ● 내용: @ara/react/stack|flex|grid|spacer 서브패스, sideEffects:false, types/exports 해상도
+ ● 산출물: package.json exports 맵·d.ts
+ ● 점검: pnpm --filter @ara/react pack --dry-run",확인
+T-000070,W-000007,Layout Primitives v0,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가·canary 배포 드라이런
+ ● 산출물: canary 태그·설치 확인 메모
+ ● 점검: 설치/임포트/간단 예제 검증",확인
+T-000071,W-000008,TextField v0 Comp,계약/설계,API 계약 정의(TextField),완료,High," ● 목적: Props(value/defaultValue/onValueChange/onCommit, label/helperText/errorText, required/disabled/readOnly, type(text|email|password|number), size(sm|md|lg), prefixIcon/suffixIcon, clearable, passwordToggle, name/id/autoComplete) 확정
+ ● 산출물: packages/react/src/components/text-field/README.md 계약 섹션
+ ● 점검: 리뷰 승인 후 계약 동결(변경=Major)",확인
+T-000072,W-000008,TextField v0 Comp,코어(headless),useTextField 로직 구현,완료,High," ● 내용: id 관리(labelId/descriptionId/errorId), aria 연결(aria-invalid/required/aria-describedby), controlled/uncontrolled 상태, composition(IME) 이벤트 안전, onCommit(Enter) 합성(IME 중엔 무시)
+ ● 산출물: packages/core/use-text-field + 유닛 테스트 골격
+ ● 점검: pnpm --filter @ara/core test 통과",확인
+T-000073,W-000008,TextField v0 Comp,React 바인딩,TextField 구현,완료,High," ● 내용: forwardRef, 슬롯 구조(label/input/helper/error/prefix/suffix/clear/password-toggle), className 병합, data-* 상태 표식(invalid/focused/disabled), tokens 매핑(size/tone)
+ ● 산출물: packages/react/src/components/text-field/index.tsx
+ ● 점검: 스모크 렌더·ref 포워딩·Props 스냅",확인
+T-000074,W-000008,TextField v0 Comp,접근성,라벨/에러 연결 및 ARIA,완료,High," ● 내용: label→input ‘for/id’ 연결, error/helper를 aria-describedby로 연결, invalid/required 반영, autoComplete 가이드
+ ● 산출물: A11y 가이드/테스트 케이스
+ ● 점검: 스크린리더에서 라벨·에러 읽힘·탭 순서 정상",확인
+T-000075,W-000008,TextField v0 Comp,입력 UX,Clear/Password 토글/IME,완료,High," ● 내용: clearable(X 버튼)·password 토글(가시성 전환)·Enter onCommit·IME 조합 중 Enter 무시·maxlength 카운터(옵션)
+ ● 산출물: UX 가이드와 구현
+ ● 점검: IME 환경(한글)에서 onCommit 오발화 0건",확인
+T-000076,W-000008,TextField v0 Comp,폼 연동,Form/Native 특성 정리,완료,Medium," ● 내용: name/required/disabled/readOnly 제출 동작, form reset 대응, type=number 사용 주의(로케일/스크롤 변화)
+ ● 산출물: 폼 가이드 및 예시
+ ● 점검: 네이티브 폼 제출/리셋 시나리오 통과",확인
+T-000077,W-000008,TextField v0 Comp,토큰/스타일,사이즈·상태 토큰 매핑,완료,Medium," ● 내용: size(sm|md|lg)별 높이/패딩/폰트, 상태(normal/hover/focus/invalid/disabled) CSS 변수(--ara-tf-*), 포커스 링 정책
+ ● 산출물: 토큰 매핑표/스타일 훅(data-*)
+ ● 점검: ThemeProvider 변경 시 일관 반영",확인
+T-000078,W-000008,TextField v0 Comp,테스트,Vitest+RTL 상호작용 테스트,완료,High," ● 내용: controlled/uncontrolled, onValueChange/onCommit, clear/password 토글, label/aria-describedby 연결, invalid/disabled/readOnly, IME 조합 시나리오
+ ● 산출물: 테스트 스위트
+ ● 점검: pnpm --filter @ara/react test 통과",확인
+T-000079,W-000008,TextField v0 Comp,문서/스토리북,Stories/MDX,완료,Medium," ● 내용: Playground, Sizes, States(Disabled/ReadOnly/Invalid), WithPrefixSuffix, Clearable, Password, Form Submit 데모
+ ● 산출물: stories 및 MDX
+ ● 점검: build-storybook 스모크",확인
+T-000080,W-000008,TextField v0 Comp,통합,Icons/Layouts/Form 통합 스모크,완료,Medium," ● 내용: prefix/suffix 아이콘(@ara/react/icon), Stack/Grid와 폼 예제, Button과 조합 제출 시나리오
+ ● 산출물: showcase 또는 stories
+ ● 점검: 회귀 없음",확인
+T-000081,W-000008,TextField v0 Comp,빌드/출하,Exports/Types 계약 점검,완료,High," ● 내용: @ara/react/text-field 서브패스, sideEffects:false, types/exports 해상도, pack --dry-run
+ ● 산출물: package.json exports 맵·d.ts
+ ● 점검: pnpm --filter @ara/react pack --dry-run 결과 확인",확인
+T-000082,W-000008,TextField v0 Comp,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가 및 canary 배포 드라이런, 릴리스 노트에 계약/범위/제한(텍스트에어리어/마스킹 제외) 명시
+ ● 산출물: canary 태그·설치 확인 메모
+ ● 점검: 설치/임포트/간단 사용 예 검증",확인
+T-000083,W-000009,Form Controls v0 Comp,계약/설계,API 계약 정의(Form Controls),완료,High," ● 목적: Checkbox/CheckboxGroup, Radio/RadioGroup, Switch의 Props·이벤트·상태(data-state)·Exports 경로 고정
+ ● 산출물: 각 README.md(계약 섹션) 초안
+ ● 점검: 리뷰 승인 후 계약 동결(변경=Major)",확인
+T-000084,W-000009,Form Controls v0 Comp,코어(headless),useCheckbox 로직,완료,High," ● 내용: checked/indeterminate 관리, label/description id 연결, 스페이스/클릭 토글, disabled/readOnly 차단
+ ● 산출물: packages/core/use-checkbox + 유닛 테스트 골격
+ ● 점검: pnpm --filter @ara/core test 통과",확인
+T-000085,W-000009,Form Controls v0 Comp,코어(headless),useRadio/useRadioGroup 로직,완료,High," ● 내용: 단일 선택·name 공유·로빙 탭인덱스, 화살표(←→/↑↓)로 이동·스페이스로 확정, orientation 지원
+ ● 산출물: packages/core/use-radio, use-radio-group + 테스트 골격
+ ● 점검: 그룹 내 키보드 내비게이션 시나리오 통과",확인
+T-000086,W-000009,Form Controls v0 Comp,코어(headless),useSwitch 로직,완료,High," ● 내용: checkbox语義 기반 토글을 role=""switch""+aria-checked로 노출(폼 제출은 input[type=checkbox] 재사용)
+ ● 산출물: packages/core/use-switch + 테스트 골격
+ ● 점검: role/aria 일치·폼 값 반영",확인
+T-000087,W-000009,Form Controls v0 Comp,React 구현,Checkbox 구현,완료,High," ● 내용: 숨김 input+커스텀 UI; data-state=""checked|unchecked|indeterminate""; indeterminate는 DOM 프로퍼티로 설정; label 클릭 연동
+ ● 산출물: packages/react/src/components/checkbox/index.ts
+ ● 점검: ref 포워딩·Props 스냅·indeterminate 표시",확인
+T-000088,W-000009,Form Controls v0 Comp,React 구현,Radio/RadioGroup 구현,완료,High," ● 내용: <RadioGroup> 컨텍스트·로빙 탭인덱스·화살표 이동; <Radio> 아이템 구현; aria-labelledby/role=""radiogroup""
+ ● 산출물: packages/react/src/components/radio/{group,item}.tsx
+ ● 점검: 키보드 이동·단일 선택 보장",확인
+T-000089,W-000009,Form Controls v0 Comp,React 구현,Switch 구현,완료,High," ● 내용: 트랙/썸 구조, 키보드 스페이스/클릭 토글, role=""switch""·aria-checked 적용, className 병합
+ ● 산출물: packages/react/src/components/switch/index.tsx
+ ● 점검: 포커스 링·상태 전환 스냅",확인
+T-000090,W-000009,Form Controls v0 Comp,접근성/A11y,Label/ARIA/키보드 규정 적용,완료,High," ● 내용: label-for/id 연결, aria-describedby(error/helper) 연결, required/invalid 반영, 그룹 role/라벨링 규칙 문서화
+ ● 산출물: A11y 가이드와 테스트 케이스
+ ● 점검: 스크린리더 라벨/에러 읽힘·탭 순서 정상",확인
+T-000091,W-000009,Form Controls v0 Comp,폼 연동,네이티브 폼 제출/리셋/이름 규약,완료,Medium," ● 내용: name/value 제출·defaultChecked/checked 동작, form reset 대응, Radio name 강제, Switch의 폼 값 전략
+ ● 산출물: 폼 가이드 및 예시
+ ● 점검: 네이티브 submit/reset 시나리오 통과",확인
+T-000092,W-000009,Form Controls v0 Comp,토큰/스타일,상태/사이즈 토큰 매핑,완료,Medium," ● 내용: size(sm|md|lg)·tone(primary/neutral/danger)·상태(normal/hover/focus/disabled/invalid) CSS 변수(--ara-*) 정의
+ ● 산출물: 토큰 매핑표·data-* 스타일 훅
+ ● 점검: ThemeProvider 변경 시 일관 반영",확인
+T-000093,W-000009,Form Controls v0 Comp,테스트,Vitest+RTL 상호작용 테스트,완료,High," ● 내용: Checkbox 토글/indeterminate 유지, Radio 그룹 화살표 내비게이션·단일 선택, Switch role/aria-checked, 폼 제출/리셋
+ ● 산출물: 테스트 스위트
+ ● 점검: pnpm --filter @ara/react test 통과",확인
+T-000094,W-000009,Form Controls v0 Comp,문서/스토리북,Stories/MDX,완료,Medium," ● 내용: Checkbox(기본/indeterminate/그룹)·Radio(가로/세로 그룹)·Switch(상태/크기) 데모, Controls·A11y 노트
+ ● 산출물: stories 및 MDX
+ ● 점검: build-storybook 스모크",확인
+T-000095,W-000009,Form Controls v0 Comp,통합,Icons/Layout/Form 통합 스모크,완료,Medium," ● 내용: 체크 표시/라디오 도트 아이콘 연동(@ara/react/icon), Stack/Grid 배치, 폼 제출 예제
+ ● 산출물: showcase 또는 stories
+ ● 점검: 회귀 없음",확인
+T-000096,W-000009,Form Controls v0 Comp,빌드/출하,Exports/Types 계약 점검,완료,High," ● 내용: @ara/react/{checkbox,radio,switch} 서브패스, sideEffects:false, types/exports 해상도, pack --dry-run
+ ● 산출물: package.json exports 맵·d.ts
+ ● 점검: pnpm --filter @ara/react pack --dry-run",확인
+T-000097,W-000009,Form Controls v0 Comp,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가·canary 배포 드라이런, 릴리스 노트에 계약/범위(폼 기본 컨트롤) 명시
+ ● 산출물: canary 태그·설치 확인 메모
+ ● 점검: 설치/임포트/간단 사용 예 검증",확인
+T-000098,W-000010,Overlay Primitives v0,계약/설계,오버레이 계약·스택 정책 확정,완료,High," ● 목적: Portal/FocusTrap/Positioner/DismissableLayer의 API·이벤트·중첩 스택 정책(최상단만 ESC/외부클릭 처리) 확정
+ ● 산출물: core/react 오버레이 README(계약)
+ ● 점검: 리뷰 승인 후 계약 동결(변경=Major)",확인
+T-000099,W-000010,Overlay Primitives v0,코어(headless),usePortal(SSR-safe) 구현,완료,High," ● 내용: SSR-safe 컨테이너 생성(문서 미존재 시 지연), 사용자 제공 컨테이너 우선, 언마운트 시 정리
+ ● 산출물: packages/core/overlays/use-portal.ts
+ ● 점검: SSR 스모크·컨테이너 누수 0",확인
+T-000100,W-000010,Overlay Primitives v0,코어(headless),useFocusTrap/FocusReturn 구현,완료,High," ● 내용: 포커스 센티널·탭 이동 루프·초점 진입/복귀·비활성 시 해제; 다중 트랩 중 최상단만 활성
+ ● 산출물: packages/core/overlays/use-focus-trap.ts
+ ● 점검: 탭 순환·언마운트 시 원포커스 복귀",확인
+T-000101,W-000010,Overlay Primitives v0,코어(headless),useDismissableLayer 구현,완료,High," ● 내용: 바깥 클릭/포인터다운·포커스아웃·ESC 핸들러; 캡쳐 단계 처리·내부 포인터 캔슬 예외; 스택 최상단만 반응
+ ● 산출물: packages/core/src/overlays/use-dismissable-layer.ts
+ ● 점검: 중첩 오버레이 상호작용 충돌 0",확인
+T-000102,W-000010,Overlay Primitives v0,코어(headless),usePositioner(앵커 배치) 구현,완료,High," ● 내용: anchor↔floating 배치(placement: top/bottom/left/right + start/center/end), offset/flip/shift, resize/scroll 옵저버
+ ● 산출물: packages/core/overlays/use-positioner.ts
+ ● 점검: 스크롤/리사이즈 시 위치 유지",확인
+T-000103,W-000010,Overlay Primitives v0,React 바인딩,Portal 컴포넌트 구현,완료,High," ● 내용: <Portal container>·children·disablePortal 옵션; className 병합
+ ● 산출물: packages/react/src/components/portal/index.tsx + README
+ ● 점검: SSR/StrictMode 스모크",확인
+T-000104,W-000010,Overlay Primitives v0,React 바인딩,FocusTrap 컴포넌트 구현,완료,High," ● 내용: <FocusTrap active initialFocus restoreFocus>·포커스 센티널 자동 구성
+ ● 산출물: packages/react/src/components/focus-trap/index.tsx
+ ● 점검: 탭 루프·복귀 확인",확인
+T-000105,W-000010,Overlay Primitives v0,React 바인딩,DismissableLayer 컴포넌트 구현,완료,High," ● 내용: <DismissableLayer onDismiss disableOutsidePointerEvents>·중첩 스택 연동
+ ● 산출물: packages/react/src/components/dismissable-layer/index.tsx
+ ● 점검: ESC/외부클릭·내부 드래그 예외",확인
+T-000106,W-000010,Overlay Primitives v0,React 바인딩,Positioner 컴포넌트/훅 구현,완료,High," ● 내용: <Positioner anchorRef placement offset strategy(absolute|fixed) withArrow>·스타일 훅(data-placement)
+ ● 산출물: packages/react/src/components/positioner/index.tsx
+ ● 점검: 배치/플립/시프트 스냅",확인
+T-000107,W-000010,Overlay Primitives v0,접근성/A11y,배경 inert/aria-hidden·ESC 규정,완료,High," ● 내용: 모달 시 배경 inert 또는 aria-hidden 관리, ESC 시 닫힘 이벤트 계약, 포커스 트랩과 충돌 방지
+ ● 산출물: A11y 가이드/테스트
+ ● 점검: 스크린리더/키보드 시나리오 통과",확인
+T-000108,W-000010,Overlay Primitives v0,스크롤/레이어,ScrollLock·Z-Index 토큰,완료,Medium," ● 내용: body 스크롤 락(터치 이동 포함)·여러 락 중복 카운팅; z-index 토큰 스케일과 레이어 합의
+ ● 산출물: scroll-lock 유틸·토큰/가이드
+ ● 점검: 모바일 터치 스크롤 락 정상",확인
+T-000109,W-000010,Overlay Primitives v0,테스트,Vitest+RTL 상호작용 테스트,완료,High," ● 내용: 포커스 트랩/복귀, 외부클릭/ESC, 배치 업데이트, 스크롤 락; 중첩 스택 우선순위
+ ● 산출물: 테스트 스위트
+ ● 점검: pnpm --filter @ara/* test 통과",확인
+T-000110,W-000010,Overlay Primitives v0,문서/스토리북,Stories/MDX(각 프리미티브),완료,Medium," ● 내용: Portal/FocusTrap/Positioner/DismissableLayer 데모; 중첩/스크롤/배치 컨트롤
+ ● 산출물: stories 및 MDX
+ ● 점검: build-storybook 스모크",확인
+T-000111,W-000010,Overlay Primitives v0,통합,메뉴/다이얼로그 예비 스모크,완료,Medium," ● 내용: Button 토글로 메뉴/모달 모의 구성(오버레이 프리미티브 조합)·회귀 체크
+ ● 산출물: showcase 또는 stories
+ ● 점검: 스택/포커스/스크롤 정상",확인
+T-000112,W-000010,Overlay Primitives v0,빌드/출하,Exports/Types 계약 점검,완료,High," ● 내용: @ara/react/{portal,focus-trap,positioner,dismissable-layer} 서브패스, sideEffects:false, types/exports 해상도
+ ● 산출물: package.json exports 맵·d.ts
+ ● 점검: pnpm --filter @ara/react pack --dry-run",확인
+T-000113,W-000010,Overlay Primitives v0,릴리스,Changesets 프리릴리스(canary),완료,High," ● 내용: changeset 추가·canary 배포 드라이런, 릴리스 노트에 계약/제약(모달 자체는 W-000012) 명시
+ ● 산출물: canary 태그·설치 확인 메모
+ ● 점검: 설치/임포트/간단 사용 예 검증",확인
+T-000114,W-000010,Overlay Primitives v0,코어(headless),오버레이 스택/Scope 매니저,완료,High," ● 내용: 오버레이 등록/정렬 관리(최상단 판단), ESC/포인터아웃/포커스아웃 이벤트 공유 훅, 배경 inert/aria-hidden 연동 포인트 정의
+ ● 산출물: packages/core/overlays/stack.ts 및 사용 가이드
+ ● 점검: 중첩 오버레이 간 포커스/닫힘 충돌 0",확인

@@ -1,11 +1,75 @@
 WBSID,Tier,Name,Status,Progress(%),Description,ETC
-W-000001,T1,개발환경설정,완료,100,Ara Project를 위한 개발 환경설정 ● IDE: VS Code (Git Bash 터미널) ● OS: Windows (CRLF 가드) ●  Lang/런타임: React + TypeScript + Node 22 LTS ●  패키지/모노레포: pnpm + Corepack / pnpm workspaces + Changesets ●  빌드/테스트/문서: Vite(dev) + Rollup(lib) / Vitest + RTL / Storybook ● 린트/포맷: ESLint(Flat) + Prettier ● 형상관리: GitHub (리포 공개 or GPT 열람 가능한 미러) ● 라인엔딩/훅: .gitattributes( LF ) + .editorconfig + commit-msg(amend) 훅 유지,--
-W-000002,T1,Git 규범/가드,완료,100,"Git 규범/가드 ● 새 작업: 브랜치 생성 → 코드 작성(에디터가 .editorconfig 적용). ● 커밋: 템플릿이 형식 유도, 훅이 규칙 검사(필요 시 amend). ● 커밋 가드: COMMIT_TEMPLATE + commit-msg(amend) 훅 GPT 검증 완료. ● PR: PR 템플릿 채움 → CODEOWNERS 자동 리뷰 요청 → CI가 pnpm 설치 검증(추후 test/build도). ● Merge: 보호 규칙 충족 시만 main 병합. ● 릴리스: Changesets 누적분을 액션이 읽어 버전/CHANGELOG/배포 자동화(세팅 후)",--
-W-000003,T1,모노레포 스캐폴딩,완료,100,pnpm 모노레포 기준선을 구축 ● workspaces 선언 ● 공통 tsconfig/ESLint/Changesets 패키지 ● 핵심 UI 패키지 및 앱 골격 ● 빌드·테스트 스크립트 공유 ● README 구조 업데이트까지 일괄 정비.,--
-W-000004,T1,Button v0 Comp,완료,100,Button v0 ● 설계문서 : root/packages/react/src/components/button/README.md ● tokens→core→react 종단간 검증 ● a11y·테스트·문서·Exports 고정 ● 디자인 승인 체크리스트 및 쇼케이스 시나리오 포함 ● canary 프리릴리스 포함 ● 범위: 일반 버튼/링크(토글 제외) ● AC: CI 통과·Tests 통과·Storybook build·ESM+types import·canary 발행·디자인 승인,--
-W-000005,T1,Tokens & ThemeProvider v1,완료,100,"Tokens v1 & ThemeProvider ● 설계문서          - root/packages/tokens/README.md          - root/packages/react/src/components/theme-provider/README.md ● 색상·타이포·간격 토큰 정의 → CSS 변수화 및 사이즈 스케일 고정 ● ThemeProvider: light/dark 테마, CSS vars 주입, 사용자 오버라이드 API ● a11y/국제화: prefers-color-scheme, RTL 안전, 포커스 링 토큰 ● Storybook 문서/Controls 포함 ● Exports: @ara/tokens, @ara/react/theme-provider (ESM+types) ● AC: CI 통과·Storybook build·ESM+types import·테마 스위치 데모·canary 발행",
-W-000006,T1,Icons v0,완료,100,"Icons v0 ● 설계문서 : root/packages/icons/README.md · root/packages/react/src/components/icon/README.md ● SVG→TS 파이프라인(svgo+generator), 1아이콘=1엔트리(tree-shaking), 최적화 전후 diff 캡처 ● React <Icon> 계약(size/tone/stroke|filled) + a11y(aria-hidden 기본, title 시 role=img+aria-labelledby) ● Tokens 연동(size·color), ThemeProvider 상속(currentColor) 및 우선순위 가이드/테스트 ● Exports/배포: @ara/icons(개별/집합) · @ara/react/icon, check:icons(dry-run+lint)·CI 해상도 검증 ● 문서/스토리북: 아이콘 갤러리 Controls 기본값, 시각 회귀 스냅샷 옵션, 접근성 예시 포함 ● AC: CI·Tests·Storybook·pack dry-run·canary",--
-W-000007,T1,Layout Primitives v0,완료,100,Layout Primitives v0 ● Stack·Flex·Grid·Spacer ● 간격/정렬/래핑/분배 API ● responsive props(sm/md/lg…) ● RTL·SSR 안전 ● Exports 고정 ● AC: CI/Tests/Storybook/pack/canary,--
-W-000008,T1,TextField v0 Comp,완료,100,TextField v0 ● 설계문서 : root/packages/react/src/components/text-field/README.md ● 범위: 단일라인 입력(type: text|email|password|number) — textarea/마스킹은 제외 ● tokens→core(useTextField)→react 바인딩; label/helper/error; prefix/suffix; clear; password 토글 ● a11y: label 연결·aria-describedby(error/helper)·aria-invalid/required; IME(조합) 안전·Enter onCommit ● Storybook/테스트/Exports 고정; canary 프리릴리스 포함 ● AC: CI·Tests·Storybook·ESM+types·라벨/에러 연결·IME/Enter 시나리오 통과,--
-W-000009,T1,Form Controls v0 Comp,완료,100,"Form Controls v0 ● 설계문서 : root/packages/react/src/components/{checkbox,radio,switch}/README.md ● 범위: Checkbox(+indeterminate)/CheckboxGroup · Radio/RadioGroup · Switch(토글) ● a11y: label 연결·aria-checked/indeterminate·Radio 그룹 화살표 내비게이션(로빙 탭인덱스) ● 폼: name/value 제출·reset 대응·controlled/uncontrolled ● Storybook/테스트/Exports 고정; canary 포함 ● AC: CI·Tests·Storybook·ESM+types·폼 제출/키보드 시나리오 통과",--
-W-000010,T1,Overlay Primitives v0,완료,100,Overlay Primitives v0 ● 설계문서 : root/packages/core/overlays/README.md · root/packages/react/src/components/overlays/README.md ● 범위: Portal · FocusTrap · Positioner · DismissableLayer(+ScrollLock/Stack) ● a11y: 포커스 트랩/복귀·배경 inert/aria-hidden·ESC/바깥 클릭·SSR-safe ● AC: CI·Tests·Storybook·ESM+types·pack dry-run·canary,--
+W-000001,T1,개발환경설정,완료,100,"Ara Project를 위한 개발 환경설정
+ ● IDE: VS Code (Git Bash 터미널)
+ ● OS: Windows (CRLF 가드)
+ ●  Lang/런타임: React + TypeScript + Node 22 LTS
+ ●  패키지/모노레포: pnpm + Corepack / pnpm workspaces + Changesets
+ ●  빌드/테스트/문서: Vite(dev) + Rollup(lib) / Vitest + RTL / Storybook
+ ● 린트/포맷: ESLint(Flat) + Prettier
+ ● 형상관리: GitHub (리포 공개 or GPT 열람 가능한 미러)
+ ● 라인엔딩/훅: .gitattributes( LF ) + .editorconfig + commit-msg(amend) 훅 유지",--
+W-000002,T1,Git 규범/가드,완료,100,"Git 규범/가드
+ ● 새 작업: 브랜치 생성 → 코드 작성(에디터가 .editorconfig 적용).
+ ● 커밋: 템플릿이 형식 유도, 훅이 규칙 검사(필요 시 amend).
+ ● 커밋 가드: COMMIT_TEMPLATE + commit-msg(amend) 훅 GPT 검증 완료.
+ ● PR: PR 템플릿 채움 → CODEOWNERS 자동 리뷰 요청 → CI가 pnpm 설치 검증(추후 test/build도).
+ ● Merge: 보호 규칙 충족 시만 main 병합.
+ ● 릴리스: Changesets 누적분을 액션이 읽어 버전/CHANGELOG/배포 자동화(세팅 후)",--
+W-000003,T1,모노레포 스캐폴딩,완료,100,"pnpm 모노레포 기준선을 구축
+ ● workspaces 선언
+ ● 공통 tsconfig/ESLint/Changesets 패키지
+ ● 핵심 UI 패키지 및 앱 골격
+ ● 빌드·테스트 스크립트 공유
+ ● README 구조 업데이트까지 일괄 정비.",--
+W-000004,T1,Button v0 Comp,완료,100,"Button v0
+ ● 설계문서 : root/packages/react/src/components/button/README.md
+ ● tokens→core→react 종단간 검증
+ ● a11y·테스트·문서·Exports 고정
+ ● 디자인 승인 체크리스트 및 쇼케이스 시나리오 포함
+ ● canary 프리릴리스 포함
+ ● 범위: 일반 버튼/링크(토글 제외)
+ ● AC: CI 통과·Tests 통과·Storybook build·ESM+types import·canary 발행·디자인 승인",--
+W-000005,T1,Tokens & ThemeProvider v1,완료,100,"Tokens v1 & ThemeProvider
+ ● 설계문서
+          - root/packages/tokens/README.md
+          - root/packages/react/src/components/theme-provider/README.md
+ ● 색상·타이포·간격 토큰 정의 → CSS 변수화 및 사이즈 스케일 고정
+ ● ThemeProvider: light/dark 테마, CSS vars 주입, 사용자 오버라이드 API
+ ● a11y/국제화: prefers-color-scheme, RTL 안전, 포커스 링 토큰
+ ● Storybook 문서/Controls 포함
+ ● Exports: @ara/tokens, @ara/react/theme-provider (ESM+types)
+ ● AC: CI 통과·Storybook build·ESM+types import·테마 스위치 데모·canary 발행",
+W-000006,T1,Icons v0,완료,100,"Icons v0
+ ● 설계문서 : root/packages/icons/README.md · root/packages/react/src/components/icon/README.md
+ ● SVG→TS 파이프라인(svgo+generator), 1아이콘=1엔트리(tree-shaking), 최적화 전후 diff 캡처
+ ● React <Icon> 계약(size/tone/stroke|filled) + a11y(aria-hidden 기본, title 시 role=img+aria-labelledby)
+ ● Tokens 연동(size·color), ThemeProvider 상속(currentColor) 및 우선순위 가이드/테스트
+ ● Exports/배포: @ara/icons(개별/집합) · @ara/react/icon, check:icons(dry-run+lint)·CI 해상도 검증
+ ● 문서/스토리북: 아이콘 갤러리 Controls 기본값, 시각 회귀 스냅샷 옵션, 접근성 예시 포함
+ ● AC: CI·Tests·Storybook·pack dry-run·canary",--
+W-000007,T1,Layout Primitives v0,완료,100,"Layout Primitives v0
+ ● Stack·Flex·Grid·Spacer
+ ● 간격/정렬/래핑/분배 API
+ ● responsive props(sm/md/lg…)
+ ● RTL·SSR 안전
+ ● Exports 고정
+ ● AC: CI/Tests/Storybook/pack/canary",--
+W-000008,T1,TextField v0 Comp,완료,100,"TextField v0
+ ● 설계문서 : root/packages/react/src/components/text-field/README.md
+ ● 범위: 단일라인 입력(type: text|email|password|number) — textarea/마스킹은 제외
+ ● tokens→core(useTextField)→react 바인딩; label/helper/error; prefix/suffix; clear; password 토글
+ ● a11y: label 연결·aria-describedby(error/helper)·aria-invalid/required; IME(조합) 안전·Enter onCommit
+ ● Storybook/테스트/Exports 고정; canary 프리릴리스 포함
+ ● AC: CI·Tests·Storybook·ESM+types·라벨/에러 연결·IME/Enter 시나리오 통과",--
+W-000009,T1,Form Controls v0 Comp,완료,100,"Form Controls v0
+ ● 설계문서 : root/packages/react/src/components/{checkbox,radio,switch}/README.md
+ ● 범위: Checkbox(+indeterminate)/CheckboxGroup · Radio/RadioGroup · Switch(토글)
+ ● a11y: label 연결·aria-checked/indeterminate·Radio 그룹 화살표 내비게이션(로빙 탭인덱스)
+ ● 폼: name/value 제출·reset 대응·controlled/uncontrolled
+ ● Storybook/테스트/Exports 고정; canary 포함
+ ● AC: CI·Tests·Storybook·ESM+types·폼 제출/키보드 시나리오 통과",--
+W-000010,T1,Overlay Primitives v0,완료,100,"Overlay Primitives v0
+ ● 설계문서 : root/packages/core/overlays/README.md · root/packages/react/src/components/overlays/README.md
+ ● 범위: Portal · FocusTrap · Positioner · DismissableLayer(+ScrollLock/Stack)
+ ● a11y: 포커스 트랩/복귀·배경 inert/aria-hidden·ESC/바깥 클릭·SSR-safe
+ ● AC: CI·Tests·Storybook·ESM+types·pack dry-run·canary",--
