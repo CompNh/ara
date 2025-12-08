@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from "react";
 
+import { overlayStack } from "./stack.js";
+
 export interface UseDismissableLayerOptions {
   readonly active?: boolean;
   readonly container?: HTMLElement | null;
@@ -20,50 +22,6 @@ export interface DismissableLayerContainerProps {
 export interface DismissableLayerEvent<T extends Event = Event> {
   readonly type: "escape-key" | "pointer-down-outside" | "focus-outside";
   readonly originalEvent: T;
-}
-
-type DismissableLayerEntry = { readonly id: symbol; node: HTMLElement | null };
-
-const dismissableLayerStack: Array<DismissableLayerEntry> = [];
-
-function pushLayer(entry: DismissableLayerEntry) {
-  dismissableLayerStack.push(entry);
-}
-
-function removeLayer(id: symbol) {
-  const index = dismissableLayerStack.findIndex((entry) => entry.id === id);
-  if (index >= 0) {
-    dismissableLayerStack.splice(index, 1);
-  }
-}
-
-function updateLayerNode(id: symbol, node: HTMLElement | null) {
-  const entry = dismissableLayerStack.find((item) => item.id === id);
-  if (entry) {
-    entry.node = node;
-  }
-}
-
-function getTopLayerId(): symbol | undefined {
-  let top: DismissableLayerEntry | undefined;
-
-  for (const entry of dismissableLayerStack) {
-    const entryNode = entry.node;
-    if (!entryNode) continue;
-
-    const isAncestor = dismissableLayerStack.some(
-      (other) => other.id !== entry.id && other.node && entryNode.contains(other.node)
-    );
-
-    if (isAncestor) continue;
-    top = entry;
-  }
-
-  return top?.id;
-}
-
-function isTopLayer(id: symbol): boolean {
-  return getTopLayerId() === id;
 }
 
 export function useDismissableLayer(options: UseDismissableLayerOptions = {}): UseDismissableLayerResult {
@@ -89,7 +47,7 @@ export function useDismissableLayer(options: UseDismissableLayerOptions = {}): U
   const setContainer = useCallback(
     (node: HTMLElement | null) => {
       setContainerNode(node);
-      updateLayerNode(layerId, node);
+      overlayStack.updateNode(layerId, node);
     },
     [layerId]
   );
@@ -97,7 +55,7 @@ export function useDismissableLayer(options: UseDismissableLayerOptions = {}): U
   useLayoutEffect(() => {
     if (!active) return undefined;
 
-    pushLayer({ id: layerId, node: resolvedContainer ?? null });
+    overlayStack.register(layerId, resolvedContainer ?? null);
 
     const dismiss = <TEvent extends Event>(type: DismissableLayerEvent["type"], event: TEvent) => {
       if (dismissedInFrameRef.current) return;
@@ -112,7 +70,7 @@ export function useDismissableLayer(options: UseDismissableLayerOptions = {}): U
     };
 
     const handleEscapeKeyDown = (event: KeyboardEvent) => {
-      if (event.key !== "Escape" || !isTopLayer(layerId)) return;
+      if (event.key !== "Escape" || !overlayStack.isTop(layerId)) return;
 
       onEscapeKeyDownRef.current?.(event);
       if (event.defaultPrevented) return;
@@ -121,7 +79,7 @@ export function useDismissableLayer(options: UseDismissableLayerOptions = {}): U
     };
 
     const handlePointerDown = (event: PointerEvent) => {
-      if (!isTopLayer(layerId)) return;
+      if (!overlayStack.isTop(layerId)) return;
       const target = event.target as Node | null;
       if (resolvedContainer && target && resolvedContainer.contains(target)) return;
 
@@ -133,7 +91,7 @@ export function useDismissableLayer(options: UseDismissableLayerOptions = {}): U
     };
 
     const handleFocusIn = (event: FocusEvent) => {
-      if (!isTopLayer(layerId)) return;
+      if (!overlayStack.isTop(layerId)) return;
       const target = event.target as Node | null;
       if (resolvedContainer && target && resolvedContainer.contains(target)) return;
 
@@ -153,7 +111,7 @@ export function useDismissableLayer(options: UseDismissableLayerOptions = {}): U
     document.addEventListener("focusin", handleFocusIn, true);
 
     return () => {
-      removeLayer(layerId);
+      overlayStack.unregister(layerId);
       document.removeEventListener("keydown", handleEscapeKeyDown, true);
       document.removeEventListener("pointerdown", handlePointerDown, true);
       document.removeEventListener("focusin", handleFocusIn, true);
