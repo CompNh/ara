@@ -373,3 +373,156 @@ export const DismissableLayerStack: Story = {
   parameters: { controls: { disable: true } },
   render: () => <DismissableLayerStackStory />
 };
+
+function OverlaySmokeStory() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const anchorRef = useRef<HTMLButtonElement | null>(null);
+  const floatingRef = useRef<HTMLDivElement | null>(null);
+  const confirmRef = useRef<HTMLButtonElement | null>(null);
+
+  const { anchorProps, floatingProps } = usePositioner({
+    anchorRef,
+    floatingRef,
+    placement: "bottom-start",
+    offset: 8,
+    strategy: "fixed",
+    withArrow: true
+  });
+
+  const { ref: floatingRefCallback, style: floatingStyle, ...floatingRestProps } = floatingProps;
+
+  const handleMenuToggle = () => {
+    setMenuOpen((previous) => !previous);
+  };
+
+  const handleDialogOpen = () => {
+    setMenuOpen(false);
+    setDialogOpen(true);
+  };
+
+  const handleDialogClose = () => setDialogOpen(false);
+
+  return (
+    <Stack gap="md" style={{ maxWidth: "720px" }}>
+      <div style={{ color: "var(--ara-color-text-muted, #475569)" }}>
+        버튼으로 메뉴와 모달을 각각 열어 오버레이 프리미티브가 함께 작동하는지 스모크 테스트합니다.
+        포커스 순환, 배경 차단, 스택 순서가 자연스럽게 동작해야 합니다.
+      </div>
+
+      <Stack orientation="horizontal" gap="sm">
+        <Button
+          {...anchorProps}
+          ref={anchorRef}
+          aria-expanded={menuOpen}
+          aria-controls="overlay-smoke-menu"
+          onClick={handleMenuToggle}
+        >
+          메뉴 토글
+        </Button>
+        <Button variant="outline" onClick={handleDialogOpen}>
+          모달 열기
+        </Button>
+      </Stack>
+
+      <div style={{ position: "relative", minHeight: "180px" }}>
+        <div
+          style={{
+            ...surfaceStyle,
+            padding: "1rem",
+            height: "100%",
+            overflow: "auto"
+          }}
+        >
+          <Stack gap="xs">
+            <div style={{ fontWeight: 700 }}>백그라운드 콘텐츠</div>
+            <div style={{ color: "var(--ara-color-text-muted, #475569)" }}>
+              ESC 키로 닫히는지, 백드롭에서 포커스가 빠져나가는지 등을 확인하며 상호작용을 반복해 보세요.
+            </div>
+            <div>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat, neque vitae gravida luctus, neque
+              dui congue nisi, quis tincidunt odio nisi vel massa. Integer sed nibh sed justo scelerisque facilisis.
+            </div>
+            <div>
+              Curabitur ac metus sit amet lacus malesuada viverra. Quisque vel urna vel dui suscipit condimentum sed at
+              nisl. Aenean sed elementum augue, ut aliquam massa.
+            </div>
+          </Stack>
+        </div>
+
+        {menuOpen ? (
+          <DismissableLayer
+            {...floatingRestProps}
+            id="overlay-smoke-menu"
+            disableOutsidePointerEvents
+            ref={(node) => {
+              floatingRef.current = node;
+              floatingRefCallback(node);
+            }}
+            onDismiss={() => setMenuOpen(false)}
+            style={{
+              ...bubbleStyle,
+              ...floatingStyle,
+              width: 240,
+              display: "grid",
+              gap: "0.5rem",
+              zIndex: 30
+            }}
+          >
+            <div style={{ fontWeight: 700 }}>빠른 액션</div>
+            <Button size="sm" variant="ghost" onClick={handleDialogOpen}>
+              모달로 이동
+            </Button>
+            <Button size="sm" variant="ghost" onClick={() => setMenuOpen(false)}>
+              메뉴 닫기
+            </Button>
+          </DismissableLayer>
+        ) : null}
+      </div>
+
+      {dialogOpen ? (
+        <Portal>
+          <div style={{ ...overlayBackdrop, zIndex: 25 }}>
+            <FocusTrap restoreFocus initialFocus={() => confirmRef.current}>
+              <DismissableLayer
+                disableOutsidePointerEvents
+                onDismiss={handleDialogClose}
+                style={{
+                  ...surfaceStyle,
+                  padding: "1.5rem",
+                  width: "min(520px, 100%)",
+                  maxHeight: "80vh",
+                  overflow: "auto"
+                }}
+              >
+                <Stack gap="sm">
+                  <div style={{ fontWeight: 800 }}>모달 포커스/스크롤 확인</div>
+                  <div style={{ color: "var(--ara-color-text-muted, #475569)" }}>
+                    Tab 키로 버튼과 입력 필드를 순회하면서 포커스가 모달 내부에 갇히는지 확인하세요. 배경은 스크림으로 차단됩니다.
+                  </div>
+                  <TextField label="이메일" placeholder="name@example.com" />
+                  <TextField label="메모" placeholder="내용을 입력하세요" />
+                  <Stack orientation="horizontal" gap="sm" justify="end">
+                    <Button variant="ghost" onClick={handleDialogClose}>
+                      취소
+                    </Button>
+                    <Button ref={confirmRef} onClick={handleDialogClose}>
+                      확인
+                    </Button>
+                  </Stack>
+                </Stack>
+              </DismissableLayer>
+            </FocusTrap>
+          </div>
+        </Portal>
+      ) : null}
+    </Stack>
+  );
+}
+
+export const OverlaySmoke: Story = {
+  name: "메뉴·모달 스모크 조합",
+  parameters: { controls: { disable: true } },
+  render: () => <OverlaySmokeStory />
+};
