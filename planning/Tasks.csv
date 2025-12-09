@@ -372,7 +372,7 @@ T-000117,W-000011,Anchored Overlays v0 Comp,코어(headless),useTypeahead(메뉴
 T-000118,W-000011,Anchored Overlays v0 Comp,코어(headless),useRovingFocus(그룹 포커스),완료,High," ● 내용: roving tabIndex(하나만 0), Arrow/Home/End 이동, disabled 스킵
  ● 산출물: packages/core/overlays/use-roving-focus.ts
  ● 점검: 포커스 이동 스냅·테스트",확인
-T-000119,W-000011,Anchored Overlays v0 Comp,코어(headless),useMenu/useMenuItem/useMenuTrigger,계획,High," ● 내용: role=""menu|menuitem""·aria-activedescendant·서브메뉴 1-depth 오픈 지연·ESC/Left close·포커스 리턴
+T-000119,W-000011,Anchored Overlays v0 Comp,코어(headless),useMenu/useMenuItem/useMenuTrigger,완료,High," ● 내용: role=""menu|menuitem""·aria-activedescendant·서브메뉴 1-depth 오픈 지연·ESC/Left close·포커스 리턴
  ● 산출물: packages/core/overlays/use-menu*.ts
  ● 점검: 중첩 메뉴 충돌 0",확인
 T-000120,W-000011,Anchored Overlays v0 Comp,React 구현,Tooltip 구현,계획,High," ● 내용: trigger(hover|focus)·openDelay/closeDelay·aria-describedby·포커스 트랩 없음·Positioner 연동
