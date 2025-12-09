@@ -73,7 +73,7 @@ W-000010,T1,Overlay Primitives v0,완료,100,"Overlay Primitives v0
  ● 범위: Portal · FocusTrap · Positioner · DismissableLayer(+ScrollLock/Stack)
  ● a11y: 포커스 트랩/복귀·배경 inert/aria-hidden·ESC/바깥 클릭·SSR-safe
  ● AC: CI·Tests·Storybook·ESM+types·pack dry-run·canary",--
-W-000011,T1,Anchored Overlays v0 Comp,진행,35,"Anchored Overlays v0 (Tooltip/Popover/Menu)
+W-000011,T1,Anchored Overlays v0 Comp,진행,55,"Anchored Overlays v0 (Tooltip/Popover/Menu)
  ● 설계문서 : root/packages/react/src/components/{tooltip,popover,menu}/README.md (+ core/overlays 가이드)
  ● 범위: Tooltip(hover/focus 지연) · Popover(button-trigger) · Menu(MenuButton+MenuItem, roving+typeahead, 서브메뉴 1-depth)
  ● a11y: aria-describedby(role=tooltip) 타이밍; role=""menu|menuitem"" 키보드(Arrow/Home/End/Typeahead)·포커스 리턴; ESC/바깥클릭 dismiss
