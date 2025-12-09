@@ -52,6 +52,11 @@
       "import": "./dist/overlays/use-positioner.js",
       "default": "./dist/overlays/use-positioner.js"
     },
+    "./overlays/use-hover-intent": {
+      "types": "./dist/overlays/use-hover-intent.d.ts",
+      "import": "./dist/overlays/use-hover-intent.js",
+      "default": "./dist/overlays/use-hover-intent.js"
+    },
     "./overlays/use-scroll-lock": {
       "types": "./dist/overlays/use-scroll-lock.d.ts",
       "import": "./dist/overlays/use-scroll-lock.js",
@@ -96,6 +101,9 @@
       ],
       "overlays/use-positioner": [
         "dist/overlays/use-positioner.d.ts"
+      ],
+      "overlays/use-hover-intent": [
+        "dist/overlays/use-hover-intent.d.ts"
       ],
       "overlays/use-scroll-lock": [
         "dist/overlays/use-scroll-lock.d.ts"
