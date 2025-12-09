@@ -9,5 +9,6 @@ export * from "./radio/index.js";
 export * from "./switch/index.js";
 export * from "./spacer/index.js";
 export * from "./positioner/index.js";
+export * from "./tooltip/index.js";
 export * from "./theme-provider/index.js";
 export * from "./text-field/index.js";
