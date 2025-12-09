@@ -360,3 +360,60 @@ T-000113,W-000010,Overlay Primitives v0,릴리스,Changesets 프리릴리스(can
 T-000114,W-000010,Overlay Primitives v0,코어(headless),오버레이 스택/Scope 매니저,완료,High," ● 내용: 오버레이 등록/정렬 관리(최상단 판단), ESC/포인터아웃/포커스아웃 이벤트 공유 훅, 배경 inert/aria-hidden 연동 포인트 정의
  ● 산출물: packages/core/overlays/stack.ts 및 사용 가이드
  ● 점검: 중첩 오버레이 간 포커스/닫힘 충돌 0",확인
+T-000115,W-000011,Anchored Overlays v0 Comp,계약/설계,Anchored Overlays 계약/네이밍 확정,계획,High," ● 목적: Tooltip/Popover/Menu의 Props·이벤트·Exports 경로(@ara/react/{tooltip,popover,menu})·용어(placement/offset/trigger) 고정
+ ● 산출물: 각 README.md(계약) 초안
+ ● 점검: 리뷰 승인 후 계약 동결(변경=Major)",확인
+T-000116,W-000011,Anchored Overlays v0 Comp,코어(headless),useHoverIntent(지연·안정 구간),계획,High," ● 내용: hover openDelay/closeDelay, 포인터 안정 임계값(예: 50ms)·포인터 safe polygon 지원
+ ● 산출물: packages/core/overlays/use-hover-intent.ts
+ ● 점검: 지연·안정 동작 스냅/테스트",확인
+T-000117,W-000011,Anchored Overlays v0 Comp,코어(headless),useTypeahead(메뉴 타이핑 이동),계획,High," ● 내용: 영문/한글 초성 대응은 제외(문서화)·연속 타이핑 타임아웃(예: 700ms)·순회 검색
+ ● 산출물: packages/core/overlays/use-typeahead.ts
+ ● 점검: 키 이벤트 시나리오 통과",확인
+T-000118,W-000011,Anchored Overlays v0 Comp,코어(headless),useRovingFocus(그룹 포커스),계획,High," ● 내용: roving tabIndex(하나만 0), Arrow/Home/End 이동, disabled 스킵
+ ● 산출물: packages/core/overlays/use-roving-focus.ts
+ ● 점검: 포커스 이동 스냅·테스트",확인
+T-000119,W-000011,Anchored Overlays v0 Comp,코어(headless),useMenu/useMenuItem/useMenuTrigger,계획,High," ● 내용: role=""menu|menuitem""·aria-activedescendant·서브메뉴 1-depth 오픈 지연·ESC/Left close·포커스 리턴
+ ● 산출물: packages/core/overlays/use-menu*.ts
+ ● 점검: 중첩 메뉴 충돌 0",확인
+T-000120,W-000011,Anchored Overlays v0 Comp,React 구현,Tooltip 구현,계획,High," ● 내용: trigger(hover|focus)·openDelay/closeDelay·aria-describedby·포커스 트랩 없음·Positioner 연동
+ ● 산출물: packages/react/src/components/tooltip/index.tsx + README
+ ● 점검: 키보드 포커스/마우스 호버 시나리오",확인
+T-000121,W-000011,Anchored Overlays v0 Comp,React 구현,Popover 구현,계획,High," ● 내용: Button 트리거·토글/외부 클릭 dismiss·FocusReturn·Positioner(placement/offset/flip/shift)
+ ● 산출물: packages/react/src/components/popover/index.tsx
+ ● 점검: 포커스 복귀·배치 스냅",확인
+T-000122,W-000011,Anchored Overlays v0 Comp,React 구현,Menu/MenuItem/MenuGroup/Separator,계획,High," ● 내용: MenuButton·MenuList·MenuItem 조합, roving+typeahead, 서브메뉴 1-depth, disabled/checked 항목
+ ● 산출물: packages/react/src/components/menu/*
+ ● 점검: 키보드 내비·타이핑 이동·서브메뉴 지연",확인
+T-000123,W-000011,Anchored Overlays v0 Comp,접근성/A11y,ARIA·타이밍·해제 규정,계획,High," ● 내용: Tooltip 표시 지연 최소 300ms 권고·focus-out/blur 해제, Menu role/라벨링·포커스 리턴·ESC/바깥클릭 계약
+ ● 산출물: A11y 가이드/테스트
+ ● 점검: 스크린리더/키보드 시나리오 통과",확인
+T-000124,W-000011,Anchored Overlays v0 Comp,포지셔닝/해제,Positioner/Pointer-safe 연동,계획,High," ● 내용: flip/shift 충돌 회피·anchor 이동시 재계산·pointer-safe polygon로 빠른 경로 이동 방지
+ ● 산출물: 연동 가이드/유틸
+ ● 점검: 스크롤/리사이즈/포인터 경로 시나리오",확인
+T-000125,W-000011,Anchored Overlays v0 Comp,상호작용,Dismiss 조합 및 포커스 리턴,계획,High," ● 내용: ESC/바깥클릭/포커스아웃 조합 우선순위·서브메뉴→부모로 리턴·트리거 복귀
+ ● 산출물: 상호작용 표·테스트
+ ● 점검: 중첩 케이스 회귀 0",확인
+T-000126,W-000011,Anchored Overlays v0 Comp,토큰/스타일,Elevation/Radius/Animation 토큰 매핑,계획,Medium," ● 내용: 그림자·반경·애니메이션(duration/easing) CSS 변수(--ara-ov-*)·data-placement 훅
+ ● 산출물: 스타일 가이드/예시
+ ● 점검: ThemeProvider 변경 시 일관",확인
+T-000127,W-000011,Anchored Overlays v0 Comp,테스트,Vitest+RTL 상호작용 테스트,계획,High," ● 내용: hover 지연·focus 경로·typeahead·roving·서브메뉴·dismiss·Positioner 플립/시프트
+ ● 산출물: 테스트 스위트
+ ● 점검: pnpm --filter @ara/react test 통과",확인
+T-000128,W-000011,Anchored Overlays v0 Comp,문서/스토리북,Stories/MDX,계획,Medium," ● 내용: Tooltip(지연/포커스)·Popover(폼 내)·Menu(키보드/타이핑/서브) 데모·Controls
+ ● 산출물: stories 및 MDX
+ ● 점검: build-storybook 스모크",확인
+T-000129,W-000011,Anchored Overlays v0 Comp,통합,Button/Layouts와 통합 스모크,계획,Medium," ● 내용: Button 트리거·Stack/Grid 배치·Form과 조합(예: 옵션 선택)
+ ● 산출물: showcase 또는 stories
+ ● 점검: 회귀 없음",확인
+T-000130,W-000011,Anchored Overlays v0 Comp,빌드/출하,Exports/Types 계약 점검,계획,High," ● 내용: @ara/react/{tooltip,popover,menu} 서브패스·sideEffects:false·types/exports 해상도·pack --dry-run
+ ● 산출물: package.json exports 맵·d.ts
+ ● 점검: pnpm --filter @ara/react pack --dry-run",확인
+T-000131,W-000011,Anchored Overlays v0 Comp,릴리스,Changesets 프리릴리스(canary),계획,High," ● 내용: changeset 추가·canary 배포 드라이런, 릴리스 노트에 계약/범위/제약(서브메뉴 1-depth) 명시
+ ● 산출물: canary 태그·설치 확인 메모
+ ● 점검: 설치/임포트/간단 사용 예 검증",확인
+T-000132,W-000011,Anchored Overlays v0 Comp,문서/가이드,코어/React README·가이드 동기화,계획,Medium," ● 내용: core/overlays README에 hover intent·roving·typeahead·menu 계약 추가, React README에서 제한(한글 초성 미지원·서브메뉴 1-depth)과 timing 권고 명시
+ ● 산출물: core/overlays 및 react 컴포넌트 README 보강
+ ● 점검: 계약/제약이 양쪽 문서에서 일관하게 서술",확인
+T-000133,W-000011,Anchored Overlays v0 Comp,호환성/SSR,SSR·StrictMode 스모크/문서,계획,Medium," ● 내용: Tooltip/Popover/Menu의 SSR-safe portal·hydration 호환 시나리오 정리, StrictMode 더블 렌더 안전성 스모크
+ ● 산출물: SSR/StrictMode 가이드 및 체크리스트
+ ● 점검: SSR+StrictMode 데모 실행/문서 검토",확인
