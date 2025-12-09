@@ -84,6 +84,12 @@ export type {
 } from "./overlays/use-positioner.js";
 export { usePositioner } from "./overlays/use-positioner.js";
 export type {
+  HoverIntentTargetProps,
+  UseHoverIntentOptions,
+  UseHoverIntentResult
+} from "./overlays/use-hover-intent.js";
+export { useHoverIntent } from "./overlays/use-hover-intent.js";
+export type {
   FocusGuardProps,
   FocusTrapContainerProps,
   UseFocusTrapOptions,
