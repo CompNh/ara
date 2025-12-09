@@ -109,3 +109,13 @@ export type {
   UseRovingFocusResult
 } from "./overlays/use-roving-focus.js";
 export { useRovingFocus } from "./overlays/use-roving-focus.js";
+export type {
+  MenuItemRegistration,
+  UseMenuOptions,
+  UseMenuResult
+} from "./overlays/use-menu.js";
+export { useMenu } from "./overlays/use-menu.js";
+export type { UseMenuItemOptions, UseMenuItemResult } from "./overlays/use-menu-item.js";
+export { useMenuItem } from "./overlays/use-menu-item.js";
+export type { UseMenuTriggerOptions, UseMenuTriggerResult } from "./overlays/use-menu-trigger.js";
+export { useMenuTrigger } from "./overlays/use-menu-trigger.js";
