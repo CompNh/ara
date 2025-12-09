@@ -4,6 +4,7 @@
 > 범위: 간단한 정보성 풍선 도움말. 키보드/포인터 트리거만 허용, **상호작용형(popover) UI는 제외**.
 
 ## 1) 목적 / 범위
+
 - **목적:** Anchored overlay 계열 컴포넌트의 계약(Props/동작/A11y/Exports)을 Tooltip에서 확정한다.
 - **성공 기준:** Trigger/Content/Arrow 계약과 타이밍(openDelay/closeDelay), 포지셔닝 옵션(placement/offset)이 본 문서와 일치하고 이후 구현·스토리·테스트가 이를 준수한다.
 
@@ -18,7 +19,7 @@
 | **open** | boolean | — | 제어 모드. 존재 시 모든 열림/닫힘은 상위에서 관리하며, 내부 상태를 사용하지 않는다. |
 | **defaultOpen** | boolean | false | 비제어 초기값. 이후 상태는 내부에서 관리된다. |
 | **onOpenChange** | `(open: boolean) => void` | — | 열림 상태가 바뀔 때 호출. 제어/비제어 모두에서 발화. |
-| **placement** | `Placement` (`top|bottom|left|right` + `-start|center|end`) | `top-start` | 콘텐츠가 기준(anchor) 대비 배치될 위치. `@ara/core/use-positioner` 타입 그대로 사용한다. |
+| **placement** | `Placement` (`top\|bottom\|left\|right` + `-start\|center\|end`) | `top-start` | 콘텐츠가 기준(anchor) 대비 배치될 위치. `@ara/core/use-positioner` 타입 그대로 사용한다. |
 | **offset** | number | 8 | 기준 요소와 풍선 사이의 간격(px). |
 | **strategy** | `"absolute" \| "fixed"` | "absolute" | 포지셔닝 전략. 스크롤 컨테이너 내 고정이 필요하면 `fixed` 사용. |
 | **withArrow** | boolean | false | true이면 `TooltipArrow`를 렌더하고 Positioner에서 화살표 위치 계산을 요청한다. |
@@ -50,11 +51,13 @@
 | **asChild** | boolean | false | 사용자 정의 래퍼로 치환할 때 사용(예: 애니메이션 컴포넌트). |
 
 ### TooltipArrow (선택)
+
 - 별도 Props 없음. `withArrow`가 true일 때만 렌더하며, `usePositioner`에서 제공하는 `data-side`/`data-align`/`style`을 그대로 적용한다.
 
 ---
 
 ## 3) 동작 계약 (Behavior)
+
 - **열림 트리거:**
   - 포인터 `mouseenter`/`pointerenter` → `openDelay` 후 열림. `disabled` 또는 `TooltipTrigger.disabled`면 무시.
   - 키보드 `focusin` → 즉시 열림. 포커스가 유지되는 동안만 표시.
@@ -69,6 +72,7 @@
 ---
 
 ## 4) 접근성 계약 (A11y)
+
 - **역할/연결:** 콘텐츠는 `role="tooltip"`을 사용하고, 트리거에 `aria-describedby={contentId}`를 설정한다.
 - **키보드:** 포커스 진입 시 바로 노출하며, 포커스 아웃/ESC에서 닫힌다. 포커스 링은 트리거에만 노출되고 콘텐츠에는 포커스 가능 요소를 넣지 않는다.
 - **레이블:** 텍스트 없는 아이콘 트리거는 `aria-label` 또는 외부 `aria-labelledby`를 제공해야 한다.
@@ -78,6 +82,7 @@
 ---
 
 ## 5) 컴포지션 / 슬롯
+
 - 구조: `Tooltip`(상태) → `TooltipTrigger`(anchor) → `TooltipContent`(+ `TooltipArrow` 선택).
 - 스타일 훅: `data-state="open|closed"`, `data-side`, `data-align`, `data-placement` 등을 콘텐츠/화살표에 노출해 CSS 제어를 돕는다.
 - Portal/Positioner/외부 Theme Provider와 병합 가능해야 한다.
@@ -85,6 +90,7 @@
 ---
 
 ## 6) Exports 계약
+
 - **@ara/react**
   - `@ara/react/tooltip` → `Tooltip`, `TooltipTrigger`, `TooltipContent`, `TooltipArrow`, 관련 Props/Context 타입
 - **package.json (react 패키지)**
@@ -94,5 +100,6 @@
 ---
 
 ## 7) 테스트/스토리 요구
+
 - 트리거 hover/focus/ESC 닫힘 시나리오 스냅 및 RTL/포털 환경 검증.
 - `placement`/`offset`/`withArrow` 옵션별 시각 스냅샷과 키보드 접근성 검사(aria-describedby 연결) 준비.

@@ -19,7 +19,7 @@
 | **open** | boolean | — | 제어 모드 열림 상태. |
 | **defaultOpen** | boolean | false | 비제어 초기값. |
 | **onOpenChange** | `(open: boolean) => void` | — | 열림/닫힘 전환 시 호출. |
-| **placement** | `Placement` (`top|bottom|left|right` + `-start|center|end`) | `bottom-start` | 리스트가 트리거 대비 놓일 위치. |
+| **placement** | `Placement` (`top\|bottom\|left\|right` + `-start\|center\|end`) | `bottom-start` | 리스트가 트리거 대비 놓일 위치. |
 | **offset** | number | 6 | 앵커와 리스트 간격(px). |
 | **strategy** | `"absolute" \| "fixed"` | "absolute" | 포지셔닝 전략. |
 | **openOnHover** | boolean | false | true이면 hover로도 오픈(서브메뉴 포함). 기본은 click/press 전용. |

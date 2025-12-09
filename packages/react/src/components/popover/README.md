@@ -4,6 +4,7 @@
 > 범위: 앵커에 붙는 작은 대화상자. 간단한 폼/버튼 등 **인터랙티브 콘텐츠**를 포함하지만 전체 모달/드로어는 제외.
 
 ## 1) 목적 / 범위
+
 - **목적:** Anchored overlay 제품군 중 상호작용형 팝오버의 Props/동작/A11y/Exports를 정의한다.
 - **성공 기준:** Trigger/Content/Arrow/Close 슬롯과 상태(open)·포지셔닝(placement/offset)·해제 규칙(ESC/바깥클릭)이 합의되고, 이후 구현/스토리/테스트가 이를 준수한다.
 
@@ -18,7 +19,7 @@
 | **open** | boolean | — | 제어 모드. 상위가 열림/닫힘을 직접 관리. |
 | **defaultOpen** | boolean | false | 비제어 초기 열림 여부. |
 | **onOpenChange** | `(open: boolean) => void` | — | 상태가 변할 때 호출. 제어/비제어 공통. |
-| **placement** | `Placement` (`top|bottom|left|right` + `-start|center|end`) | `bottom-start` | 앵커 대비 배치 위치. `@ara/core/use-positioner`와 동일. |
+| **placement** | `Placement` (`top\|bottom\|left\|right` + `-start\|center\|end`) | `bottom-start` | 앵커 대비 배치 위치. `@ara/core/use-positioner`와 동일. |
 | **offset** | number | 8 | 앵커와 콘텐츠 사이 간격(px). |
 | **strategy** | `"absolute" \| "fixed"` | "absolute" | 포지셔닝 전략. 스크롤 고정 시 `fixed`. |
 | **withArrow** | boolean | false | true일 때 `PopoverArrow` 렌더. |
@@ -51,6 +52,7 @@
 | **asChild** | boolean | false | 사용자 정의 래퍼 사용 시. |
 
 ### PopoverArrow / PopoverClose / PopoverHeader / PopoverBody / PopoverFooter
+
 - **PopoverArrow:** Props 없음. `withArrow` true일 때 사용하며 Positioner `data-side/align`/`style` 적용.
 - **PopoverClose:** `asChild` 지원, 클릭/press 시 닫기. 기본 role=button/`aria-label="Close"` 권장.
 - **PopoverHeader/Body/Footer:** 시맨틱 래퍼. Header id를 자동으로 생성해 Content의 `aria-labelledby`에 병합한다.
@@ -58,6 +60,7 @@
 ---
 
 ## 3) 동작 계약 (Behavior)
+
 - **토글:** Trigger press(Click/Enter/Space) 시 `open` ↔ `closed`. 제어 모드에서는 `onOpenChange`만 호출하고 실제 상태는 상위가 유지.
 - **닫힘:**
   - `closeOnEscape`가 true이면 ESC keyup으로 닫고, `onOpenChange(false)` 호출.
@@ -72,6 +75,7 @@
 ---
 
 ## 4) 접근성 계약 (A11y)
+
 - **역할:** 콘텐츠는 기본적으로 `role="dialog"`(modal=true 시 `aria-modal="true"`). 비모달 시에도 `aria-modal`은 false로 유지하되 dismiss 규칙을 동일하게 적용.
 - **연결:** Trigger에는 `aria-haspopup="dialog"`와 `aria-controls={contentId}`를 설정하고, 열림 상태에 따라 `aria-expanded`를 업데이트한다.
 - **레이블링:** Header가 있으면 그 id를 `aria-labelledby`에 병합. Header가 없을 때는 `aria-label` 제공 필수. Body 텍스트는 `aria-describedby`에 포함 가능.
@@ -81,6 +85,7 @@
 ---
 
 ## 5) 컴포지션 / 슬롯
+
 - 구조: `Popover` → `PopoverTrigger` → `PopoverContent` (+ `PopoverHeader`/`Body`/`Footer`/`PopoverClose`/`PopoverArrow`).
 - 스타일 훅: `data-state`, `data-side`, `data-align`, `data-placement`, `data-modal` 등을 콘텐츠/화살표에 노출.
 - DismissableLayer/Portal/FocusTrap/Positioner를 내부에서 조합하되, `asChild`를 통해 애니메이션 래퍼와 병합 가능.
@@ -88,6 +93,7 @@
 ---
 
 ## 6) Exports 계약
+
 - **@ara/react**
   - `@ara/react/popover` → `Popover`, `PopoverTrigger`, `PopoverContent`, `PopoverArrow`, `PopoverClose`, `PopoverHeader`, `PopoverBody`, `PopoverFooter` 및 Props 타입
 - **package.json (react 패키지)**
@@ -97,5 +103,6 @@
 ---
 
 ## 7) 테스트/스토리 요구
+
 - Trigger press 토글, ESC/외부 클릭/포커스 아웃 닫힘, `modal` 포커스 트랩 시나리오에 대한 RTL/Vitest 스냅.
 - `placement`/`offset`/`withArrow` 조합 시각 회귀, `aria-expanded`/`aria-controls` 연결 검증.
