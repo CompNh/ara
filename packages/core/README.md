@@ -26,6 +26,10 @@ const theme = createTheme({
 
 테마 객체는 `@ara/tokens`이 제공하는 기본 토큰을 기반으로 하며, React 등의 바인딩 레이어에서 그대로 사용할 수 있습니다.
 
+### 유틸리티 훅
+
+- `overlays/useTypeahead`: 키보드로 빠르게 입력된 문자열을 버퍼링해 일치하는 항목을 찾아주는 훅입니다. 기본 타임아웃은 700ms이며, 영문 기준 접두 검색만 지원하고 한글 초성 매칭은 제공하지 않습니다.
+
 ## Testing
 
 - ✅ pnpm --filter @ara/core build
