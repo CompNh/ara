@@ -96,3 +96,9 @@ export type {
   UseFocusTrapResult
 } from "./overlays/use-focus-trap.js";
 export { useFocusTrap } from "./overlays/use-focus-trap.js";
+export type {
+  TypeaheadItem,
+  UseTypeaheadOptions,
+  UseTypeaheadResult
+} from "./use-typeahead.js";
+export { useTypeahead } from "./use-typeahead.js";
