@@ -360,7 +360,7 @@ T-000113,W-000010,Overlay Primitives v0,릴리스,Changesets 프리릴리스(can
 T-000114,W-000010,Overlay Primitives v0,코어(headless),오버레이 스택/Scope 매니저,완료,High," ● 내용: 오버레이 등록/정렬 관리(최상단 판단), ESC/포인터아웃/포커스아웃 이벤트 공유 훅, 배경 inert/aria-hidden 연동 포인트 정의
  ● 산출물: packages/core/overlays/stack.ts 및 사용 가이드
  ● 점검: 중첩 오버레이 간 포커스/닫힘 충돌 0",확인
-T-000115,W-000011,Anchored Overlays v0 Comp,계약/설계,Anchored Overlays 계약/네이밍 확정,계획,High," ● 목적: Tooltip/Popover/Menu의 Props·이벤트·Exports 경로(@ara/react/{tooltip,popover,menu})·용어(placement/offset/trigger) 고정
+T-000115,W-000011,Anchored Overlays v0 Comp,계약/설계,Anchored Overlays 계약/네이밍 확정,완료,High," ● 목적: Tooltip/Popover/Menu의 Props·이벤트·Exports 경로(@ara/react/{tooltip,popover,menu})·용어(placement/offset/trigger) 고정
  ● 산출물: 각 README.md(계약) 초안
  ● 점검: 리뷰 승인 후 계약 동결(변경=Major)",확인
 T-000116,W-000011,Anchored Overlays v0 Comp,코어(headless),useHoverIntent(지연·안정 구간),계획,High," ● 내용: hover openDelay/closeDelay, 포인터 안정 임계값(예: 50ms)·포인터 safe polygon 지원
