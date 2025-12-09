@@ -100,5 +100,5 @@ export type {
   TypeaheadItem,
   UseTypeaheadOptions,
   UseTypeaheadResult
-} from "./use-typeahead.js";
-export { useTypeahead } from "./use-typeahead.js";
+} from "./overlays/use-typeahead.js";
+export { useTypeahead } from "./overlays/use-typeahead.js";

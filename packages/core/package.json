@@ -62,6 +62,11 @@
       "import": "./dist/overlays/use-scroll-lock.js",
       "default": "./dist/overlays/use-scroll-lock.js"
     },
+    "./overlays/use-typeahead": {
+      "types": "./dist/overlays/use-typeahead.d.ts",
+      "import": "./dist/overlays/use-typeahead.js",
+      "default": "./dist/overlays/use-typeahead.js"
+    },
     "./use-switch": {
       "types": "./dist/use-switch.d.ts",
       "import": "./dist/use-switch.js",
@@ -112,6 +117,9 @@
       ],
       "overlays/use-scroll-lock": [
         "dist/overlays/use-scroll-lock.d.ts"
+      ],
+      "overlays/use-typeahead": [
+        "dist/overlays/use-typeahead.d.ts"
       ],
       "use-button": [
         "dist/use-button.d.ts"
