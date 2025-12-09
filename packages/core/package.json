@@ -72,6 +72,11 @@
       "import": "./dist/use-switch.js",
       "default": "./dist/use-switch.js"
     },
+    "./use-typeahead": {
+      "types": "./dist/use-typeahead.d.ts",
+      "import": "./dist/use-typeahead.js",
+      "default": "./dist/use-typeahead.js"
+    },
     "./use-text-field": {
       "types": "./dist/use-text-field.d.ts",
       "import": "./dist/use-text-field.js",
@@ -124,6 +129,9 @@
       ],
       "use-switch": [
         "dist/use-switch.d.ts"
+      ],
+      "use-typeahead": [
+        "dist/use-typeahead.d.ts"
       ],
       "use-text-field": [
         "dist/use-text-field.d.ts"
