@@ -4,6 +4,7 @@
 > 범위: 단일 레벨+1-depth 서브메뉴를 지원하는 컨텍스트/버튼 드롭다운 메뉴. Command palette/Select는 별도 컴포넌트.
 
 ## 1) 목적 / 범위
+
 - **목적:** Anchored overlay 중 키보드 내비게이션/선택 중심 메뉴의 계약을 정의한다.
 - **성공 기준:** Trigger/List/Item/Group/Separator/Submenu 계약과 roving focus/typeahead/닫힘 규칙이 합의되고, 이후 구현·테스트·스토리가 이를 따른다.
 
@@ -56,12 +57,14 @@
 | **MenuRadioItem** | `value: string`, `disabled?: boolean`, `shortcut?` | `role="menuitemradio"`. 선택 시 그룹 value를 변경하고 필요 시 닫힘. |
 
 ### MenuGroup / MenuLabel / MenuSeparator / MenuArrow
+
 - **MenuGroup:** 관련 항목 묶음. `aria-labelledby`로 Label id와 연결.
 - **MenuLabel:** 그룹 제목. 자동 id를 생성해 그룹에 전달.
 - **MenuSeparator:** 구분선(`role="separator"`).
 - **MenuArrow:** Positioner arrow props 사용. 필요한 경우만 렌더.
 
 ### MenuSub / MenuSubTrigger / MenuSubContent (1-depth 서브메뉴)
+
 - **MenuSub:** 서브메뉴 상태 컨텍스트. 별도 Props 없음, 부모 Menu의 placement/offset을 기본 상속하되 `placement="right-start"`를 기본으로 사용.
 - **MenuSubTrigger:** 부모 MenuItem 역할 + `aria-haspopup="menu"`, `aria-expanded` 관리. hover 또는 방향키 Right로 열림, Left/ESC로 닫힘.
 - **MenuSubContent:** 서브 리스트. `closeDelay`(기본 150ms) 동안 pointer-safe polygon 지원을 염두에 둔다. 포지셔닝은 `usePositioner`를 재사용.
@@ -69,6 +72,7 @@
 ---
 
 ## 3) 동작 계약 (Behavior)
+
 - **열림:** Trigger press(Click/Enter/Space) 기본. `openOnHover` true이면 hover/포인터 진입 시 `openDelay`(기본 150ms) 후 열림.
 - **닫힘:**
   - ESC 또는 `closeOnInteractOutside`(기본 true)로 외부 클릭 시 닫힘.
@@ -83,6 +87,7 @@
 ---
 
 ## 4) 접근성 계약 (A11y)
+
 - **역할:** Trigger `aria-haspopup="menu"` + `aria-expanded`. Content `role="menu"`, Item `role="menuitem"`/`menuitemcheckbox`/`menuitemradio`.
 - **레이블링:** Trigger는 레이블 필요. MenuContent는 `aria-labelledby`(Label/외부 id) 또는 `aria-label`로 이름을 가져야 한다. Group/Label을 통한 서브 레이블 연결.
 - **포커스 관리:** 메뉴가 열릴 때 첫 활성 항목에 포커스, 닫힐 때 Trigger로 복귀. 포커스 트랩은 사용하지 않지만 Tab키는 메뉴를 닫고 다음 포커스로 이동하도록 한다.
@@ -94,6 +99,7 @@
 ---
 
 ## 5) 컴포지션 / 슬롯
+
 - 구조: `Menu` → `MenuTrigger` → `MenuContent` → (`MenuItem` | `MenuCheckboxItem` | `MenuRadioGroup`→`MenuRadioItem` | `MenuGroup`→`MenuLabel`/`MenuItem` | `MenuSeparator` | `MenuSub`→`MenuSubTrigger`+`MenuSubContent`).
 - 데이터 속성: `data-state`, `data-disabled`, `data-highlighted`(focus된 항목), `data-checked`, `data-submenu-open`, `data-side`/`data-align`.
 - Portal/Positioner/DismissableLayer와 조합 가능, `asChild`로 애니메이션 래퍼에 위임.
@@ -101,6 +107,7 @@
 ---
 
 ## 6) Exports 계약
+
 - **@ara/react**
   - `@ara/react/menu` → `Menu`, `MenuTrigger`, `MenuContent`, `MenuItem`, `MenuCheckboxItem`, `MenuRadioGroup`, `MenuRadioItem`, `MenuGroup`, `MenuLabel`, `MenuSeparator`, `MenuArrow`, `MenuSub`, `MenuSubTrigger`, `MenuSubContent` 및 Props 타입
 - **package.json (react 패키지)**
@@ -110,5 +117,6 @@
 ---
 
 ## 7) 테스트/스토리 요구
+
 - 키보드 내비게이션(Arrow/Home/End/Enter/Space/ESC)과 typeahead 버퍼링 시나리오 검증.
 - `closeOnSelect`/`openOnHover`/서브메뉴 지연 등의 상호작용 스냅, RTL/Portal 환경에서 포지셔닝/aria 연결 확인.
