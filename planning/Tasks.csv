@@ -363,7 +363,7 @@ T-000114,W-000010,Overlay Primitives v0,코어(headless),오버레이 스택/Sco
 T-000115,W-000011,Anchored Overlays v0 Comp,계약/설계,Anchored Overlays 계약/네이밍 확정,완료,High," ● 목적: Tooltip/Popover/Menu의 Props·이벤트·Exports 경로(@ara/react/{tooltip,popover,menu})·용어(placement/offset/trigger) 고정
  ● 산출물: 각 README.md(계약) 초안
  ● 점검: 리뷰 승인 후 계약 동결(변경=Major)",확인
-T-000116,W-000011,Anchored Overlays v0 Comp,코어(headless),useHoverIntent(지연·안정 구간),계획,High," ● 내용: hover openDelay/closeDelay, 포인터 안정 임계값(예: 50ms)·포인터 safe polygon 지원
+T-000116,W-000011,Anchored Overlays v0 Comp,코어(headless),useHoverIntent(지연·안정 구간),완료,High," ● 내용: hover openDelay/closeDelay, 포인터 안정 임계값(예: 50ms)·포인터 safe polygon 지원
  ● 산출물: packages/core/overlays/use-hover-intent.ts
  ● 점검: 지연·안정 동작 스냅/테스트",확인
 T-000117,W-000011,Anchored Overlays v0 Comp,코어(headless),useTypeahead(메뉴 타이핑 이동),계획,High," ● 내용: 영문/한글 초성 대응은 제외(문서화)·연속 타이핑 타임아웃(예: 700ms)·순회 검색
