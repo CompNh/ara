@@ -102,3 +102,10 @@ export type {
   UseTypeaheadResult
 } from "./overlays/use-typeahead.js";
 export { useTypeahead } from "./overlays/use-typeahead.js";
+export type {
+  RovingFocusItemController,
+  RovingFocusOrientation,
+  UseRovingFocusOptions,
+  UseRovingFocusResult
+} from "./overlays/use-roving-focus.js";
+export { useRovingFocus } from "./overlays/use-roving-focus.js";

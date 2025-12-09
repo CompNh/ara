@@ -369,7 +369,7 @@ T-000116,W-000011,Anchored Overlays v0 Comp,코어(headless),useHoverIntent(지�
 T-000117,W-000011,Anchored Overlays v0 Comp,코어(headless),useTypeahead(메뉴 타이핑 이동),완료,High," ● 내용: 영문/한글 초성 대응은 제외(문서화)·연속 타이핑 타임아웃(예: 700ms)·순회 검색
  ● 산출물: packages/core/overlays/use-typeahead.ts
  ● 점검: 키 이벤트 시나리오 통과",확인
-T-000118,W-000011,Anchored Overlays v0 Comp,코어(headless),useRovingFocus(그룹 포커스),계획,High," ● 내용: roving tabIndex(하나만 0), Arrow/Home/End 이동, disabled 스킵
+T-000118,W-000011,Anchored Overlays v0 Comp,코어(headless),useRovingFocus(그룹 포커스),완료,High," ● 내용: roving tabIndex(하나만 0), Arrow/Home/End 이동, disabled 스킵
  ● 산출물: packages/core/overlays/use-roving-focus.ts
  ● 점검: 포커스 이동 스냅·테스트",확인
 T-000119,W-000011,Anchored Overlays v0 Comp,코어(headless),useMenu/useMenuItem/useMenuTrigger,계획,High," ● 내용: role=""menu|menuitem""·aria-activedescendant·서브메뉴 1-depth 오픈 지연·ESC/Left close·포커스 리턴
