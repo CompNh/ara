@@ -3,7 +3,11 @@ import { afterEach, describe, expect, it } from "vitest";
 import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
 import { useEffect, useRef, useState } from "react";
 
-import { useRovingFocus, type UseRovingFocusResult } from "./use-roving-focus.js";
+import {
+  useRovingFocus,
+  type UseRovingFocusOptions,
+  type UseRovingFocusResult
+} from "./use-roving-focus.js";
 
 interface TestItem {
   readonly id: string;
@@ -13,7 +17,7 @@ interface TestItem {
 interface RovingListProps {
   readonly items: readonly TestItem[];
   readonly loop?: boolean;
-  readonly orientation?: Parameters<typeof useRovingFocus>[0]["orientation"];
+  readonly orientation?: UseRovingFocusOptions["orientation"];
 }
 
 function RovingList({ items, loop, orientation }: RovingListProps) {
