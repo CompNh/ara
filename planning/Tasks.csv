@@ -417,3 +417,57 @@ T-000132,W-000011,Anchored Overlays v0 Comp,문서/가이드,코어/React README
 T-000133,W-000011,Anchored Overlays v0 Comp,호환성/SSR,SSR·StrictMode 스모크/문서,계획,Medium," ● 내용: Tooltip/Popover/Menu의 SSR-safe portal·hydration 호환 시나리오 정리, StrictMode 더블 렌더 안전성 스모크
  ● 산출물: SSR/StrictMode 가이드 및 체크리스트
  ● 점검: SSR+StrictMode 데모 실행/문서 검토",확인
+T-000134,W-000012,Dialog/Drawer v0 Comp,계약/설계,API 계약 정의(Dialog/Drawer),계획,High," ● 목적: Props(open/defaultOpen/onOpenChange, initialFocus, restoreFocus, closeOnEsc, closeOnOutsideClick, size=sm|md|lg, title/description 슬롯, side=left|right|top|bottom(드로워), mount=portal) 고정
+ ● 산출물: packages/react/src/components/{dialog,drawer}/README.md 계약
+ ● 점검: 리뷰 승인 후 계약 동결(변경=Major)",확인
+T-000135,W-000012,Dialog/Drawer v0 Comp,코어(headless),모달 조립 훅(useModal) 구현,계획,High," ● 내용: Portal+FocusTrap+DismissableLayer+ScrollLock 조합, 스택 최상단만 ESC/외부클릭 처리, 포커스 진입/복귀
+ ● 산출물: packages/core/overlays/use-modal.ts
+ ● 점검: 탭 루프·복귀·중첩 스택 시나리오",확인
+T-000136,W-000012,Dialog/Drawer v0 Comp,React 구현,Dialog 구현(@ara/react/dialog),계획,High," ● 내용: Root/Overlay/Content/Header/Title/Description/Footer/Close 슬롯 구조; aria-labelledby/aria-describedby 연결; class 병합
+ ● 산출물: packages/react/src/components/dialog/*
+ ● 점검: ref 포워딩·Props 스냅",확인
+T-000137,W-000012,Dialog/Drawer v0 Comp,React 구현,Drawer 구현(@ara/react/drawer),계획,High," ● 내용: side(left|right|top|bottom)·scrim(Overlay)·trap/복귀; data-placement/data-state 스타일 훅
+ ● 산출물: packages/react/src/components/drawer/*
+ ● 점검: 사이드 전환·포커스/닫힘 시나리오",확인
+T-000138,W-000012,Dialog/Drawer v0 Comp,접근성/A11y,ARIA·라벨·포커스 규정,계획,High," ● 내용: role="dialog" aria-modal=true 적용, Title→aria-labelledby·Description→aria-describedby; Close 버튼 접근키(예: Esc만 문서화)
+ ● 산출물: A11y 가이드/테스트
+ ● 점검: 스크린리더 라벨/설명 읽힘·탭 순서 정상",확인
+T-000139,W-000012,Dialog/Drawer v0 Comp,상호작용,Dismiss 규칙·우선순위,계획,High," ● 내용: ESC/바깥클릭/포커스아웃 조합 우선순위; 최상단 모달만 반응; 내부 드래그 예외
+ ● 산출물: 상호작용 표·테스트
+ ● 점검: 중첩 케이스 회귀 0",확인
+T-000140,W-000012,Dialog/Drawer v0 Comp,스크롤/레이어,ScrollLock·배경 inert/aria-hidden,계획,High," ● 내용: body 스크롤 락(모바일 터치 포함) 중복 카운트; 배경 inert 또는 aria-hidden 관리
+ ● 산출물: 유틸/가이드
+ ● 점검: 스크롤 락 누수 0·배경 탐색 불가",확인
+T-000141,W-000012,Dialog/Drawer v0 Comp,애니메이션,열림/닫힘 전환 및 Reduced Motion,계획,Medium," ● 내용: data-state=open|closed 기반 CSS 전환; Drawer 방향별 슬라이드; prefers-reduced-motion 시 즉시 전환
+ ● 산출물: 스타일 가이드·예시
+ ● 점검: 시각 스냅·reduced-motion 확인",확인
+T-000142,W-000012,Dialog/Drawer v0 Comp,폼 연동,폼 요소/제출·리셋 동작,계획,Medium," ● 내용: 폼 내 Submit 시 포커스/닫힘 전략 가이드; 기본 버튼 엔터키 제출과 충돌 방지
+ ● 산출물: 폼 가이드 및 예시
+ ● 점검: 네이티브 submit/reset 시나리오",확인
+T-000143,W-000012,Dialog/Drawer v0 Comp,토큰/스타일,사이즈·Elevation·Backdrop 토큰,계획,Medium," ● 내용: size(sm|md|lg) 패딩/최대폭; 그림자/반경; backdrop 색/불투명도 CSS 변수(--ara-modal-*)
+ ● 산출물: 토큰 매핑표·data-* 훅
+ ● 점검: 테마 변경 시 일관 반영",확인
+T-000144,W-000012,Dialog/Drawer v0 Comp,테스트,Vitest+RTL 상호작용 테스트,계획,High," ● 내용: open/close 제어·초기포커스·복귀·ESC/외부클릭·중첩·ScrollLock; Drawer 방향별 포지션
+ ● 산출물: 테스트 스위트
+ ● 점검: pnpm --filter @ara/react test 통과",확인
+T-000145,W-000012,Dialog/Drawer v0 Comp,문서/스토리북,Stories/MDX(Dialog/Drawer),계획,Medium," ● 내용: Dialog(기본/사이즈/폼)·Drawer(4방향/스크롤 콘텐츠)·a11y 노트·Controls
+ ● 산출물: stories 및 MDX
+ ● 점검: build-storybook 스모크",확인
+T-000146,W-000012,Dialog/Drawer v0 Comp,통합,Anchored/Overlay와 통합 스모크,계획,Medium," ● 내용: Button 트리거→Dialog/Drawer; Popover/Menu와 동시 사용 시 스택 우선순위 확인
+ ● 산출물: showcase 또는 stories
+ ● 점검: 회귀 없음",확인
+T-000147,W-000012,Dialog/Drawer v0 Comp,빌드/출하,Exports/Types 계약 점검,계획,High," ● 내용: @ara/react/{dialog,drawer} 서브패스·sideEffects:false·types/exports 해상도·pack --dry-run
+ ● 산출물: package.json exports 맵·d.ts
+ ● 점검: pnpm --filter @ara/react pack --dry-run",확인
+T-000148,W-000012,Dialog/Drawer v0 Comp,릴리스,Changesets 프리릴리스(canary),계획,High," ● 내용: changeset 추가·canary 배포 드라이런, 릴리스 노트에 계약/범위/제약 명시
+ ● 산출물: canary 태그·설치 확인 메모
+ ● 점검: 설치/임포트/간단 사용 예 검증",확인
+T-000149,W-000012,Dialog/Drawer v0 Comp,품질게이트,RC 게이트(동결) 체크리스트,계획,High," ● 내용: CI·테스트·Storybook·a11y·드리프트(Props/Exports/토큰 키) 무변 동결, v1.0.0-rc 태깅 기준
+ ● 산출물: 게이트 문서(checklist.md)
+ ● 점검: RC 체크 전 항목 100% 충족",확인
+T-000150,W-000012,Dialog/Drawer v0 Comp,호환성/SSR,SSR·StrictMode 스모크/문서,계획,Medium," ● 내용: Portal/FocusTrap이 SSR+Hydration에서 안전하게 동작하는지, StrictMode 더블 렌더 시 포커스/스택 처리 안정성 확인
+ ● 산출물: SSR/StrictMode 가이드 및 스모크 테스트 시나리오
+ ● 점검: SSR+StrictMode 데모 실행/문서 검토",확인
+T-000151,W-000012,Dialog/Drawer v0 Comp,디자인 QA/리뷰,시각/모션 QA 및 디자인 사인오프,계획,Medium," ● 내용: size/backdrop/elevation/motion 토큰이 디자인 스펙과 일치하는지 시각 검증, prefers-reduced-motion 설정 시 즉시 종료 확인, 디자인팀 사인오프 기록
+ ● 산출물: QA 체크리스트 및 확인 로그
+ ● 점검: 디자인 리뷰 승인 및 모션/토큰 스냅샷 일치",확인
