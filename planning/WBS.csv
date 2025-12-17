@@ -79,3 +79,10 @@ W-000011,T1,Anchored Overlays v0 Comp,진행,55,"Anchored Overlays v0 (Tooltip/P
  ● a11y: aria-describedby(role=tooltip) 타이밍; role=""menu|menuitem"" 키보드(Arrow/Home/End/Typeahead)·포커스 리턴; ESC/바깥클릭 dismiss
  ● Positioner 연동: placement/offset/flip/shift, pointer-safe area, SSR-safe portal
  ● AC: CI·Tests·Storybook·ESM+types·pack dry-run·canary",--
+W-000012,T1,Dialog/Drawer v0 Comp,계획,0,"Dialog/Drawer v0
+ ● 설계문서 : root/packages/react/src/components/{dialog,drawer}/README.md
+ ● 범위: Modal Dialog(중앙) · Drawer(좌/우/상/하) — non-modal 제외
+ ● 기반: Portal/FocusTrap/DismissableLayer/ScrollLock 스택 재사용
+ ● a11y: role="dialog" aria-modal=true · aria-labelledby/aria-describedby · 초기포커스/포커스 복귀 · ESC/바깥클릭
+ ● UX: 헤더/본문/푸터 슬롯 · Close 버튼/단축키 · 사이즈(sm/md/lg) · 애니메이션(reduced-motion)
+ ● AC: CI·Tests·Storybook·ESM+types·pack dry-run·canary",--
