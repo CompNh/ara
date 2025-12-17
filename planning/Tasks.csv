@@ -429,7 +429,7 @@ T-000136,W-000012,Dialog/Drawer v0 Comp,React 구현,Dialog 구현(@ara/react/di
 T-000137,W-000012,Dialog/Drawer v0 Comp,React 구현,Drawer 구현(@ara/react/drawer),계획,High," ● 내용: side(left|right|top|bottom)·scrim(Overlay)·trap/복귀; data-placement/data-state 스타일 훅
  ● 산출물: packages/react/src/components/drawer/*
  ● 점검: 사이드 전환·포커스/닫힘 시나리오",확인
-T-000138,W-000012,Dialog/Drawer v0 Comp,접근성/A11y,ARIA·라벨·포커스 규정,계획,High," ● 내용: role="dialog" aria-modal=true 적용, Title→aria-labelledby·Description→aria-describedby; Close 버튼 접근키(예: Esc만 문서화)
+T-000138,W-000012,Dialog/Drawer v0 Comp,접근성/A11y,ARIA·라벨·포커스 규정,계획,High," ● 내용: role=dialog aria-modal=true 적용, Title→aria-labelledby·Description→aria-describedby; Close 버튼 접근키(예: Esc만 문서화)
  ● 산출물: A11y 가이드/테스트
  ● 점검: 스크린리더 라벨/설명 읽힘·탭 순서 정상",확인
 T-000139,W-000012,Dialog/Drawer v0 Comp,상호작용,Dismiss 규칙·우선순위,계획,High," ● 내용: ESC/바깥클릭/포커스아웃 조합 우선순위; 최상단 모달만 반응; 내부 드래그 예외
