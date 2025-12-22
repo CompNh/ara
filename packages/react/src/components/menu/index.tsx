@@ -586,7 +586,7 @@ export const MenuCheckboxItem = forwardRef<HTMLDivElement, MenuCheckboxItemCompo
   const { checked, onCheckedChange, onSelect, ...restProps } = props;
 
   const handleSelect = useCallback(
-    (event) => {
+    (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
       onSelect?.(event);
       onCheckedChange(!checked);
     },
@@ -650,7 +650,7 @@ export const MenuRadioItem = forwardRef<HTMLDivElement, MenuRadioItemComponentPr
   const checked = radioGroup.value === value;
 
   const handleSelect = useCallback(
-    (event) => {
+    (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
       onSelect?.(event);
       if (!checked) {
         radioGroup.onValueChange(value);
