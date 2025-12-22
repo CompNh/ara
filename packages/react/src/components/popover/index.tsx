@@ -9,6 +9,7 @@ import {
   useRef,
   useState,
   type ComponentPropsWithoutRef,
+  type CSSProperties,
   type HTMLAttributes,
   type MutableRefObject,
   type PropsWithChildren
@@ -234,13 +235,13 @@ export function Popover(props: PopoverRootProps): JSX.Element {
   );
 }
 
-type PopoverTriggerProps = PropsWithChildren<{
+type PopoverTriggerComponentProps = PropsWithChildren<{
   readonly asChild?: boolean;
   readonly disabled?: boolean;
 }> &
   Omit<HTMLAttributes<HTMLElement>, "children">;
 
-export const PopoverTrigger = forwardRef<HTMLElement, PopoverTriggerProps>(function PopoverTrigger(
+export const PopoverTrigger = forwardRef<HTMLButtonElement, PopoverTriggerComponentProps>(function PopoverTrigger(
   props,
   forwardedRef
 ) {
@@ -259,7 +260,7 @@ export const PopoverTrigger = forwardRef<HTMLElement, PopoverTriggerProps>(funct
   const Component = asChild ? Slot : "button";
   const resolvedClassName = mergeClassNames("ara-popover__trigger", className);
 
-  const composedRef = composeRefs<HTMLElement>(forwardedRef, setAnchor);
+  const composedRef = composeRefs<HTMLButtonElement>(forwardedRef, setAnchor);
 
   const toggleOpen = useCallback(() => {
     if (disabled) return;
@@ -308,20 +309,17 @@ export const PopoverTrigger = forwardRef<HTMLElement, PopoverTriggerProps>(funct
   );
 });
 
-type PopoverContentProps = PropsWithChildren<{
+type PopoverContentComponentProps = PropsWithChildren<{
   readonly asChild?: boolean;
   readonly id?: string;
 }> &
-  Omit<
-    HTMLAttributes<HTMLElement>,
-    "children" | "id" | "role" | "aria-label" | "aria-labelledby" | "aria-describedby"
-  > & {
+  Omit<HTMLAttributes<HTMLElement>, "children" | "id" | "role"> & {
     readonly "aria-label"?: string;
     readonly "aria-labelledby"?: string;
     readonly "aria-describedby"?: string;
   };
 
-export const PopoverContent = forwardRef<HTMLElement, PopoverContentProps>(function PopoverContent(
+export const PopoverContent = forwardRef<HTMLDivElement, PopoverContentComponentProps>(function PopoverContent(
   props,
   forwardedRef
 ) {
@@ -334,8 +332,8 @@ export const PopoverContent = forwardRef<HTMLElement, PopoverContentProps>(funct
     "aria-label": ariaLabel,
     "aria-labelledby": ariaLabelledby,
     "aria-describedby": ariaDescribedby,
-    onPointerDown,
-    onFocus,
+    onPointerDown: userPointerDown,
+    onFocus: userFocus,
     ...restProps
   } = props;
 
@@ -417,7 +415,7 @@ export const PopoverContent = forwardRef<HTMLElement, PopoverContentProps>(funct
   const Component = asChild ? Slot : "div";
   const resolvedClassName = mergeClassNames("ara-popover", className);
 
-  const wrapperRef = composeRefs<HTMLElement>(
+  const wrapperRef = composeRefs<HTMLDivElement>(
     positionerFloatingRef,
     setFloating,
     focusTrapContainerProps.ref,
@@ -425,7 +423,7 @@ export const PopoverContent = forwardRef<HTMLElement, PopoverContentProps>(funct
     dismissableContainerProps.ref
   );
 
-  const contentRef = composeRefs<HTMLElement>(forwardedRef);
+  const contentRef = composeRefs<HTMLDivElement>(forwardedRef);
 
   const labelledBy = useMemo(() => {
     const ids = [ariaLabelledby, headerId].filter(Boolean).join(" ");
@@ -437,10 +435,15 @@ export const PopoverContent = forwardRef<HTMLElement, PopoverContentProps>(funct
     return ids.length > 0 ? ids : undefined;
   }, [ariaDescribedby, bodyId]);
 
-  const focusGuardStyle = useMemo(
-    () => ({ position: "fixed", width: 0, height: 0, padding: 0, margin: 0, outline: "none", opacity: 0 }),
-    []
-  );
+  const focusGuardStyle: CSSProperties = {
+    position: "fixed",
+    width: 0,
+    height: 0,
+    padding: 0,
+    margin: 0,
+    outline: "none",
+    opacity: 0
+  };
 
   const arrowContext = useMemo<PopoverArrowContextValue>(() => ({ arrowProps, withArrow }), [arrowProps, withArrow]);
 
@@ -466,8 +469,8 @@ export const PopoverContent = forwardRef<HTMLElement, PopoverContentProps>(funct
             data-align={align}
             data-modal={modal ? "true" : undefined}
             style={style}
-            onPointerDown={composeEventHandlers(onPointerDown, restProps.onPointerDown)}
-            onFocus={composeEventHandlers(onFocus, restProps.onFocus)}
+            onPointerDown={userPointerDown}
+            onFocus={userFocus}
             {...restProps}
           >
             {children}
@@ -487,12 +490,15 @@ export function PopoverArrow(): JSX.Element | null {
   return <span {...arrowProps} className={mergeClassNames("ara-popover__arrow")} data-testid="popover-arrow" />;
 }
 
-type PopoverCloseProps = PropsWithChildren<{
+type PopoverCloseComponentProps = PropsWithChildren<{
   readonly asChild?: boolean;
 }> &
   Omit<HTMLAttributes<HTMLElement>, "children">;
 
-export const PopoverClose = forwardRef<HTMLElement, PopoverCloseProps>(function PopoverClose(props, forwardedRef) {
+export const PopoverClose = forwardRef<HTMLButtonElement, PopoverCloseComponentProps>(function PopoverClose(
+  props,
+  forwardedRef
+) {
   const { children, asChild = false, className, onClick, ...restProps } = props;
   const { setOpen } = usePopoverContext();
 
@@ -527,7 +533,7 @@ type PopoverSectionProps = PropsWithChildren<{
 }> &
   Omit<HTMLAttributes<HTMLElement>, "children">;
 
-export const PopoverHeader = forwardRef<HTMLElement, PopoverSectionProps>(function PopoverHeader(
+export const PopoverHeader = forwardRef<HTMLDivElement, PopoverSectionProps>(function PopoverHeader(
   props,
   forwardedRef
 ) {
@@ -551,7 +557,10 @@ export const PopoverHeader = forwardRef<HTMLElement, PopoverSectionProps>(functi
   );
 });
 
-export const PopoverBody = forwardRef<HTMLElement, PopoverSectionProps>(function PopoverBody(props, forwardedRef) {
+export const PopoverBody = forwardRef<HTMLDivElement, PopoverSectionProps>(function PopoverBody(
+  props,
+  forwardedRef
+) {
   const { children, asChild = false, id, className, ...restProps } = props;
   const { registerBodyId } = usePopoverContext();
   const reactId = useId();
@@ -572,7 +581,7 @@ export const PopoverBody = forwardRef<HTMLElement, PopoverSectionProps>(function
   );
 });
 
-export const PopoverFooter = forwardRef<HTMLElement, PropsWithChildren<Omit<PopoverSectionProps, "id">>>(
+export const PopoverFooter = forwardRef<HTMLDivElement, PropsWithChildren<Omit<PopoverSectionProps, "id">>>(
   function PopoverFooter(props, forwardedRef) {
     const { children, asChild = false, className, ...restProps } = props;
 
