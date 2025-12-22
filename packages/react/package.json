@@ -57,6 +57,11 @@
       "import": "./dist/components/popover/index.js",
       "default": "./dist/components/popover/index.js"
     },
+    "./components/menu": {
+      "types": "./dist/components/menu/index.d.ts",
+      "import": "./dist/components/menu/index.js",
+      "default": "./dist/components/menu/index.js"
+    },
     "./components/tooltip": {
       "types": "./dist/components/tooltip/index.d.ts",
       "import": "./dist/components/tooltip/index.js",
@@ -147,6 +152,11 @@
       "import": "./dist/components/popover/index.js",
       "default": "./dist/components/popover/index.js"
     },
+    "./menu": {
+      "types": "./dist/components/menu/index.d.ts",
+      "import": "./dist/components/menu/index.js",
+      "default": "./dist/components/menu/index.js"
+    },
     "./portal": {
       "types": "./dist/components/portal/index.d.ts",
       "import": "./dist/components/portal/index.js",
@@ -231,6 +241,9 @@
       "components/popover": [
         "dist/components/popover/index.d.ts"
       ],
+      "components/menu": [
+        "dist/components/menu/index.d.ts"
+      ],
       "components/tooltip": [
         "dist/components/tooltip/index.d.ts"
       ],
@@ -284,6 +297,9 @@
       ],
       "popover": [
         "dist/components/popover/index.d.ts"
+      ],
+      "menu": [
+        "dist/components/menu/index.d.ts"
       ],
       "tooltip": [
         "dist/components/tooltip/index.d.ts"

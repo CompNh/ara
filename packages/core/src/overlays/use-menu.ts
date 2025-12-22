@@ -31,6 +31,8 @@ function createTypeaheadItem(item: InternalMenuItem): TypeaheadItem {
 }
 
 export interface UseMenuOptions {
+  /** 메뉴 id. 지정하지 않으면 자동 생성된다. */
+  readonly id?: string;
   /** 제어 모드: 메뉴 열림 여부. */
   readonly open?: boolean;
   /** 비제어 모드: 초기 열림 여부. */
@@ -39,6 +41,10 @@ export interface UseMenuOptions {
   readonly onOpenChange?: (open: boolean) => void;
   /** 선택 시 메뉴를 닫을지 여부. 기본 true. */
   readonly closeOnSelect?: boolean;
+  /** roving focus가 끝에서 다시 처음으로 순환할지 여부. 기본 true. */
+  readonly loopFocus?: boolean;
+  /** typeahead 버퍼 리셋까지의 시간(ms). 기본 700. */
+  readonly typeaheadTimeout?: number;
 }
 
 export interface MenuItemRegistration {
@@ -72,9 +78,17 @@ export interface UseMenuResult {
 }
 
 export function useMenu(options: UseMenuOptions = {}): UseMenuResult {
-  const { open, defaultOpen = false, onOpenChange, closeOnSelect = true } = options;
+  const {
+    id,
+    open,
+    defaultOpen = false,
+    onOpenChange,
+    closeOnSelect = true,
+    loopFocus = true,
+    typeaheadTimeout
+  } = options;
 
-  const menuId = useId();
+  const menuId = id ?? useId();
   const triggerRef = useRef<HTMLElement | null>(null);
   const [typeaheadItems, setTypeaheadItems] = useState<TypeaheadItem[]>([]);
   const itemsRef = useRef<InternalMenuItem[]>([]);
@@ -85,7 +99,7 @@ export function useMenu(options: UseMenuOptions = {}): UseMenuResult {
 
   const { activeId, registerItem, setActiveId, handleKeyDown, updateTabStops } = useRovingFocus({
     orientation: "vertical",
-    loop: true
+    loop: loopFocus
   });
 
   const focusItem = useCallback((id: string | null) => {
@@ -148,6 +162,7 @@ export function useMenu(options: UseMenuOptions = {}): UseMenuResult {
     items: typeaheadItems,
     activeId,
     loop: true,
+    timeout: typeaheadTimeout,
     onMatch: (match) => {
       setActiveId(match.id);
       focusItem(match.id);

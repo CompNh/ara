@@ -2,11 +2,14 @@ import { useEffect, useMemo, useRef } from "react";
 
 import type { UseMenuResult } from "./use-menu.js";
 
+export type MenuItemRole = "menuitem" | "menuitemcheckbox" | "menuitemradio";
+
 export interface UseMenuItemOptions {
   readonly id?: string;
   readonly disabled?: boolean;
   readonly textValue?: string;
   readonly closeOnSelect?: boolean;
+  readonly role?: MenuItemRole;
   readonly onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void;
 }
 
@@ -14,7 +17,7 @@ export interface UseMenuItemResult<T extends HTMLElement = HTMLElement> {
   readonly itemProps: {
     readonly id: string;
     readonly ref: (node: T | null) => void;
-    readonly role: "menuitem";
+    readonly role: MenuItemRole;
     readonly tabIndex: number;
     readonly "aria-disabled"?: boolean;
     readonly onClick: (event: React.MouseEvent<T>) => void;
@@ -29,7 +32,14 @@ export function useMenuItem<T extends HTMLElement = HTMLElement>(
   menu: UseMenuResult,
   options: UseMenuItemOptions = {}
 ): UseMenuItemResult<T> {
-  const { id: providedId, disabled = false, textValue, closeOnSelect = true, onSelect } = options;
+  const {
+    id: providedId,
+    disabled = false,
+    textValue,
+    closeOnSelect = true,
+    role = "menuitem",
+    onSelect
+  } = options;
   const ref = useRef<T | null>(null);
   const autoId = useMemo(() => providedId ?? `${menu.menuId}-item-${crypto.randomUUID()}`, [menu.menuId, providedId]);
   const itemId = providedId ?? autoId;
@@ -55,17 +65,20 @@ export function useMenuItem<T extends HTMLElement = HTMLElement>(
       ref: (node: T | null) => {
         ref.current = node;
       },
-      role: "menuitem" as const,
+      role,
       tabIndex: -1,
       "aria-disabled": disabled || undefined,
       onClick: handleSelect,
       onKeyDown: (event: React.KeyboardEvent<T>) => {
+        if ((event.key === "Enter" || event.key === " ") && !disabled) {
+          onSelect?.(event);
+        }
         menu.handleItemKeyDown(itemId, event);
       },
       onPointerMove: () => menu.handleItemPointerMove(itemId),
       onFocus: () => menu.handleItemPointerMove(itemId)
     }),
-    [disabled, handleSelect, itemId, menu]
+    [disabled, handleSelect, itemId, menu, onSelect, role]
   );
 
   return useMemo(
