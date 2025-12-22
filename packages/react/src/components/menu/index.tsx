@@ -509,7 +509,7 @@ function MenuItemBase(
   componentClassName: string,
   extraProps?: (isHighlighted: boolean) => Record<string, unknown>
 ) {
-  return forwardRef<HTMLElement, MenuItemComponentProps>(function MenuItem(props, forwardedRef) {
+  return forwardRef<HTMLDivElement, MenuItemComponentProps>(function MenuItem(props, forwardedRef) {
     const {
       children,
       asChild = false,
@@ -523,7 +523,6 @@ function MenuItemBase(
       onKeyDown,
       onPointerEnter,
       onPointerMove,
-      onPointerLeave,
       onFocus,
       ...restProps
     } = props;
@@ -543,9 +542,11 @@ function MenuItemBase(
 
     const clickHandler = composeEventHandlers(itemProps.onClick, onClick);
     const keyDownHandler = composeEventHandlers(itemProps.onKeyDown, onKeyDown);
-    const pointerEnterHandler = composeEventHandlers(itemProps.onPointerEnter, onPointerEnter);
+    const pointerEnterHandler = composeEventHandlers<React.PointerEvent<HTMLElement>>(
+      (event) => itemProps.onPointerMove(event as never),
+      onPointerEnter
+    );
     const pointerMoveHandler = composeEventHandlers(itemProps.onPointerMove, onPointerMove);
-    const pointerLeaveHandler = composeEventHandlers(itemProps.onPointerLeave, onPointerLeave);
     const focusHandler = composeEventHandlers(itemProps.onFocus, onFocus);
 
     return (
@@ -561,7 +562,6 @@ function MenuItemBase(
         onKeyDown={keyDownHandler}
         onPointerEnter={pointerEnterHandler}
         onPointerMove={pointerMoveHandler}
-        onPointerLeave={pointerLeaveHandler}
         onFocus={focusHandler}
         {...extraProps?.(isHighlighted)}
       >
@@ -574,18 +574,18 @@ function MenuItemBase(
 
 export const MenuItem = MenuItemBase("menuitem", "ara-menu__item");
 
-type MenuCheckboxItemProps = MenuItemComponentProps & {
+type MenuCheckboxItemComponentProps = MenuItemComponentProps & {
   readonly checked: boolean;
   readonly onCheckedChange: (checked: boolean) => void;
 };
 
-export const MenuCheckboxItem = forwardRef<HTMLElement, MenuCheckboxItemProps>(function MenuCheckboxItem(
+export const MenuCheckboxItem = forwardRef<HTMLDivElement, MenuCheckboxItemComponentProps>(function MenuCheckboxItem(
   props,
   forwardedRef
 ) {
   const { checked, onCheckedChange, onSelect, ...restProps } = props;
 
-  const handleSelect = useCallback<MenuCheckboxItemProps["onSelect"]>(
+  const handleSelect = useCallback(
     (event) => {
       onSelect?.(event);
       onCheckedChange(!checked);
@@ -606,7 +606,7 @@ export const MenuCheckboxItem = forwardRef<HTMLElement, MenuCheckboxItemProps>(f
   );
 });
 
-type MenuRadioGroupProps = PropsWithChildren<{
+type MenuRadioGroupComponentProps = PropsWithChildren<{
   readonly value: string;
   readonly onValueChange: (value: string) => void;
   readonly name?: string;
@@ -614,7 +614,7 @@ type MenuRadioGroupProps = PropsWithChildren<{
 }> &
   Omit<HTMLAttributes<HTMLElement>, "children">;
 
-export const MenuRadioGroup = forwardRef<HTMLElement, MenuRadioGroupProps>(function MenuRadioGroup(
+export const MenuRadioGroup = forwardRef<HTMLDivElement, MenuRadioGroupComponentProps>(function MenuRadioGroup(
   props,
   forwardedRef
 ) {
@@ -637,11 +637,11 @@ export const MenuRadioGroup = forwardRef<HTMLElement, MenuRadioGroupProps>(funct
   );
 });
 
-type MenuRadioItemProps = MenuItemComponentProps & {
+type MenuRadioItemComponentProps = MenuItemComponentProps & {
   readonly value: string;
 };
 
-export const MenuRadioItem = forwardRef<HTMLElement, MenuRadioItemProps>(function MenuRadioItem(
+export const MenuRadioItem = forwardRef<HTMLDivElement, MenuRadioItemComponentProps>(function MenuRadioItem(
   props,
   forwardedRef
 ) {
@@ -649,7 +649,7 @@ export const MenuRadioItem = forwardRef<HTMLElement, MenuRadioItemProps>(functio
   const radioGroup = useMenuRadioGroupContext();
   const checked = radioGroup.value === value;
 
-  const handleSelect = useCallback<MenuRadioItemProps["onSelect"]>(
+  const handleSelect = useCallback(
     (event) => {
       onSelect?.(event);
       if (!checked) {
@@ -672,12 +672,12 @@ export const MenuRadioItem = forwardRef<HTMLElement, MenuRadioItemProps>(functio
   );
 });
 
-type MenuGroupProps = PropsWithChildren<{
+type MenuGroupComponentProps = PropsWithChildren<{
   readonly asChild?: boolean;
 }> &
   Omit<HTMLAttributes<HTMLElement>, "children">;
 
-export const MenuGroup = forwardRef<HTMLElement, MenuGroupProps>(function MenuGroup(props, forwardedRef) {
+export const MenuGroup = forwardRef<HTMLDivElement, MenuGroupComponentProps>(function MenuGroup(props, forwardedRef) {
   const { children, asChild = false, className, ...restProps } = props;
 
   const [labelId, setLabelId] = useState<string | null>(null);
@@ -696,13 +696,13 @@ export const MenuGroup = forwardRef<HTMLElement, MenuGroupProps>(function MenuGr
   );
 });
 
-type MenuLabelProps = PropsWithChildren<{
+type MenuLabelComponentProps = PropsWithChildren<{
   readonly asChild?: boolean;
   readonly id?: string;
 }> &
   Omit<HTMLAttributes<HTMLElement>, "children">;
 
-export const MenuLabel = forwardRef<HTMLElement, MenuLabelProps>(function MenuLabel(props, forwardedRef) {
+export const MenuLabel = forwardRef<HTMLDivElement, MenuLabelComponentProps>(function MenuLabel(props, forwardedRef) {
   const { children, asChild = false, id, className, ...restProps } = props;
   const group = useMenuGroupContext();
 
@@ -724,7 +724,7 @@ export const MenuLabel = forwardRef<HTMLElement, MenuLabelProps>(function MenuLa
   );
 });
 
-export const MenuSeparator = forwardRef<HTMLElement, ComponentPropsWithoutRef<"div">>(function MenuSeparator(
+export const MenuSeparator = forwardRef<HTMLDivElement, ComponentPropsWithoutRef<"div">>(function MenuSeparator(
   props,
   forwardedRef
 ) {
@@ -749,7 +749,7 @@ export function MenuArrow(): JSX.Element | null {
   return <span {...arrowProps} className={mergeClassNames("ara-menu__arrow")} data-testid="menu-arrow" />;
 }
 
-type MenuSubProps = PropsWithChildren<{
+type MenuSubComponentProps = PropsWithChildren<{
   readonly placement?: Placement;
   readonly offset?: number;
   readonly strategy?: PositionStrategy;
@@ -758,7 +758,7 @@ type MenuSubProps = PropsWithChildren<{
 
 const DEFAULT_SUB_PLACEMENT: Placement = "right-start";
 
-export function MenuSub(props: MenuSubProps): JSX.Element {
+export function MenuSub(props: MenuSubComponentProps): JSX.Element {
   const { children, placement = DEFAULT_SUB_PLACEMENT, offset, strategy, className, style } = props;
   const parentContext = useMenuContext();
 
@@ -856,9 +856,9 @@ export function MenuSub(props: MenuSubProps): JSX.Element {
   );
 }
 
-type MenuSubTriggerProps = MenuItemComponentProps;
+type MenuSubTriggerComponentProps = MenuItemComponentProps;
 
-export const MenuSubTrigger = forwardRef<HTMLElement, MenuSubTriggerProps>(function MenuSubTrigger(
+export const MenuSubTrigger = forwardRef<HTMLDivElement, MenuSubTriggerComponentProps>(function MenuSubTrigger(
   props,
   forwardedRef
 ) {
@@ -936,12 +936,7 @@ export const MenuSubTrigger = forwardRef<HTMLElement, MenuSubTriggerProps>(funct
       : disabled
         ? undefined
         : pointerMoveFromItem;
-  const pointerLeaveHandler =
-    !disabled && context.hoverProps
-      ? composeEventHandlers(context.hoverProps.anchorProps.onPointerLeave, onPointerLeave)
-      : disabled
-        ? undefined
-        : onPointerLeave;
+  const pointerLeaveHandler = disabled ? undefined : onPointerLeave;
 
   return (
     <Component
@@ -967,9 +962,9 @@ export const MenuSubTrigger = forwardRef<HTMLElement, MenuSubTriggerProps>(funct
   );
 });
 
-type MenuSubContentProps = ComponentPropsWithoutRef<typeof MenuContent>;
+type MenuSubContentComponentProps = ComponentPropsWithoutRef<typeof MenuContent>;
 
-export const MenuSubContent = forwardRef<HTMLDivElement, MenuSubContentProps>(function MenuSubContent(
+export const MenuSubContent = forwardRef<HTMLDivElement, MenuSubContentComponentProps>(function MenuSubContent(
   props,
   forwardedRef
 ) {
