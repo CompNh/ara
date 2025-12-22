@@ -378,7 +378,7 @@ T-000119,W-000011,Anchored Overlays v0 Comp,코어(headless),useMenu/useMenuItem
 T-000120,W-000011,Anchored Overlays v0 Comp,React 구현,Tooltip 구현,완료,High," ● 내용: trigger(hover|focus)·openDelay/closeDelay·aria-describedby·포커스 트랩 없음·Positioner 연동
  ● 산출물: packages/react/src/components/tooltip/index.tsx + README
  ● 점검: 키보드 포커스/마우스 호버 시나리오",확인
-T-000121,W-000011,Anchored Overlays v0 Comp,React 구현,Popover 구현,계획,High," ● 내용: Button 트리거·토글/외부 클릭 dismiss·FocusReturn·Positioner(placement/offset/flip/shift)
+T-000121,W-000011,Anchored Overlays v0 Comp,React 구현,Popover 구현,완료,High," ● 내용: Button 트리거·토글/외부 클릭 dismiss·FocusReturn·Positioner(placement/offset/flip/shift)
  ● 산출물: packages/react/src/components/popover/index.tsx
  ● 점검: 포커스 복귀·배치 스냅",확인
 T-000122,W-000011,Anchored Overlays v0 Comp,React 구현,Menu/MenuItem/MenuGroup/Separator,계획,High," ● 내용: MenuButton·MenuList·MenuItem 조합, roving+typeahead, 서브메뉴 1-depth, disabled/checked 항목
