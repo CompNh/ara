@@ -375,7 +375,7 @@ T-000118,W-000011,Anchored Overlays v0 Comp,코어(headless),useRovingFocus(그�
 T-000119,W-000011,Anchored Overlays v0 Comp,코어(headless),useMenu/useMenuItem/useMenuTrigger,완료,High," ● 내용: role=""menu|menuitem""·aria-activedescendant·서브메뉴 1-depth 오픈 지연·ESC/Left close·포커스 리턴
  ● 산출물: packages/core/overlays/use-menu*.ts
  ● 점검: 중첩 메뉴 충돌 0",확인
-T-000120,W-000011,Anchored Overlays v0 Comp,React 구현,Tooltip 구현,계획,High," ● 내용: trigger(hover|focus)·openDelay/closeDelay·aria-describedby·포커스 트랩 없음·Positioner 연동
+T-000120,W-000011,Anchored Overlays v0 Comp,React 구현,Tooltip 구현,완료,High," ● 내용: trigger(hover|focus)·openDelay/closeDelay·aria-describedby·포커스 트랩 없음·Positioner 연동
  ● 산출물: packages/react/src/components/tooltip/index.tsx + README
  ● 점검: 키보드 포커스/마우스 호버 시나리오",확인
 T-000121,W-000011,Anchored Overlays v0 Comp,React 구현,Popover 구현,계획,High," ● 내용: Button 트리거·토글/외부 클릭 dismiss·FocusReturn·Positioner(placement/offset/flip/shift)
