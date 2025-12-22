@@ -78,17 +78,6 @@ function usePopoverArrowContext(): PopoverArrowContextValue {
   return context;
 }
 
-function composeEventHandlers<Event>(
-  first: ((event: Event) => void) | undefined,
-  second: ((event: Event) => void) | undefined
-): (event: Event) => void {
-  if (!first && !second) return () => {};
-  return (event: Event) => {
-    first?.(event);
-    second?.(event);
-  };
-}
-
 type Side = "top" | "bottom" | "left" | "right";
 type Align = "start" | "center" | "end";
 
@@ -221,6 +210,8 @@ export function Popover(props: PopoverRootProps): JSX.Element {
       registerBodyId,
       registerHeaderId,
       returnFocusOnClose,
+      setAnchor,
+      setFloating,
       strategy,
       withArrow
     ]
