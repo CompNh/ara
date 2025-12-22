@@ -250,13 +250,13 @@ export function Tooltip(props: TooltipRootProps): JSX.Element {
   );
 }
 
-type TooltipTriggerProps = PropsWithChildren<{
+type TooltipTriggerComponentProps = PropsWithChildren<{
   readonly asChild?: boolean;
   readonly disabled?: boolean;
 }> &
   Omit<HTMLAttributes<HTMLElement>, "children">;
 
-export const TooltipTrigger = forwardRef<HTMLElement, TooltipTriggerProps>(function TooltipTrigger(
+export const TooltipTrigger = forwardRef<HTMLElement, TooltipTriggerComponentProps>(function TooltipTrigger(
   props,
   forwardedRef
 ) {
@@ -324,13 +324,13 @@ export const TooltipTrigger = forwardRef<HTMLElement, TooltipTriggerProps>(funct
   );
 });
 
-type TooltipContentProps = PropsWithChildren<{
+type TooltipContentComponentProps = PropsWithChildren<{
   readonly asChild?: boolean;
   readonly id?: string;
 }> &
   Omit<HTMLAttributes<HTMLElement>, "children">;
 
-export const TooltipContent = forwardRef<HTMLElement, TooltipContentProps>(function TooltipContent(
+export const TooltipContent = forwardRef<HTMLElement, TooltipContentComponentProps>(function TooltipContent(
   props,
   forwardedRef
 ) {
