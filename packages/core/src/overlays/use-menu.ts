@@ -39,6 +39,10 @@ export interface UseMenuOptions {
   readonly onOpenChange?: (open: boolean) => void;
   /** 선택 시 메뉴를 닫을지 여부. 기본 true. */
   readonly closeOnSelect?: boolean;
+  /** roving focus가 끝에서 다시 처음으로 순환할지 여부. */
+  readonly loopFocus?: boolean;
+  /** typeahead 버퍼 리셋까지의 시간(ms). */
+  readonly typeaheadTimeout?: number;
 }
 
 export interface MenuItemRegistration {
@@ -72,7 +76,7 @@ export interface UseMenuResult {
 }
 
 export function useMenu(options: UseMenuOptions = {}): UseMenuResult {
-  const { open, defaultOpen = false, onOpenChange, closeOnSelect = true } = options;
+  const { open, defaultOpen = false, onOpenChange, closeOnSelect = true, loopFocus = true, typeaheadTimeout } = options;
 
   const menuId = useId();
   const triggerRef = useRef<HTMLElement | null>(null);
@@ -85,7 +89,7 @@ export function useMenu(options: UseMenuOptions = {}): UseMenuResult {
 
   const { activeId, registerItem, setActiveId, handleKeyDown, updateTabStops } = useRovingFocus({
     orientation: "vertical",
-    loop: true
+    loop: loopFocus
   });
 
   const focusItem = useCallback((id: string | null) => {
@@ -147,7 +151,8 @@ export function useMenu(options: UseMenuOptions = {}): UseMenuResult {
   const typeahead = useTypeahead({
     items: typeaheadItems,
     activeId,
-    loop: true,
+    loop: loopFocus,
+    timeout: typeaheadTimeout,
     onMatch: (match) => {
       setActiveId(match.id);
       focusItem(match.id);
