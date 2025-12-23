@@ -62,6 +62,11 @@
       "import": "./dist/components/tooltip/index.js",
       "default": "./dist/components/tooltip/index.js"
     },
+    "./components/menu": {
+      "types": "./dist/components/menu/index.d.ts",
+      "import": "./dist/components/menu/index.js",
+      "default": "./dist/components/menu/index.js"
+    },
     "./components/portal": {
       "types": "./dist/components/portal/index.d.ts",
       "import": "./dist/components/portal/index.js",
@@ -136,6 +141,11 @@
       "types": "./dist/components/tooltip/index.d.ts",
       "import": "./dist/components/tooltip/index.js",
       "default": "./dist/components/tooltip/index.js"
+    },
+    "./menu": {
+      "types": "./dist/components/menu/index.d.ts",
+      "import": "./dist/components/menu/index.js",
+      "default": "./dist/components/menu/index.js"
     },
     "./positioner": {
       "types": "./dist/components/positioner/index.d.ts",
@@ -234,6 +244,9 @@
       "components/tooltip": [
         "dist/components/tooltip/index.d.ts"
       ],
+      "components/menu": [
+        "dist/components/menu/index.d.ts"
+      ],
       "components/portal": [
         "dist/components/portal/index.d.ts"
       ],
@@ -287,6 +300,9 @@
       ],
       "tooltip": [
         "dist/components/tooltip/index.d.ts"
+      ],
+      "menu": [
+        "dist/components/menu/index.d.ts"
       ],
       "portal": [
         "dist/components/portal/index.d.ts"

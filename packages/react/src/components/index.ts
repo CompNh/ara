@@ -13,3 +13,4 @@ export * from "./popover/index.js";
 export * from "./tooltip/index.js";
 export * from "./theme-provider/index.js";
 export * from "./text-field/index.js";
+export * from "./menu/index.js";
